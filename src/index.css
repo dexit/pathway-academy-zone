@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,86 +6,62 @@
 
 @layer base {
   :root {
-    --background: 38 47% 94%;
-    --foreground: 210 25% 15%;
+    --background: 0 0% 100%;
+    --foreground: 220 25% 12%;
 
-    --card: 40 40% 97%;
-    --card-foreground: 210 25% 15%;
+    --card: 210 20% 98%;
+    --card-foreground: 220 25% 12%;
 
-    --popover: 40 40% 97%;
-    --popover-foreground: 210 25% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
 
-    --primary: 160 84% 29%;
+    --primary: 192 82% 30%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 151 49% 92%;
-    --secondary-foreground: 160 84% 22%;
+    --secondary: 192 40% 93%;
+    --secondary-foreground: 192 82% 22%;
 
-    --muted: 38 35% 90%;
+    --muted: 210 20% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 37 92% 50%;
+    --accent: 25 95% 53%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 38 25% 85%;
-    --input: 38 25% 85%;
-    --ring: 160 84% 29%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 192 82% 30%;
 
     --radius: 0.75rem;
 
-    --earth: 28 67% 30%;
-    --earth-foreground: 40 33% 98%;
-    --sand: 45 100% 96%;
-    --cream: 43 100% 97%;
-    --forest: 160 84% 22%;
-    --mint: 152 81% 72%;
-    --sage: 143 20% 68%;
-
-    --status-available: 152 69% 40%;
-    --status-limited: 38 92% 50%;
-    --status-full: 0 84% 60%;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 160 84% 29%;
+    --teal-dark: 192 82% 22%;
+    --teal-light: 192 40% 93%;
+    --navy: 220 40% 18%;
+    --warm-gray: 210 10% 58%;
   }
 
   .dark {
-    --background: 210 25% 8%;
-    --foreground: 40 33% 95%;
-    --card: 210 25% 12%;
-    --card-foreground: 40 33% 95%;
-    --popover: 210 25% 12%;
-    --popover-foreground: 40 33% 95%;
-    --primary: 152 69% 40%;
+    --background: 220 25% 8%;
+    --foreground: 210 20% 95%;
+    --card: 220 25% 12%;
+    --card-foreground: 210 20% 95%;
+    --popover: 220 25% 12%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 192 70% 42%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 160 30% 18%;
-    --secondary-foreground: 152 81% 72%;
-    --muted: 210 20% 18%;
+    --secondary: 192 30% 18%;
+    --secondary-foreground: 192 60% 72%;
+    --muted: 220 20% 18%;
     --muted-foreground: 215 20% 65%;
-    --accent: 37 92% 50%;
+    --accent: 25 95% 53%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
-    --border: 210 20% 22%;
-    --input: 210 20% 22%;
-    --ring: 152 69% 40%;
-    --sidebar-background: 210 25% 10%;
-    --sidebar-foreground: 40 33% 95%;
-    --sidebar-primary: 152 69% 40%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 20% 15%;
-    --sidebar-accent-foreground: 40 33% 95%;
-    --sidebar-border: 210 20% 18%;
-    --sidebar-ring: 152 69% 40%;
+    --border: 220 20% 22%;
+    --input: 220 20% 22%;
+    --ring: 192 70% 42%;
   }
 }
 
@@ -99,21 +75,17 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 }
 
 @layer utilities {
   .text-gradient-primary {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--forest)));
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--teal-dark)));
   }
 
-  .bg-blob-green {
-    background: radial-gradient(ellipse at 30% 50%, hsl(var(--primary) / 0.15) 0%, transparent 70%);
-  }
-
-  .bg-blob-sand {
-    background: radial-gradient(ellipse at 70% 50%, hsl(var(--accent) / 0.1) 0%, transparent 70%);
+  .bg-blob-teal {
+    background: radial-gradient(ellipse at 30% 50%, hsl(var(--primary) / 0.1) 0%, transparent 70%);
   }
 }
