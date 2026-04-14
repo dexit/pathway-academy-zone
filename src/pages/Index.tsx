@@ -1,45 +1,37 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Shield, Leaf, Users, Award, ArrowRight, Star, Home, Dog, Scissors, GraduationCap, Heart, Clock, UserCheck, Settings } from "lucide-react";
+import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, Clock } from "lucide-react";
 import Layout from "@/components/Layout";
-import heroImg from "@/assets/hero-dogs.jpg";
-import boardingImg from "@/assets/boarding-suite.jpg";
-import daycareImg from "@/assets/daycare-dogs.jpg";
-import groomingImg from "@/assets/grooming.jpg";
-import trainingImg from "@/assets/training.jpg";
-
-const trustBadges = [
-  { icon: Shield, label: "Limited to 12 Dogs Per Night" },
-  { icon: Leaf, label: "100% Eco-Friendly Practices" },
-  { icon: Users, label: "Employee-Owned Since 1992" },
-  { icon: Award, label: "Award-Winning Natural Care" },
-];
-
-const services = [
-  { icon: Home, title: "Boutique Boarding", desc: "Private suites with natural bedding and outdoor access", img: boardingImg, path: "/boarding" },
-  { icon: Dog, title: "Small Group Daycare", desc: "Never more than 8 dogs per playgroup", img: daycareImg, path: "/daycare" },
-  { icon: Scissors, title: "Organic Grooming", desc: "Chemical-free products, gentle care", img: groomingImg, path: "/grooming" },
-  { icon: GraduationCap, title: "Positive Training", desc: "Force-free methods in calm environments", img: trainingImg, path: "/training" },
-];
-
-const whyBoutique = [
-  { icon: Heart, title: "Individual Attention", desc: "With limited capacity, we know every pet by name and personality" },
-  { icon: Shield, title: "Stress-Free Environment", desc: "Small groups mean calmer, happier pets" },
-  { icon: UserCheck, title: "Consistent Care Team", desc: "Same loving staff members every visit" },
-  { icon: Settings, title: "Flexible Routines", desc: "We adapt to your pet's schedule, not ours" },
-];
-
-const testimonials = [
-  { text: "Luna has stayed at many facilities, but Boutique Boarding is the only place she's excited to visit. The staff knows her quirks and keeps her routine exactly as we do at home.", author: "Rachel Martinez", pet: "Luna's Mom" },
-  { text: "As someone who cares deeply about sustainability, I love that they use solar power and organic products. My dogs come home clean, happy, and the planet isn't paying the price.", author: "David Chen", pet: "Dog Dad" },
-  { text: "The small group size makes all the difference. Max is anxious around too many dogs, and here he actually plays and socializes at his own pace.", author: "Jennifer Park", pet: "Max's Mom" },
-];
+import heroImg from "@/assets/hero-classroom.jpg";
+import classroomImg from "@/assets/classroom-learning.jpg";
+import vocationalImg from "@/assets/vocational-training.jpg";
+import mentoringImg from "@/assets/mentoring-session.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
+
+const stats = [
+  { value: "94%", label: "Attendance Improvement" },
+  { value: "87%", label: "Positive Destinations" },
+  { value: "150+", label: "Young People Supported" },
+  { value: "12+", label: "Partner Schools" },
+];
+
+const approaches = [
+  { icon: Heart, title: "Trauma-Informed Approach", desc: "Our practice is grounded in understanding how trauma affects learning and behaviour, creating safe spaces for growth." },
+  { icon: Target, title: "Personalised Pathways", desc: "Every young person receives a tailored learning plan designed around their strengths, interests, and goals." },
+  { icon: UserCheck, title: "Expert Staff", desc: "Our team includes qualified teachers, youth workers, and pastoral specialists dedicated to every student's success." },
+  { icon: Shield, title: "Safe Environment", desc: "We maintain the highest safeguarding standards, ensuring all young people feel secure and supported." },
+];
+
+const programmes = [
+  { icon: BookOpen, title: "Academic Re-engagement", desc: "Structured curriculum adapted for individual learning needs", img: classroomImg, path: "/programmes" },
+  { icon: Wrench, title: "Vocational Learning", desc: "Hands-on practical skills in construction, catering and more", img: vocationalImg, path: "/programmes" },
+  { icon: Brain, title: "SEMH Support", desc: "Therapeutic intervention for social and emotional needs", img: mentoringImg, path: "/programmes" },
+];
 
 export default function HomePage() {
   return (
@@ -48,32 +40,30 @@ export default function HomePage() {
       <section className="min-h-[calc(100vh-4rem)] flex items-center bg-background">
         <div className="container mx-auto px-4 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Column */}
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="order-2 lg:order-1">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-secondary text-secondary-foreground text-sm font-medium mb-6 border border-border">
-                🌿 Boutique Pet Sanctuary
+              <span className="inline-block px-4 py-1.5 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium mb-6 border border-border">
+                Alternative Provision in Staffordshire
               </span>
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6">
-                Small Groups.
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-6">
+                Alternative Provision That
                 <br />
-                <span className="italic text-primary">Big Love.</span>
+                <span className="text-primary">Re-Engages, Rebuilds</span>
                 <br />
-                Natural Care.
+                and Redirects Young People
               </h1>
               <p className="text-muted-foreground text-lg md:text-xl mb-10 max-w-lg">
-                A boutique sanctuary where every pet receives individual attention in a natural, stress-free environment.
+                Supporting students aged 11–16 across Stoke-on-Trent and Staffordshire with behaviour support, personalised learning and clear pathways back into education, training or employment.
               </p>
               <div className="flex flex-col sm:flex-row items-start gap-4">
                 <Button asChild variant="hero" size="xl">
-                  <Link to="/book-tour">Book a Tour <ArrowRight className="ml-1 h-5 w-5" /></Link>
+                  <Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-5 w-5" /></Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link to="/boarding">View Suites</Link>
+                  <Link to="/about">Learn About Us</Link>
                 </Button>
               </div>
             </motion.div>
 
-            {/* Right Column */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -83,62 +73,91 @@ export default function HomePage() {
               <div className="relative">
                 <img
                   src={heroImg}
-                  alt="Happy dog looking at camera"
-                  className="w-full h-[500px] lg:h-[640px] object-cover rounded-3xl shadow-2xl"
+                  alt="Students learning in a supportive classroom environment"
+                  className="w-full h-[500px] lg:h-[600px] object-cover rounded-2xl shadow-2xl"
+                  width={1920}
+                  height={1080}
                 />
-                <div className="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
-                <div className="absolute -top-4 -right-4 w-32 h-32 rounded-full bg-accent/10 blur-2xl" />
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Trust Badges */}
-      <section className="py-16 bg-muted/50">
+      {/* Who We Are */}
+      <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {trustBadges.map((badge, i) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <span className="text-primary font-medium text-sm tracking-wider uppercase">Who We Are</span>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">Specialist Education for Those Who Need It Most</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Pathway Academy Zone works with young people aged 11-16 who have been excluded from mainstream education, or who are at risk of exclusion. We partner with schools, local authorities, and families across Staffordshire to provide structured, supportive learning environments where every student can succeed.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {["SEMH-focused curriculum delivery", "Small group and 1:1 support", "Qualified teachers and mentors", "Strong pastoral care teams", "Vocational and academic pathways"].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-foreground">
+                    <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Button asChild>
+                <Link to="/programmes">Explore Our Programmes <ArrowRight className="ml-1 h-4 w-4" /></Link>
+              </Button>
+            </motion.div>
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <img src={classroomImg} alt="Bright learning environment" className="rounded-2xl shadow-lg w-full" loading="lazy" width={1280} height={854} />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* How We Support */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
+            <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Approach</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">How We Support Young People</h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">Our evidence-based approach combines therapeutic support with quality education to help students overcome barriers and achieve their potential.</p>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {approaches.map((item, i) => (
               <motion.div
-                key={badge.label}
+                key={item.title}
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-secondary/50 rounded-xl p-6 text-center"
+                className="flex gap-4 bg-card rounded-xl p-6 shadow-sm border border-border/50"
               >
-                <badge.icon className="h-8 w-8 mx-auto mb-3 text-primary" />
-                <p className="text-sm font-semibold text-foreground">{badge.label}</p>
+                <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center shrink-0">
+                  <item.icon className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-display text-lg font-bold text-foreground mb-1">{item.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      <section className="py-20 bg-background">
+      {/* Programmes Preview */}
+      <section className="py-20 bg-muted/40">
         <div className="container mx-auto px-4">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Services</span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">Everything Your Pet Needs</h2>
+            <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Programmes</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">Pathways to Success</h2>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((s, i) => (
-              <motion.div
-                key={s.title}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <Link
-                  to={s.path}
-                  className="group block bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-border/50"
-                >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {programmes.map((s, i) => (
+              <motion.div key={s.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                <Link to={s.path} className="group block bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-border/50">
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   </div>
                   <div className="p-6">
                     <s.icon className="h-6 w-6 text-primary mb-3" />
@@ -155,85 +174,62 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Boutique */}
-      <section className="py-20 bg-muted/40 bg-blob-green">
+      {/* Stats */}
+      <section className="py-16 bg-primary">
         <div className="container mx-auto px-4">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase">Why Boutique?</span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">Small By Design</h2>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">Making a Real Difference</h2>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {whyBoutique.map((item, i) => (
-              <motion.div
-                key={item.title}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex gap-4 bg-card rounded-xl p-6 shadow-sm"
-              >
-                <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center shrink-0">
-                  <item.icon className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-display text-lg font-bold text-foreground mb-1">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-                </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, i) => (
+              <motion.div key={stat.label} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="text-center">
+                <p className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">{stat.value}</p>
+                <p className="text-primary-foreground/70 text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* FAQ Preview */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase">Testimonials</span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">What Pet Parents Say</h2>
+        <div className="container mx-auto px-4 max-w-3xl">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
+            <span className="text-primary font-medium text-sm tracking-wider uppercase">Common Questions</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">Frequently Asked Questions</h2>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.author}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 relative"
-              >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="h-4 w-4 fill-accent text-accent" />
-                  ))}
-                </div>
-                <p className="text-foreground/80 italic leading-relaxed mb-6 font-serif">"{t.text}"</p>
-                <div>
-                  <p className="font-semibold text-foreground">{t.author}</p>
-                  <p className="text-sm text-muted-foreground">{t.pet}</p>
-                </div>
-              </motion.div>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4">
+            {[
+              { q: "What is Alternative Provision?", a: "Alternative Provision (AP) is education arranged for pupils who can't attend mainstream school due to exclusion, illness, or other reasons. It provides structured learning in smaller, more supportive environments." },
+              { q: "Who is Pathway Academy Zone for?", a: "We support young people aged 11-16 (KS3 & KS4) who are permanently excluded, at risk of exclusion, disengaged from mainstream education, or have social, emotional and mental health needs." },
+              { q: "How does the referral process work?", a: "Referrals are made by schools, local authorities, or social workers. Contact us to discuss needs, we gather information, hold an assessment meeting, then create a personalised placement plan." },
+              { q: "How quickly can a learner start?", a: "Emergency placements can begin within 48 hours. Standard placements typically start within 1-2 weeks following the assessment process." },
+            ].map((faq) => (
+              <details key={faq.q} className="group bg-card rounded-xl border border-border/50 p-6">
+                <summary className="font-display font-semibold text-foreground cursor-pointer list-none flex items-center justify-between">
+                  {faq.q}
+                  <Lightbulb className="h-5 w-5 text-primary group-open:rotate-45 transition-transform" />
+                </summary>
+                <p className="mt-4 text-muted-foreground text-sm leading-relaxed">{faq.a}</p>
+              </details>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-20 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--forest)/0.5),transparent_70%)]" />
         <div className="container mx-auto px-4 relative z-10 text-center">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-6">
-              Ready to Visit?
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
+              Ready to Make a Referral?
             </h2>
             <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto mb-10">
-              Schedule a tour and see why pet parents choose Boutique Boarding for their furry family members.
+              Whether you're a school, local authority, social worker, or parent, we're here to help. Our team will guide you through the referral process and find the right pathway for your young person.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="xl" className="bg-card text-primary hover:bg-card/90 rounded-full font-semibold shadow-lg">
-                <Link to="/book-tour">Schedule a Tour</Link>
+              <Button asChild size="xl" className="bg-card text-primary hover:bg-card/90 rounded-lg font-semibold shadow-lg">
+                <Link to="/referral">Start a Referral</Link>
               </Button>
               <Button asChild variant="heroPill" size="lg">
                 <Link to="/contact">Contact Us</Link>
