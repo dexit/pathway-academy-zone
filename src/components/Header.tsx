@@ -17,6 +17,13 @@ const navLinks = [
   },
   { label: "Programmes", path: "/programmes" },
   {
+    label: "Resources",
+    children: [
+      { label: "Knowledge Hub", path: "/knowledge-hub" },
+      { label: "Blog", path: "/blog" },
+    ],
+  },
+  {
     label: "Support",
     children: [
       { label: "Safeguarding", path: "/safeguarding" },
