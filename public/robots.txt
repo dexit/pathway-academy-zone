@@ -1,3 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /search
+Disallow: /search?
+
+# Search engine specific
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +16,15 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
+# AI / LLM crawlers
+User-agent: GPTBot
 Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://pathwayacademyzone.co.uk/sitemap.xml
+Host: https://pathwayacademyzone.co.uk

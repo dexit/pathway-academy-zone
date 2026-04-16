@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo } from "@/components/Seo";
 import heroImg from "@/assets/hero-classroom.jpg";
 import classroomImg from "@/assets/classroom-learning.jpg";
 import vocationalImg from "@/assets/vocational-training.jpg";
@@ -36,12 +37,36 @@ const faqs = [
 ];
 
 export default function HomePage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <Layout>
+      <Seo
+        title="Alternative Provision Stoke-on-Trent"
+        description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities."
+        jsonLd={faqJsonLd}
+      />
       {/* Hero - Full screen with image overlay */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex items-center">
+      <section className="relative min-h-[calc(100vh-5rem)] flex items-center">
         <div className="absolute inset-0">
-          <img src={heroImg} alt="Students collaborating around a laptop in a supportive classroom environment" className="w-full h-full object-cover" />
+          <img
+            src={heroImg}
+            alt="Students collaborating around a laptop in a supportive Alternative Provision classroom in Stoke-on-Trent"
+            title="Pathway Academy Zone classroom"
+            className="w-full h-full object-cover"
+            width="1920"
+            height="1080"
+            fetchPriority="high"
+            decoding="async"
+          />
           <div className="absolute inset-0 bg-foreground/60" />
         </div>
         <div className="container mx-auto px-4 py-20 relative z-10">
@@ -122,6 +147,62 @@ export default function HomePage() {
                 <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Alternative Provision Matters - SEO content depth */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <span className="text-primary font-medium text-sm tracking-wider uppercase">Why It Matters</span>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
+            Why Alternative Provision Matters in Stoke-on-Trent
+          </h2>
+          <div className="prose prose-lg max-w-none text-muted-foreground space-y-5 leading-relaxed">
+            <p>
+              Across Stoke-on-Trent and the wider Staffordshire region, hundreds of young people are at risk of
+              permanent exclusion, persistent absence, or disengagement from mainstream education each year.
+              For many of these learners the standard school environment is not the right fit &mdash; not because they
+              cannot succeed, but because they need a smaller setting, more relational practice, and a curriculum
+              that meets them where they are. That is the gap that high-quality Alternative Provision is designed to fill.
+            </p>
+            <p>
+              Pathway Academy Zone is a registered Alternative Provision serving Key Stage 3 and Key Stage 4 learners
+              aged 11&ndash;16. We accept referrals from mainstream secondary schools, Local Authorities, virtual
+              schools, social workers, and family workers. Our staff team includes qualified teachers, pastoral
+              specialists, and trained mentors who hold the relational space young people need to re-engage with
+              learning.
+            </p>
+            <p>
+              Every learner we work with arrives with a different story. Some have experienced repeated fixed-term
+              suspensions; others are facing managed moves, exclusion panels, or significant SEMH (social, emotional and
+              mental health) needs. A growing number are young people whose anxiety, school refusal, or
+              neurodivergence has gone unmet for too long in busy mainstream settings. Whatever the route in, our work
+              starts the same way: a calm, structured assessment, a personalised plan, and a small-group or 1:1
+              timetable that prioritises safety, attendance, and dignity before academic outcomes.
+            </p>
+            <p>
+              We deliver a balanced curriculum that covers core English, Maths, Science, and PSHE alongside
+              vocational and enrichment routes including construction skills, hospitality, motor vehicle, sport and
+              creative industries. Functional Skills, GCSEs and BTECs are available depending on Key Stage and
+              individual targets. We work closely with commissioning schools so that the academic thread is never
+              broken, and we support a managed return to mainstream wherever it is the right outcome for the learner.
+            </p>
+            <p>
+              Safeguarding sits at the centre of everything we do. We have a designated safeguarding lead, robust
+              reporting processes, and partnerships with local safeguarding boards, CAMHS, the police, and the Local
+              Authority Designated Officer (LADO). Parents, carers and referrers can contact us directly to discuss
+              any concern at any point during a placement.
+            </p>
+            <p>
+              If you are a school or Local Authority colleague considering a referral, the fastest way to start is
+              the <Link to="/referral" className="text-primary font-medium hover:underline">online referral form</Link>;
+              for general enquiries please use our <Link to="/contact" className="text-primary font-medium hover:underline">contact page</Link>
+              {" "}or call <a href="tel:+441782365365" className="text-primary font-medium hover:underline">01782 365365</a>.
+              For practitioners researching the field, our <Link to="/knowledge-hub/complete-guide" className="text-primary font-medium hover:underline">Complete Guide to Alternative Provision</Link>
+              {" "}is a long-form, evidence-led reference covering definitions, legal duties, programme models and
+              progression routes.
+            </p>
           </div>
         </div>
       </section>

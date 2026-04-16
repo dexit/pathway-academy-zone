@@ -4,6 +4,7 @@ import { Menu, X, Phone, ChevronDown, Search as SearchIcon } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import SearchBar from "@/components/SearchBar";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -125,12 +126,13 @@ export default function Header() {
             <SearchIcon className="h-4 w-4" />
           </button>
           <a
-            href="tel:01782365365"
+            href="tel:+441782365365"
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
           >
             <Phone className="h-4 w-4" />
             01782 365365
           </a>
+          <ThemeToggle />
           <Button asChild size="sm">
             <Link to="/referral">Make a Referral</Link>
           </Button>
@@ -144,6 +146,7 @@ export default function Header() {
           >
             <SearchIcon className="h-5 w-5" />
           </button>
+          <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="p-2 text-foreground"

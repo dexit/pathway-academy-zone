@@ -15,24 +15,25 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 25% 12%;
 
-    --primary: 161 95% 31%;
+    /* Primary teal - WCAG AA against white (4.5:1+) */
+    --primary: 161 95% 27%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 192 40% 93%;
-    --secondary-foreground: 192 82% 22%;
+    --secondary-foreground: 192 82% 18%;
 
     --muted: 210 20% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted-foreground: 215 16% 38%;
 
-    --accent: 25 95% 53%;
+    --accent: 25 95% 45%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 84% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 192 82% 30%;
+    --border: 220 13% 88%;
+    --input: 220 13% 88%;
+    --ring: 161 95% 27%;
 
     --radius: 0.75rem;
 
@@ -44,24 +45,38 @@
 
   .dark {
     --background: 220 25% 8%;
-    --foreground: 210 20% 95%;
-    --card: 220 25% 12%;
-    --card-foreground: 210 20% 95%;
-    --popover: 220 25% 12%;
-    --popover-foreground: 210 20% 95%;
-    --primary: 192 70% 42%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 192 30% 18%;
-    --secondary-foreground: 192 60% 72%;
-    --muted: 220 20% 18%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 25 95% 53%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 62% 30%;
+    --foreground: 210 20% 96%;
+
+    --card: 220 22% 12%;
+    --card-foreground: 210 20% 96%;
+
+    --popover: 220 22% 12%;
+    --popover-foreground: 210 20% 96%;
+
+    /* Brighter primary for dark mode contrast */
+    --primary: 161 70% 52%;
+    --primary-foreground: 220 25% 8%;
+
+    --secondary: 192 25% 22%;
+    --secondary-foreground: 192 60% 80%;
+
+    --muted: 220 18% 16%;
+    --muted-foreground: 215 18% 70%;
+
+    --accent: 25 95% 60%;
+    --accent-foreground: 220 25% 8%;
+
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 20% 22%;
-    --input: 220 20% 22%;
-    --ring: 192 70% 42%;
+
+    --border: 220 18% 22%;
+    --input: 220 18% 22%;
+    --ring: 161 70% 52%;
+
+    --teal-dark: 192 60% 60%;
+    --teal-light: 192 25% 22%;
+    --navy: 220 30% 90%;
+    --warm-gray: 210 10% 65%;
   }
 }
 
@@ -70,12 +85,36 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
+  html {
+    scroll-behavior: smooth;
   }
 
-  h1, h2, h3, h4 {
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
     font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -83,9 +122,5 @@
   .text-gradient-primary {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--teal-dark)));
-  }
-
-  .bg-blob-teal {
-    background: radial-gradient(ellipse at 30% 50%, hsl(var(--primary) / 0.1) 0%, transparent 70%);
   }
 }
