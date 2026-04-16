@@ -44,39 +44,50 @@
   }
 
   .dark {
-    --background: 220 25% 8%;
-    --foreground: 210 20% 96%;
+    /* Backgrounds — slightly cooler, with a perceptible card elevation step */
+    --background: 220 28% 7%;     /* #0b0f16 */
+    --foreground: 210 20% 96%;    /* body text — ~17:1 on bg (AAA) */
 
-    --card: 220 22% 12%;
+    --card: 220 24% 11%;          /* elevated surface, visible against bg */
     --card-foreground: 210 20% 96%;
 
-    --popover: 220 22% 12%;
+    --popover: 220 24% 13%;
     --popover-foreground: 210 20% 96%;
 
-    /* Brighter primary for dark mode contrast */
-    --primary: 161 70% 52%;
-    --primary-foreground: 220 25% 8%;
+    /* Primary — brighter & slightly more saturated so that primary/10
+       tints, icon strokes, and borders remain visible on the dark bg.
+       ~9:1 on background. */
+    --primary: 161 72% 55%;
+    --primary-foreground: 220 28% 7%;  /* dark text on bright green ~8:1 */
 
-    --secondary: 192 25% 22%;
-    --secondary-foreground: 192 60% 80%;
+    /* Secondary — richer teal pill backgrounds with legible text (~8.5:1) */
+    --secondary: 192 35% 20%;
+    --secondary-foreground: 192 70% 85%;
 
-    --muted: 220 18% 16%;
-    --muted-foreground: 215 18% 70%;
+    /* Muted surfaces — one step above card for inputs and subtle chips;
+       muted-foreground is bumped to hit AAA on both bg and muted. */
+    --muted: 220 20% 15%;
+    --muted-foreground: 215 22% 78%;  /* ~10:1 on bg, ~7:1 on muted */
 
-    --accent: 25 95% 60%;
-    --accent-foreground: 220 25% 8%;
+    /* Accent — warm orange, still highly legible with dark text */
+    --accent: 25 92% 62%;
+    --accent-foreground: 220 28% 7%;
 
-    --destructive: 0 70% 55%;
+    /* Destructive — brighter red, ~5:1 on bg (AA) */
+    --destructive: 0 78% 62%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 18% 22%;
-    --input: 220 18% 22%;
-    --ring: 161 70% 52%;
+    /* Borders — more visible step above card so outlined cards read clearly */
+    --border: 220 20% 26%;
+    --input: 220 20% 24%;
+    --ring: 161 72% 55%;
 
-    --teal-dark: 192 60% 60%;
-    --teal-light: 192 25% 22%;
-    --navy: 220 30% 90%;
-    --warm-gray: 210 10% 65%;
+    /* Brand tokens — shifted so gradient stops stay distinct in dark mode,
+       and navy/warm-gray invert to readable light values. */
+    --teal-dark: 170 65% 58%;
+    --teal-light: 192 35% 20%;
+    --navy: 220 20% 95%;
+    --warm-gray: 210 18% 75%;
   }
 }
 
