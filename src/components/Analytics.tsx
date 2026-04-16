@@ -26,11 +26,23 @@ const CLARITY_ID = env.VITE_CLARITY_ID
 const CF_TOKEN = env.VITE_CF_ANALYTICS_TOKEN
 const PLAUSIBLE_DOMAIN = env.VITE_PLAUSIBLE_DOMAIN
 
+// HubSpot: tracker and chat are independent features.
+const HS_PORTAL_ID = env.VITE_HUBSPOT_PORTAL_ID
+const HS_REGION = env.VITE_HUBSPOT_REGION // "" (US) or "eu1"
+const HS_CHAT_ENABLED = (env.VITE_HUBSPOT_CHAT || "").toLowerCase() === "true"
+const HS_CHAT_PORTAL_ID = env.VITE_HUBSPOT_CHAT_PORTAL_ID || HS_PORTAL_ID
+
 declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>
     gtag?: (...args: unknown[]) => void
     clarity?: (...args: unknown[]) => void
+    _hsq?: Array<unknown[]>
+    hsConversationsSettings?: { loadImmediately?: boolean }
+    hsConversationsOnReady?: Array<() => void>
+    HubSpotConversations?: {
+      widget: { load: () => void; remove: () => void; open: () => void }
+    }
   }
 }
 
@@ -104,6 +116,54 @@ function loadCloudflare(token: string) {
   })
 }
 
+/**
+ * HubSpot tracker. The hs-scripts bundle includes the chat widget, so we
+ * always set `hsConversationsSettings.loadImmediately = false` before it
+ * arrives; the chat loader below re-enables the widget only when opted in.
+ */
+function loadHubSpotTracker(portalId: string, region?: string) {
+  window._hsq = window._hsq || []
+  // Hide chat by default - the dedicated chat loader will show it if enabled.
+  if (!window.hsConversationsSettings) {
+    window.hsConversationsSettings = { loadImmediately: false }
+  }
+  const host = region === "eu1" ? "js-eu1.hs-scripts.com" : "js.hs-scripts.com"
+  injectOnce("hubspot", () => {
+    const s = document.createElement("script")
+    s.async = true
+    s.defer = true
+    s.id = "hs-script-loader"
+    s.src = `https://${host}/${portalId}.js`
+    return s
+  })
+}
+
+/**
+ * HubSpot Conversations / live chat. Independent of the tracker - this is
+ * what flips the chat widget from hidden to visible. Safe to call whether
+ * or not the tracker is already loaded.
+ */
+function loadHubSpotChat(portalId: string, region?: string) {
+  window.hsConversationsSettings = { ...window.hsConversationsSettings, loadImmediately: true }
+  window.hsConversationsOnReady = window.hsConversationsOnReady || []
+  window.hsConversationsOnReady.push(() => {
+    window.HubSpotConversations?.widget.load()
+  })
+  // If the tracker script isn't already present, inject it (the chat widget
+  // lives inside the same bundle).
+  if (!document.getElementById("hs-script-loader")) {
+    const host = region === "eu1" ? "js-eu1.hs-scripts.com" : "js.hs-scripts.com"
+    injectOnce("hubspot", () => {
+      const s = document.createElement("script")
+      s.async = true
+      s.defer = true
+      s.id = "hs-script-loader"
+      s.src = `https://${host}/${portalId}.js`
+      return s
+    })
+  }
+}
+
 function loadPlausible(domain: string) {
   injectOnce("plausible", () => {
     const s = document.createElement("script")
@@ -124,6 +184,8 @@ export default function Analytics() {
     if (CLARITY_ID) loadClarity(CLARITY_ID)
     if (CF_TOKEN) loadCloudflare(CF_TOKEN)
     if (PLAUSIBLE_DOMAIN) loadPlausible(PLAUSIBLE_DOMAIN)
+    if (HS_PORTAL_ID) loadHubSpotTracker(HS_PORTAL_ID, HS_REGION)
+    if (HS_CHAT_ENABLED && HS_CHAT_PORTAL_ID) loadHubSpotChat(HS_CHAT_PORTAL_ID, HS_REGION)
   }, [])
 
   // Fire SPA page_view on route change
@@ -139,6 +201,10 @@ export default function Analytics() {
     }
     if (CLARITY_ID && typeof window.clarity === "function") {
       window.clarity("set", "page", url)
+    }
+    if (HS_PORTAL_ID && window._hsq) {
+      window._hsq.push(["setPath", url])
+      window._hsq.push(["trackPageView"])
     }
   }, [pathname, search])
 

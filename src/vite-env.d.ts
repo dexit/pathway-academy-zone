@@ -12,6 +12,26 @@ interface ImportMetaEnv {
   /** Plausible Analytics domain (legacy; cookie-less) */
   readonly VITE_PLAUSIBLE_DOMAIN?: string
 
+  /**
+   * HubSpot portal ID used for the tracking beacon (page views + form captures).
+   * Set this to enable HubSpot analytics without the chat widget.
+   */
+  readonly VITE_HUBSPOT_PORTAL_ID?: string
+  /**
+   * HubSpot region for the script host. Leave blank for the US tracker
+   * ("js.hs-scripts.com"); use "eu1" for EU-hosted portals.
+   */
+  readonly VITE_HUBSPOT_REGION?: string
+  /**
+   * Set to "true" to enable the HubSpot live chat / conversations widget.
+   * Requires VITE_HUBSPOT_PORTAL_ID (or VITE_HUBSPOT_CHAT_PORTAL_ID for a
+   * separate chat-only portal). When unset, the chat widget stays hidden
+   * even if the tracker is loaded.
+   */
+  readonly VITE_HUBSPOT_CHAT?: string
+  /** Optional override: a different portal for the chat widget. */
+  readonly VITE_HUBSPOT_CHAT_PORTAL_ID?: string
+
   /** Google Search Console verification token */
   readonly VITE_GOOGLE_SITE_VERIFICATION?: string
   /** Bing Webmaster Tools verification (msvalidate.01) */
