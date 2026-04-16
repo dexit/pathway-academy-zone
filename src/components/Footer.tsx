@@ -32,11 +32,8 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold text-sm">PA</span>
-              </div>
-              <span className="font-display text-lg font-bold text-background">Pathway Academy Zone</span>
+            <Link to="/" className="flex items-center mb-6">
+              <img src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" alt="Pathway Academy Zone Logo" className="h-16 w-auto brightness-0 invert" />
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-background/60">
               Alternative Provision supporting young people aged 11–16 across Stoke-on-Trent and Staffordshire.

@@ -163,9 +163,9 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "What Is Alternative Provision?", excerpt: "A complete overview for 2024 covering education for pupils who cannot attend mainstream school.", date: "12 Nov 2024", slug: "what-is-alternative-provision" },
-              { title: "Understanding SEMH Needs", excerpt: "Social, Emotional and Mental Health difficulties are among the most common reasons for AP referrals.", date: "4 Nov 2024", slug: "semh-needs-in-ap" },
-              { title: "When to Refer a Learner", excerpt: "Knowing the right time to refer can make all the difference for a young person's education.", date: "28 Oct 2024", slug: "when-to-refer-a-learner" }
+              { title: "What Is Alternative Provision?", excerpt: "A complete overview for 2024 covering education for pupils who cannot attend mainstream school.", date: "10 Dec 2024", slug: "what-is-alternative-provision" },
+              { title: "Understanding SEMH Needs", excerpt: "Social, Emotional and Mental Health difficulties are among the most common reasons for AP referrals.", date: "1 Dec 2024", slug: "semh-needs-in-ap" },
+              { title: "When to Refer a Learner", excerpt: "Knowing the right time to refer can make all the difference for a young person's education.", date: "20 Nov 2024", slug: "when-to-refer-a-learner" }
             ].map((post) => (
               <Link key={post.slug} to={`/blog/${post.slug}`} className="group bg-card rounded-2xl border border-border/50 overflow-hidden hover:shadow-md transition-shadow">
                 <div className="aspect-video bg-muted" />
