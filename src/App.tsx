@@ -21,6 +21,9 @@ import KnowledgeHubCategory from "./pages/KnowledgeHubCategory";
 import KnowledgeHubDetail from "./pages/KnowledgeHubDetail";
 import CompleteGuide from "./pages/CompleteGuide";
 import Glossary from "./pages/Glossary";
+import News from "./pages/News";
+import FAQs from "./pages/FAQs";
+import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,6 +48,9 @@ const App = () => (
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/faqs" element={<FAQs />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/knowledge-hub" element={<KnowledgeHub />} />
           <Route path="/knowledge-hub/glossary" element={<Glossary />} />
           <Route path="/knowledge-hub/complete-guide" element={<CompleteGuide />} />

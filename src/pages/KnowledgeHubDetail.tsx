@@ -4,6 +4,7 @@ import Layout from "@/components/Layout"
 import { Button } from "@/components/ui/button"
 import { DETAIL_CONTENT } from "@/components/knowledge-hub/detail-content"
 import { RenderBlocks } from "@/components/knowledge-hub/detail-blocks"
+import { Seo, Breadcrumbs } from "@/components/Seo"
 
 export default function KnowledgeHubDetail() {
   const { category, slug } = useParams()
@@ -13,6 +14,7 @@ export default function KnowledgeHubDetail() {
   if (!content) {
     return (
       <Layout>
+        <Seo title="Resource not found" noIndex />
         <main className="min-h-screen bg-background">
           <header className="bg-primary text-primary-foreground">
             <div className="container mx-auto px-4 py-14 md:py-20">
@@ -43,24 +45,38 @@ export default function KnowledgeHubDetail() {
     )
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: content.title,
+    description: content.summary,
+    author: { "@type": "Organization", name: "Pathway Academy Zone" },
+    publisher: {
+      "@type": "Organization",
+      name: "Pathway Academy Zone",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png",
+      },
+    },
+    articleSection: content.categoryLabel,
+  }
+
   return (
     <Layout>
+      <Seo title={content.title} description={content.summary} jsonLd={jsonLd} />
       <main className="min-h-screen bg-background">
         <header className="bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 py-14 md:py-20">
             <div className="max-w-3xl">
-              <nav
-                aria-label="Breadcrumb"
-                className="flex items-center gap-2 text-sm text-primary-foreground/70 mb-6"
-              >
-                <Link to="/knowledge-hub" className="hover:text-primary-foreground transition-colors">
-                  Knowledge Hub
-                </Link>
-                <span aria-hidden="true">/</span>
-                <Link to={content.categoryHref} className="hover:text-primary-foreground transition-colors">
-                  {content.categoryLabel}
-                </Link>
-              </nav>
+              <Breadcrumbs
+                items={[
+                  { label: "Knowledge Hub", to: "/knowledge-hub" },
+                  { label: content.categoryLabel, to: content.categoryHref },
+                  { label: content.title },
+                ]}
+                className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              />
               <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4 text-balance">
                 {content.title}
               </h1>

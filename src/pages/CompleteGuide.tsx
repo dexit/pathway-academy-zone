@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { ArrowRight, BookOpen } from "lucide-react"
 import Layout from "@/components/Layout"
 import { Button } from "@/components/ui/button"
+import { Seo, Breadcrumbs } from "@/components/Seo"
 
 const anchors = [
   { id: "what-is-ap", label: "What is AP" },
@@ -13,12 +14,42 @@ const anchors = [
 ]
 
 export default function CompleteGuide() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "The Complete Guide to Alternative Provision",
+    description:
+      "A definitive guide covering the full Alternative Provision journey from referral triggers to progression routes, written for educators, parents, and professionals.",
+    author: { "@type": "Organization", name: "Pathway Academy Zone" },
+    publisher: {
+      "@type": "Organization",
+      name: "Pathway Academy Zone",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png",
+      },
+    },
+    articleSection: "Featured Resource",
+  }
+
   return (
     <Layout>
+      <Seo
+        title="The Complete Guide to Alternative Provision"
+        description="Comprehensive guide to Alternative Provision in England, with a focus on Staffordshire. Covers definitions, legal duties, referral triggers, programme models, safeguarding, and progression routes."
+        jsonLd={jsonLd}
+      />
       <main className="min-h-screen bg-background">
         <header className="bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 py-14 md:py-20">
             <div className="max-w-3xl">
+              <Breadcrumbs
+                items={[
+                  { label: "Knowledge Hub", to: "/knowledge-hub" },
+                  { label: "The Complete Guide" },
+                ]}
+                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              />
               <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-4 py-1.5 text-xs font-semibold tracking-widest uppercase mb-5">
                 <BookOpen className="w-3.5 h-3.5" />
                 Source of Truth

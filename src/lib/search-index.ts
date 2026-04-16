@@ -1,5 +1,5 @@
 import { BLOG_POSTS } from "@/components/blog/blog-data";
-import { ARTICLES } from "@/components/knowledge-hub/article-content";
+import { DETAIL_CONTENT } from "@/components/knowledge-hub/detail-content";
 
 export type SearchItem = {
   title: string;
@@ -24,6 +24,8 @@ const STATIC_PAGES: SearchItem[] = [
   { title: "Contact", description: "Get in touch with Pathway Academy Zone.", url: "/contact", type: "Page" },
   { title: "Knowledge Hub", description: "Guides, comparisons, and best-practice resources on Alternative Provision.", url: "/knowledge-hub", type: "Page" },
   { title: "Glossary", description: "Alternative Provision terms explained.", url: "/knowledge-hub/glossary", type: "Page" },
+  { title: "The Complete Guide to Alternative Provision", description: "Our definitive guide covering the full AP journey from referral triggers to progression routes.", url: "/knowledge-hub/complete-guide", type: "Guide", keywords: "complete guide alternative provision" },
+  { title: "Blog", description: "Insights, guides, and updates on Alternative Provision and SEMH support.", url: "/blog", type: "Page" },
   { title: "News", description: "Latest updates, policy news, and announcements from Pathway Academy Zone.", url: "/news", type: "Page" },
   { title: "FAQs", description: "Frequently asked questions about Alternative Provision and Pathway Academy Zone.", url: "/faqs", type: "Page" },
 ];
@@ -45,16 +47,15 @@ const BLOG_ITEMS: SearchItem[] = BLOG_POSTS.map((p) => ({
   keywords: p.category,
 }));
 
-const GUIDE_ITEMS: SearchItem[] = ARTICLES.map((a) => ({
-  title: a.title,
-  description: a.description,
-  url:
-    a.slug === "complete-guide"
-      ? "/knowledge-hub/complete-guide"
-      : `/knowledge-hub/${a.slug}`,
-  type: "Guide",
-  keywords: a.category,
-}));
+const GUIDE_ITEMS: SearchItem[] = Object.entries(DETAIL_CONTENT).map(
+  ([key, c]) => ({
+    title: c.title,
+    description: c.summary,
+    url: `/knowledge-hub/${key}`,
+    type: "Guide",
+    keywords: c.categoryLabel,
+  })
+);
 
 export const SEARCH_INDEX: SearchItem[] = [
   ...STATIC_PAGES,
