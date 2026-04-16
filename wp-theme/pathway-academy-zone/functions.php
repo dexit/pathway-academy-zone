@@ -87,6 +87,8 @@ require_once PAZ_THEME_DIR . 'inc/cpts.php';
 require_once PAZ_THEME_DIR . 'inc/taxonomies.php';
 require_once PAZ_THEME_DIR . 'inc/blocks.php';
 require_once PAZ_THEME_DIR . 'inc/patterns.php';
+require_once PAZ_THEME_DIR . 'inc/sidebars.php';
+require_once PAZ_THEME_DIR . 'inc/compat.php';
 require_once PAZ_THEME_DIR . 'inc/demo-importer.php';
 require_once PAZ_THEME_DIR . 'inc/schema.php';
 

@@ -106,11 +106,15 @@
 		}
 	},
 	"templateParts": [
-		{ "name": "header", "title": "Header", "area": "header" },
-		{ "name": "footer", "title": "Footer", "area": "footer" }
+		{ "name": "header",            "title": "Header",            "area": "header" },
+		{ "name": "footer",            "title": "Footer",            "area": "footer" },
+		{ "name": "sidebar",           "title": "Sidebar",           "area": "uncategorized" },
+		{ "name": "announcement-bar",  "title": "Announcement Bar",  "area": "uncategorized" },
+		{ "name": "cta-banner",        "title": "CTA Banner",        "area": "uncategorized" }
 	],
 	"customTemplates": [
-		{ "name": "page-full-width", "title": "Full Width Page", "postTypes": ["page"] },
-		{ "name": "page-landing",    "title": "Landing Page",    "postTypes": ["page"] }
+		{ "name": "page-full-width",   "title": "Full Width Page",   "postTypes": ["page"] },
+		{ "name": "page-landing",      "title": "Landing Page",      "postTypes": ["page"] },
+		{ "name": "page-with-sidebar", "title": "Page with Sidebar", "postTypes": ["page", "post"] }
 	]
 }

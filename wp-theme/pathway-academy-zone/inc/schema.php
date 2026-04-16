@@ -9,6 +9,11 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 function paz_render_jsonld() {
+	// If Yoast or Rank Math is active, defer to their much richer graph to
+	// avoid duplicate Organization/WebSite entities on the page.
+	if ( defined( 'WPSEO_VERSION' ) || class_exists( 'RankMath' ) ) {
+		return;
+	}
 	$home = home_url( '/' );
 	$logo = esc_url( PAZ_THEME_URI . 'assets/logo.png' );
 
