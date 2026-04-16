@@ -1,14 +1,16 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from "@/components/Seo";
+import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
+import Analytics from "@/components/Analytics"
+import VerificationMeta from "@/components/VerificationMeta"
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from "@/components/Seo"
 
 const SOCIAL_LINKS = [
   "https://www.facebook.com/PathwayAcademyZone",
   "https://www.linkedin.com/company/pathway-academy-zone",
   "https://twitter.com/PathwayAcademyZ",
-];
+]
 
 const ORGANIZATION_LD = {
   "@context": "https://schema.org",
@@ -75,49 +77,37 @@ const ORGANIZATION_LD = {
       },
     },
   ],
-};
-
-const ANALYTICS_DOMAIN = (import.meta as { env?: Record<string, string | undefined> }).env?.VITE_ANALYTICS_DOMAIN;
+}
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
   // Inject the global Organization / LocalBusiness / WebSite graph once on mount.
   useEffect(() => {
-    const id = "global-org";
-    const existing = document.head.querySelector(`script[data-seo="${id}"]`);
-    if (existing) existing.remove();
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.setAttribute("data-seo", id);
-    script.text = JSON.stringify(ORGANIZATION_LD);
-    document.head.appendChild(script);
-  }, []);
-
-  // Privacy-friendly Plausible analytics, only loaded if VITE_ANALYTICS_DOMAIN is set.
-  useEffect(() => {
-    if (!ANALYTICS_DOMAIN) return;
-    if (document.querySelector("script[data-analytics='plausible']")) return;
-    const s = document.createElement("script");
-    s.defer = true;
-    s.setAttribute("data-domain", ANALYTICS_DOMAIN);
-    s.setAttribute("data-analytics", "plausible");
-    s.src = "https://plausible.io/js/script.js";
-    document.head.appendChild(s);
-  }, []);
+    const id = "global-org"
+    const existing = document.head.querySelector(`script[data-seo="${id}"]`)
+    if (existing) existing.remove()
+    const script = document.createElement("script")
+    script.type = "application/ld+json"
+    script.setAttribute("data-seo", id)
+    script.text = JSON.stringify(ORGANIZATION_LD)
+    document.head.appendChild(script)
+  }, [])
 
   // Restore scroll on route change.
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   return (
     <div className="min-h-screen flex flex-col">
+      <VerificationMeta />
+      <Analytics />
       <Header />
       <main id="main" className="flex-1 pt-20" tabIndex={-1}>
         {children}
       </main>
       <Footer />
     </div>
-  );
+  )
 }
