@@ -1,93 +1,128 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Palette + typography synced with the live pathwayacademyzone.co.uk WordPress
+   * theme so the React replica renders identically. Plus Jakarta Sans is the
+   * single font family across body and headings. Tokens are authored as raw
+   * HSL triples so Tailwind's `hsl(var(--token))` utilities continue to work.
+   */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 25% 12%;
+    --background: 120 20% 99%;
+    --foreground: 160 10% 15%;
 
-    --card: 210 20% 98%;
-    --card-foreground: 220 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 160 10% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 12%;
+    --popover-foreground: 160 10% 15%;
 
-    /* Primary teal - WCAG AA against white (4.5:1+) */
-    --primary: 161 95% 27%;
+    /* Brand green — matches the live site exactly */
+    --primary: 152 45% 35%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 192 40% 93%;
-    --secondary-foreground: 192 82% 18%;
+    --secondary: 150 20% 95%;
+    --secondary-foreground: 160 10% 15%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 16% 38%;
+    --muted: 150 15% 94%;
+    --muted-foreground: 160 10% 45%;
 
-    --accent: 25 95% 45%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 152 35% 90%;
+    --accent-foreground: 152 45% 25%;
 
-    --destructive: 0 84% 45%;
-    --destructive-foreground: 0 0% 100%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
 
-    --border: 220 13% 88%;
-    --input: 220 13% 88%;
-    --ring: 161 95% 27%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 150 15% 88%;
+    --input: 150 15% 88%;
+    --ring: 152 45% 35%;
 
     --radius: 0.75rem;
 
-    --teal-dark: 192 82% 22%;
-    --teal-light: 192 40% 93%;
-    --navy: 220 40% 18%;
-    --warm-gray: 210 10% 58%;
+    /* Derived brand tokens used across the replica (hero gradients, CARES values
+       timeline, etc.) — tuned to the new green-forward palette. */
+    --teal-dark: 160 45% 22%;
+    --teal-light: 152 35% 90%;
+    --navy: 160 20% 12%;
+    --warm-gray: 160 8% 55%;
+
+    /* Sidebar + chart tokens from the live WP theme */
+    --sidebar-background: 150 20% 97%;
+    --sidebar-foreground: 160 10% 15%;
+    --sidebar-primary: 152 45% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 152 35% 92%;
+    --sidebar-accent-foreground: 152 45% 25%;
+    --sidebar-border: 150 15% 88%;
+    --sidebar-ring: 152 45% 35%;
+    --chart-1: 152 45% 35%;
+    --chart-2: 142 76% 36%;
+    --chart-3: 160 40% 50%;
+    --chart-4: 120 35% 45%;
+    --chart-5: 180 50% 40%;
+
+    --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 
   .dark {
-    /* Backgrounds — slightly cooler, with a perceptible card elevation step */
-    --background: 220 28% 7%;     /* #0b0f16 */
-    --foreground: 210 20% 96%;    /* body text — ~17:1 on bg (AAA) */
+    --background: 160 20% 8%;
+    --foreground: 150 15% 95%;
 
-    --card: 220 24% 11%;          /* elevated surface, visible against bg */
-    --card-foreground: 210 20% 96%;
+    --card: 160 20% 10%;
+    --card-foreground: 150 15% 95%;
 
-    --popover: 220 24% 13%;
-    --popover-foreground: 210 20% 96%;
+    --popover: 160 20% 10%;
+    --popover-foreground: 150 15% 95%;
 
-    /* Primary — brighter & slightly more saturated so that primary/10
-       tints, icon strokes, and borders remain visible on the dark bg.
-       ~9:1 on background. */
-    --primary: 161 72% 55%;
-    --primary-foreground: 220 28% 7%;  /* dark text on bright green ~8:1 */
+    --primary: 152 50% 45%;
+    --primary-foreground: 160 20% 8%;
 
-    /* Secondary — richer teal pill backgrounds with legible text (~8.5:1) */
-    --secondary: 192 35% 20%;
-    --secondary-foreground: 192 70% 85%;
+    --secondary: 160 20% 15%;
+    --secondary-foreground: 150 15% 95%;
 
-    /* Muted surfaces — one step above card for inputs and subtle chips;
-       muted-foreground is bumped to hit AAA on both bg and muted. */
-    --muted: 220 20% 15%;
-    --muted-foreground: 215 22% 78%;  /* ~10:1 on bg, ~7:1 on muted */
+    --muted: 160 15% 18%;
+    --muted-foreground: 150 10% 70%;
 
-    /* Accent — warm orange, still highly legible with dark text */
-    --accent: 25 92% 62%;
-    --accent-foreground: 220 28% 7%;
+    --accent: 152 30% 20%;
+    --accent-foreground: 152 50% 80%;
 
-    /* Destructive — brighter red, ~5:1 on bg (AA) */
-    --destructive: 0 78% 62%;
+    --success: 142 65% 48%;
+    --success-foreground: 160 20% 8%;
+
+    --destructive: 0 62% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders — more visible step above card so outlined cards read clearly */
-    --border: 220 20% 26%;
-    --input: 220 20% 24%;
-    --ring: 161 72% 55%;
+    --border: 160 15% 22%;
+    --input: 160 15% 22%;
+    --ring: 152 50% 45%;
 
-    /* Brand tokens — shifted so gradient stops stay distinct in dark mode,
-       and navy/warm-gray invert to readable light values. */
-    --teal-dark: 170 65% 58%;
-    --teal-light: 192 35% 20%;
-    --navy: 220 20% 95%;
-    --warm-gray: 210 18% 75%;
+    /* Brand tokens inverted to stay legible on the dark bg */
+    --teal-dark: 152 45% 60%;
+    --teal-light: 152 30% 20%;
+    --navy: 150 15% 95%;
+    --warm-gray: 150 10% 72%;
+
+    --sidebar-background: 160 20% 10%;
+    --sidebar-foreground: 150 15% 95%;
+    --sidebar-primary: 152 50% 45%;
+    --sidebar-primary-foreground: 160 20% 8%;
+    --sidebar-accent: 152 30% 18%;
+    --sidebar-accent-foreground: 152 50% 80%;
+    --sidebar-border: 160 15% 22%;
+    --sidebar-ring: 152 50% 45%;
+    --chart-1: 152 50% 50%;
+    --chart-2: 142 70% 45%;
+    --chart-3: 160 45% 55%;
+    --chart-4: 120 40% 50%;
+    --chart-5: 180 55% 45%;
   }
 }
 
@@ -102,12 +137,15 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
   }
 
   :focus-visible {
