@@ -147,6 +147,39 @@ export default function HomePage() {
         </div>
       </section>
 
+
+      {/* Latest Blog Posts */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
+            <div className="max-w-2xl">
+              <span className="text-primary font-medium text-sm tracking-wider uppercase">Stay Updated</span>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">Latest from our Blog</h2>
+              <p className="text-muted-foreground mt-4">Insights, guides, and updates on Alternative Provision and SEMH support.</p>
+            </div>
+            <Button asChild variant="outline">
+              <Link to="/blog">View All Articles <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: "What Is Alternative Provision?", excerpt: "A complete overview for 2024 covering education for pupils who cannot attend mainstream school.", date: "12 Nov 2024", slug: "what-is-alternative-provision" },
+              { title: "Understanding SEMH Needs", excerpt: "Social, Emotional and Mental Health difficulties are among the most common reasons for AP referrals.", date: "4 Nov 2024", slug: "semh-needs-in-ap" },
+              { title: "When to Refer a Learner", excerpt: "Knowing the right time to refer can make all the difference for a young person's education.", date: "28 Oct 2024", slug: "when-to-refer-a-learner" }
+            ].map((post) => (
+              <Link key={post.slug} to={`/blog/${post.slug}`} className="group bg-card rounded-2xl border border-border/50 overflow-hidden hover:shadow-md transition-shadow">
+                <div className="aspect-video bg-muted" />
+                <div className="p-6">
+                  <p className="text-xs text-muted-foreground mb-2">{post.date}</p>
+                  <h3 className="font-display font-bold text-xl text-foreground group-hover:text-primary transition-colors mb-2">{post.title}</h3>
+                  <p className="text-muted-foreground text-sm line-clamp-2">{post.excerpt}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 max-w-3xl">
@@ -168,6 +201,22 @@ export default function HomePage() {
               </details>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+
+      {/* Knowledge Hub Preview */}
+      <section className="py-24 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="bg-card rounded-3xl p-8 md:p-12 border border-border shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="max-w-xl">
+              <h2 className="font-display text-3xl font-bold text-foreground mb-4">Educational Resources & Guides</h2>
+              <p className="text-muted-foreground">Explore our Knowledge Hub for comprehensive guides on Alternative Provision, SEMH support, and educational best practices.</p>
+            </div>
+            <Button asChild size="lg" className="shrink-0">
+              <Link to="/knowledge-hub">Visit Knowledge Hub <ArrowRight className="ml-2 h-5 w-5" /></Link>
+            </Button>
+          </div>
         </div>
       </section>
 

@@ -8,6 +8,11 @@ const footerLinks = {
     { label: "Safeguarding", path: "/safeguarding" },
     { label: "Make a Referral", path: "/referral" },
   ],
+  resources: [
+    { label: "Knowledge Hub", path: "/knowledge-hub" },
+    { label: "Blog", path: "/blog" },
+    { label: "Glossary", path: "/knowledge-hub/glossary" },
+  ],
   about: [
     { label: "Who We Are", path: "/about" },
     { label: "Our Team", path: "/team" },
@@ -25,8 +30,8 @@ export default function Footer() {
   return (
     <footer className="bg-foreground text-background/80">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+          <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-display font-bold text-sm">PA</span>
@@ -42,6 +47,17 @@ export default function Footer() {
             <h4 className="font-display text-base font-semibold text-background mb-4">Our Provision</h4>
             <ul className="space-y-3">
               {footerLinks.provision.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="text-sm hover:text-primary transition-colors">{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-display text-base font-semibold text-background mb-4">Resources</h4>
+            <ul className="space-y-3">
+              {footerLinks.resources.map((link) => (
                 <li key={link.path}>
                   <Link to={link.path} className="text-sm hover:text-primary transition-colors">{link.label}</Link>
                 </li>
@@ -73,7 +89,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-primary shrink-0" />
-                info@pathwaygroup.co.uk
+                info@pathwayacademyzone.co.uk
               </li>
             </ul>
           </div>
