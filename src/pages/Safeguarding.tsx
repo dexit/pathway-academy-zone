@@ -30,7 +30,7 @@ export default function Safeguarding() {
             <h3 className="font-display text-2xl font-bold text-foreground mb-1">Martin Chandler</h3>
             <p className="text-primary font-medium text-sm mb-4">Designated Safeguarding Lead</p>
             <p className="text-muted-foreground leading-relaxed mb-6">Martin leads our safeguarding practice and is the first point of contact for any safeguarding concerns. He works closely with external agencies and ensures all staff receive regular safeguarding training.</p>
-            <div className="bg-destructive/10 rounded-xl p-4 border border-destructive/20"><p className="text-sm font-medium text-foreground"><strong>Urgent Safeguarding Concerns</strong></p><p className="text-sm text-muted-foreground">Contact Martin directly by email on <strong>martin.chandler@pathwaygroup.co.uk</strong></p></div>
+            <div className="bg-destructive/10 rounded-xl p-4 border border-destructive/20"><p className="text-sm font-medium text-foreground"><strong>Urgent Safeguarding Concerns</strong></p><p className="text-sm text-muted-foreground">Contact Martin directly by email on <strong>martin.chandler@pathwayacademyzone.co.uk</strong></p></div>
           </div>
         </motion.div>
       </div></section>

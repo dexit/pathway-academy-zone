@@ -1,20 +1,26 @@
-<!-- wp:group {"tagName":"header","layout":{"type":"flex","justifyContent":"space-between"},"style":{"spacing":{"padding":{"top":"1rem","bottom":"1rem","left":"2rem","right":"2rem"}},"border":{"bottom":{"color":"var:preset|color|muted","width":"1px"}}},"backgroundColor":"background"} -->
-<header class="wp-block-group has-background-background-color has-background" style="border-bottom-color:var(--wp--preset--color--muted);border-bottom-width:1px;padding-top:1rem;padding-bottom:1rem;padding-left:2rem;padding-right:2rem">
+<!-- wp:group {"tagName":"header","layout":{"type":"flex","justifyContent":"space-between"},"style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem","left":"2rem","right":"2rem"}},"border":{"bottom":{"color":"var:preset|color|muted","width":"1px"}}},"backgroundColor":"background"} -->
+<header class="wp-block-group has-background-background-color has-background" style="border-bottom-color:var(--wp--preset--color--muted);border-bottom-width:1px;padding-top:1.25rem;padding-bottom:1.25rem;padding-left:2rem;padding-right:2rem">
     <!-- wp:group {"layout":{"type":"flex","gap":"0.5rem"}} -->
     <div class="wp-block-group">
-        <!-- wp:site-logo {"width":40} /-->
-        <!-- wp:site-title {"style":{"typography":{"fontWeight":"700","fontSize":"1.25rem"}}} /-->
+        <!-- wp:html -->
+        <a href="/" style="display:flex;align-items:center;">
+            <img src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" alt="Pathway Academy Zone Logo" style="height:56px;width:auto;" />
+        </a>
+        <!-- /wp:html -->
     </div>
     <!-- /wp:group -->
 
     <!-- wp:navigation {"layout":{"type":"flex","setIndistinguishableColors":false}} /-->
 
-    <!-- wp:group {"layout":{"type":"flex"}} -->
+    <!-- wp:group {"layout":{"type":"flex","gap":"1rem"}} -->
     <div class="wp-block-group">
+        <!-- wp:html -->
+        <a href="tel:01782365365" style="font-size:0.875rem;color:var(--wp--preset--color--foreground);text-decoration:none;">01782 365365</a>
+        <!-- /wp:html -->
         <!-- wp:buttons -->
         <div class="wp-block-buttons">
             <!-- wp:button {"className":"is-style-fill"} -->
-            <div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button">Make a Referral</a></div>
+            <div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/referral">Make a Referral</a></div>
             <!-- /wp:button -->
         </div>
         <!-- /wp:buttons -->
