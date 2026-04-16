@@ -1,0 +1,87 @@
+{
+	"pages": [
+		{
+			"slug": "home",
+			"title": "Home",
+			"content": "<!-- wp:pattern {\"slug\":\"pathway-academy-zone/hero\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/approach\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/stats\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/values\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/faq\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "about",
+			"title": "About Us",
+			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">About Pathway Academy Zone</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">We are a specialist Alternative Provision in Stoke-on-Trent supporting young people aged 11&ndash;16 who benefit from an alternative to mainstream education.</p><!-- /wp:paragraph -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/values\"} /-->\n<!-- wp:pazone/team-grid /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "programmes",
+			"title": "Our Programmes",
+			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Our Programmes</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Tailored pathways for Key Stage 3 and Key Stage 4 learners.</p><!-- /wp:paragraph -->\n<!-- wp:query {\"queryId\":20,\"query\":{\"perPage\":9,\"postType\":\"paz_programme\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":3}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
+		},
+		{
+			"slug": "referral",
+			"title": "Make a Referral",
+			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Make a Referral</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Referrals are welcome from mainstream schools, Local Authorities, and family workers.</p><!-- /wp:paragraph -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/referral-journey\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "safeguarding",
+			"title": "Safeguarding & Pastoral",
+			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Keeping Young People Safe</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Safeguarding is everyone&apos;s responsibility. We maintain the highest standards to ensure all young people feel safe, supported, and heard.</p><!-- /wp:paragraph -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/key-policies\"} /-->"
+		},
+		{
+			"slug": "policies",
+			"title": "Policies",
+			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">All Policies</h2><!-- /wp:heading -->\n<!-- wp:query {\"queryId\":30,\"query\":{\"perPage\":24,\"postType\":\"paz_policy\",\"orderBy\":\"title\",\"order\":\"asc\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":2}} --><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
+		},
+		{
+			"slug": "knowledge-hub",
+			"title": "Knowledge Hub",
+			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Knowledge Hub</h2><!-- /wp:heading -->\n<!-- wp:query {\"queryId\":40,\"query\":{\"perPage\":12,\"postType\":\"paz_resource\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":3}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
+		},
+		{
+			"slug": "contact",
+			"title": "Contact Us",
+			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Get in Touch</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Call <strong>01782 365365</strong> or email <a href=\"mailto:info@pathwayacademyzone.co.uk\">info@pathwayacademyzone.co.uk</a>.</p><!-- /wp:paragraph -->"
+		},
+		{ "slug": "blog", "title": "News", "content": "" }
+	],
+	"paz_team": [
+		{ "slug": "martin-chandler", "title": "Martin Chandler", "excerpt": "Designated Safeguarding Lead", "meta": { "paz_role": "Designated Safeguarding Lead", "paz_email": "martin.chandler@pathwayacademyzone.co.uk" } },
+		{ "slug": "jane-doe",        "title": "Jane Doe",        "excerpt": "Headteacher",                 "meta": { "paz_role": "Headteacher" } },
+		{ "slug": "ahmed-khan",      "title": "Ahmed Khan",      "excerpt": "Lead Teacher",                "meta": { "paz_role": "Lead Teacher - English" } },
+		{ "slug": "sarah-o-brien",   "title": "Sarah O'Brien",   "excerpt": "Pastoral Manager",            "meta": { "paz_role": "Pastoral Manager" } }
+	],
+	"paz_programme": [
+		{ "slug": "ks3-bridge",      "title": "KS3 Bridge",       "excerpt": "A 12-week re-engagement programme for Key Stage 3 learners.",        "meta": { "paz_subtitle": "Re-engagement", "paz_duration": "12 weeks", "paz_key_stage": "KS3" } },
+		{ "slug": "ks4-pathways",    "title": "KS4 Pathways",     "excerpt": "Full-time Key Stage 4 placements with GCSEs and vocational options.", "meta": { "paz_subtitle": "Full-time KS4", "paz_duration": "1-2 years", "paz_key_stage": "KS4" } },
+		{ "slug": "assessment-hub",  "title": "Assessment Hub",   "excerpt": "Short-term assessment placements to inform EHCP reviews.",           "meta": { "paz_subtitle": "6-8 week assessment", "paz_duration": "6-8 weeks", "paz_key_stage": "KS3 &amp; KS4" } }
+	],
+	"paz_centre": [
+		{ "slug": "stoke-centre",    "title": "Stoke-on-Trent Centre", "excerpt": "Our main centre in Stoke-on-Trent.", "meta": { "paz_address": "Stoke-on-Trent, Staffordshire", "paz_phone": "01782 365365" } }
+	],
+	"paz_policy": [
+		{ "slug": "child-protection-safeguarding", "title": "Child Protection &amp; Safeguarding Policy", "excerpt": "Our primary safeguarding policy, reviewed annually." },
+		{ "slug": "online-safety",                  "title": "Online Safety Policy",                        "excerpt": "How we keep young people safe online." },
+		{ "slug": "anti-bullying",                  "title": "Anti-Bullying Policy",                        "excerpt": "Our zero-tolerance approach to bullying." },
+		{ "slug": "behaviour-positive-relationships","title": "Behaviour &amp; Positive Relationships Policy","excerpt": "A relational, restorative approach to behaviour." },
+		{ "slug": "safer-recruitment",              "title": "Safer Recruitment Policy",                    "excerpt": "Our rigorous recruitment and DBS checks." },
+		{ "slug": "whistleblowing",                 "title": "Whistleblowing Policy",                       "excerpt": "Procedures for raising concerns confidentially." }
+	],
+	"paz_resource": [
+		{ "slug": "what-is-alternative-provision",    "title": "What is Alternative Provision?",                "excerpt": "A plain-English introduction to AP for parents, carers and school staff." },
+		{ "slug": "ehcp-vs-sen-support",              "title": "EHCP vs SEN Support - What&apos;s the difference?", "excerpt": "How an Education, Health and Care Plan differs from SEN Support." },
+		{ "slug": "preparing-for-a-referral",         "title": "Preparing for a Referral",                      "excerpt": "A checklist of documents and information that speeds up a referral." }
+	],
+	"paz_news": [
+		{ "slug": "welcome-to-pathway-academy-zone",   "title": "Welcome to Pathway Academy Zone", "excerpt": "Our centre is open and taking referrals." },
+		{ "slug": "summer-term-enrolment-now-open",    "title": "Summer Term Enrolment Now Open",  "excerpt": "Summer term placements are available at our Stoke-on-Trent centre." }
+	],
+	"menus": {
+		"primary": [
+			{ "slug": "home",           "title": "Home" },
+			{ "slug": "about",          "title": "About" },
+			{ "slug": "programmes",     "title": "Programmes" },
+			{ "slug": "referral",       "title": "Make a Referral" },
+			{ "slug": "safeguarding",   "title": "Safeguarding" },
+			{ "slug": "knowledge-hub",  "title": "Knowledge Hub" },
+			{ "slug": "contact",        "title": "Contact" }
+		]
+	}
+}
