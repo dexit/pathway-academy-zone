@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown } from "lucide-react";
+import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School } from "lucide-react";
 import Layout from "@/components/Layout";
 import heroImg from "@/assets/hero-classroom.jpg";
 import classroomImg from "@/assets/classroom-learning.jpg";
@@ -14,10 +14,10 @@ const fadeUp = {
 };
 
 const stats = [
-  { icon: TrendingUp, value: "94%", label: "Improved Attendance" },
+  { icon: TrendingUp, value: "94%", label: "Attendance Improvement" },
   { icon: Target, value: "87%", label: "Positive Destinations" },
-  { icon: Users, value: "92%", label: "Improved Engagement" },
-  { icon: UserCheck, value: "78%", label: "Achieved Qualifications" },
+  { icon: Users, value: "150+", label: "Young People Supported" },
+  { icon: School, value: "12+", label: "Partner Schools" },
 ];
 
 const approaches = [
