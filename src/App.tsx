@@ -46,6 +46,7 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/knowledge-hub" element={<KnowledgeHub />} />
           <Route path="/knowledge-hub/glossary" element={<Glossary />} />
+          <Route path="/knowledge-hub/complete-guide" element={<KnowledgeHubDetail />} />
           <Route path="/knowledge-hub/:categoryId" element={<KnowledgeHubCategory />} />
           <Route path="/knowledge-hub/:category/:slug" element={<KnowledgeHubDetail />} />
           <Route path="*" element={<NotFound />} />
