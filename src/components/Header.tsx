@@ -93,7 +93,7 @@ export default function Header() {
                             title={child.label}
                             rel="next"
                             aria-current={location.pathname === child.path ? "page" : undefined}
-                            className={`block px-4 py-2.5 mx-2 rounded-xl text-sm transition-colors ${
+                            className={`block px-4 py-2.5 mx-2 my-1 rounded-xl text-sm transition-colors ${
                               location.pathname === child.path
                                 ? "text-primary bg-secondary"
                                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -127,13 +127,23 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3 shrink-0">
-          <SearchBar />
+          <button
+            onClick={() => setSearchOpen((s) => !s)}
+            aria-label={searchOpen ? "Close search" : "Open search"}
+            aria-expanded={searchOpen}
+            title="Search"
+            className="p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <SearchIcon className="h-4 w-4" />
+          </button>
           <a
             href="tel:+441782365365"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+            aria-label="Call 01782 365365"
+            title="01782 365365"
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors xl:px-2 lg:p-2 lg:rounded-full lg:hover:bg-muted xl:hover:bg-transparent xl:rounded-none"
           >
             <Phone className="h-4 w-4" />
-            01782 365365
+            <span className="hidden xl:inline">01782 365365</span>
           </a>
           <ThemeToggle />
           <Button asChild size="sm">
@@ -166,9 +176,10 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-border bg-card overflow-hidden"
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="border-t border-border bg-card overflow-hidden"
           >
-            <div className="p-4">
+            <div className="container mx-auto px-4 py-4">
               <SearchBar compact />
             </div>
           </motion.div>

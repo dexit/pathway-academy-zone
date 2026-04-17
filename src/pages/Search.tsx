@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Search as SearchIcon, ArrowRight } from "lucide-react";
-import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs } from "@/components/Seo";
+import { Seo } from "@/components/Seo";
 import { searchAll, type SearchItem } from "@/lib/search-index";
 import { Button } from "@/components/ui/button";
+import { ArchiveLayout } from "@/components/ArchiveLayout";
+import { FilterPills } from "@/components/FilterPills";
+import { ArchivePagination } from "@/components/ArchivePagination";
 
 const TYPES: Array<SearchItem["type"] | "All"> = [
   "All",
@@ -16,11 +18,14 @@ const TYPES: Array<SearchItem["type"] | "All"> = [
   "FAQ",
 ];
 
+const PAGE_SIZE = 8;
+
 export default function SearchPage() {
   const [params, setParams] = useSearchParams();
   const q = params.get("q") || "";
   const [draft, setDraft] = useState(q);
   const [type, setType] = useState<(typeof TYPES)[number]>("All");
+  const [page, setPage] = useState(1);
 
   const results = useMemo(() => searchAll(q), [q]);
   const filtered =
@@ -32,13 +37,25 @@ export default function SearchPage() {
     return map;
   }, [results]);
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const paginated = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  const visibleTypes = TYPES.filter(
+    (t) => t === "All" || (counts[t as string] ?? 0) > 0
+  ) as string[];
+
   function submit(e: React.FormEvent) {
     e.preventDefault();
     setParams(draft ? { q: draft } : {});
+    setPage(1);
   }
 
   return (
-    <Layout>
+    <>
       <Seo
         title={q ? `Search: ${q}` : "Search"}
         description={
@@ -48,76 +65,88 @@ export default function SearchPage() {
         }
         noIndex
       />
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <Breadcrumbs
-            items={[{ label: "Search" }]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+      <ArchiveLayout
+        crumbs={[{ label: "Search" }]}
+        title="Search"
+        intro="Search across all guides, blog articles, news, policies, and pages."
+        sidebar={{
+          ctas: [
+            {
+              label: "Knowledge Hub",
+              href: "/knowledge-hub",
+              description: "Browse the full library of guides.",
+              tone: "primary",
+            },
+            {
+              label: "FAQs",
+              href: "/faqs",
+              description: "Quick answers to common questions.",
+            },
+            {
+              label: "Make a Referral",
+              href: "/referral",
+              description: "Start the placement process.",
+            },
+          ],
+          quickContact: {
+            phone: "01782 365365",
+            email: "info@pathwayacademyzone.co.uk",
+          },
+        }}
+      >
+        <form onSubmit={submit} className="relative">
+          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
+          <input
+            type="search"
+            autoFocus
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            placeholder="Search guides, blog, policies..."
+            aria-label="Search query"
+            className="w-full h-14 pl-12 pr-32 rounded-full bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50"
           />
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
+          <Button
+            type="submit"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+          >
             Search
-          </h1>
-          <form onSubmit={submit} className="relative max-w-2xl">
-            <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary-foreground/60 pointer-events-none" />
-            <input
-              type="search"
-              autoFocus
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              placeholder="Search guides, blog, policies..."
-              aria-label="Search query"
-              className="w-full h-14 pl-12 pr-32 rounded-full bg-white/10 border border-white/20 text-primary-foreground placeholder:text-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-            <Button
-              type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-accent text-accent-foreground hover:bg-accent/90 rounded-full"
-            >
-              Search
-            </Button>
-          </form>
-        </div>
-      </header>
+          </Button>
+        </form>
 
-      <section className="container mx-auto px-4 py-10 md:py-16">
         {q ? (
           <>
-            <p className="text-muted-foreground mb-6">
-              {results.length}{" "}
-              {results.length === 1 ? "result" : "results"} for{" "}
+            <p className="text-sm text-muted-foreground">
+              {results.length} {results.length === 1 ? "result" : "results"} for{" "}
               <span className="text-foreground font-semibold">
                 &quot;{q}&quot;
               </span>
             </p>
 
             {results.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-8">
-                {TYPES.filter((t) => t === "All" || counts[t]).map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setType(t)}
-                    className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
-                      type === t
-                        ? "bg-primary text-primary-foreground border-primary"
-                        : "bg-card text-muted-foreground border-border hover:text-foreground"
-                    }`}
-                  >
-                    {t}
-                    <span className="ml-1.5 opacity-70">
-                      {t === "All" ? counts.All : counts[t] || 0}
-                    </span>
-                  </button>
-                ))}
-              </div>
+              <FilterPills
+                options={visibleTypes}
+                active={type}
+                onChange={(t) => {
+                  setType(t as (typeof TYPES)[number]);
+                  setPage(1);
+                }}
+                counts={counts}
+                ariaLabel="Filter search results by type"
+              />
             )}
 
-            {filtered.length > 0 ? (
-              <ul className="space-y-4 max-w-3xl">
-                {filtered.map((r) => (
+            {paginated.length > 0 ? (
+              <ul className="space-y-4">
+                {paginated.map((r) => (
                   <li
                     key={`${r.type}-${r.url}-${r.title}`}
                     className="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow"
                   >
-                    <Link to={r.url} className="group block">
+                    <Link
+                      to={r.url}
+                      title={r.title}
+                      className="group block"
+                    >
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-[10px] font-semibold uppercase tracking-wider text-primary">
                           {r.type}
@@ -151,14 +180,20 @@ export default function SearchPage() {
                 </Button>
               </div>
             )}
+
+            <ArchivePagination
+              page={currentPage}
+              totalPages={totalPages}
+              onChange={setPage}
+            />
           </>
         ) : (
-          <div className="text-muted-foreground max-w-lg">
+          <div className="text-muted-foreground">
             Type a query above to search across all guides, blog articles,
             policies, and pages.
           </div>
         )}
-      </section>
-    </Layout>
+      </ArchiveLayout>
+    </>
   );
 }

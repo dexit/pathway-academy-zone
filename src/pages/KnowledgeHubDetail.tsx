@@ -101,7 +101,7 @@ export default function KnowledgeHubDetail() {
       <main className="min-h-screen bg-background">
         <header className="bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl lg:max-w-4xl xl:max-w-5xl">
               <Breadcrumbs
                 items={[
                   { label: "Knowledge Hub", to: "/knowledge-hub" },
@@ -119,8 +119,6 @@ export default function KnowledgeHubDetail() {
                   minutes={minutes}
                   className="text-primary-foreground/70"
                 />
-                <span aria-hidden="true">·</span>
-                <span>{content.meta}</span>
               </div>
             </div>
           </div>
@@ -128,7 +126,7 @@ export default function KnowledgeHubDetail() {
 
         <div className="container mx-auto px-4 py-10 md:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-16">
-            <article className="max-w-3xl mx-auto lg:mx-0 w-full">
+            <article className="max-w-none mx-auto lg:mx-0 w-full">
               <RenderBlocks blocks={content.blocks} />
 
               {related.length > 0 && (
@@ -136,7 +134,7 @@ export default function KnowledgeHubDetail() {
               )}
 
             {content.ctaTitle && (
-              <section className="mt-14 rounded-2xl border border-border bg-card p-8 md:p-10 text-center">
+              <section className="mt-14 rounded-2xl border border-border bg-card p-8 md:p-10 text-center bg-primary/10">
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
                   {content.ctaTitle}
                 </h2>

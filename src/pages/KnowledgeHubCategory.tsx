@@ -56,19 +56,20 @@ export default function KnowledgeHubCategory() {
             ]}
             className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
           />
-          <Link
-            to="/knowledge-hub"
-            className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground mb-5 transition-colors text-sm"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Knowledge Hub
-          </Link>
+
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
             {section.title}
           </h1>
           <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-3xl">
             {section.description}
           </p>
+          <Link
+            to="/knowledge-hub"
+            className="inline-flex items-center gap-2 my-6 text-primary-foreground/70 hover:text-primary-foreground mb-5 transition-colors text-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Knowledge Hub
+          </Link>
         </div>
       </header>
 

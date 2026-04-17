@@ -5,10 +5,18 @@ import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo } from "@/components/Seo";
-import heroImg from "@/assets/hero-classroom.jpg";
-import classroomImg from "@/assets/classroom-learning.jpg";
-import vocationalImg from "@/assets/vocational-training.jpg";
-import mentoringImg from "@/assets/mentoring-session.jpg";
+//import heroImg from "@/assets/hero-classroom.jpg";
+//import classroomImg from "@/assets/classroom-learning.jpg";
+//import vocationalImg from "@/assets/vocational-training.jpg";
+//import mentoringImg from "@/assets/mentoring-session.jpg";
+
+// ✅ Use the functions or direct strings instead
+import { getVocationalImg, getMentoringImg, getClassroomImg, getHeroImg, getCareersImg } from "@/utils/images";
+
+const heroImg = "/assets/hero-classroom.jpg";
+const classroomImg = "/assets/classroom-learning.jpg";
+const vocationalImg = "/assets/vocational-training.jpg";
+const mentoringImg = "/assets/mentoring-session.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

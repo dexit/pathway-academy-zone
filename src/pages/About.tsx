@@ -7,6 +7,9 @@ import classroomImg from "@/assets/classroom-learning.jpg";
 import mentoringImg from "@/assets/mentoring-session.jpg";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+// about ld+json schema needed
+
+
 
 const values = [
   { letter: "C", name: "Change", desc: "We embrace learning and adapt to grow." },

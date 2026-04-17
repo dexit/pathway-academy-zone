@@ -63,14 +63,18 @@ export default function KnowledgeHub() {
                 }}
               />
               <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 p-8 md:p-12">
-                <div className="flex items-start gap-5">
+                <div className="flex flex-col items-start gap-5">
+                  <div className="flex flex-row  w-full gap-3">
+                 
                   <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
                     <BookOpen className="w-6 h-6 text-accent" />
                   </div>
-                  <div className="max-w-xl">
-                    <h3 className="text-xl md:text-2xl font-bold mb-3">
+                                      <h3 className="text-xl md:text-2xl font-bold mb-1 items-center">
                       The Complete Guide to Alternative Provision
                     </h3>
+                     </div>
+                  <div className="max-w-xl">
+
                     <p className="text-primary-foreground/70 leading-relaxed text-sm md:text-base">
                       Our definitive guide covering the full AP journey from
                       referral triggers to progression routes. Essential reading
@@ -112,11 +116,11 @@ export default function KnowledgeHub() {
           </section>
 
           {/* Referral CTA */}
-          <section className="rounded-2xl border border-border bg-card px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-8">
+          <section className="rounded-2xl border border-border bg-card px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-8 bg-primary/10">
             <div className="max-w-lg">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
-                  <Phone className="w-4 h-4 text-accent" />
+                  <Phone className="w-4 h-4 text-primary" />
                 </div>
                 <h2 className="text-xl font-bold text-foreground">
                   Need Support with a Referral?

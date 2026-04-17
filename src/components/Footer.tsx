@@ -38,7 +38,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-foreground text-background/80">
+    <footer className="bg-foreground text-background/80 dark:bg-background dark:text-foreground/80">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           <div className="lg:col-span-2">
@@ -54,7 +54,7 @@ export default function Footer() {
                 decoding="async"
               />
             </Link>
-            <p className="text-sm leading-relaxed mb-6 text-background/60 max-w-xs">
+            <p className="text-sm leading-relaxed mb-6 text-background/60 dark:text-foreground/60 max-w-xs">
               Alternative Provision supporting young people aged 11–16 across Stoke-on-Trent and Staffordshire.
             </p>
             <div className="flex items-center gap-2">
@@ -66,7 +66,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={`${s.label} (opens in new tab)`}
                   title={s.label}
-                  className="h-9 w-9 inline-flex items-center justify-center rounded-full border border-background/20 hover:border-primary hover:text-primary transition-colors"
+                  className="h-9 w-9 inline-flex items-center justify-center rounded-full border dark:border-foreground/20 dark:hover:border-primary dark:hover:text-primary border-background/20 hover:border-primary hover:text-primary transition-colors"
                 >
                   <s.icon className="h-4 w-4" aria-hidden="true" />
                 </a>
@@ -81,7 +81,7 @@ export default function Footer() {
             { title: "Information", links: footerLinks.information },
           ].map((col) => (
             <div key={col.title}>
-              <h2 className="font-display text-base font-semibold text-background mb-4">{col.title}</h2>
+              <h4 className="font-display text-base font-semibold text-background mb-4 dark:text-primary ">{col.title}</h4>
               <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.path}>
@@ -95,22 +95,22 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm border-t border-background/10 mt-12 pt-8">
-          <div className="flex items-start gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm border-t border-background/10 dark:border-foreground/10 mt-12 pt-8 justify-between">
+          <div className="flex items-start gap-3 justify-start">
             <MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" aria-hidden="true" />
-            <address className="not-italic text-background/70">Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ</address>
+            <address className="not-italic text-background/70 dark:text-foreground/70 ">Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ</address>
           </div>
-          <a href="tel:+441782365365" className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors">
+          <a href="tel:+441782365365" className="flex items-center gap-3 text-background/70 dark:text-foreground/70 dark:hover:text-primary hover:text-primary transition-colors  justify-center">
             <Phone className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
             01782 365365
           </a>
-          <a href="mailto:info@pathwayacademyzone.co.uk" className="flex items-center gap-3 text-background/70 hover:text-primary transition-colors">
+          <a href="mailto:info@pathwayacademyzone.co.uk" className="flex items-center gap-3 text-background/70 dark:text-foreground/70 dark:hover:text-primary hover:text-primary transition-colors  justify-end">
             <Mail className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
             info@pathwayacademyzone.co.uk
           </a>
         </div>
 
-        <div className="border-t border-background/10 mt-8 pt-6 flex flex-col md:flex-row gap-3 items-center justify-between text-sm text-background/40">
+        <div className="border-t dark:border-foreground/10 border-background/10 mt-8 pt-6 flex flex-col md:flex-row gap-3 items-center justify-between text-sm text-background/40 dark:text-foreground/40">
           <p>© {new Date().getFullYear()} Pathway Academy Zone. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link to="/policies" className="hover:text-primary transition-colors">Policies</Link>
