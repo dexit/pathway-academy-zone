@@ -101,7 +101,7 @@ export default function KnowledgeHubDetail() {
       <main className="min-h-screen bg-background">
         <header className="bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl lg:max-w-4xl xl:max-w-5xl">
               <Breadcrumbs
                 items={[
                   { label: "Knowledge Hub", to: "/knowledge-hub" },
@@ -119,8 +119,6 @@ export default function KnowledgeHubDetail() {
                   minutes={minutes}
                   className="text-primary-foreground/70"
                 />
-                <span aria-hidden="true">·</span>
-                <span>{content.meta}</span>
               </div>
             </div>
           </div>
