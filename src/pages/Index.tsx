@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School } from "lucide-react";
+import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo } from "@/components/Seo";
 import heroImg from "@/assets/hero-classroom.jpg";
@@ -113,9 +114,7 @@ export default function HomePage() {
               <ul className="space-y-3 mb-8">
                 {["SEMH-focused curriculum delivery", "Small group and 1:1 support", "Qualified teachers and mentors", "Strong pastoral care teams", "Vocational and academic pathways"].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-foreground">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                    </div>
+                    <CircleCheckBig className="w-5 h-5 text-primary shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -275,16 +274,8 @@ export default function HomePage() {
             <p className="text-muted-foreground mt-4">Quick answers to help you understand Alternative Provision and how Pathway Academy Zone works.</p>
           </motion.div>
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-3">
-            {faqs.map((faq) => (
-              <details key={faq.q} className="group bg-card rounded-xl border border-border/50 overflow-hidden">
-                <summary className="font-display font-semibold text-foreground cursor-pointer list-none flex items-center justify-between p-6">
-                  {faq.q}
-                  <ChevronDown className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform shrink-0 ml-4" />
-                </summary>
-                <div className="px-6 pb-6">
-                  <p className="text-muted-foreground text-sm leading-relaxed">{faq.a}</p>
-                </div>
-              </details>
+            {faqs.map((faq, idx) => (
+              <FaqItem key={faq.q} question={faq.q} answer={faq.a} index={idx} />
             ))}
           </motion.div>
         </div>
@@ -337,5 +328,60 @@ export default function HomePage() {
         </div>
       </section>
     </Layout>
+  );
+}
+
+function FaqItem({ question, answer, index }: { question: string; answer: string; index: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className={`bg-card rounded-2xl border overflow-hidden transition-all duration-300 ${
+        open ? "border-primary/40 shadow-md" : "border-border/50 hover:border-border"
+      }`}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="w-full font-display font-semibold text-foreground flex items-center justify-between p-6 text-left gap-4"
+      >
+        <span>{question}</span>
+        <motion.span
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+            open ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+          }`}
+        >
+          <ChevronDown className="h-4 w-4" />
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+            className="overflow-hidden"
+          >
+            <motion.div
+              initial={{ y: -8 }}
+              animate={{ y: 0 }}
+              exit={{ y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed"
+            >
+              {answer}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
