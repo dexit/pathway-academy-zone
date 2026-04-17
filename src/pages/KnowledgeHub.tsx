@@ -4,15 +4,24 @@ import { ArrowRight, BookOpen, Phone } from "lucide-react"
 import { HubSectionCard } from "@/components/knowledge-hub/hub-section-card"
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
 import Layout from "@/components/Layout"
+import { Seo, Breadcrumbs } from "@/components/Seo"
 
 export default function KnowledgeHub() {
   return (
     <Layout>
+      <Seo
+        title="Knowledge Hub"
+        description="Your comprehensive resource for Alternative Provision. Expert guides, practical comparisons, and evidence-based best practices for educators, parents, and professionals."
+      />
       <main className="min-h-screen bg-background">
         {/* Page Header */}
         <header className="bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 py-14 md:py-20">
             <div className="max-w-2xl">
+              <Breadcrumbs
+                items={[{ label: "Knowledge Hub" }]}
+                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              />
               <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
                 Pathway Academy Zone
               </p>
