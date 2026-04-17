@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Pathway Academy Zone Core
- * Description: Core functionality for PAZ, including API-driven routing and advanced block support.
- * Version: 1.0.0
+ * Description: Core functionality for PAZ, including API-driven routing, settings, and MCP support.
+ * Version: 1.1.0
  * Author: Pathway Academy Zone
  */
 
@@ -12,14 +12,13 @@ define( 'PAZ_CORE_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once PAZ_CORE_DIR . 'inc/routing.php';
 require_once PAZ_CORE_DIR . 'inc/api-extensions.php';
+require_once PAZ_CORE_DIR . 'inc/settings.php';
+require_once PAZ_CORE_DIR . 'inc/mcp.php';
 
 /**
- * Register a "Shadow" route handler. This allows WordPress to respond to
- * frontend-only routes (like /knowledge-hub/category/slug) by mapping them
- * to the correct REST API endpoint or a virtual page, ensuring the
- * WP-as-a-backend architecture stays in sync with React SPA routing.
+ * Initialize core functionality.
  */
 function paz_core_init() {
-    // Initialization logic
+    // Core initialization logic
 }
 add_action( 'init', 'paz_core_init' );

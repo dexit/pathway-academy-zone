@@ -28,3 +28,45 @@ function paz_extend_api() {
     ) );
 }
 add_action( 'rest_api_init', 'paz_extend_api' );
+
+/**
+ * Custom endpoints for Settings and Abilities.
+ */
+function paz_register_custom_endpoints() {
+    register_rest_route( 'paz/v1', '/settings', array(
+        'methods' => 'GET',
+        'callback' => 'paz_get_api_settings',
+        'permission_callback' => '__return_true',
+    ) );
+
+    register_rest_route( 'paz/v1', '/abilities', array(
+        'methods' => 'GET',
+        'callback' => 'paz_get_user_abilities',
+        'permission_callback' => '__return_true',
+    ) );
+}
+add_action( 'rest_api_init', 'paz_register_custom_endpoints' );
+
+function paz_get_api_settings() {
+    return array(
+        'phone' => get_option( 'paz_contact_phone' ),
+        'email' => get_option( 'paz_contact_email' ),
+        'address' => get_option( 'paz_contact_address' ),
+        'announcement' => get_option( 'paz_announcement_text' ),
+        'site_name' => get_bloginfo( 'name' ),
+        'description' => get_bloginfo( 'description' ),
+    );
+}
+
+function paz_get_user_abilities() {
+    $current_user = wp_get_current_user();
+    if ( 0 === $current_user->ID ) {
+        return array( 'is_logged_in' => false, 'capabilities' => array() );
+    }
+    return array(
+        'is_logged_in' => true,
+        'id' => $current_user->ID,
+        'user_login' => $current_user->user_login,
+        'capabilities' => $current_user->allcaps,
+    );
+}
