@@ -16,12 +16,14 @@ import Policies from "./pages/Policies";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 import KnowledgeHub from "./pages/KnowledgeHub";
 import KnowledgeHubCategory from "./pages/KnowledgeHubCategory";
 import KnowledgeHubDetail from "./pages/KnowledgeHubDetail";
 import CompleteGuide from "./pages/CompleteGuide";
 import Glossary from "./pages/Glossary";
 import News from "./pages/News";
+import NewsDetail from "./pages/NewsDetail";
 import FAQs from "./pages/FAQs";
 import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
@@ -48,7 +50,9 @@ const App = () => (
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/:slug" element={<NewsDetail />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/search" element={<Search />} />
           <Route path="/knowledge-hub" element={<KnowledgeHub />} />
