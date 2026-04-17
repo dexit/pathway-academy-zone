@@ -127,16 +127,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3 shrink-0">
-          <div className="hidden xl:block">
-            <SearchBar />
-          </div>
-          <button
-            onClick={() => navigate("/search")}
-            aria-label="Search"
-            className="xl:hidden p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground"
-          >
-            <SearchIcon className="h-4 w-4" />
-          </button>
+          <SearchBar />
           <a
             href="tel:+441782365365"
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
