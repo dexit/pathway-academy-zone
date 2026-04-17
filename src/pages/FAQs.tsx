@@ -2,11 +2,11 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowRight, Phone, Search } from "lucide-react";
-import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs } from "@/components/Seo";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ContentSidebar } from "@/components/ContentSidebar";
+import { ArchiveLayout } from "@/components/ArchiveLayout";
+import { FilterPills } from "@/components/FilterPills";
 import { cn } from "@/lib/utils";
 
 type QA = { q: string; a: string };
@@ -125,174 +125,140 @@ export default function FAQs() {
   const totalMatches = filteredGroups.reduce((n, g) => n + g.items.length, 0);
 
   return (
-    <Layout>
+    <>
       <Seo
         title="Frequently Asked Questions"
         description="Answers to the most common questions about Alternative Provision, referrals, and life at Pathway Academy Zone."
         jsonLd={jsonLd}
       />
+      <ArchiveLayout
+        crumbs={[{ label: "FAQs" }]}
+        title="Frequently Asked Questions"
+        intro="Quick answers for parents, carers, schools, local authorities, and anyone new to Alternative Provision."
+        sidebar={{
+          toc: GROUPS.map((g) => ({ id: g.id, label: g.title, level: 2 })),
+          ctas: [
+            {
+              label: "Make a Referral",
+              href: "/referral",
+              description: "Start the placement process for a young person.",
+              tone: "primary",
+            },
+            {
+              label: "Knowledge Hub",
+              href: "/knowledge-hub",
+              description: "Guides, comparisons and best practice for AP.",
+            },
+          ],
+          quickContact: {
+            phone: "01782 365365",
+            email: "info@pathwayacademyzone.co.uk",
+          },
+        }}
+      >
+        <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between">
+          <FilterPills
+            options={categories}
+            active={activeCategory}
+            onChange={setActiveCategory}
+            ariaLabel="Filter FAQs by category"
+          />
 
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-2xl">
-            <Breadcrumbs
-              items={[{ label: "FAQs" }]}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+          <div className="relative w-full md:w-64">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+            <Input
+              type="search"
+              placeholder="Search questions..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="pl-9 bg-card border-border text-foreground placeholder:text-muted-foreground"
+              aria-label="Search FAQs"
             />
-            <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
-              Pathway Academy Zone
-            </p>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-primary-foreground/70 text-lg leading-relaxed">
-              Quick answers for parents, carers, schools, local authorities, and
-              anyone new to Alternative Provision.
-            </p>
           </div>
         </div>
-      </header>
 
-      <div className="container mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
-          {/* Main column */}
-          <div className="space-y-10 min-w-0">
-            {/* Filter & Search bar (mirrors Blog) */}
-            <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between">
-              <nav aria-label="Filter FAQs by category">
-                <ul className="flex flex-wrap gap-2">
-                  {categories.map((cat) => (
-                    <li key={cat}>
-                      <button
-                        type="button"
-                        onClick={() => setActiveCategory(cat)}
-                        aria-current={activeCategory === cat ? "true" : undefined}
-                        className={cn(
-                          "px-4 py-1.5 rounded-full text-sm font-medium transition-colors border",
-                          activeCategory === cat
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-card text-foreground border-border hover:bg-muted hover:border-muted-foreground/20"
-                        )}
-                      >
-                        {cat}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+        <p className="text-sm text-muted-foreground">
+          Showing{" "}
+          <span className="font-medium text-foreground">{totalMatches}</span>{" "}
+          of {allItems.length} questions
+        </p>
 
-              <div className="relative w-full md:w-64">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                <Input
-                  type="search"
-                  placeholder="Search questions..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className="pl-9 bg-card border-border text-foreground placeholder:text-muted-foreground"
-                  aria-label="Search FAQs"
-                />
-              </div>
-            </div>
-
-            {/* Result count */}
-            <p className="text-sm text-muted-foreground -mt-4">
-              Showing <span className="font-medium text-foreground">{totalMatches}</span> of {allItems.length} questions
-            </p>
-
-            {/* Groups */}
-            {filteredGroups.length > 0 ? (
-              <div className="space-y-12">
-                {filteredGroups.map((group) => (
-                  <section key={group.id} id={group.id} aria-labelledby={`${group.id}-heading`}>
-                    <div className="flex items-center gap-2 mb-5">
-                      <span className="block w-1 h-5 rounded-full bg-accent" aria-hidden="true" />
-                      <h2
-                        id={`${group.id}-heading`}
-                        className="text-sm font-semibold text-muted-foreground tracking-widest uppercase"
-                      >
-                        {group.title}
-                      </h2>
-                    </div>
-                    <div className="space-y-3">
-                      {group.items.map((item, idx) => (
-                        <FaqItem
-                          key={item.q}
-                          question={item.q}
-                          answer={item.a}
-                          index={idx}
-                        />
-                      ))}
-                    </div>
-                  </section>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-16 rounded-2xl border border-border bg-card">
-                <p className="text-muted-foreground text-base mb-4">
-                  No questions found matching your search.
-                </p>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setActiveCategory(ALL);
-                    setQuery("");
-                  }}
-                >
-                  Clear filters
-                </Button>
-              </div>
-            )}
-
-            {/* Still have questions CTA */}
-            <div className="rounded-2xl bg-muted/50 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Phone className="h-5 w-5 text-primary" />
-                  <h2 className="text-xl font-bold text-foreground">
-                    Still have questions?
+        {filteredGroups.length > 0 ? (
+          <div className="space-y-12">
+            {filteredGroups.map((group) => (
+              <section
+                key={group.id}
+                id={group.id}
+                aria-labelledby={`${group.id}-heading`}
+                className="scroll-mt-28"
+              >
+                <div className="flex items-center gap-2 mb-5">
+                  <span
+                    className="block w-1 h-5 rounded-full bg-accent"
+                    aria-hidden="true"
+                  />
+                  <h2
+                    id={`${group.id}-heading`}
+                    className="text-sm font-semibold text-muted-foreground tracking-widest uppercase"
+                  >
+                    {group.title}
                   </h2>
                 </div>
-                <p className="text-muted-foreground">
-                  Our team is happy to talk you through any aspect of our provision.
-                </p>
-              </div>
-              <div className="flex gap-3 shrink-0">
-                <Button asChild variant="outline">
-                  <Link to="/contact">Contact Us</Link>
-                </Button>
-                <Button asChild>
-                  <Link to="/referral">
-                    Make a Referral <ArrowRight className="ml-1 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
+                <div className="space-y-3">
+                  {group.items.map((item, idx) => (
+                    <FaqItem
+                      key={item.q}
+                      question={item.q}
+                      answer={item.a}
+                      index={idx}
+                    />
+                  ))}
+                </div>
+              </section>
+            ))}
           </div>
+        ) : (
+          <div className="text-center py-16 rounded-2xl border border-border bg-card">
+            <p className="text-muted-foreground text-base mb-4">
+              No questions found matching your search.
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setActiveCategory(ALL);
+                setQuery("");
+              }}
+            >
+              Clear filters
+            </Button>
+          </div>
+        )}
 
-          {/* Sidebar (mirrors Blog/long-form pages) */}
-          <ContentSidebar
-            toc={GROUPS.map((g) => ({ id: g.id, label: g.title, level: 2 }))}
-            ctas={[
-              {
-                label: "Make a Referral",
-                href: "/referral",
-                description: "Start the placement process for a young person.",
-                tone: "primary",
-              },
-              {
-                label: "Knowledge Hub",
-                href: "/knowledge-hub",
-                description: "Guides, comparisons and best practice for AP.",
-              },
-            ]}
-            quickContact={{
-              phone: "01782 365365",
-              email: "info@pathwayacademyzone.co.uk",
-            }}
-          />
+        <div className="rounded-2xl bg-muted/50 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Phone className="h-5 w-5 text-primary" />
+              <h2 className="text-xl font-bold text-foreground">
+                Still have questions?
+              </h2>
+            </div>
+            <p className="text-muted-foreground">
+              Our team is happy to talk you through any aspect of our provision.
+            </p>
+          </div>
+          <div className="flex gap-3 shrink-0">
+            <Button asChild variant="outline">
+              <Link to="/contact">Contact Us</Link>
+            </Button>
+            <Button asChild>
+              <Link to="/referral">
+                Make a Referral <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
-      </div>
-    </Layout>
+      </ArchiveLayout>
+    </>
   );
 }
 
