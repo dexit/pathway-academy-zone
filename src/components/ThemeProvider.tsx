@@ -24,8 +24,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch {}
+    // Keep the dynamic <meta name="theme-color"> in sync with the live
+    // brand palette (matches index.html defaults exactly).
     const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])');
-    if (meta) meta.setAttribute("content", theme === "dark" ? "#0b1220" : "#0a8a5f");
+    if (meta) meta.setAttribute("content", theme === "dark" ? "#0d1914" : "#2e8158");
   }, [theme]);
 
   const value: Ctx = {

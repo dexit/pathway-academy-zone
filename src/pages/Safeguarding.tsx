@@ -46,11 +46,35 @@ export default function Safeguarding() {
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{pastoral.map((p, i) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 border border-border/50 shadow-sm"><h3 className="font-display text-lg font-bold text-foreground mb-2">{p.title}</h3><p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p></motion.div>))}</div>
       </div></section>
-      <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-4xl">
-        <h2 className="font-display text-2xl font-bold text-foreground mb-8">Key Policies</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">{policies.map((p) => (<div key={p} className="flex items-center gap-3 bg-card rounded-xl px-5 py-4 border border-border/50"><FileText className="h-5 w-5 text-primary shrink-0" /><span className="text-sm text-foreground">{p}</span></div>))}</div>
-        <Button asChild variant="outline"><Link to="/policies">View All Policies <ArrowRight className="ml-1 h-4 w-4" /></Link></Button>
-      </div></section>
+      <section className="py-24 bg-muted/50">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <h2 className="font-display text-3xl font-bold text-foreground mb-4">Key Policies</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-10">
+            Our safeguarding and pastoral policies are available for review. For full documents, please visit our{" "}
+            <Link to="/policies" className="text-primary font-medium hover:underline">
+              Policies page
+            </Link>
+            .
+          </p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left mb-10">
+            {policies.map((p) => (
+              <li
+                key={p}
+                className="flex items-center gap-3 rounded-xl px-5 py-4 bg-primary/10 hover:bg-primary/15 transition-colors"
+              >
+                <FileText className="h-5 w-5 text-primary shrink-0" aria-hidden="true" />
+                <span className="text-sm font-medium text-foreground">{p}</span>
+              </li>
+            ))}
+          </ul>
+          <Button asChild variant="outline">
+            <Link to="/policies">
+              View All Policies
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </section>
     </Layout>
   );
 }

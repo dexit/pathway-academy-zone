@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Phone, FileText, Users, CalendarCheck, CheckCircle } from "lucide-react";
+import { Phone, FileText, Users, CalendarCheck, CheckCircle, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
+import { useFormSubmit } from "@/hooks/use-form-submit";
+import { SITE_URL } from "@/components/Seo";
+
+const REFERRAL_WEBHOOK = import.meta.env.VITE_REFERRAL_WEBHOOK as string | undefined;
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const steps = [
@@ -18,8 +22,33 @@ const docs = ["Recent school reports and attendance data","EHCP or SEN support d
 export default function Referral() {
   const { toast } = useToast();
   const [formData, setFormData] = useState({ name:"",role:"",email:"",phone:"",organisation:"",ypName:"",dob:"",yearGroup:"",currentSchool:"",reason:"",additionalInfo:"" });
-  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); toast({ title: "Referral Submitted", description: "Thank you. Our team will contact you within 2 working days." }); };
-  const update = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+
+  const { submit, loading, error, success, reset } = useFormSubmit<typeof formData>({
+    url: REFERRAL_WEBHOOK,
+    method: "POST",
+    format: "json",
+    extra: { source: "referral-form", site: SITE_URL },
+    onSuccess: () =>
+      toast({
+        title: "Referral submitted",
+        description: "Our team will contact you within 2 working days.",
+      }),
+    onError: (err) =>
+      toast({
+        variant: "destructive",
+        title: "Couldn't submit referral",
+        description: err instanceof Error ? err.message : "Please try again.",
+      }),
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await submit(formData);
+  };
+  const update = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    if (success || error) reset();
+    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+  };
 
   return (
     <Layout>
@@ -72,7 +101,25 @@ export default function Referral() {
             </div>
             <div><label className="text-sm font-medium text-foreground mb-1 block">Reason for Referral *</label><textarea required value={formData.reason} onChange={update("reason")} rows={4} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm" /></div>
             <div><label className="text-sm font-medium text-foreground mb-1 block">Additional Information</label><textarea value={formData.additionalInfo} onChange={update("additionalInfo")} rows={3} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm" /></div>
-            <Button type="submit" size="lg" className="w-full rounded-full">Submit Referral</Button>
+            <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full">
+              {loading ? (
+                <span className="inline-flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Submitting...
+                </span>
+              ) : (
+                "Submit Referral"
+              )}
+            </Button>
+            {success && (
+              <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
+                <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Thanks — we&apos;ll be in touch within 2 working days.
+              </p>
+            )}
+            {error && (
+              <p className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
+                <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
+              </p>
+            )}
           </form>
         </motion.div>
       </div></section>
