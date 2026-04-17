@@ -37,7 +37,7 @@ export default function NewsDetail() {
           <div className="max-w-3xl">
             <Breadcrumbs
               items={[
-                { label: "News", href: "/news" },
+                { label: "News", to: "/news" },
                 { label: item.title },
               ]}
               className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"

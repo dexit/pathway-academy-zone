@@ -6,7 +6,7 @@ import type { ComponentProps } from "react";
 
 interface ArchiveLayoutProps {
   /** Breadcrumb trail items (last item is the current page). */
-  crumbs: { label: string; href?: string }[];
+  crumbs: { label: string; to?: string }[];
   eyebrow?: string;
   title: string;
   intro?: string;
