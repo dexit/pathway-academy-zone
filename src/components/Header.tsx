@@ -127,7 +127,15 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3 shrink-0">
-          <SearchBar />
+          <button
+            onClick={() => setSearchOpen((s) => !s)}
+            aria-label={searchOpen ? "Close search" : "Open search"}
+            aria-expanded={searchOpen}
+            title="Search"
+            className="p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <SearchIcon className="h-4 w-4" />
+          </button>
           <a
             href="tel:+441782365365"
             aria-label="Call 01782 365365"
