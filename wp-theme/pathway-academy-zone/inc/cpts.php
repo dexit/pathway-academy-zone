@@ -95,6 +95,22 @@ function paz_register_cpts() {
 		'menu_icon' => 'dashicons-megaphone',
 		'rewrite'   => array( 'slug' => 'news', 'with_front' => false ),
 	) ) );
+
+	/**
+	 * Vacancies / Careers — job postings with full Google JobPosting schema
+	 * support via paz_* meta fields (see paz_register_meta below).
+	 */
+	register_post_type( 'paz_vacancy', paz_cpt_defaults( array(
+		'labels' => array(
+			'name'               => __( 'Vacancies', 'pathway-academy-zone' ),
+			'singular_name'      => __( 'Vacancy', 'pathway-academy-zone' ),
+			'add_new_item'       => __( 'Add New Vacancy', 'pathway-academy-zone' ),
+			'edit_item'          => __( 'Edit Vacancy', 'pathway-academy-zone' ),
+			'menu_name'          => __( 'Careers', 'pathway-academy-zone' ),
+		),
+		'menu_icon' => 'dashicons-businessperson',
+		'rewrite'   => array( 'slug' => 'vacancies', 'with_front' => false ),
+	) ) );
 }
 add_action( 'init', 'paz_register_cpts' );
 
@@ -121,5 +137,19 @@ function paz_register_meta() {
 
 	register_post_meta( 'paz_resource', 'paz_read_time',$string );
 	register_post_meta( 'paz_resource', 'paz_summary',  $string );
+
+	// JobPosting schema fields — all optional, all REST-exposed.
+	register_post_meta( 'paz_vacancy',  'paz_job_location_type', $string ); // "TELECOMMUTE" | "" (on-site)
+	register_post_meta( 'paz_vacancy',  'paz_job_city',          $string );
+	register_post_meta( 'paz_vacancy',  'paz_job_region',        $string );
+	register_post_meta( 'paz_vacancy',  'paz_job_postcode',      $string );
+	register_post_meta( 'paz_vacancy',  'paz_job_country',       $string );
+	register_post_meta( 'paz_vacancy',  'paz_job_employment_type', $string ); // FULL_TIME | PART_TIME | CONTRACTOR | TEMPORARY | INTERN | VOLUNTEER | PER_DIEM | OTHER
+	register_post_meta( 'paz_vacancy',  'paz_job_salary_min',    $string );
+	register_post_meta( 'paz_vacancy',  'paz_job_salary_max',    $string );
+	register_post_meta( 'paz_vacancy',  'paz_job_salary_currency', $string ); // e.g. "GBP"
+	register_post_meta( 'paz_vacancy',  'paz_job_salary_unit',   $string ); // HOUR | DAY | WEEK | MONTH | YEAR
+	register_post_meta( 'paz_vacancy',  'paz_job_valid_through', $string ); // ISO-8601 date
+	register_post_meta( 'paz_vacancy',  'paz_job_apply_url',     $string );
 }
 add_action( 'init', 'paz_register_meta' );

@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button"
 import { DETAIL_CONTENT } from "@/components/knowledge-hub/detail-content"
 import { RenderBlocks } from "@/components/knowledge-hub/detail-blocks"
 import { Seo, Breadcrumbs } from "@/components/Seo"
+import { SummaryBlock, ReadingTime, RelatedContent, type RelatedItem } from "@/components/SeoBlocks"
+import { ContentSidebar } from "@/components/ContentSidebar"
+import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
 
 export default function KnowledgeHubDetail() {
   const { category, slug } = useParams()
@@ -45,11 +48,41 @@ export default function KnowledgeHubDetail() {
     )
   }
 
+  // Word-count-based reading time from all text blocks.
+  const words = content.blocks
+    .map((b) => {
+      if ("text" in b && typeof b.text === "string") return b.text
+      if ("items" in b && Array.isArray(b.items))
+        return b.items.map((i) => (typeof i === "string" ? i : (i.title + " " + (i.body ?? "")))).join(" ")
+      return ""
+    })
+    .join(" ")
+  const minutes = Math.max(3, Math.round(words.trim().split(/\s+/).length / 230))
+
+  // Sibling resources from the same Knowledge Hub section for "Related".
+  const section = HUB_SECTIONS.find((s) => s.title === content.categoryLabel)
+  const related: RelatedItem[] = (section?.resources ?? [])
+    .filter((r) => !r.href.endsWith(`/${slug}`))
+    .slice(0, 4)
+    .map((r) => ({ title: r.title, href: r.href, category: content.categoryLabel }))
+
+  // Table-of-contents built from h2 blocks.
+  const toc = content.blocks
+    .filter((b): b is { type: "h2"; text: string } => b.type === "h2")
+    .map((h) => ({
+      id: h.text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+      label: h.text,
+      level: 2 as const,
+    }))
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: content.title,
     description: content.summary,
+    abstract: content.summary,
+    wordCount: words.trim().split(/\s+/).length,
+    timeRequired: `PT${minutes}M`,
     author: { "@type": "Organization", name: "Pathway Academy Zone" },
     publisher: {
       "@type": "Organization",
@@ -80,20 +113,27 @@ export default function KnowledgeHubDetail() {
               <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4 text-balance">
                 {content.title}
               </h1>
-              <div className="rounded-xl bg-primary-foreground/10 p-5 mb-4 border border-primary-foreground/15">
-                <p className="text-xs font-semibold tracking-widest uppercase text-accent mb-2">
-                  Summary
-                </p>
-                <p className="text-primary-foreground/90 leading-relaxed">{content.summary}</p>
+              <SummaryBlock summary={content.summary} variant="onDark" className="mb-4" />
+              <div className="flex flex-wrap items-center gap-4 text-primary-foreground/70 text-sm">
+                <ReadingTime
+                  minutes={minutes}
+                  className="text-primary-foreground/70"
+                />
+                <span aria-hidden="true">·</span>
+                <span>{content.meta}</span>
               </div>
-              <p className="text-primary-foreground/70 text-sm">{content.meta}</p>
             </div>
           </div>
         </header>
 
         <div className="container mx-auto px-4 py-10 md:py-16">
-          <div className="max-w-3xl mx-auto">
-            <RenderBlocks blocks={content.blocks} />
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-16">
+            <article className="max-w-3xl mx-auto lg:mx-0 w-full">
+              <RenderBlocks blocks={content.blocks} />
+
+              {related.length > 0 && (
+                <RelatedContent items={related} className="mt-14" />
+              )}
 
             {content.ctaTitle && (
               <section className="mt-14 rounded-2xl border border-border bg-card p-8 md:p-10 text-center">
@@ -122,15 +162,37 @@ export default function KnowledgeHubDetail() {
               </section>
             )}
 
-            <div className="mt-10 flex justify-center">
-              <Link
-                to="/knowledge-hub/complete-guide"
-                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to The Complete Guide to Alternative Provision
-              </Link>
-            </div>
+              <div className="mt-10 flex justify-center">
+                <Link
+                  to="/knowledge-hub/complete-guide"
+                  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Back to The Complete Guide to Alternative Provision
+                </Link>
+              </div>
+            </article>
+
+            <ContentSidebar
+              toc={toc}
+              ctas={[
+                {
+                  label: "Make a Referral",
+                  description: "Refer a young person in 4 steps",
+                  href: "/referral",
+                  tone: "primary",
+                },
+                {
+                  label: "Download Policies",
+                  description: "Safeguarding & pastoral documents",
+                  href: "/policies",
+                },
+              ]}
+              quickContact={{
+                phone: "01782 365365",
+                email: "info@pathwayacademyzone.co.uk",
+              }}
+            />
           </div>
         </div>
       </main>

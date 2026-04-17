@@ -96,3 +96,93 @@ function paz_render_jsonld() {
 	echo "\n" . '<script type="application/ld+json">' . wp_json_encode( $json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
 }
 add_action( 'wp_head', 'paz_render_jsonld', 5 );
+
+/**
+ * JobPosting JSON-LD for single paz_vacancy entries. Google requires
+ * title, description, datePosted, hiringOrganization, and jobLocation
+ * (or applicantLocationRequirements for remote) — everything else is
+ * optional but boosts rich-result eligibility.
+ */
+function paz_render_jobposting_jsonld() {
+	if ( ! is_singular( 'paz_vacancy' ) ) {
+		return;
+	}
+	// Don't duplicate if an SEO plugin already ships one.
+	if ( defined( 'WPSEO_VERSION' ) || class_exists( 'RankMath' ) ) {
+		return;
+	}
+	$post_id = get_the_ID();
+	$home    = home_url( '/' );
+
+	$employment = get_post_meta( $post_id, 'paz_job_employment_type', true ) ?: 'FULL_TIME';
+	$loc_type   = get_post_meta( $post_id, 'paz_job_location_type',   true );
+	$city       = get_post_meta( $post_id, 'paz_job_city',            true ) ?: 'Stoke-on-Trent';
+	$region     = get_post_meta( $post_id, 'paz_job_region',          true ) ?: 'Staffordshire';
+	$postcode   = get_post_meta( $post_id, 'paz_job_postcode',        true );
+	$country    = get_post_meta( $post_id, 'paz_job_country',         true ) ?: 'GB';
+	$salary_min = get_post_meta( $post_id, 'paz_job_salary_min',      true );
+	$salary_max = get_post_meta( $post_id, 'paz_job_salary_max',      true );
+	$currency   = get_post_meta( $post_id, 'paz_job_salary_currency', true ) ?: 'GBP';
+	$unit       = get_post_meta( $post_id, 'paz_job_salary_unit',     true ) ?: 'YEAR';
+	$valid_thru = get_post_meta( $post_id, 'paz_job_valid_through',   true );
+	$apply_url  = get_post_meta( $post_id, 'paz_job_apply_url',       true ) ?: get_permalink();
+
+	$job = array(
+		'@context'            => 'https://schema.org',
+		'@type'               => 'JobPosting',
+		'title'               => get_the_title(),
+		'description'         => wp_strip_all_tags( apply_filters( 'the_content', get_the_content() ) ),
+		'datePosted'          => get_the_date( 'c' ),
+		'employmentType'      => $employment,
+		'hiringOrganization'  => array(
+			'@type'  => 'Organization',
+			'name'   => 'Pathway Academy Zone',
+			'sameAs' => $home,
+			'logo'   => esc_url( PAZ_THEME_URI . 'assets/logo.png' ),
+		),
+		'directApply'         => (bool) $apply_url,
+		'url'                 => get_permalink(),
+	);
+
+	if ( $valid_thru ) {
+		$job['validThrough'] = $valid_thru;
+	}
+	if ( 'TELECOMMUTE' === $loc_type ) {
+		$job['jobLocationType'] = 'TELECOMMUTE';
+		$job['applicantLocationRequirements'] = array(
+			'@type' => 'Country',
+			'name'  => $country,
+		);
+	} else {
+		$job['jobLocation'] = array(
+			'@type'   => 'Place',
+			'address' => array_filter( array(
+				'@type'           => 'PostalAddress',
+				'addressLocality' => $city,
+				'addressRegion'   => $region,
+				'postalCode'      => $postcode,
+				'addressCountry'  => $country,
+			) ),
+		);
+	}
+	if ( $salary_min || $salary_max ) {
+		$value = array(
+			'@type'    => 'QuantitativeValue',
+			'unitText' => $unit,
+		);
+		if ( $salary_min && $salary_max ) {
+			$value['minValue'] = (float) $salary_min;
+			$value['maxValue'] = (float) $salary_max;
+		} else {
+			$value['value'] = (float) ( $salary_min ?: $salary_max );
+		}
+		$job['baseSalary'] = array(
+			'@type'    => 'MonetaryAmount',
+			'currency' => $currency,
+			'value'    => $value,
+		);
+	}
+
+	echo "\n" . '<script type="application/ld+json">' . wp_json_encode( $job, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
+}
+add_action( 'wp_head', 'paz_render_jobposting_jsonld', 6 );

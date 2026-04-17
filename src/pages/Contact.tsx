@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Clock, ExternalLink } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ExternalLink, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { useFormSubmit } from "@/hooks/use-form-submit";
 import buildingImg from "@/assets/building-exterior.jpg";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
@@ -14,6 +16,51 @@ const contactInfo = [
   { icon: MapPin, title: "Address", main: "Duncalf St, Burslem", sub: "Stoke-on-Trent ST6 3LJ" },
   { icon: Clock, title: "Opening Hours", main: "Monday - Friday", sub: "8:30am - 4:00pm" },
 ];
+
+const CONTACT_WEBHOOK = import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined;
+
+// Rich LocalBusiness / EducationalOrganization schema with full ContactPoint
+// + openingHoursSpecification so crawlers surface hours, phone, and address.
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@type": ["EducationalOrganization", "LocalBusiness"],
+  name: SITE_NAME,
+  url: SITE_URL,
+  telephone: "+44-1782-365365",
+  email: "info@pathwayacademyzone.co.uk",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Duncalf Street, Burslem",
+    addressLocality: "Stoke-on-Trent",
+    postalCode: "ST6 3LJ",
+    addressCountry: "GB",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: 53.043, longitude: -2.191 },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:30",
+      closes: "16:00",
+    },
+  ],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      telephone: "+44-1782-365365",
+      email: "info@pathwayacademyzone.co.uk",
+      areaServed: "GB",
+      availableLanguage: ["English"],
+    },
+    {
+      "@type": "ContactPoint",
+      contactType: "referrals",
+      telephone: "+44-1782-365365",
+      email: "referrals@pathwayacademyzone.co.uk",
+    },
+  ],
+};
 const quickLinks = [
   { title: "Make a Referral", desc: "Start the referral process for a young person", path: "/referral" },
   { title: "Visit Our Centre", desc: "See our facilities and meet the team", path: "/centres" },
@@ -23,11 +70,41 @@ const quickLinks = [
 export default function Contact() {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", phone: "", type: "", organisation: "", message: "" });
-  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); toast({ title: "Message Sent", description: "Thank you. We'll get back to you soon." }); };
-  const update = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
+
+  const { submit, loading, error, success, reset } = useFormSubmit<typeof form>({
+    url: CONTACT_WEBHOOK,
+    method: "POST",
+    format: "json",
+    extra: { source: "contact-form", site: SITE_URL },
+    onSuccess: () =>
+      toast({
+        title: "Message sent",
+        description: "Thank you. We'll be in touch within 24 hours.",
+      }),
+    onError: (err) =>
+      toast({
+        variant: "destructive",
+        title: "Couldn't send message",
+        description: err instanceof Error ? err.message : "Please try again.",
+      }),
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await submit(form);
+  };
+  const update = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    if (success || error) reset();
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+  };
 
   return (
     <Layout>
+      <Seo
+        title="Contact Us"
+        description="Get in touch with Pathway Academy Zone in Stoke-on-Trent. Call, email, or send a message — Mon–Fri 8:30am–4:00pm."
+        jsonLd={contactSchema}
+      />
       <section className="relative py-32">
         <div className="absolute inset-0"><img src={buildingImg} alt="Pathway Academy Zone building" className="w-full h-full object-cover" /><div className="absolute inset-0 bg-foreground/60" /></div>
         <div className="container mx-auto px-4 text-center relative z-10">
@@ -55,7 +132,25 @@ export default function Contact() {
             </div>
             <div><label className="text-sm font-medium text-foreground mb-1 block">Organisation (if applicable)</label><input value={form.organisation} onChange={update("organisation")} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm" placeholder="School, Local Authority, etc." /></div>
             <div><label className="text-sm font-medium text-foreground mb-1 block">Your Message *</label><textarea required value={form.message} onChange={update("message")} rows={5} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm" placeholder="How can we help you?" /></div>
-            <Button type="submit" size="lg" className="w-full rounded-full">Send Message</Button>
+            <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full">
+              {loading ? (
+                <span className="inline-flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending...
+                </span>
+              ) : (
+                "Send Message"
+              )}
+            </Button>
+            {success && (
+              <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
+                <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Message sent — we&apos;ll reply within 24 hours.
+              </p>
+            )}
+            {error && (
+              <p className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
+                <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
+              </p>
+            )}
             <p className="text-xs text-muted-foreground text-center">By submitting this form, you agree to our privacy policy.</p>
           </form>
         </motion.div>

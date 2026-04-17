@@ -38,5 +38,16 @@ function paz_register_taxonomies() {
 			'singular_name' => __( 'News Category', 'pathway-academy-zone' ),
 		),
 	) );
+
+	register_taxonomy( 'paz_vacancy_department', 'paz_vacancy', array(
+		'hierarchical' => true,
+		'public'       => true,
+		'show_in_rest' => true,
+		'rewrite'      => array( 'slug' => 'vacancies/department' ),
+		'labels'       => array(
+			'name'          => __( 'Departments', 'pathway-academy-zone' ),
+			'singular_name' => __( 'Department', 'pathway-academy-zone' ),
+		),
+	) );
 }
 add_action( 'init', 'paz_register_taxonomies' );
