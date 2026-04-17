@@ -1,14 +1,20 @@
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, ArrowRight, Phone } from "lucide-react";
-import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs } from "@/components/Seo";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, ArrowRight, Phone, Search } from "lucide-react";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ArchiveLayout } from "@/components/ArchiveLayout";
+import { FilterPills } from "@/components/FilterPills";
+import { cn } from "@/lib/utils";
 
 type QA = { q: string; a: string };
-type FAQGroup = { title: string; items: QA[] };
+type FAQGroup = { id: string; title: string; items: QA[] };
 
 const GROUPS: FAQGroup[] = [
   {
+    id: "about-ap",
     title: "About Alternative Provision",
     items: [
       {
@@ -26,6 +32,7 @@ const GROUPS: FAQGroup[] = [
     ],
   },
   {
+    id: "referrals",
     title: "Referrals",
     items: [
       {
@@ -43,6 +50,7 @@ const GROUPS: FAQGroup[] = [
     ],
   },
   {
+    id: "life-at-paz",
     title: "Life at Pathway Academy Zone",
     items: [
       {
@@ -60,6 +68,7 @@ const GROUPS: FAQGroup[] = [
     ],
   },
   {
+    id: "commissioners",
     title: "Commissioners & Partner Schools",
     items: [
       {
@@ -78,8 +87,14 @@ const GROUPS: FAQGroup[] = [
   },
 ];
 
+const ALL = "All";
+
 export default function FAQs() {
-  const allItems = GROUPS.flatMap((g) => g.items);
+  const [activeCategory, setActiveCategory] = useState<string>(ALL);
+  const [query, setQuery] = useState("");
+
+  const allItems = useMemo(() => GROUPS.flatMap((g) => g.items), []);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -90,59 +105,134 @@ export default function FAQs() {
     })),
   };
 
+  const filteredGroups = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return GROUPS
+      .filter((g) => activeCategory === ALL || g.title === activeCategory)
+      .map((g) => ({
+        ...g,
+        items: g.items.filter(
+          (item) =>
+            !q ||
+            item.q.toLowerCase().includes(q) ||
+            item.a.toLowerCase().includes(q)
+        ),
+      }))
+      .filter((g) => g.items.length > 0);
+  }, [activeCategory, query]);
+
+  const categories = [ALL, ...GROUPS.map((g) => g.title)];
+  const totalMatches = filteredGroups.reduce((n, g) => n + g.items.length, 0);
+
   return (
-    <Layout>
+    <>
       <Seo
         title="Frequently Asked Questions"
         description="Answers to the most common questions about Alternative Provision, referrals, and life at Pathway Academy Zone."
         jsonLd={jsonLd}
       />
-
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <Breadcrumbs
-            items={[{ label: "FAQs" }]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+      <ArchiveLayout
+        crumbs={[{ label: "FAQs" }]}
+        title="Frequently Asked Questions"
+        intro="Quick answers for parents, carers, schools, local authorities, and anyone new to Alternative Provision."
+        sidebar={{
+          toc: GROUPS.map((g) => ({ id: g.id, label: g.title, level: 2 })),
+          ctas: [
+            {
+              label: "Make a Referral",
+              href: "/referral",
+              description: "Start the placement process for a young person.",
+              tone: "primary",
+            },
+            {
+              label: "Knowledge Hub",
+              href: "/knowledge-hub",
+              description: "Guides, comparisons and best practice for AP.",
+            },
+          ],
+          quickContact: {
+            phone: "01782 365365",
+            email: "info@pathwayacademyzone.co.uk",
+          },
+        }}
+      >
+        <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between">
+          <FilterPills
+            options={categories}
+            active={activeCategory}
+            onChange={setActiveCategory}
+            ariaLabel="Filter FAQs by category"
           />
-          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
-            Pathway Academy Zone
-          </p>
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-2xl">
-            Quick answers for parents, carers, schools, local authorities, and
-            anyone new to Alternative Provision.
-          </p>
-        </div>
-      </header>
 
-      <section className="container mx-auto px-4 py-10 md:py-16 max-w-3xl space-y-10">
-        {GROUPS.map((group) => (
-          <div key={group.title}>
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">
-              {group.title}
-            </h2>
-            <div className="space-y-3">
-              {group.items.map((item) => (
-                <details
-                  key={item.q}
-                  className="group bg-card rounded-xl border border-border overflow-hidden"
-                >
-                  <summary className="font-semibold text-foreground cursor-pointer list-none flex items-center justify-between p-5">
-                    {item.q}
-                    <ChevronDown className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform shrink-0 ml-4" />
-                  </summary>
-                  <div className="px-5 pb-5">
-                    <p className="text-muted-foreground leading-relaxed">
-                      {item.a}
-                    </p>
-                  </div>
-                </details>
-              ))}
-            </div>
+          <div className="relative w-full md:w-64">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+            <Input
+              type="search"
+              placeholder="Search questions..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="pl-9 bg-card border-border text-foreground placeholder:text-muted-foreground"
+              aria-label="Search FAQs"
+            />
           </div>
-        ))}
+        </div>
+
+        <p className="text-sm text-muted-foreground">
+          Showing{" "}
+          <span className="font-medium text-foreground">{totalMatches}</span>{" "}
+          of {allItems.length} questions
+        </p>
+
+        {filteredGroups.length > 0 ? (
+          <div className="space-y-12">
+            {filteredGroups.map((group) => (
+              <section
+                key={group.id}
+                id={group.id}
+                aria-labelledby={`${group.id}-heading`}
+                className="scroll-mt-28"
+              >
+                <div className="flex items-center gap-2 mb-5">
+                  <span
+                    className="block w-1 h-5 rounded-full bg-accent"
+                    aria-hidden="true"
+                  />
+                  <h2
+                    id={`${group.id}-heading`}
+                    className="text-sm font-semibold text-muted-foreground tracking-widest uppercase"
+                  >
+                    {group.title}
+                  </h2>
+                </div>
+                <div className="space-y-3">
+                  {group.items.map((item, idx) => (
+                    <FaqItem
+                      key={item.q}
+                      question={item.q}
+                      answer={item.a}
+                      index={idx}
+                    />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 rounded-2xl border border-border bg-card">
+            <p className="text-muted-foreground text-base mb-4">
+              No questions found matching your search.
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setActiveCategory(ALL);
+                setQuery("");
+              }}
+            >
+              Clear filters
+            </Button>
+          </div>
+        )}
 
         <div className="rounded-2xl bg-muted/50 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
@@ -167,7 +257,72 @@ export default function FAQs() {
             </Button>
           </div>
         </div>
-      </section>
-    </Layout>
+      </ArchiveLayout>
+    </>
+  );
+}
+
+function FaqItem({
+  question,
+  answer,
+  index,
+}: {
+  question: string;
+  answer: string;
+  index: number;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className={cn(
+        "bg-card rounded-2xl border overflow-hidden transition-all duration-300",
+        open ? "border-primary/40 shadow-md" : "border-border/50 hover:border-border"
+      )}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="w-full font-display font-semibold text-foreground flex items-center justify-between p-6 text-left gap-4"
+      >
+        <span>{question}</span>
+        <motion.span
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className={cn(
+            "shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors",
+            open ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+          )}
+        >
+          <ChevronDown className="h-4 w-4" />
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+            className="overflow-hidden"
+          >
+            <motion.div
+              initial={{ y: -8 }}
+              animate={{ y: 0 }}
+              exit={{ y: -8 }}
+              transition={{ duration: 0.25 }}
+              className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed"
+            >
+              {answer}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }

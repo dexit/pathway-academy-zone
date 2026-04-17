@@ -2,9 +2,20 @@
 <html lang="en-GB" class="bg-background">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#2e8158" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0d1914" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="theme-color"
+      content="#2e8158"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0d1914"
+      media="(prefers-color-scheme: dark)"
+    />
     <meta name="color-scheme" content="light dark" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,7 +26,10 @@
     <link rel="apple-touch-icon" href="/favicon.ico" />
 
     <title>Pathway Academy Zone | Alternative Provision Stoke</title>
-    <meta name="description" content="Pathway Academy Zone provides Alternative Provision in Stoke-on-Trent and Staffordshire for ages 11-16. SEMH support, behaviour and reintegration programmes." />
+    <meta
+      name="description"
+      content="Pathway Academy Zone provides Alternative Provision in Stoke-on-Trent and Staffordshire for ages 11-16. SEMH support, behaviour and reintegration programmes."
+    />
     <meta name="author" content="Pathway Academy Zone" />
     <link rel="canonical" href="https://pathwayacademyzone.co.uk/" />
 
@@ -23,15 +37,21 @@
       // Apply saved theme before paint to prevent flash
       try {
         var t = localStorage.getItem("paz-theme");
-        var d = t === "dark" || (!t && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        var d =
+          t === "dark" ||
+          (!t && window.matchMedia("(prefers-color-scheme: dark)").matches);
         if (d) document.documentElement.classList.add("dark");
       } catch (e) {}
     </script>
   </head>
 
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-foreground focus:text-background focus:px-3 focus:py-2">Skip to content</a>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-foreground focus:text-background focus:px-3 focus:py-2"
+      >Skip to content</a
+    >
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>
