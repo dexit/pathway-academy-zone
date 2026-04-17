@@ -14,18 +14,18 @@ export function HubSectionCard({ section }: HubSectionCardProps) {
     <div className="flex flex-col bg-card rounded-xl border border-border overflow-hidden hover:shadow-md transition-shadow h-full">
       {/* Card header */}
       <div className="p-6 border-b border-border">
-        <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-            <Icon className={cn("w-5 h-5", section.color)} />
-          </div>
-          <div>
-            <h3 className="text-base font-semibold text-foreground mb-1">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col md:flex-row md:items-center gap-3">
+            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
+              <Icon className={cn("w-5 h-5", section.color)} />
+            </div>
+            <h3 className="text-base font-semibold text-foreground">
               {section.title}
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {section.description}
-            </p>
           </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {section.description}
+          </p>
         </div>
       </div>
 
