@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig } from "lucide-react";
 import Layout from "@/components/Layout";
@@ -273,16 +274,8 @@ export default function HomePage() {
             <p className="text-muted-foreground mt-4">Quick answers to help you understand Alternative Provision and how Pathway Academy Zone works.</p>
           </motion.div>
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-3">
-            {faqs.map((faq) => (
-              <details key={faq.q} className="group bg-card rounded-xl border border-border/50 overflow-hidden">
-                <summary className="font-display font-semibold text-foreground cursor-pointer list-none flex items-center justify-between p-6">
-                  {faq.q}
-                  <ChevronDown className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform shrink-0 ml-4" />
-                </summary>
-                <div className="px-6 pb-6">
-                  <p className="text-muted-foreground text-sm leading-relaxed">{faq.a}</p>
-                </div>
-              </details>
+            {faqs.map((faq, idx) => (
+              <FaqItem key={faq.q} question={faq.q} answer={faq.a} index={idx} />
             ))}
           </motion.div>
         </div>
