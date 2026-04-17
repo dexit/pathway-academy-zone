@@ -81,18 +81,27 @@ export default function Header() {
                       transition={{ duration: 0.15 }}
                       className="absolute top-full left-0 mt-1 w-52 bg-card rounded-xl shadow-lg border border-border py-2"
                     >
-                      {link.children.map((child) => (
-                        <Link
+                      {link.children.map((child, idx) => (
+                        <motion.div
                           key={child.path}
-                          to={child.path}
-                          className={`block px-4 py-2.5 text-sm transition-colors ${
-                            location.pathname === child.path
-                              ? "text-primary bg-secondary"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                          }`}
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.2, delay: idx * 0.04 }}
                         >
-                          {child.label}
-                        </Link>
+                          <Link
+                            to={child.path}
+                            title={child.label}
+                            rel="next"
+                            aria-current={location.pathname === child.path ? "page" : undefined}
+                            className={`block px-4 py-2.5 mx-2 rounded-xl text-sm transition-colors ${
+                              location.pathname === child.path
+                                ? "text-primary bg-secondary"
+                                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                            }`}
+                          >
+                            {child.label}
+                          </Link>
+                        </motion.div>
                       ))}
                     </motion.div>
                   )}
@@ -102,7 +111,10 @@ export default function Header() {
               <Link
                 key={link.path}
                 to={link.path!}
-                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                title={link.label}
+                rel={link.path === "/" ? "home" : undefined}
+                aria-current={location.pathname === link.path ? "page" : undefined}
+                className={`px-3 py-2 mx-2 text-sm font-medium rounded-xl transition-colors ${
                   location.pathname === link.path
                     ? "text-primary bg-secondary"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -115,16 +127,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3 shrink-0">
-          <div className="hidden xl:block">
-            <SearchBar />
-          </div>
-          <button
-            onClick={() => navigate("/search")}
-            aria-label="Search"
-            className="xl:hidden p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground"
-          >
-            <SearchIcon className="h-4 w-4" />
-          </button>
+          <SearchBar />
           <a
             href="tel:+441782365365"
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
@@ -192,7 +195,10 @@ export default function Header() {
                         key={child.path}
                         to={child.path}
                         onClick={() => setMobileOpen(false)}
-                        className={`block px-6 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                        title={child.label}
+                        rel="next"
+                        aria-current={location.pathname === child.path ? "page" : undefined}
+                        className={`block px-6 py-2.5 mx-2 rounded-xl text-sm font-medium transition-colors ${
                           location.pathname === child.path
                             ? "text-primary bg-secondary"
                             : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -207,7 +213,10 @@ export default function Header() {
                     key={link.path}
                     to={link.path!}
                     onClick={() => setMobileOpen(false)}
-                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    title={link.label}
+                    rel={link.path === "/" ? "home" : undefined}
+                    aria-current={location.pathname === link.path ? "page" : undefined}
+                    className={`px-4 py-3 mx-2 rounded-xl text-sm font-medium transition-colors ${
                       location.pathname === link.path
                         ? "text-primary bg-secondary"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"

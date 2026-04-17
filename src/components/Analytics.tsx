@@ -46,7 +46,7 @@ declare global {
   }
 }
 
-function injectOnce(id: string, build: () => HTMLScriptElement | HTMLIFrameElement | HTMLNoScriptElement, target: "head" | "body" = "head") {
+function injectOnce(id: string, build: () => HTMLElement, target: "head" | "body" = "head") {
   if (document.querySelector(`[data-analytics="${id}"]`)) return
   const node = build()
   node.setAttribute("data-analytics", id)
