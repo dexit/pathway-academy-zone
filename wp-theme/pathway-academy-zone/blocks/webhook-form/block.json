@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/webhook-form",
+	"title": "Webhook Form",
+	"category": "paz",
+	"icon": "feedback",
+	"description": "Custom form that submits to a webhook URL.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": true, "align": ["wide"] },
+	"render": "file:./render.php"
+}

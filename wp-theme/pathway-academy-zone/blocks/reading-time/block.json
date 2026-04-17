@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/reading-time",
+	"title": "Reading Time",
+	"category": "paz",
+	"icon": "clock",
+	"description": "Estimated reading time badge.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false },
+	"render": "file:./render.php"
+}

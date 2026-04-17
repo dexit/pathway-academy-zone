@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/related-content",
+	"title": "Related Content",
+	"category": "paz",
+	"icon": "admin-post",
+	"description": "Grid of related articles or pages.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"render": "file:./render.php"
+}

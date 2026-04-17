@@ -110,7 +110,8 @@
 		{ "name": "footer",            "title": "Footer",            "area": "footer" },
 		{ "name": "sidebar",           "title": "Sidebar",           "area": "uncategorized" },
 		{ "name": "announcement-bar",  "title": "Announcement Bar",  "area": "uncategorized" },
-		{ "name": "cta-banner",        "title": "CTA Banner",        "area": "uncategorized" }
+		{ "name": "cta-banner",        "title": "CTA Banner",        "area": "uncategorized" },
+		{ "name": "social-links",      "title": "Social Links",      "area": "uncategorized" }
 	],
 	"customTemplates": [
 		{ "name": "page-full-width",    "title": "Full Width Page",    "postTypes": ["page"] },
@@ -122,6 +123,13 @@
 		{ "name": "page-partners",      "title": "Partners Page",      "postTypes": ["page"] },
 		{ "name": "page-case-studies",  "title": "Case Studies Page",  "postTypes": ["page"] },
 		{ "name": "page-testimonials",  "title": "Testimonials Page",  "postTypes": ["page"] },
-		{ "name": "page-vacancies",     "title": "Vacancies Page",     "postTypes": ["page"] }
+		{ "name": "page-vacancies",     "title": "Vacancies Page",     "postTypes": ["page"] },
+		{ "name": "page-about",         "title": "About Page",         "postTypes": ["page"] },
+		{ "name": "page-outcomes",      "title": "Outcomes Page",      "postTypes": ["page"] },
+		{ "name": "page-safeguarding",  "title": "Safeguarding Page",  "postTypes": ["page"] },
+		{ "name": "page-referral",      "title": "Referral Page",      "postTypes": ["page"] },
+		{ "name": "page-glossary",      "title": "Glossary Page",      "postTypes": ["page"] },
+		{ "name": "page-complete-guide", "title": "Complete Guide Page", "postTypes": ["page"] },
+		{ "name": "page-faqs",           "title": "FAQs Page",           "postTypes": ["page"] }
 	]
 }

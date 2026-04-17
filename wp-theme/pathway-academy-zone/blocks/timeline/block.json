@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/timeline",
+	"title": "Timeline",
+	"category": "paz",
+	"icon": "ellipsis",
+	"description": "A vertical timeline of events.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"render": "file:./render.php"
+}
