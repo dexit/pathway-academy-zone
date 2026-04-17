@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School } from "lucide-react";
+import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo } from "@/components/Seo";
 import heroImg from "@/assets/hero-classroom.jpg";
@@ -113,9 +113,7 @@ export default function HomePage() {
               <ul className="space-y-3 mb-8">
                 {["SEMH-focused curriculum delivery", "Small group and 1:1 support", "Qualified teachers and mentors", "Strong pastoral care teams", "Vocational and academic pathways"].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-foreground">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                    </div>
+                    <CircleCheckBig className="w-5 h-5 text-primary shrink-0" />
                     {item}
                   </li>
                 ))}
