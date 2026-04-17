@@ -22,7 +22,7 @@ export const HUB_SECTIONS: HubSection[] = [
     description:
       "Essential guides explaining Alternative Provision fundamentals, processes, and pathways for educators, parents, and referring professionals.",
     icon: BookOpen,
-    color: "text-accent",
+    color: "text-primary",
     resources: [
       { title: "What is Alternative Provision", href: "/knowledge-hub/guides/what-is-alternative-provision" },
       { title: "How AP Works in Staffordshire", href: "/knowledge-hub/guides/how-ap-works-staffordshire" },
@@ -51,7 +51,7 @@ export const HUB_SECTIONS: HubSection[] = [
     description:
       "Evidence-based strategies and proven approaches for achieving the best outcomes in Alternative Provision settings.",
     icon: Star,
-    color: "text-accent",
+    color: "text-primary",
     resources: [
       { title: "SEMH Pathways", href: "/knowledge-hub/best-practice/semh-pathways" },
       { title: "Attendance Strategies", href: "/knowledge-hub/best-practice/attendance-strategies" },
