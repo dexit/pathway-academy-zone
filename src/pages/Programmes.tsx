@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Wrench, Brain, Lightbulb, Briefcase, Heart, Calendar, Clock, CheckCircle, ArrowRight } from "lucide-react";
+import { BookOpen, Wrench, Brain, Lightbulb, Briefcase, Heart, Calendar, Clock, CheckCircle, ArrowRight, MapPin, Building2 } from "lucide-react";
 import Layout from "@/components/Layout";
 import classroomImg from "@/assets/classroom-learning.jpg";
 import vocationalImg from "@/assets/vocational-training.jpg";
@@ -45,6 +45,48 @@ export default function Programmes() {
           </motion.div>
         ))}
       </div></div></section>
+      {/* Where these programmes are delivered */}
+      <section className="py-20 bg-muted/40">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-center bg-card rounded-3xl border border-border p-8 md:p-12 shadow-sm">
+            <div>
+              <span className="inline-flex items-center gap-2 text-primary font-medium text-sm tracking-wider uppercase mb-3">
+                <Building2 className="h-4 w-4" /> Where We Deliver
+              </span>
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
+                Our Programmes are Delivered at Our Centres
+              </h2>
+              <p className="text-muted-foreground leading-relaxed max-w-xl">
+                Every programme is delivered in our purpose-built learning
+                centre in Burslem, Stoke-on-Trent. Visit the Centres page to see
+                our facilities, a typical day&apos;s timetable, and how to
+                arrange a tour.
+              </p>
+              <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-muted-foreground">
+                <span className="inline-flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-primary" /> Duncalf St, Burslem ST6 3LJ
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-primary" /> Mon–Fri, 8:30am–4:00pm
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+              <Button asChild>
+                <Link to="/centres" title="Our Centres">
+                  Visit Our Centres <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/contact" title="Arrange a tour">
+                  Arrange a Tour
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 bg-primary text-center"><div className="container mx-auto px-4">
         <h2 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground mb-4">Find the Right Programme</h2>
         <p className="text-primary-foreground/80 mb-8 max-w-xl mx-auto">Every young person is unique. Contact us to discuss which pathway would best support your student's needs and goals.</p>

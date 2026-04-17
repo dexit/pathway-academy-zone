@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MapPin, Clock, Monitor, BookOpen, Coffee, Bus, ArrowRight } from "lucide-react";
+import { MapPin, Clock, Monitor, BookOpen, Coffee, Bus, ArrowRight, Wrench, Brain, Heart, Briefcase, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
 import buildingImg from "@/assets/building-exterior.jpg";
 import classroomImg from "@/assets/classroom-learning.jpg";
@@ -57,6 +57,48 @@ export default function Centres() {
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-10">Gallery</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">{[buildingImg, classroomImg, mentoringImg, vocationalImg].map((img, i) => (<motion.img key={i} src={img} alt="Centre gallery" className="rounded-xl w-full h-56 object-cover" loading="lazy" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} />))}</div>
       </div></section>
+      {/* Programmes delivered at this centre */}
+      <section className="py-20 bg-muted/40">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10">
+              <span className="text-primary font-medium text-sm tracking-wider uppercase">What We Deliver Here</span>
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mt-2 mb-3">Programmes Delivered at Our Centre</h2>
+              <p className="text-muted-foreground max-w-xl mx-auto">Every learner&apos;s timetable is built from these six core programme strands, blended to match individual needs.</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+              {[
+                { icon: BookOpen, label: "Academic Re-engagement" },
+                { icon: Wrench, label: "Vocational Learning" },
+                { icon: Brain, label: "SEMH Support" },
+                { icon: Lightbulb, label: "Personal Development" },
+                { icon: Heart, label: "Life Skills" },
+                { icon: Briefcase, label: "Employability Skills" },
+              ].map((p) => (
+                <div key={p.label} className="bg-card border border-border rounded-xl p-4 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <p.icon className="h-4 w-4 text-primary" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">{p.label}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Button asChild>
+                <Link to="/programmes" title="See all programmes">
+                  Explore All Programmes <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/referral" title="Make a referral">
+                  Make a Referral
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 bg-muted/50 text-center"><div className="container mx-auto px-4">
         <h2 className="font-display text-2xl font-bold text-foreground mb-4">Visit Our Centre</h2>
         <p className="text-muted-foreground mb-8">We welcome visits from prospective families, referrers, and commissioners.</p>
