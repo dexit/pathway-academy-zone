@@ -130,10 +130,12 @@ export default function Header() {
           <SearchBar />
           <a
             href="tel:+441782365365"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+            aria-label="Call 01782 365365"
+            title="01782 365365"
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors xl:px-2 lg:p-2 lg:rounded-full lg:hover:bg-muted xl:hover:bg-transparent xl:rounded-none"
           >
             <Phone className="h-4 w-4" />
-            01782 365365
+            <span className="hidden xl:inline">01782 365365</span>
           </a>
           <ThemeToggle />
           <Button asChild size="sm">
