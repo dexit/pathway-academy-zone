@@ -12,6 +12,17 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    proxy: {
+      '/api/external': {
+        target: 'http://localhost:8080', // Dummy target
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/external\?url=/, ''),
+        router: (req) => {
+          const url = new URL(req.url || '', 'http://localhost:8080').searchParams.get('url');
+          return url || '';
+        }
+      }
+    }
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
