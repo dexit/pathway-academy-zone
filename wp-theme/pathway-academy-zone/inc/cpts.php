@@ -6,7 +6,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	return;
 }
 
 /**
@@ -96,10 +96,6 @@ function paz_register_cpts() {
 		'rewrite'   => array( 'slug' => 'news', 'with_front' => false ),
 	) ) );
 
-	/**
-	 * Vacancies / Careers — job postings with full Google JobPosting schema
-	 * support via paz_* meta fields (see paz_register_meta below).
-	 */
 	register_post_type( 'paz_vacancy', paz_cpt_defaults( array(
 		'labels' => array(
 			'name'               => __( 'Vacancies', 'pathway-academy-zone' ),
@@ -110,6 +106,42 @@ function paz_register_cpts() {
 		),
 		'menu_icon' => 'dashicons-businessperson',
 		'rewrite'   => array( 'slug' => 'vacancies', 'with_front' => false ),
+	) ) );
+
+	register_post_type( 'paz_testimonial', paz_cpt_defaults( array(
+		'labels' => array(
+			'name'          => __( 'Testimonials', 'pathway-academy-zone' ),
+			'singular_name' => __( 'Testimonial', 'pathway-academy-zone' ),
+			'menu_name'     => __( 'Testimonials', 'pathway-academy-zone' ),
+		),
+		'menu_icon' => 'dashicons-testimonial',
+	) ) );
+
+	register_post_type( 'paz_partner', paz_cpt_defaults( array(
+		'labels' => array(
+			'name'          => __( 'Partners', 'pathway-academy-zone' ),
+			'singular_name' => __( 'Partner', 'pathway-academy-zone' ),
+			'menu_name'     => __( 'Partners', 'pathway-academy-zone' ),
+		),
+		'menu_icon' => 'dashicons-networking',
+	) ) );
+
+	register_post_type( 'paz_faq', paz_cpt_defaults( array(
+		'labels' => array(
+			'name'          => __( 'FAQs', 'pathway-academy-zone' ),
+			'singular_name' => __( 'FAQ', 'pathway-academy-zone' ),
+			'menu_name'     => __( 'FAQs', 'pathway-academy-zone' ),
+		),
+		'menu_icon' => 'dashicons-editor-help',
+	) ) );
+
+	register_post_type( 'paz_glossary', paz_cpt_defaults( array(
+		'labels' => array(
+			'name'          => __( 'Glossary', 'pathway-academy-zone' ),
+			'singular_name' => __( 'Glossary Item', 'pathway-academy-zone' ),
+			'menu_name'     => __( 'Glossary', 'pathway-academy-zone' ),
+		),
+		'menu_icon' => 'dashicons-media-text',
 	) ) );
 }
 add_action( 'init', 'paz_register_cpts' );
@@ -137,6 +169,10 @@ function paz_register_meta() {
 
 	register_post_meta( 'paz_resource', 'paz_read_time',$string );
 	register_post_meta( 'paz_resource', 'paz_summary',  $string );
+
+	register_post_meta( 'paz_testimonial', 'paz_author_role', $string );
+	register_post_meta( 'paz_partner',     'paz_partner_url', $string );
+	register_post_meta( 'paz_faq',         'paz_faq_category', $string );
 
 	// JobPosting schema fields — all optional, all REST-exposed.
 	register_post_meta( 'paz_vacancy',  'paz_job_location_type', $string ); // "TELECOMMUTE" | "" (on-site)
