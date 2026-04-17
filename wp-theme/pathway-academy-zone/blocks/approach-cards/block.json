@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/approach-cards",
+	"title": "Approach Cards",
+	"category": "paz",
+	"icon": "heart",
+	"description": "Four cards: Trauma-Informed Approach, Personalised Pathways, Expert Staff, Safe Environment.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"render": "file:./render.php"
+}

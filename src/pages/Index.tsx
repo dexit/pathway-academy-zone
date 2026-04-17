@@ -71,23 +71,28 @@ export default function HomePage() {
         </div>
         <div className="container mx-auto px-4 py-20 relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-2xl">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary-foreground text-sm font-medium mb-6 backdrop-blur-sm border border-primary-foreground/20">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-white/15 text-white text-sm font-medium mb-6 backdrop-blur-sm border border-white/25">
               Alternative Provision in Staffordshire
             </span>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-[1.1] mb-6">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
               Every Young Person Deserves a Pathway To Success
             </h1>
-            <p className="text-primary-foreground/80 text-lg md:text-xl mb-4 max-w-xl">
+            <p className="text-white/90 text-lg md:text-xl mb-4 max-w-xl">
               We provide specialist education for young people who need a different approach.
             </p>
-            <p className="text-primary-foreground/70 text-base md:text-lg mb-10 max-w-xl">
+            <p className="text-white/75 text-base md:text-lg mb-10 max-w-xl">
               Through structure, care and high expectations, we help young people re-engage, rebuild confidence and move forward in education, employment or training.
             </p>
             <div className="flex flex-col sm:flex-row items-start gap-4">
-              <Button asChild size="xl" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-semibold shadow-lg px-8">
+              <Button asChild size="xl" className="rounded-full shadow-lg px-8">
                 <Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-5 w-5" /></Link>
               </Button>
-              <Button asChild size="lg" className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full backdrop-blur-sm bg-transparent">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-full border-2 border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white backdrop-blur-sm"
+              >
                 <Link to="/about">Learn About Us</Link>
               </Button>
             </div>
@@ -312,10 +317,19 @@ export default function HomePage() {
               Whether you're a school, local authority, social worker, or parent, we're here to help. Our team will guide you through the referral process and find the right pathway for your young person.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="xl" className="bg-card text-primary hover:bg-card/90 rounded-full font-semibold shadow-lg">
+              <Button
+                asChild
+                size="xl"
+                className="rounded-full bg-white text-primary hover:bg-white/90 font-semibold shadow-lg"
+              >
                 <Link to="/referral">Start a Referral <ArrowRight className="ml-1 h-5 w-5" /></Link>
               </Button>
-              <Button asChild size="lg" className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full backdrop-blur-sm bg-transparent">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-full border-2 border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white backdrop-blur-sm"
+              >
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
