@@ -1,30 +1,32 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { School, Building2, GraduationCap, Users, Briefcase, Stethoscope, ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo } from "@/components/Seo";
+import { LogoTicker } from "@/components/LogoTicker";
+import { partners } from "@/data/partners-data";
 import careersImg from "@/assets/careers-event.jpg";
 import mentoringImg from "@/assets/mentoring-session.jpg";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
-const partners = [
-  { icon: School, title: "Staffordshire Schools", desc: "We work with secondary schools across Staffordshire to provide Alternative Provision placements.", tags: ["Mainstream secondaries","Special schools","Academy trusts"] },
-  { icon: Building2, title: "Local Authority Teams", desc: "Close partnerships with Staffordshire County Council education and children's services.", tags: ["Inclusion teams","SEND services","Early Help"] },
-  { icon: GraduationCap, title: "Virtual Schools", desc: "We provide specialist placements for looked after children, working closely with virtual school heads.", tags: ["PEP meetings","Designated teachers","Care coordination"] },
-  { icon: Users, title: "Youth & Community Services", desc: "Partnerships with local youth services and community organisations enrich our offer.", tags: ["Youth clubs","Sports organisations","Arts groups"] },
-  { icon: Briefcase, title: "Employers & Training Providers", desc: "Local businesses and training providers support our vocational programmes.", tags: ["Apprenticeship providers","Local businesses","Colleges"] },
-  { icon: Stethoscope, title: "Specialist Services", desc: "We work alongside CAMHS, educational psychologists, speech and language therapists.", tags: ["CAMHS","Educational psychology","SALT"] },
-];
 const areas = ["Stafford","Cannock Chase","East Staffordshire","Lichfield","Newcastle-under-Lyme","South Staffordshire","Staffordshire Moorlands","Tamworth"];
 
 export default function Partners() {
   return (
     <Layout>
+      <Seo
+        title="Our Partners"
+        description="We work in close partnership with schools, local authorities, and specialist services across Staffordshire to support young people."
+      />
       <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
         <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Local Partnerships</span>
         <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Working Together Across Staffordshire</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Strong partnerships are essential to supporting young people effectively.</p>
       </div></section>
+
+      <LogoTicker logos={partners} title="Our Trusted Partners & Networks" />
+
       <section className="py-24 bg-background"><div className="container mx-auto px-4"><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {partners.map((p, i) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md transition-shadow">
           <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4"><p.icon className="h-6 w-6 text-primary" /></div>
