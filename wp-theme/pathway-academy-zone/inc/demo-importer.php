@@ -71,9 +71,11 @@ function paz_demo_run_import() {
 		return array( __( 'demo-content/demo.json could not be parsed.', 'pathway-academy-zone' ) );
 	}
 
-	// 1. Pages
+	// 1. Pages (two-pass: create first, then fix up parents so "parent" can
+	// reference any page regardless of JSON order).
 	$page_ids = array();
-	foreach ( (array) ( $data['pages'] ?? array() ) as $p ) {
+	$defs     = (array) ( $data['pages'] ?? array() );
+	foreach ( $defs as $p ) {
 		$existing = get_page_by_path( $p['slug'] );
 		$args = array(
 			'post_type'    => 'page',
@@ -88,6 +90,15 @@ function paz_demo_run_import() {
 			$page_ids[ $p['slug'] ] = $existing->ID;
 		} else {
 			$page_ids[ $p['slug'] ] = wp_insert_post( $args );
+		}
+	}
+	// Second pass: attach parents.
+	foreach ( $defs as $p ) {
+		if ( ! empty( $p['parent'] ) && isset( $page_ids[ $p['parent'] ], $page_ids[ $p['slug'] ] ) ) {
+			wp_update_post( array(
+				'ID'          => $page_ids[ $p['slug'] ],
+				'post_parent' => $page_ids[ $p['parent'] ],
+			) );
 		}
 	}
 	$log[] = sprintf( 'Pages imported: %d', count( $page_ids ) );
@@ -126,18 +137,31 @@ function paz_demo_run_import() {
 		update_option( 'page_for_posts', $page_ids['blog'] );
 	}
 
-	// 4. Primary menu
-	if ( ! empty( $data['menus']['primary'] ) ) {
-		$menu_name = 'PAZ Primary';
-		$menu = wp_get_nav_menu_object( $menu_name );
-		$menu_id = $menu ? $menu->term_id : wp_create_nav_menu( $menu_name );
-		// Clear existing items to keep order
+	// 4. Menus (any number of locations defined in `menus`).
+	$menu_labels = array(
+		'primary' => 'PAZ Primary',
+		'footer'  => 'PAZ Footer',
+	);
+	$locations = get_theme_mod( 'nav_menu_locations' );
+	if ( ! is_array( $locations ) ) {
+		$locations = array();
+	}
+	foreach ( (array) ( $data['menus'] ?? array() ) as $location => $items ) {
+		if ( empty( $items ) ) {
+			continue;
+		}
+		$menu_name = $menu_labels[ $location ] ?? ( 'PAZ ' . ucfirst( $location ) );
+		$menu      = wp_get_nav_menu_object( $menu_name );
+		$menu_id   = $menu ? $menu->term_id : wp_create_nav_menu( $menu_name );
+		// Clear existing items so order matches JSON on re-import.
 		$existing_items = wp_get_nav_menu_items( $menu_id );
 		if ( $existing_items ) {
-			foreach ( $existing_items as $item ) wp_delete_post( $item->ID, true );
+			foreach ( $existing_items as $item ) {
+				wp_delete_post( $item->ID, true );
+			}
 		}
-		foreach ( $data['menus']['primary'] as $item ) {
-			$obj_id  = isset( $page_ids[ $item['slug'] ] ) ? $page_ids[ $item['slug'] ] : 0;
+		foreach ( $items as $item ) {
+			$obj_id = isset( $page_ids[ $item['slug'] ] ) ? $page_ids[ $item['slug'] ] : 0;
 			wp_update_nav_menu_item( $menu_id, 0, array(
 				'menu-item-title'     => $item['title'],
 				'menu-item-object'    => $obj_id ? 'page' : 'custom',
@@ -147,11 +171,10 @@ function paz_demo_run_import() {
 				'menu-item-status'    => 'publish',
 			) );
 		}
-		$locations = get_theme_mod( 'nav_menu_locations' );
-		$locations['primary'] = $menu_id;
-		set_theme_mod( 'nav_menu_locations', $locations );
-		$log[] = 'Primary menu created and assigned.';
+		$locations[ $location ] = $menu_id;
+		$log[] = sprintf( '%s menu created and assigned.', $menu_name );
 	}
+	set_theme_mod( 'nav_menu_locations', $locations );
 
 	return $log;
 }

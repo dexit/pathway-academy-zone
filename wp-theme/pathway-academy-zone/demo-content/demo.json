@@ -8,45 +8,126 @@
 		{
 			"slug": "about",
 			"title": "About Us",
-			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">About Pathway Academy Zone</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">We are a specialist Alternative Provision in Stoke-on-Trent supporting young people aged 11&ndash;16 who benefit from an alternative to mainstream education.</p><!-- /wp:paragraph -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/values\"} /-->\n<!-- wp:pazone/team-grid /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">About Pathway Academy Zone</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">We are a specialist Alternative Provision in Stoke-on-Trent supporting young people aged 11&ndash;16 who benefit from an alternative to mainstream education.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/approach\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/values\"} /-->\n<!-- wp:pazone/stat-grid /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "team",
+			"title": "Our Team",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Meet Our Team</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Qualified teachers, youth workers and pastoral specialists committed to every young person&apos;s success.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:pazone/team-grid /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
 		},
 		{
 			"slug": "programmes",
 			"title": "Our Programmes",
-			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Our Programmes</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Tailored pathways for Key Stage 3 and Key Stage 4 learners.</p><!-- /wp:paragraph -->\n<!-- wp:query {\"queryId\":20,\"query\":{\"perPage\":9,\"postType\":\"paz_programme\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":3}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Our Programmes</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Tailored pathways for Key Stage 3 and Key Stage 4 learners.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:query {\"queryId\":20,\"query\":{\"perPage\":9,\"postType\":\"paz_programme\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":3}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
 		},
 		{
 			"slug": "referral",
 			"title": "Make a Referral",
-			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Make a Referral</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Referrals are welcome from mainstream schools, Local Authorities, and family workers.</p><!-- /wp:paragraph -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/referral-journey\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Make a Referral</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Referrals are welcome from mainstream schools, Local Authorities and family workers.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/referral-journey\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
 		},
 		{
 			"slug": "safeguarding",
 			"title": "Safeguarding & Pastoral",
-			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Keeping Young People Safe</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Safeguarding is everyone&apos;s responsibility. We maintain the highest standards to ensure all young people feel safe, supported, and heard.</p><!-- /wp:paragraph -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/key-policies\"} /-->"
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Keeping Young People Safe</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Safeguarding is everyone&apos;s responsibility. We maintain the highest standards to ensure all young people feel safe, supported and heard.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/key-policies\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "outcomes",
+			"title": "Outcomes & Impact",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Outcomes &amp; Impact</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Real results from young people who have found their pathway with us.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:pazone/stat-grid /-->\n<!-- wp:pazone/quote-card {\"quote\":\"Pathway Academy Zone gave my son back his confidence. He now attends every day and is predicted strong GCSE passes.\",\"author\":\"Parent of Year 11 learner\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "partners",
+			"title": "Partners & Referrers",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Working Together</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">We partner with schools, Local Authorities, family workers and community organisations across Staffordshire.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:pazone/icon-grid /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "centres",
+			"title": "Our Centres",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Our Centres</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Purpose-built learning environments designed for relational education.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:query {\"queryId\":50,\"query\":{\"perPage\":6,\"postType\":\"paz_centre\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":2}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
 		},
 		{
 			"slug": "policies",
 			"title": "Policies",
-			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">All Policies</h2><!-- /wp:heading -->\n<!-- wp:query {\"queryId\":30,\"query\":{\"perPage\":24,\"postType\":\"paz_policy\",\"orderBy\":\"title\",\"order\":\"asc\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":2}} --><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">All Policies</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Statutory documents and operational policies, reviewed annually.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:query {\"queryId\":30,\"query\":{\"perPage\":24,\"postType\":\"paz_policy\",\"orderBy\":\"title\",\"order\":\"asc\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":2}} --><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
 		},
 		{
-			"slug": "knowledge-hub",
-			"title": "Knowledge Hub",
-			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Knowledge Hub</h2><!-- /wp:heading -->\n<!-- wp:query {\"queryId\":40,\"query\":{\"perPage\":12,\"postType\":\"paz_resource\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":3}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
+			"slug": "careers",
+			"title": "Careers",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Join Our Team</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">We&apos;re always looking for talented educators and pastoral staff who share our values.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:heading --><h2>Current Vacancies</h2><!-- /wp:heading -->\n<!-- wp:list --><ul><li>Lead Teacher - Mathematics (Full-time, Stoke-on-Trent)</li><li>Pastoral Support Worker (Part-time, Stoke-on-Trent)</li><li>Teaching Assistant (Full-time, Stoke-on-Trent)</li></ul><!-- /wp:list -->\n<!-- wp:paragraph --><p>To apply, email your CV and covering letter to <a href=\"mailto:careers@pathwayacademyzone.co.uk\">careers@pathwayacademyzone.co.uk</a>.</p><!-- /wp:paragraph -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
 		},
 		{
 			"slug": "contact",
 			"title": "Contact Us",
-			"content": "<!-- wp:heading {\"textAlign\":\"center\"} --><h2 class=\"wp-block-heading has-text-align-center\">Get in Touch</h2><!-- /wp:heading -->\n<!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Call <strong>01782 365365</strong> or email <a href=\"mailto:info@pathwayacademyzone.co.uk\">info@pathwayacademyzone.co.uk</a>.</p><!-- /wp:paragraph -->"
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Get in Touch</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Speak to our team about referrals, admissions or partnerships.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:columns --><div class=\"wp-block-columns\"><!-- wp:column --><div class=\"wp-block-column\"><!-- wp:heading {\"level\":3} --><h3>Call us</h3><!-- /wp:heading --><!-- wp:paragraph --><p><strong>01782 365365</strong></p><!-- /wp:paragraph --></div><!-- /wp:column --><!-- wp:column --><div class=\"wp-block-column\"><!-- wp:heading {\"level\":3} --><h3>Email us</h3><!-- /wp:heading --><!-- wp:paragraph --><p><a href=\"mailto:info@pathwayacademyzone.co.uk\">info@pathwayacademyzone.co.uk</a></p><!-- /wp:paragraph --></div><!-- /wp:column --><!-- wp:column --><div class=\"wp-block-column\"><!-- wp:heading {\"level\":3} --><h3>Visit us</h3><!-- /wp:heading --><!-- wp:paragraph --><p>Stoke-on-Trent<br/>Staffordshire</p><!-- /wp:paragraph --></div><!-- /wp:column --></div><!-- /wp:columns -->"
 		},
-		{ "slug": "blog", "title": "News", "content": "" }
+		{
+			"slug": "blog",
+			"title": "Blog",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Blog</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Articles, insight and commentary from the Pathway Academy Zone team.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:query {\"queryId\":60,\"query\":{\"perPage\":9,\"postType\":\"post\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":3}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
+		},
+		{
+			"slug": "news",
+			"title": "Latest News",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Latest News</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Updates, announcements and stories from our centres.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:query {\"queryId\":70,\"query\":{\"perPage\":12,\"postType\":\"paz_news\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":3}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-date /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->"
+		},
+		{
+			"slug": "faqs",
+			"title": "Frequently Asked Questions",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Frequently Asked Questions</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Answers to the questions we hear most often from parents, carers and schools.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:pazone/accordion-faq /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "knowledge-hub",
+			"title": "Knowledge Hub",
+			"content": "<!-- wp:group {\"backgroundColor\":\"primary\",\"textColor\":\"background\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-background-color has-primary-background-color has-text-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Knowledge Hub</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Your comprehensive resource for understanding Alternative Provision. Expert guides, practical comparisons and evidence-based best practices.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:query {\"queryId\":40,\"query\":{\"perPage\":12,\"postType\":\"paz_resource\",\"inherit\":false}} --><div class=\"wp-block-query\"><!-- wp:post-template {\"layout\":{\"type\":\"grid\",\"columnCount\":3}} --><!-- wp:post-featured-image /--><!-- wp:post-title {\"isLink\":true} /--><!-- wp:post-excerpt /--><!-- /wp:post-template --></div><!-- /wp:query -->\n<!-- wp:columns --><div class=\"wp-block-columns\"><!-- wp:column --><div class=\"wp-block-column\"><!-- wp:heading {\"level\":3} --><h3>Glossary</h3><!-- /wp:heading --><!-- wp:paragraph --><p>Plain-English definitions of common terms.</p><!-- /wp:paragraph --><!-- wp:buttons --><div class=\"wp-block-buttons\"><!-- wp:button --><div class=\"wp-block-button\"><a class=\"wp-block-button__link wp-element-button\" href=\"/knowledge-hub/glossary\">Browse glossary</a></div><!-- /wp:button --></div><!-- /wp:buttons --></div><!-- /wp:column --><!-- wp:column --><div class=\"wp-block-column\"><!-- wp:heading {\"level\":3} --><h3>Complete Guide</h3><!-- /wp:heading --><!-- wp:paragraph --><p>An end-to-end walkthrough of Alternative Provision.</p><!-- /wp:paragraph --><!-- wp:buttons --><div class=\"wp-block-buttons\"><!-- wp:button --><div class=\"wp-block-button\"><a class=\"wp-block-button__link wp-element-button\" href=\"/knowledge-hub/complete-guide\">Read the guide</a></div><!-- /wp:button --></div><!-- /wp:buttons --></div><!-- /wp:column --></div><!-- /wp:columns -->"
+		},
+		{
+			"slug": "glossary",
+			"title": "Glossary",
+			"parent": "knowledge-hub",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:pazone/breadcrumbs /--><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">Glossary</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Plain-English definitions of common Alternative Provision, SEND and safeguarding terms.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:list --><ul><li><strong>Alternative Provision (AP)</strong> - education for young people who cannot attend mainstream.</li><li><strong>EHCP</strong> - Education, Health and Care Plan; a legal document for children with SEND.</li><li><strong>SEND</strong> - Special Educational Needs and Disabilities.</li><li><strong>SEN Support</strong> - school-based support for pupils with SEND who do not have an EHCP.</li><li><strong>DfE</strong> - Department for Education.</li><li><strong>LA</strong> - Local Authority.</li><li><strong>CPOMS</strong> - a common safeguarding logging system used in schools.</li><li><strong>DSL</strong> - Designated Safeguarding Lead.</li><li><strong>PEP</strong> - Personal Education Plan for looked-after children.</li><li><strong>LAC</strong> - Looked After Child.</li><li><strong>CME</strong> - Child Missing Education.</li><li><strong>EOTAS</strong> - Education Other Than At School.</li></ul><!-- /wp:list -->"
+		},
+		{
+			"slug": "complete-guide",
+			"title": "The Complete Guide to Alternative Provision",
+			"parent": "knowledge-hub",
+			"content": "<!-- wp:group {\"backgroundColor\":\"muted\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"5rem\",\"bottom\":\"5rem\"}}},\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group has-muted-background-color has-background\" style=\"padding-top:5rem;padding-bottom:5rem\"><!-- wp:pazone/breadcrumbs /--><!-- wp:heading {\"textAlign\":\"center\",\"level\":1} --><h1 class=\"wp-block-heading has-text-align-center\">The Complete Guide to Alternative Provision</h1><!-- /wp:heading --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">An end-to-end walkthrough for parents, carers, schools and Local Authorities.</p><!-- /wp:paragraph --></div><!-- /wp:group -->\n<!-- wp:heading {\"level\":2} --><h2>1. What is Alternative Provision?</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Alternative Provision (AP) is education for young people who cannot attend mainstream school for reasons including exclusion, medical need, school refusal or unmet SEND.</p><!-- /wp:paragraph -->\n<!-- wp:heading {\"level\":2} --><h2>2. Who is it for?</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Learners aged 11&ndash;16 who benefit from smaller groups, trauma-informed practice and a relational approach to education.</p><!-- /wp:paragraph -->\n<!-- wp:heading {\"level\":2} --><h2>3. How a referral works</h2><!-- /wp:heading --><!-- wp:pattern {\"slug\":\"pathway-academy-zone/referral-journey\"} /-->\n<!-- wp:heading {\"level\":2} --><h2>4. Safeguarding and pastoral care</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Safeguarding is everyone&apos;s responsibility. Every centre has a DSL, a deputy DSL and clear reporting routes.</p><!-- /wp:paragraph -->\n<!-- wp:heading {\"level\":2} --><h2>5. Outcomes and next steps</h2><!-- /wp:heading --><!-- wp:pazone/stat-grid /-->"
+		},
+		{
+			"slug": "search",
+			"title": "Search",
+			"content": "<!-- wp:search {\"label\":\"Search\",\"showLabel\":false,\"placeholder\":\"Search the site...\",\"buttonText\":\"Search\"} /-->"
+		}
 	],
+	"menus": {
+		"primary": [
+			{ "slug": "home",          "title": "Home" },
+			{ "slug": "about",         "title": "About" },
+			{ "slug": "team",          "title": "Team" },
+			{ "slug": "programmes",    "title": "Programmes" },
+			{ "slug": "centres",       "title": "Centres" },
+			{ "slug": "outcomes",      "title": "Outcomes" },
+			{ "slug": "partners",      "title": "Partners" },
+			{ "slug": "referral",      "title": "Make a Referral" },
+			{ "slug": "safeguarding",  "title": "Safeguarding" },
+			{ "slug": "knowledge-hub", "title": "Knowledge Hub" },
+			{ "slug": "faqs",          "title": "FAQs" },
+			{ "slug": "news",          "title": "News" },
+			{ "slug": "contact",       "title": "Contact" }
+		],
+		"footer": [
+			{ "slug": "about",         "title": "About" },
+			{ "slug": "policies",      "title": "Policies" },
+			{ "slug": "careers",       "title": "Careers" },
+			{ "slug": "contact",       "title": "Contact" },
+			{ "slug": "knowledge-hub", "title": "Knowledge Hub" }
+		]
+	},
 	"paz_team": [
 		{ "slug": "martin-chandler", "title": "Martin Chandler", "excerpt": "Designated Safeguarding Lead", "meta": { "paz_role": "Designated Safeguarding Lead", "paz_email": "martin.chandler@pathwayacademyzone.co.uk" } },
 		{ "slug": "jane-doe",        "title": "Jane Doe",        "excerpt": "Headteacher",                 "meta": { "paz_role": "Headteacher" } },
 		{ "slug": "ahmed-khan",      "title": "Ahmed Khan",      "excerpt": "Lead Teacher",                "meta": { "paz_role": "Lead Teacher - English" } },
-		{ "slug": "sarah-o-brien",   "title": "Sarah O'Brien",   "excerpt": "Pastoral Manager",            "meta": { "paz_role": "Pastoral Manager" } }
+		{ "slug": "sarah-o-brien",   "title": "Sarah O'Brien",   "excerpt": "Pastoral Manager",            "meta": { "paz_role": "Pastoral Manager" } },
+		{ "slug": "rachel-green",    "title": "Rachel Green",    "excerpt": "Deputy DSL",                  "meta": { "paz_role": "Deputy Designated Safeguarding Lead" } }
 	],
 	"paz_programme": [
 		{ "slug": "ks3-bridge",      "title": "KS3 Bridge",       "excerpt": "A 12-week re-engagement programme for Key Stage 3 learners.",        "meta": { "paz_subtitle": "Re-engagement", "paz_duration": "12 weeks", "paz_key_stage": "KS3" } },
@@ -54,7 +135,8 @@
 		{ "slug": "assessment-hub",  "title": "Assessment Hub",   "excerpt": "Short-term assessment placements to inform EHCP reviews.",           "meta": { "paz_subtitle": "6-8 week assessment", "paz_duration": "6-8 weeks", "paz_key_stage": "KS3 &amp; KS4" } }
 	],
 	"paz_centre": [
-		{ "slug": "stoke-centre",    "title": "Stoke-on-Trent Centre", "excerpt": "Our main centre in Stoke-on-Trent.", "meta": { "paz_address": "Stoke-on-Trent, Staffordshire", "paz_phone": "01782 365365" } }
+		{ "slug": "stoke-centre",    "title": "Stoke-on-Trent Centre", "excerpt": "Our main centre in Stoke-on-Trent.",                                "meta": { "paz_address": "Stoke-on-Trent, Staffordshire", "paz_phone": "01782 365365" } },
+		{ "slug": "stafford-centre", "title": "Stafford Learning Centre", "excerpt": "A smaller satellite centre for Stafford and surrounding areas.", "meta": { "paz_address": "Stafford, Staffordshire", "paz_phone": "01785 000000" } }
 	],
 	"paz_policy": [
 		{ "slug": "child-protection-safeguarding", "title": "Child Protection &amp; Safeguarding Policy", "excerpt": "Our primary safeguarding policy, reviewed annually." },
@@ -67,21 +149,14 @@
 	"paz_resource": [
 		{ "slug": "what-is-alternative-provision",    "title": "What is Alternative Provision?",                "excerpt": "A plain-English introduction to AP for parents, carers and school staff." },
 		{ "slug": "ehcp-vs-sen-support",              "title": "EHCP vs SEN Support - What&apos;s the difference?", "excerpt": "How an Education, Health and Care Plan differs from SEN Support." },
-		{ "slug": "preparing-for-a-referral",         "title": "Preparing for a Referral",                      "excerpt": "A checklist of documents and information that speeds up a referral." }
+		{ "slug": "preparing-for-a-referral",         "title": "Preparing for a Referral",                      "excerpt": "A checklist of documents and information that speeds up a referral." },
+		{ "slug": "trauma-informed-practice",         "title": "Trauma-Informed Practice Explained",            "excerpt": "What trauma-informed practice looks like day-to-day." },
+		{ "slug": "keeping-young-people-safe-online", "title": "Keeping Young People Safe Online",              "excerpt": "Practical guidance for families and schools on online safety." }
 	],
 	"paz_news": [
 		{ "slug": "welcome-to-pathway-academy-zone",   "title": "Welcome to Pathway Academy Zone", "excerpt": "Our centre is open and taking referrals." },
-		{ "slug": "summer-term-enrolment-now-open",    "title": "Summer Term Enrolment Now Open",  "excerpt": "Summer term placements are available at our Stoke-on-Trent centre." }
-	],
-	"menus": {
-		"primary": [
-			{ "slug": "home",           "title": "Home" },
-			{ "slug": "about",          "title": "About" },
-			{ "slug": "programmes",     "title": "Programmes" },
-			{ "slug": "referral",       "title": "Make a Referral" },
-			{ "slug": "safeguarding",   "title": "Safeguarding" },
-			{ "slug": "knowledge-hub",  "title": "Knowledge Hub" },
-			{ "slug": "contact",        "title": "Contact" }
-		]
-	}
+		{ "slug": "summer-term-enrolment-now-open",    "title": "Summer Term Enrolment Now Open",  "excerpt": "Summer term placements are available at our Stoke-on-Trent centre." },
+		{ "slug": "staffordshire-partnership-launch",  "title": "Staffordshire Partnership Launch","excerpt": "We are proud to announce a formal partnership with Staffordshire LA." },
+		{ "slug": "new-stafford-learning-centre",      "title": "New Stafford Learning Centre",    "excerpt": "Our satellite centre in Stafford is now taking referrals." }
+	]
 }

@@ -113,8 +113,15 @@
 		{ "name": "cta-banner",        "title": "CTA Banner",        "area": "uncategorized" }
 	],
 	"customTemplates": [
-		{ "name": "page-full-width",   "title": "Full Width Page",   "postTypes": ["page"] },
-		{ "name": "page-landing",      "title": "Landing Page",      "postTypes": ["page"] },
-		{ "name": "page-with-sidebar", "title": "Page with Sidebar", "postTypes": ["page", "post"] }
+		{ "name": "page-full-width",    "title": "Full Width Page",    "postTypes": ["page"] },
+		{ "name": "page-landing",       "title": "Landing Page",       "postTypes": ["page"] },
+		{ "name": "page-with-sidebar",  "title": "Page with Sidebar",  "postTypes": ["page", "post"] },
+		{ "name": "page-contact",       "title": "Contact Page",       "postTypes": ["page"] },
+		{ "name": "page-knowledge-hub", "title": "Knowledge Hub Page", "postTypes": ["page"] },
+		{ "name": "page-policies",      "title": "Policies Page",      "postTypes": ["page"] },
+		{ "name": "page-partners",      "title": "Partners Page",      "postTypes": ["page"] },
+		{ "name": "page-case-studies",  "title": "Case Studies Page",  "postTypes": ["page"] },
+		{ "name": "page-testimonials",  "title": "Testimonials Page",  "postTypes": ["page"] },
+		{ "name": "page-vacancies",     "title": "Vacancies Page",     "postTypes": ["page"] }
 	]
 }
