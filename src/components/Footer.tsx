@@ -12,8 +12,8 @@ const footerLinks = {
     { label: "Knowledge Hub", path: "/knowledge-hub" },
     { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
     { label: "Glossary", path: "/knowledge-hub/glossary" },
-    { label: "Blog", path: "/blog" },
-    { label: "News", path: "/news" },
+//{ label: "Blog", path: "/blog" },
+  //  { label: "News", path: "/news" },
     { label: "FAQs", path: "/faqs" },
   ],
   about: [

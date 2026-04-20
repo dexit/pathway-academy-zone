@@ -5,7 +5,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Phone, FileText, Users, CalendarCheck, CheckCircle, Loader2, CheckCircle2, AlertCircle,
-  BookOpen, Wrench, Brain, Lightbulb, Heart,
+  BookOpen, Wrench, Brain, Lightbulb, Heart, MoreHorizontal, Calendar, Clock, ArrowRight, Check, MapPin, Building2
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
@@ -36,6 +36,8 @@ const programmeOptions: IllustratedOption[] = [
   { value: "semh", label: "SEMH Support", description: "Therapeutic 1:1 + group", icon: Brain },
   { value: "personal", label: "Personal Development", description: "Resilience and life skills", icon: Lightbulb },
   { value: "outreach", label: "Outreach / Hybrid", description: "Online + in-centre blend", icon: Heart },
+  { value: "other", label: "Other", description: "Tell us more in your message", icon: MoreHorizontal },
+
 ];
 
 const roleOptions = ["School Staff","Local Authority","Social Worker","Virtual School","Other Professional"] as const;
@@ -202,7 +204,7 @@ export default function Referral() {
                     value={field.value || ""}
                     onChange={field.onChange}
                     required
-                    columns={5}
+                    columns={2}
                     error={errors.programme?.message}
                   />
                 )}
