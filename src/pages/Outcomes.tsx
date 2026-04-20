@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
-import { TrendingUp, Target, Users, UserCheck, Quote } from "lucide-react";
+import { TrendingUp, Target, Users, UserCheck } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo } from "@/components/Seo";
+import { TestimonialSlider } from "@/components/TestimonialSlider";
+import { reviews } from "@/data/reviews-data";
 import mentoringImg from "@/assets/mentoring-session.jpg";
 import careersImg from "@/assets/careers-event.jpg";
 
@@ -21,15 +24,14 @@ const stories = [
   { title: "Overcoming Anxiety", text: "Mia struggled with severe anxiety that prevented her from attending mainstream school. Our small group setting and therapeutic support helped her rebuild confidence. She improved her attendance from 15% to 85%." },
   { title: "Finding a Pathway", text: "Tyler had been through multiple school placements and was labelled as 'unteachable'. At Pathway, he discovered a passion for motor mechanics through our vocational programme. He's now on an apprenticeship." },
 ];
-const testimonials = [
-  { text: "Pathway Academy Zone gave my son a second chance. He went from refusing to attend school to genuinely enjoying learning. The staff truly care.", author: "Parent of Year 10 student" },
-  { text: "The progress we've seen in our referred students has been remarkable. The team understand what these young people need and deliver it consistently.", author: "SENCO, Staffordshire Secondary School" },
-  { text: "I actually want to come here. The teachers listen to me and don't give up when things get hard. I feel like I can do something with my life now.", author: "Year 11 Student" },
-];
 
 export default function Outcomes() {
   return (
     <Layout>
+      <Seo
+        title="Outcomes & Impact"
+        description="Our success is measured by the progress our young people make in attendance, engagement, qualifications, and their futures."
+      />
       <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
         <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Outcomes & Impact</span>
         <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Making a Real Difference</h1>
@@ -43,11 +45,16 @@ export default function Outcomes() {
       </div></div></section>
       <section className="py-24 bg-background"><div className="container mx-auto px-4"><div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <div><h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8">How We Measure Progress</h2><div className="space-y-8">
-          {progress.map((p) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-xl p-6 border border-border/50">
-            <h3 className="font-display text-lg font-bold text-foreground mb-2">{p.title}</h3><p className="text-muted-foreground text-sm mb-4">{p.desc}</p>
-            <div className="w-full bg-muted rounded-full h-3 mb-2"><div className="bg-primary h-3 rounded-full" style={{ width: `${p.pct}%` }} /></div>
-            <p className="text-sm text-primary font-medium">{p.stat}</p>
-          </motion.div>))}
+          {progress.map((p) => (
+            <motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-xl p-6 border border-border/50">
+              <h3 className="font-display text-lg font-bold text-foreground mb-2">{p.title}</h3>
+              <p className="text-muted-foreground text-sm mb-4">{p.desc}</p>
+              <div className="w-full bg-muted rounded-full h-3 mb-2">
+                <div className="bg-primary h-3 rounded-full" style={{ width: `${p.pct}%` }} />
+              </div>
+              <p className="text-sm text-primary font-medium">{p.stat}</p>
+            </motion.div>
+          ))}
         </div></div>
         <div className="space-y-4"><img src={mentoringImg} alt="Careers presentation event" className="rounded-2xl shadow-lg w-full" loading="lazy" /><img src={careersImg} alt="Skills advice" className="rounded-2xl shadow-lg w-full" loading="lazy" /></div>
       </div></div></section>
@@ -58,10 +65,8 @@ export default function Outcomes() {
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">{stories.map((s, i) => (<motion.div key={s.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 shadow-sm border border-border/50"><h3 className="font-display text-lg font-bold text-foreground mb-3">{s.title}</h3><p className="text-muted-foreground text-sm leading-relaxed">{s.text}</p></motion.div>))}</div>
       </div></section>
-      <section className="py-24 bg-background"><div className="container mx-auto px-4">
-        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">What People Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">{testimonials.map((t, i) => (<motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 shadow-sm border border-border/50"><Quote className="h-8 w-8 text-primary/30 mb-4" /><p className="text-foreground text-sm leading-relaxed mb-4 italic">"{t.text}"</p><p className="text-muted-foreground text-sm font-medium">— {t.author}</p></motion.div>))}</div>
-      </div></section>
+
+      <TestimonialSlider reviews={reviews} title="What People Say" />
     </Layout>
   );
 }

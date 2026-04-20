@@ -1,7 +1,9 @@
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Wrench, Brain, Lightbulb, Briefcase, Heart, Calendar, Clock, CheckCircle, ArrowRight, MapPin, Building2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Calendar, Clock, CheckCircle, ArrowRight, MapPin, Building2, Search } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import classroomImg from "@/assets/classroom-learning.jpg";
@@ -73,6 +75,34 @@ const programmesSchema = [
 ];
 
 export default function Programmes() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredProgrammes = useMemo(() => {
+    return programmes.filter((p) =>
+      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.features.some(f => f.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  }, [searchQuery]);
+
+  const courseJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CourseCarousel",
+    "name": "Alternative Provision Programmes",
+    "description": "Range of structured programmes for young people in Staffordshire.",
+    "itemListElement": programmes.map((p, i) => ({
+      "@type": "Course",
+      "position": i + 1,
+      "name": p.title,
+      "description": p.desc,
+      "provider": {
+        "@type": "Organization",
+        "name": "Pathway Academy Zone",
+        "sameAs": "https://pathwayacademyzone.co.uk"
+      }
+    }))
+  };
+
   return (
     <Layout>
       <Seo
@@ -145,14 +175,20 @@ export default function Programmes() {
         </div>
       </section>
 
-      <section className="py-16 bg-primary text-center"><div className="container mx-auto px-4">
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground mb-4">Find the Right Programme</h2>
-        <p className="text-primary-foreground/80 mb-8 max-w-xl mx-auto">Every young person is unique. Contact us to discuss which pathway would best support your student's needs and goals.</p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button asChild size="lg" className="bg-card text-primary hover:bg-card/90 rounded-full"><Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-4 w-4" /></Link></Button>
-          <Button asChild size="lg" className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full bg-transparent"><Link to="/contact">Contact Us</Link></Button>
+      <section className="py-16 bg-primary text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground mb-4">Find the Right Programme</h2>
+          <p className="text-primary-foreground/80 mb-8 max-w-xl mx-auto">Every young person is unique. Contact us to discuss which pathway would best support your student's needs and goals.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button asChild size="lg" className="bg-card text-primary hover:bg-card/90 rounded-full">
+              <Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-4 w-4" /></Link>
+            </Button>
+            <Button asChild size="lg" className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-full bg-transparent">
+              <Link to="/contact">Contact Us</Link>
+            </Button>
+          </div>
         </div>
-      </div></section>
+      </section>
     </Layout>
   );
 }

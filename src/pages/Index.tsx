@@ -2,16 +2,13 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig } from "lucide-react";
+import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo } from "@/components/Seo";
-//import heroImg from "@/assets/hero-classroom.jpg";
-//import classroomImg from "@/assets/classroom-learning.jpg";
-//import vocationalImg from "@/assets/vocational-training.jpg";
-//import mentoringImg from "@/assets/mentoring-session.jpg";
-
-// ✅ Use the functions or direct strings instead
-import { getVocationalImg, getMentoringImg, getClassroomImg, getHeroImg, getCareersImg } from "@/utils/images";
+import { LogoTicker } from "@/components/LogoTicker";
+import { TestimonialSlider } from "@/components/TestimonialSlider";
+import { partners } from "@/data/partners-data";
+import { reviews } from "@/data/reviews-data";
 
 const heroImg = "/assets/hero-classroom.jpg";
 const classroomImg = "/assets/classroom-learning.jpg";
@@ -75,11 +72,14 @@ export default function HomePage() {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
+    "mainEntity": faqs.map(f => ({
       "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
+      "name": f.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.a
+      }
+    }))
   };
 
   const homeJsonLd = [orgJsonLd, faqJsonLd];
@@ -87,103 +87,63 @@ export default function HomePage() {
   return (
     <Layout>
       <Seo
-        title="Alternative Provision Stoke-on-Trent"
+        title="Alternative Provision Stoke-on-Trent | Pathway Academy Zone"
         description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities."
         jsonLd={homeJsonLd}
       />
-      {/* Hero - Full screen with image overlay */}
-      <section className="relative min-h-[calc(100vh-5rem)] flex items-center">
-        <div className="absolute inset-0">
+
+      {/* Hero */}
+      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden bg-background">
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-transparent z-10" />
           <img
             src={heroImg}
-            alt="Students collaborating around a laptop in a supportive Alternative Provision classroom in Stoke-on-Trent"
-            title="Pathway Academy Zone classroom"
-            className="w-full h-full object-cover"
-            width="1920"
-            height="1080"
-            fetchPriority="high"
-            decoding="async"
+            alt="Students in classroom"
+            className="w-full h-full object-cover scale-105 animate-slow-zoom opacity-20"
           />
-          <div className="absolute inset-0 bg-foreground/60" />
         </div>
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-2xl">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-white/15 text-white text-sm font-medium mb-6 backdrop-blur-sm border border-white/25">
-              Alternative Provision in Staffordshire
-            </span>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
-              Every Young Person Deserves a Pathway To Success
-            </h1>
-            <p className="text-white/90 text-lg md:text-xl mb-4 max-w-xl">
-              We provide specialist education for young people who need a different approach.
-            </p>
-            <p className="text-white/75 text-base md:text-lg mb-10 max-w-xl">
-              Through structure, care and high expectations, we help young people re-engage, rebuild confidence and move forward in education, employment or training.
-            </p>
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <Button asChild size="xl" className="rounded-full shadow-lg px-8">
-                <Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-5 w-5" /></Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-2 border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white backdrop-blur-sm"
-              >
-                <Link to="/about">Learn About Us</Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Who We Are */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <span className="text-primary font-medium text-sm tracking-wider uppercase">Who We Are</span>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">Specialist Education for Those Who Need It Most</h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Pathway Academy Zone works with young people aged 11-16 who have been excluded from mainstream education, or who are at risk of exclusion. We partner with schools, local authorities, and families across Staffordshire to provide structured, supportive learning environments where every student can succeed.
+        <div className="container mx-auto px-4 relative z-20">
+          <div className="max-w-3xl">
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold tracking-wide uppercase mb-6 border border-primary/20">
+                Alternative Provision Excellence
+              </span>
+              <h1 className="font-display text-5xl md:text-7xl font-bold text-foreground leading-[1.1] mb-8">
+                Building Pathways to <span className="text-primary italic">Bright Futures</span>
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl">
+                Empowering young people across Staffordshire to re-engage with education through
+                personalised learning, vocational training, and trauma-informed support.
               </p>
-              <ul className="space-y-3 mb-8">
-                {["SEMH-focused curriculum delivery", "Small group and 1:1 support", "Qualified teachers and mentors", "Strong pastoral care teams", "Vocational and academic pathways"].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-foreground">
-                    <CircleCheckBig className="w-5 h-5 text-primary shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild>
-                <Link to="/programmes">Explore Our Programmes <ArrowRight className="ml-1 h-4 w-4" /></Link>
-              </Button>
-            </motion.div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-2 gap-4">
-              <img src={classroomImg} alt="Students at careers fair" className="rounded-2xl shadow-lg w-full h-64 object-cover" loading="lazy" />
-              <img src={vocationalImg} alt="Young people exploring apprenticeships" className="rounded-2xl shadow-lg w-full h-64 object-cover mt-8" loading="lazy" />
-              <img src={mentoringImg} alt="Young people at careers stand" className="rounded-2xl shadow-lg w-full h-64 object-cover col-span-2" loading="lazy" />
+              <div className="flex flex-col sm:flex-row items-center gap-5">
+                <Button asChild size="xl" className="rounded-full px-8 shadow-lg shadow-primary/20 w-full sm:w-auto">
+                  <Link to="/referral">Make a Referral <ArrowRight className="ml-2 h-5 w-5" /></Link>
+                </Button>
+                <Button asChild variant="outline" size="xl" className="rounded-full px-8 w-full sm:w-auto">
+                  <Link to="/programmes">Explore Programmes</Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* How We Support */}
-      <section className="py-24 bg-muted/50">
+      <LogoTicker logos={partners} title="Working in Partnership With" />
+
+      {/* Approaches */}
+      <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Approach</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">How We Support Young People</h2>
-            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">Our evidence-based approach combines therapeutic support with quality education to help students overcome barriers and achieve their potential.</p>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-16">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">Our Foundation of Success</h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto italic">More than just a school, we provide a structured environment where every young person can find their unique path.</p>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {approaches.map((item, i) => (
-              <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md transition-shadow">
-                <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center mb-5">
-                  <item.icon className="h-7 w-7 text-primary-foreground" />
+              <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md transition-shadow h-full">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                  <item.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="font-display text-xl font-bold text-foreground mb-2">{item.title}</h3>
+                <h3 className="font-display text-lg font-bold text-foreground mb-3">{item.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
@@ -191,51 +151,63 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Alternative Provision Matters - SEO content depth */}
+      {/* Vision */}
       <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1 relative">
+              <div className="absolute -top-4 -left-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+              <img src={mentoringImg} alt="Student mentoring" className="rounded-3xl shadow-xl w-full relative z-10" loading="lazy" />
+              <div className="absolute -bottom-8 -right-8 bg-card p-6 rounded-2xl shadow-lg border border-border/50 z-20 hidden md:block">
+                <p className="text-primary font-bold text-3xl">1:1</p>
+                <p className="text-sm text-muted-foreground">Personalised Support</p>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2">
+              <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Vision</span>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6 leading-tight">Every young person deserves a path to success.</h2>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                Many of our learners have found mainstream environments challenging. At Pathway Academy Zone, we don't just see the barriers; we see the potential.
+              </p>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+                By combining a robust academic curriculum with high-quality vocational training and
+                dedicated pastoral care, we help students rebuild their relationship with learning.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 bg-primary/10 p-1 rounded-full"><BookOpen className="h-4 w-4 text-primary" /></div>
+                  <p className="text-sm font-medium text-foreground">Academic Excellence</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 bg-primary/10 p-1 rounded-full"><Wrench className="h-4 w-4 text-primary" /></div>
+                  <p className="text-sm font-medium text-foreground">Vocational Training</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 bg-primary/10 p-1 rounded-full"><Brain className="h-4 w-4 text-primary" /></div>
+                  <p className="text-sm font-medium text-foreground">SEMH Specialist Support</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-1 bg-primary/10 p-1 rounded-full"><Lightbulb className="h-4 w-4 text-primary" /></div>
+                  <p className="text-sm font-medium text-foreground">Personal Development</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Informational Text Section (similar to About brief) */}
+      <section className="py-24 bg-muted/20 border-y border-border/50">
         <div className="container mx-auto px-4 max-w-4xl">
-          <span className="text-primary font-medium text-sm tracking-wider uppercase">Why It Matters</span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
-            Why Alternative Provision Matters in Stoke-on-Trent
-          </h2>
-          <div className="prose prose-lg max-w-none text-muted-foreground space-y-5 leading-relaxed">
-            <p>
-              Across Stoke-on-Trent and the wider Staffordshire region, hundreds of young people are at risk of
-              permanent exclusion, persistent absence, or disengagement from mainstream education each year.
-              For many of these learners the standard school environment is not the right fit &mdash; not because they
-              cannot succeed, but because they need a smaller setting, more relational practice, and a curriculum
-              that meets them where they are. That is the gap that high-quality Alternative Provision is designed to fill.
+          <div className="text-center">
+            <h2 className="font-display text-3xl font-bold text-foreground mb-10">How we work</h2>
+            <p className="text-muted-foreground leading-relaxed text-lg mb-8">
+              Pathway Academy Zone operates as a registered Alternative Provision based in Stoke-on-Trent,
+              commissioned by secondary schools and local authorities to provide high-quality education
+              and SEMH (Social, Emotional and Mental Health) support.
             </p>
-            <p>
-              Pathway Academy Zone is a registered Alternative Provision serving Key Stage 3 and Key Stage 4 learners
-              aged 11&ndash;16. We accept referrals from mainstream secondary schools, Local Authorities, virtual
-              schools, social workers, and family workers. Our staff team includes qualified teachers, pastoral
-              specialists, and trained mentors who hold the relational space young people need to re-engage with
-              learning.
-            </p>
-            <p>
-              Every learner we work with arrives with a different story. Some have experienced repeated fixed-term
-              suspensions; others are facing managed moves, exclusion panels, or significant SEMH (social, emotional and
-              mental health) needs. A growing number are young people whose anxiety, school refusal, or
-              neurodivergence has gone unmet for too long in busy mainstream settings. Whatever the route in, our work
-              starts the same way: a calm, structured assessment, a personalised plan, and a small-group or 1:1
-              timetable that prioritises safety, attendance, and dignity before academic outcomes.
-            </p>
-            <p>
-              We deliver a balanced curriculum that covers core English, Maths, Science, and PSHE alongside
-              vocational and enrichment routes including construction skills, hospitality, motor vehicle, sport and
-              creative industries. Functional Skills, GCSEs and BTECs are available depending on Key Stage and
-              individual targets. We work closely with commissioning schools so that the academic thread is never
-              broken, and we support a managed return to mainstream wherever it is the right outcome for the learner.
-            </p>
-            <p>
-              Safeguarding sits at the centre of everything we do. We have a designated safeguarding lead, robust
-              reporting processes, and partnerships with local safeguarding boards, CAMHS, the police, and the Local
-              Authority Designated Officer (LADO). Parents, carers and referrers can contact us directly to discuss
-              any concern at any point during a placement.
-            </p>
-            <p>
-              If you are a school or Local Authority colleague considering a referral, the fastest way to start is
+            <p className="text-muted-foreground leading-relaxed text-lg">
+              For schools and commissioners, we provide a reliable, evidence-based partner. The first start is
               the <Link to="/referral" className="text-primary font-medium hover:underline">online referral form</Link>;
               for general enquiries please use our <Link to="/contact" className="text-primary font-medium hover:underline">contact page</Link>
               {" "}or call <a href="tel:+441782365365" className="text-primary font-medium hover:underline">01782 365365</a>.
@@ -268,6 +240,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      <TestimonialSlider reviews={reviews} title="Trusted by Parents & Schools" />
 
       {/* Latest Blog Posts */}
       <section className="py-24 bg-background">

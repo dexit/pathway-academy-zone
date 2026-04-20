@@ -3,13 +3,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo } from "@/components/Seo";
 import classroomImg from "@/assets/classroom-learning.jpg";
 import mentoringImg from "@/assets/mentoring-session.jpg";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
-// about ld+json schema needed
-
-
 
 const values = [
   { letter: "C", name: "Change", desc: "We embrace learning and adapt to grow." },
@@ -20,8 +18,27 @@ const values = [
 ];
 
 export default function About() {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Pathway Academy Zone",
+    "description": "Specialist Alternative Provision organization supporting vulnerable young people across Staffordshire.",
+    "url": "https://pathwayacademyzone.co.uk",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Burslem, Stoke-on-Trent",
+      "postalCode": "ST6 3LJ",
+      "streetAddress": "Duncalf St"
+    }
+  };
+
   return (
     <Layout>
+      <Seo
+        title="About Us"
+        description="Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire."
+        jsonLd={organizationJsonLd}
+      />
       <section className="relative py-32">
         <div className="absolute inset-0"><img src={classroomImg} alt="Students learning" className="w-full h-full object-cover" /><div className="absolute inset-0 bg-foreground/60" /></div>
         <div className="container mx-auto px-4 text-center relative z-10">
