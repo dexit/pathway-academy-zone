@@ -75,14 +75,20 @@ const programmesSchema = [
 export default function Programmes() {
   return (
     <Layout>
+      <Seo
+        title="Our Programmes"
+        description="Academic re-engagement, vocational learning, SEMH support and more — Alternative Provision programmes in Stoke-on-Trent for ages 11–16."
+        jsonLd={programmesSchema}
+      />
       <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
         <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Our Programmes</span>
         <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Pathways to Success</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We offer a range of structured programmes designed to meet individual needs, combining academic learning with vocational skills and therapeutic support.</p>
       </div></section>
-      <section className="py-24 bg-background"><div className="container mx-auto px-4"><div className="space-y-24">
+      <section className="py-8 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Programmes" }]} /></div></section>
+      <section className="py-16 bg-background"><div className="container mx-auto px-4"><div className="space-y-24">
         {programmes.map((prog, i) => (
-          <motion.div key={prog.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center`}>
+          <motion.article id={prog.slug} key={prog.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center scroll-mt-24`}>
             <div className={i % 2 === 1 ? "lg:order-2" : ""}>
               <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center mb-5"><prog.icon className="h-7 w-7 text-primary-foreground" /></div>
               <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">{prog.title}</h2>
