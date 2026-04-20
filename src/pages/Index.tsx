@@ -43,6 +43,32 @@ const faqs = [
 ];
 
 export default function HomePage() {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": ["EducationalOrganization", "Organization"],
+    "@id": "https://pathwayacademyzone.co.uk/#organization",
+    name: "Pathway Academy Zone",
+    alternateName: "PAZ",
+    url: "https://pathwayacademyzone.co.uk",
+    logo: "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png",
+    description:
+      "Alternative Provision in Stoke-on-Trent for ages 11–16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities.",
+    telephone: "+44-1782-365365",
+    email: "info@pathwayacademyzone.co.uk",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Duncalf Street, Burslem",
+      addressLocality: "Stoke-on-Trent",
+      postalCode: "ST6 3LJ",
+      addressRegion: "Staffordshire",
+      addressCountry: "GB",
+    },
+    areaServed: { "@type": "AdministrativeArea", name: "Staffordshire" },
+    sameAs: [
+      "https://www.linkedin.com/company/pathway-academy-zone",
+    ],
+  };
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -56,12 +82,14 @@ export default function HomePage() {
     }))
   };
 
+  const homeJsonLd = [orgJsonLd, faqJsonLd];
+
   return (
     <Layout>
       <Seo
-        title="Pathway Academy Zone | Alternative Provision Staffordshire"
-        description="Providing high-quality alternative provision, SEMH support, and vocational pathways for young people across Staffordshire."
-        jsonLd={faqJsonLd}
+        title="Alternative Provision Stoke-on-Trent | Pathway Academy Zone"
+        description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities."
+        jsonLd={homeJsonLd}
       />
 
       {/* Hero */}
