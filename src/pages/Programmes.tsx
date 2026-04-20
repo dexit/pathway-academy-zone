@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Wrench, Brain, Lightbulb, Briefcase, Heart, Calendar, Clock, CheckCircle, ArrowRight, MapPin, Building2 } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import classroomImg from "@/assets/classroom-learning.jpg";
 import vocationalImg from "@/assets/vocational-training.jpg";
 import mentoringImg from "@/assets/mentoring-session.jpg";
@@ -12,12 +13,63 @@ import buildingImg from "@/assets/building-exterior.jpg";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const programmes = [
-  { icon: BookOpen, title: "Academic Re-engagement", img: classroomImg, desc: "Structured academic curriculum adapted for individual learning needs, focusing on core subjects and building confidence in learning.", features: ["English, Maths & Science","PSHE / RSHE, RE, PE & Citizenship","Small group teaching (max 6)","Personalised learning plans"], schedule: "Full-time or part-time placements", time: "Monday to Friday, 9:30am - 2:30pm" },
-  { icon: Wrench, title: "Vocational Learning", img: vocationalImg, desc: "Hands-on practical programmes developing real-world skills in areas like construction, catering, motor mechanics, and horticulture.", features: ["Industry-standard training","Work experience placements","Recognised qualifications","Employer partnerships"], schedule: "1-2 days per week alongside academic", time: "Varies by programme" },
-  { icon: Brain, title: "SEMH Support", img: mentoringImg, desc: "Therapeutic intervention and support for young people with social, emotional, and mental health needs, integrated throughout all provision.", features: ["1:1 therapeutic sessions","Group workshops","Emotional regulation support","Family support sessions"], schedule: "Ongoing throughout placement", time: "As needed, typically 2-3 sessions per week" },
-  { icon: Lightbulb, title: "Personal Development", img: heroImg, desc: "Building essential life skills, resilience, and self-esteem through structured programmes and enrichment activities.", features: ["Communication skills","Problem-solving","Team building","Goal setting"], schedule: "Integrated into weekly timetable", time: "2 hours per week minimum" },
-  { icon: Heart, title: "Life Skills Programme", img: careersImg, desc: "Practical skills for independent living including budgeting, cooking, health and wellbeing, and managing relationships.", features: ["Cooking & nutrition","Financial literacy","Health education","Digital skills including AI skills"], schedule: "Integrated into curriculum", time: "Weekly sessions" },
-  { icon: Briefcase, title: "Employability Skills", img: buildingImg, desc: "Preparing young people for the world of work through CV writing, interview practice, and understanding workplace expectations.", features: ["CV & application support","Interview preparation","Work experience","Careers guidance"], schedule: "Year 10 & 11 focus", time: "Weekly sessions plus placements" },
+  { slug: "academic-re-engagement", icon: BookOpen, title: "Academic Re-engagement", img: classroomImg, desc: "Structured academic curriculum adapted for individual learning needs, focusing on core subjects and building confidence in learning.", features: ["English, Maths & Science","PSHE / RSHE, RE, PE & Citizenship","Small group teaching (max 6)","Personalised learning plans"], schedule: "Full-time or part-time placements", time: "Monday to Friday, 9:30am - 2:30pm" },
+  { slug: "vocational-learning", icon: Wrench, title: "Vocational Learning", img: vocationalImg, desc: "Hands-on practical programmes developing real-world skills in areas like construction, catering, motor mechanics, and horticulture.", features: ["Industry-standard training","Work experience placements","Recognised qualifications","Employer partnerships"], schedule: "1-2 days per week alongside academic", time: "Varies by programme" },
+  { slug: "semh-support", icon: Brain, title: "SEMH Support", img: mentoringImg, desc: "Therapeutic intervention and support for young people with social, emotional, and mental health needs, integrated throughout all provision.", features: ["1:1 therapeutic sessions","Group workshops","Emotional regulation support","Family support sessions"], schedule: "Ongoing throughout placement", time: "As needed, typically 2-3 sessions per week" },
+  { slug: "personal-development", icon: Lightbulb, title: "Personal Development", img: heroImg, desc: "Building essential life skills, resilience, and self-esteem through structured programmes and enrichment activities.", features: ["Communication skills","Problem-solving","Team building","Goal setting"], schedule: "Integrated into weekly timetable", time: "2 hours per week minimum" },
+  { slug: "life-skills", icon: Heart, title: "Life Skills Programme", img: careersImg, desc: "Practical skills for independent living including budgeting, cooking, health and wellbeing, and managing relationships.", features: ["Cooking & nutrition","Financial literacy","Health education","Digital skills including AI skills"], schedule: "Integrated into curriculum", time: "Weekly sessions" },
+  { slug: "employability-skills", icon: Briefcase, title: "Employability Skills", img: buildingImg, desc: "Preparing young people for the world of work through CV writing, interview practice, and understanding workplace expectations.", features: ["CV & application support","Interview preparation","Work experience","Careers guidance"], schedule: "Year 10 & 11 focus", time: "Weekly sessions plus placements" },
+];
+
+// Course + ItemList ("CourseCarousel" rich result eligibility per
+// schema.org Course extension). Each entry is also a standalone Course
+// node so individual programme detail surfaces.
+const programmesSchema = [
+  ...programmes.map((p) => ({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: p.title,
+    description: p.desc,
+    url: `${SITE_URL}/programmes#${p.slug}`,
+    provider: {
+      "@type": "EducationalOrganization",
+      name: SITE_NAME,
+      sameAs: SITE_URL,
+    },
+    educationalLevel: "Key Stage 3 / Key Stage 4",
+    inLanguage: "en-GB",
+    audience: { "@type": "EducationalAudience", educationalRole: "student", audienceType: "Ages 11–16" },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "Onsite",
+      location: {
+        "@type": "Place",
+        name: `${SITE_NAME} — Burslem Learning Centre`,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Duncalf Street, Burslem",
+          addressLocality: "Stoke-on-Trent",
+          postalCode: "ST6 3LJ",
+          addressCountry: "GB",
+        },
+      },
+      courseSchedule: { "@type": "Schedule", description: `${p.schedule} — ${p.time}` },
+    },
+    offers: { "@type": "Offer", category: "Alternative Provision", availability: "https://schema.org/InStock" },
+  })),
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Pathway Academy Zone Programmes",
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    numberOfItems: programmes.length,
+    itemListElement: programmes.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${SITE_URL}/programmes#${p.slug}`,
+      name: p.title,
+    })),
+  },
 ];
 
 export default function Programmes() {
