@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Heart, Users, GraduationCap, Clock, CheckCircle, MapPin, Briefcase, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import {
+  Heart, Users, GraduationCap, Clock, CheckCircle, MapPin, Briefcase,
+  Loader2, CheckCircle2, AlertCircle, BookOpen, HandHeart, ClipboardList, Sparkles,
+} from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
-import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
 import { JobListSkeleton } from "@/components/SkeletonPlaceholders";
+import { FormField } from "@/components/forms/FormField";
+import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
+import { email, ukPhone, personName, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
 
 const CAREERS_WEBHOOK = import.meta.env.VITE_CAREERS_WEBHOOK as string | undefined;
 
