@@ -10,3 +10,4 @@ if ( ! defined( 'ABSPATH' ) ) die();
 
 require_once plugin_dir_path( __FILE__ ) . 'inc/settings.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/mcp.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/forms.php';
