@@ -44,23 +44,59 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="py-24 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Values</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">What Guides Us</h2>
-            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">Our values shape everything we do, from how we design programmes to how we interact with young people and their families.</p>
+      <section className="relative py-28 bg-gradient-to-b from-muted/40 via-background to-muted/40 overflow-hidden">
+        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--primary))_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div aria-hidden className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-primary/10 blur-3xl" />
+        <div className="container mx-auto px-4 relative">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-20">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-[0.2em] uppercase border border-primary/20">Our Values</span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-4 tracking-tight">What Guides <span className="text-gradient-primary">Us</span></h2>
+            <p className="text-muted-foreground mt-5 max-w-2xl mx-auto leading-relaxed">Our values shape everything we do, from how we design programmes to how we interact with young people and their families.</p>
           </motion.div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-4xl mx-auto">
-            {values.map((v, i) => (
-              <motion.div key={v.letter} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-6 text-center shadow-sm border border-border/50 hover:shadow-md transition-shadow">
-                <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center mx-auto mb-4"><span className="text-primary-foreground font-display font-bold text-xl">{v.letter}</span></div>
-                <h3 className="font-display text-lg font-bold text-foreground mb-2">{v.name}</h3>
-                <p className="text-muted-foreground text-sm">{v.desc}</p>
-              </motion.div>
-            ))}
+
+          <div className="relative max-w-6xl mx-auto">
+            {/* Connecting line — desktop only */}
+            <div aria-hidden className="hidden md:block absolute top-10 left-0 right-0 h-px overflow-hidden">
+              <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeInOut" }} style={{ transformOrigin: "left" }} className="h-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4">
+              {values.map((v, i) => (
+                <motion.div
+                  key={v.letter}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.12, ease: "easeOut" }}
+                  className="group relative flex flex-col items-center text-center"
+                >
+                  {/* Letter node on the line */}
+                  <div className="relative mb-5">
+                    <div aria-hidden className="absolute inset-0 rounded-full bg-primary/30 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-primary to-[hsl(var(--teal-dark))] flex items-center justify-center shadow-lg shadow-primary/30 ring-4 ring-background group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500">
+                      <span className="text-primary-foreground font-display font-bold text-3xl">{v.letter}</span>
+                    </div>
+                    <span aria-hidden className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-background border border-primary/30 text-primary text-[11px] font-semibold flex items-center justify-center shadow-sm">{String(i + 1).padStart(2, "0")}</span>
+                  </div>
+
+                  <div className="relative w-full bg-card/80 backdrop-blur-sm rounded-2xl p-5 border border-border/60 shadow-sm group-hover:shadow-xl group-hover:border-primary/40 group-hover:-translate-y-1 transition-all duration-500">
+                    <h3 className="font-display text-lg font-bold text-foreground mb-2">{v.name}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
+                    <div aria-hidden className="absolute inset-x-6 -bottom-px h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-          <div className="flex items-center justify-center gap-2 mt-8">{values.map((v, i) => (<span key={v.name} className="text-primary font-display font-semibold text-sm">{v.name}{i < values.length - 1 && <span className="text-muted-foreground ml-2">·</span>}</span>))}</div>
+
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-14">
+            {values.map((v, i) => (
+              <span key={v.name} className="inline-flex items-center gap-3 text-primary font-display font-semibold text-sm tracking-wide">
+                {v.name}
+                {i < values.length - 1 && <span aria-hidden className="text-primary/40">●</span>}
+              </span>
+            ))}
+          </motion.div>
         </div>
       </section>
       <section className="py-24 bg-background">
