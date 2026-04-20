@@ -32,7 +32,7 @@ const contactSchema = {
   "@type": ["EducationalOrganization", "LocalBusiness"],
   name: SITE_NAME,
   url: SITE_URL,
-  telephone: "+44-1782-365365",
+  telephone: "+44 1782 365365",
   email: "info@pathwayacademyzone.co.uk",
   address: {
     "@type": "PostalAddress",
@@ -47,7 +47,7 @@ const contactSchema = {
   ],
   contactPoint: [
     { "@type": "ContactPoint", contactType: "customer service", telephone: "+44-1782-365365", email: "info@pathwayacademyzone.co.uk", areaServed: "GB", availableLanguage: ["English"] },
-    { "@type": "ContactPoint", contactType: "referrals", telephone: "+44-1782-365365", email: "referrals@pathwayacademyzone.co.uk" },
+    { "@type": "ContactPoint", contactType: "referrals", telephone: "+44-1782-365365", email: "info@pathwayacademyzone.co.uk" },
   ],
 };
 
@@ -134,26 +134,41 @@ export default function Contact() {
               <h2 className="font-display text-2xl font-bold text-foreground mb-6">Contact Information</h2>
               <div className="space-y-4 mb-8">
                 {contactInfo.map((c) => (
-                  <div key={c.title} className="flex items-start gap-4 bg-card rounded-xl p-5 border border-border/50">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <c.icon className="h-5 w-5 text-primary" />
+                  <div key={c.title} className="flex items-start gap-4 bg-card rounded-xl p-5 border border-border/50 bg-accent/50">
+                    <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0">
+                      <c.icon className="h-5 w-5 text-white" />
                     </div>
-                    <div>
+<div>
                       <p className="font-medium text-foreground text-sm">{c.title}</p>
-                      <p className="text-foreground text-sm">{c.main}</p>
+                      {c.title === "Email" ? (
+                        <a href={`mailto:${c.main}`} className="text-foreground text-sm hover:underline">{c.main}</a>
+                      ) : c.title === "Address" ? (
+                        <a 
+                          href={`https://maps.google.com/?q=${c.main.replace(/ /g, "+")}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-foreground text-sm hover:underline"
+                        >
+                          {c.main}
+                        </a>
+                      ) : (
+                        <p className="text-foreground text-sm">{c.main}</p>
+                      )}
                       <p className="text-muted-foreground text-xs">{c.sub}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <a
-                href="https://maps.google.com/?q=Duncalf+St+Burslem+Stoke-on-Trent+ST6+3LJ"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-primary font-medium hover:underline"
-              >
-                Open in Maps <ExternalLink className="h-4 w-4" />
-              </a>
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2397.8584766858147!2d-2.1916!3d53.0447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487a6836a0d0f8eb%3A0x0!2sDuncalf%20St%2C%20Burslem%2C%20Stoke-on-Trent%20ST6%203LJ%2C%20UK!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" 
+                width="100%" 
+                height="300" 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade" 
+                title="Pathway Academy Zone Location" 
+                className="rounded-xl border-0"
+              />
             </motion.aside>
 
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>

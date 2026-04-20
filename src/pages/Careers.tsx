@@ -243,7 +243,7 @@ export default function Careers() {
                 value={field.value || ""}
                 onChange={field.onChange}
                 required
-                columns={5}
+                columns={2}
                 error={errors.interest?.message}
               />
             )}
