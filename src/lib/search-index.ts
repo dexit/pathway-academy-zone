@@ -1,5 +1,5 @@
-import { BLOG_POSTS } from "@/components/blog/blog-data";
-import { DETAIL_CONTENT } from "@/components/knowledge-hub/detail-content";
+import { BLOG_POSTS } from "@/config/data/blog";
+import { DETAIL_CONTENT } from "@/config/data/knowledge-hub-detail";
 
 export type SearchItem = {
   title: string;

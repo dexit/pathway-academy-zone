@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo } from "@/components/Seo";
+import Seo from "@/components/Seo";
 //import heroImg from "@/assets/hero-classroom.jpg";
 //import classroomImg from "@/assets/classroom-learning.jpg";
 //import vocationalImg from "@/assets/vocational-training.jpg";

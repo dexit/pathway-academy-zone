@@ -53,9 +53,9 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
           aria-label="Open search"
           aria-expanded={expanded}
           onClick={() => setExpanded((e) => !e)}
-          className="p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+          className="p-2 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-all hover:scale-110 active:scale-95"
         >
-          <Search className="h-4 w-4" />
+          <Search className="h-5 w-5" />
         </button>
       )}
 
@@ -69,11 +69,11 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
             className={
               compact
                 ? "relative w-full"
-                : "absolute right-0 top-full mt-2 w-80 bg-card rounded-2xl border border-border shadow-lg p-3 z-50"
+                : "absolute right-0 top-full mt-2 w-96 bg-card rounded-2xl border border-border shadow-2xl p-3 z-50"
             }
           >
             <form onSubmit={submit} className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
               <input
                 ref={inputRef}
                 type="search"
@@ -85,7 +85,7 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
                 onFocus={() => setResultsOpen(true)}
                 placeholder="Search..."
                 aria-label="Search the site"
-                className="w-full h-10 pl-9 pr-9 rounded-full text-sm bg-muted/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 placeholder:text-muted-foreground"
+                className="w-full h-12 pl-10 pr-10 rounded-xl text-sm font-medium bg-muted/30 border border-border focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary placeholder:text-muted-foreground transition-all"
               />
               {query && (
                 <button
@@ -95,17 +95,17 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
                     setQuery("");
                     inputRef.current?.focus();
                   }}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <X className="h-3.5 w-3.5" />
+                  <X className="h-4 w-4" />
                 </button>
               )}
             </form>
 
             {resultsOpen && query && (
-              <div className="mt-2 bg-card rounded-xl border border-border overflow-hidden">
+              <div className="mt-3 bg-card rounded-xl border border-border overflow-hidden shadow-inner">
                 {results.length > 0 ? (
-                  <ul className="max-h-[360px] overflow-auto py-1">
+                  <ul className="max-h-[400px] overflow-auto py-2">
                     {results.map((r) => (
                       <li key={`${r.type}-${r.url}-${r.title}`}>
                         <button
@@ -116,17 +116,17 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
                             setQuery("");
                             if (!compact) setExpanded(false);
                           }}
-                          className="w-full text-left px-4 py-2.5 hover:bg-muted transition-colors"
+                          className="w-full text-left px-4 py-3 hover:bg-muted/50 transition-all border-l-2 border-transparent hover:border-primary group"
                         >
                           <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-semibold uppercase tracking-wider text-primary">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-1.5 py-0.5 rounded">
                               {r.type}
                             </span>
-                            <span className="text-sm text-foreground font-medium truncate">
+                            <span className="text-sm text-foreground font-bold truncate group-hover:text-primary transition-colors">
                               {r.title}
                             </span>
                           </div>
-                          <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
+                          <p className="text-xs text-muted-foreground line-clamp-1 mt-1 font-medium">
                             {r.description}
                           </p>
                         </button>
@@ -134,7 +134,7 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
                     ))}
                   </ul>
                 ) : (
-                  <div className="px-4 py-6 text-sm text-muted-foreground text-center">
+                  <div className="px-4 py-8 text-sm text-muted-foreground text-center font-medium">
                     No results for &quot;{query}&quot;
                   </div>
                 )}
@@ -146,7 +146,7 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
                     setQuery("");
                     if (!compact) setExpanded(false);
                   }}
-                  className="w-full px-4 py-2.5 text-xs font-semibold text-primary hover:bg-muted border-t border-border text-center"
+                  className="w-full px-4 py-3 text-xs font-bold text-primary hover:bg-primary hover:text-white border-t border-border text-center transition-all uppercase tracking-widest"
                 >
                   View all results
                 </button>

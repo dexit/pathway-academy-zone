@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FileText, Download, ArrowRight, Info, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Seo } from "@/components/Seo";
+import Seo from "@/components/Seo";
 import { ArchiveLayout } from "@/components/ArchiveLayout";
 import { FilterPills } from "@/components/FilterPills";
 

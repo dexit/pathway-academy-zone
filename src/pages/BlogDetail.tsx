@@ -6,7 +6,7 @@ import { ContentSidebar } from "@/components/ContentSidebar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/blog/blog-card";
-import { BLOG_POSTS } from "@/components/blog/blog-data";
+import { BLOG_POSTS } from "@/config/data/blog";
 
 export default function BlogDetail() {
   const { slug } = useParams();

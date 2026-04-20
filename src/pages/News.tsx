@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, ArrowRight } from "lucide-react";
-import { Seo } from "@/components/Seo";
+import Seo from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { ArchiveLayout } from "@/components/ArchiveLayout";
 import { FilterPills } from "@/components/FilterPills";
 import { ArchivePagination } from "@/components/ArchivePagination";
-import { NEWS_ITEMS } from "@/data/news-data";
+import { NEWS_ITEMS } from "@/config/data/news";
 
 const ALL = "All";
 const PAGE_SIZE = 4;

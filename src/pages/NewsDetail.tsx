@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs } from "@/components/Seo";
 import { ContentSidebar } from "@/components/ContentSidebar";
 import { Button } from "@/components/ui/button";
-import { NEWS_ITEMS } from "@/data/news-data";
+import { NEWS_ITEMS } from "@/config/data/news";
 
 export default function NewsDetail() {
   const { slug } = useParams();

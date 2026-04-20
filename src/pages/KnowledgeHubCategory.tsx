@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs } from "@/components/Seo";
-import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data";
+import { HUB_SECTIONS } from "@/config/data/knowledge-hub";
 
 export default function KnowledgeHubCategory() {
   const { categoryId } = useParams();

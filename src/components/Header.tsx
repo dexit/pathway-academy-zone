@@ -5,39 +5,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import SearchBar from "@/components/SearchBar";
 import ThemeToggle from "@/components/ThemeToggle";
-
-const navLinks = [
-  { label: "Home", path: "/" },
-  {
-    label: "About Us",
-    children: [
-      { label: "Who We Are", path: "/about" },
-      { label: "Our Team", path: "/team" },
-      { label: "Our Centres", path: "/centres" },
-      { label: "Outcomes & Impact", path: "/outcomes" },
-    ],
-  },
-  { label: "Programmes", path: "/programmes" },
-  {
-    label: "Resources",
-    children: [
-      { label: "Knowledge Hub", path: "/knowledge-hub" },
-      { label: "Blog", path: "/blog" },
-      { label: "News", path: "/news" },
-      { label: "FAQs", path: "/faqs" },
-    ],
-  },
-  {
-    label: "Support",
-    children: [
-      { label: "Safeguarding", path: "/safeguarding" },
-      { label: "Partners", path: "/partners" },
-      { label: "Policies", path: "/policies" },
-    ],
-  },
-  { label: "Careers", path: "/careers" },
-  { label: "Contact", path: "/contact" },
-];
+import { navLinks } from "@/config/navigation";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -67,7 +35,7 @@ export default function Header() {
                 onMouseLeave={() => setOpenDropdown(null)}
               >
                 <button
-                  className="px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 text-muted-foreground hover:text-foreground hover:bg-muted"
+                  className="px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 text-muted-foreground hover:text-foreground hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
                 >
                   {link.label}
                   <ChevronDown className="h-3.5 w-3.5" />
@@ -132,7 +100,7 @@ export default function Header() {
             aria-label={searchOpen ? "Close search" : "Open search"}
             aria-expanded={searchOpen}
             title="Search"
-            className="p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+            className="p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
             <SearchIcon className="h-4 w-4" />
           </button>
@@ -140,7 +108,7 @@ export default function Header() {
             href="tel:+441782365365"
             aria-label="Call 01782 365365"
             title="01782 365365"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors xl:px-2 lg:p-2 lg:rounded-full lg:hover:bg-muted xl:hover:bg-transparent xl:rounded-none"
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors xl:px-2 lg:p-2 lg:rounded-full lg:hover:bg-muted xl:hover:bg-transparent xl:rounded-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
             <Phone className="h-4 w-4" />
             <span className="hidden xl:inline">01782 365365</span>
@@ -155,14 +123,14 @@ export default function Header() {
           <button
             onClick={() => setSearchOpen((s) => !s)}
             aria-label="Search"
-            className="p-2 rounded-full hover:bg-muted text-muted-foreground"
+            className="p-2 rounded-full hover:bg-muted text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
             <SearchIcon className="h-5 w-5" />
           </button>
           <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 text-foreground"
+            className="p-2 text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded-lg"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

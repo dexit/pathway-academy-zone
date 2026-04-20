@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, Users, GraduationCap, Clock, CheckCircle, MapPin, Briefcase, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
-import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import Seo, { SITE_URL, SITE_NAME } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
 import { JobListSkeleton } from "@/components/SkeletonPlaceholders";
 

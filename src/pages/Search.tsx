@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Search as SearchIcon, ArrowRight } from "lucide-react";
-import { Seo } from "@/components/Seo";
+import Seo from "@/components/Seo";
 import { searchAll, type SearchItem } from "@/lib/search-index";
 import { Button } from "@/components/ui/button";
 import { ArchiveLayout } from "@/components/ArchiveLayout";

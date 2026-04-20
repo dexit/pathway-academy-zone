@@ -2,12 +2,12 @@ import { Link, useParams } from "react-router-dom"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Layout from "@/components/Layout"
 import { Button } from "@/components/ui/button"
-import { DETAIL_CONTENT } from "@/components/knowledge-hub/detail-content"
+import { DETAIL_CONTENT } from "@/config/data/knowledge-hub-detail"
 import { RenderBlocks } from "@/components/knowledge-hub/detail-blocks"
 import { Seo, Breadcrumbs } from "@/components/Seo"
 import { SummaryBlock, ReadingTime, RelatedContent, type RelatedItem } from "@/components/SeoBlocks"
 import { ContentSidebar } from "@/components/ContentSidebar"
-import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
+import { HUB_SECTIONS } from "@/config/data/knowledge-hub"
 
 export default function KnowledgeHubDetail() {
   const { category, slug } = useParams()

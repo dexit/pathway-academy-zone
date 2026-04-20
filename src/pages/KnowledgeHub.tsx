@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, BookOpen, Phone } from "lucide-react"
 import { HubSectionCard } from "@/components/knowledge-hub/hub-section-card"
-import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
+import { HUB_SECTIONS } from "@/config/data/knowledge-hub"
 import Layout from "@/components/Layout"
 import { Seo, Breadcrumbs } from "@/components/Seo"
 

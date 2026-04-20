@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Clock } from "lucide-react"
-import type { BlogPost } from "./blog-data"
+import type { BlogPost } from "@/config/data/blog"
 
 interface BlogHeroProps {
   post: BlogPost
