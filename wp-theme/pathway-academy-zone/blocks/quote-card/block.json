@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/quote-card",
+	"title": "Quote Card",
+	"category": "paz",
+	"icon": "format-quote",
+	"description": "Featured testimonial or quote card.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"render": "file:./render.php"
+}

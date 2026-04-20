@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/summary",
+	"title": "Summary",
+	"category": "paz",
+	"icon": "editor-alignleft",
+	"description": "A summary callout box for articles.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false },
+	"render": "file:./render.php"
+}

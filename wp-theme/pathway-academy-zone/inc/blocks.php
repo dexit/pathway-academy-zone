@@ -74,6 +74,11 @@ function paz_enqueue_block_styles() {
 add_action( 'wp_enqueue_scripts', 'paz_enqueue_block_styles' );
 add_action( 'enqueue_block_editor_assets', 'paz_enqueue_block_styles' );
 
+function paz_enqueue_editor_scripts() {
+	wp_enqueue_script( 'paz-blocks-editor', PAZ_THEME_URI . 'assets/js/blocks-editor.js', array( 'wp-blocks', 'wp-editor', 'wp-element' ), PAZ_THEME_VERSION, true );
+}
+add_action( 'enqueue_block_editor_assets', 'paz_enqueue_editor_scripts' );
+
 /**
  * Server-side handler for the pazone/webhook-form block. Supports POST/GET
  * with url-encoded, JSON, or query-string payloads. The action URL is

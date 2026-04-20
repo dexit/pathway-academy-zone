@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/accordion-faq",
+	"title": "Accordion FAQ",
+	"category": "paz",
+	"icon": "list-view",
+	"description": "Interactive FAQ accordion.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"render": "file:./render.php"
+}

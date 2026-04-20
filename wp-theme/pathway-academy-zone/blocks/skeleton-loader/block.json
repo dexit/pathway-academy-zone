@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/skeleton-loader",
+	"title": "Skeleton Loader",
+	"category": "paz",
+	"icon": "admin-generic",
+	"description": "A placeholder skeleton loader for loading states.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false },
+	"render": "file:./render.php"
+}
