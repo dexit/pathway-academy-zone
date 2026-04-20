@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Monitor, BookOpen, Coffee, Bus, ArrowRight, Wrench, Brain, Heart, Briefcase, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import buildingImg from "@/assets/building-exterior.jpg";
 import classroomImg from "@/assets/classroom-learning.jpg";
 import mentoringImg from "@/assets/mentoring-session.jpg";
