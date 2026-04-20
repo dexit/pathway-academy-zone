@@ -100,7 +100,7 @@ export default function Programmes() {
               </div>
             </div>
             <div className={i % 2 === 1 ? "lg:order-1" : ""}><img src={prog.img} alt={prog.title} className="rounded-2xl shadow-lg w-full h-80 object-cover" loading="lazy" /></div>
-          </motion.div>
+          </motion.article>
         ))}
       </div></div></section>
       {/* Where these programmes are delivered */}
