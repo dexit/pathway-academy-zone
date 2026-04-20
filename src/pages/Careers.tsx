@@ -1,4 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,14 +18,21 @@ import {
   Search as SearchIcon,
   Globe,
   Building2,
+  BookOpen,
+  HandHeart,
+  ClipboardList,
+  Sparkles,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
-import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
 import { JobListSkeleton } from "@/components/SkeletonPlaceholders";
 import { fetchAllJobs, type Job } from "@/lib/jobs-api";
 import { FilterPills } from "@/components/FilterPills";
+import { FormField } from "@/components/forms/FormField";
+import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
+import { email, ukPhone, personName, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
 
 const CAREERS_WEBHOOK = import.meta.env.VITE_CAREERS_WEBHOOK as string | undefined;
 
@@ -85,6 +95,23 @@ const LOCAL_VACANCIES: Job[] = [
 
 const SOURCES = ["All", "Local", "Reed", "Adzuna", "CV-Library"];
 
+const interestOptions: IllustratedOption[] = [
+  { value: "teaching", label: "Teaching", description: "Subject or SEMH teacher", icon: BookOpen },
+  { value: "youth-work", label: "Youth Work", description: "Mentoring & pastoral", icon: HandHeart },
+  { value: "support", label: "Learning Support", description: "TA / LSA roles", icon: Users },
+  { value: "admin", label: "Administration", description: "Operations & HR", icon: ClipboardList },
+  { value: "other", label: "Other", description: "Tell us more below", icon: Sparkles },
+];
+
+const formSchema = z.object({
+  name: personName({ required: true }),
+  email: email({ required: true }),
+  phone: ukPhone(),
+  interest: z.enum(["teaching", "youth-work", "support", "admin", "other"], { required_error: "Please choose an area of interest" }),
+  about: longMessage(1500, true),
+});
+type FormValues = z.infer<typeof formSchema>;
+
 function toJobPosting(v: Job) {
   const [minStr, maxStr] = v.salary.replace(/[£,]/g, "").split(/[-–]/).map((s) => s.trim());
   const min = parseInt(minStr, 10);
@@ -139,11 +166,36 @@ function toJobPosting(v: Job) {
 
 export default function Careers() {
   const { toast } = useToast();
-  const [form, setForm] = useState({ name: "", email: "", phone: "", interest: "", about: "" });
   const [listLoading, setListLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeSource, setActiveSource] = useState("All");
   const [dynamicJobs, setDynamicJobs] = useState<Job[]>([]);
+
+  const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    mode: "onTouched",
+    defaultValues: { name: "", email: "", phone: "", interest: undefined, about: "" },
+  });
+
+  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string }>({
+    url: CAREERS_WEBHOOK,
+    method: "POST",
+    format: "json",
+    extra: { source: "careers-speculative" },
+    onSuccess: () => {
+      toast({ title: "Application submitted", description: "We'll be in touch soon." });
+      resetForm();
+    },
+    onError: (err) =>
+      toast({ variant: "destructive", title: "Couldn't submit", description: err instanceof Error ? err.message : "Please try again." }),
+  });
+
+  const onSubmit = handleSubmit(async (values) => {
+    if (success || error) resetStatus();
+    await submit({ ...values, phone_e164: normaliseUkPhone(values.phone || "") });
+  });
+
+  const phone = watch("phone");
 
   const filteredLocal = useMemo(() => {
     return LOCAL_VACANCIES.filter((j) => {
@@ -209,30 +261,6 @@ export default function Careers() {
     },
   ], [allVisibleJobs]);
 
-  const { submit, loading, error, success, reset } = useFormSubmit<typeof form>({
-    url: CAREERS_WEBHOOK,
-    method: "POST",
-    format: "json",
-    extra: { source: "careers-speculative" },
-    onSuccess: () =>
-      toast({ title: "Application submitted", description: "We'll be in touch soon." }),
-    onError: (err) =>
-      toast({
-        variant: "destructive",
-        title: "Couldn't submit",
-        description: err instanceof Error ? err.message : "Please try again.",
-      }),
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await submit(form);
-  };
-  const update = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    if (success || error) reset();
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
-  };
-
   return (
     <Layout>
       <Seo
@@ -251,6 +279,12 @@ export default function Careers() {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives.
           </p>
+        </div>
+      </section>
+
+      <section className="py-8 bg-background">
+        <div className="container mx-auto px-4">
+          <Breadcrumbs items={[{ label: "Careers" }]} />
         </div>
       </section>
 
@@ -441,70 +475,76 @@ export default function Careers() {
             Don't see a suitable role? We're always interested in hearing from talented individuals.
           </p>
           <form
-            onSubmit={handleSubmit}
-            className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 space-y-4"
+            onSubmit={onSubmit}
+            noValidate
+            className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 space-y-5"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1 block">Your Name *</label>
-                <input
-                  required
-                  value={form.name}
-                  onChange={update("name")}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1 block">
-                  Email Address *
-                </label>
-                <input
-                  required
-                  type="email"
-                  value={form.email}
-                  onChange={update("email")}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">Phone Number</label>
-              <input
-                value={form.phone}
-                onChange={update("phone")}
-                className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm"
+              <FormField
+                id="careers-name"
+                label="Your Name"
+                required
+                autoComplete="name"
+                placeholder="Full name"
+                error={errors.name?.message}
+                {...register("name")}
+              />
+              <FormField
+                id="careers-email"
+                label="Email Address"
+                required
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                placeholder="your@email.com"
+                error={errors.email?.message}
+                {...register("email")}
               />
             </div>
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">
-                Area of Interest *
-              </label>
-              <select
-                required
-                value={form.interest}
-                onChange={update("interest")}
-                className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm"
-              >
-                <option value="">Select area</option>
-                <option>Teaching</option>
-                <option>Youth Work</option>
-                <option>Learning Support</option>
-                <option>Administration</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">
-                Tell Us About Yourself *
-              </label>
-              <textarea
-                required
-                value={form.about}
-                onChange={update("about")}
-                rows={4}
-                className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm"
-              />
-            </div>
+            <FormField
+              id="careers-phone"
+              name="phone"
+              label="Phone Number"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              placeholder="07123 456789"
+              hint="UK landline or mobile"
+              value={phone || ""}
+              onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
+              error={errors.phone?.message}
+            />
+
+            <Controller
+              name="interest"
+              control={control}
+              render={({ field }) => (
+                <IllustratedRadio
+                  name="interest"
+                  legend="Area of Interest"
+                  hint="Pick the closest match — we route applications by team."
+                  options={interestOptions}
+                  value={field.value || ""}
+                  onChange={field.onChange}
+                  required
+                  columns={5}
+                  error={errors.interest?.message}
+                />
+              )}
+            />
+
+            <FormField
+              as="textarea"
+              id="careers-about"
+              label="Tell Us About Yourself"
+              required
+              rows={5}
+              maxLength={1500}
+              placeholder="Background, qualifications, why you'd like to join us…"
+              error={errors.about?.message}
+              {...register("about")}
+            />
+
             <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full">
               {loading ? (
                 <span className="inline-flex items-center gap-2">
