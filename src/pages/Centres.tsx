@@ -24,14 +24,78 @@ const timetable = [
   { time: "14:15 - 15:00", activity: "Session 4 - Enrichment Activities" },{ time: "15:00 - 15:15", activity: "End of Day Review & Departure" },
 ];
 
+// Multi-location LocalBusiness graph. We model each centre as an
+// EducationalOrganization + LocalBusiness sub-type so search engines can
+// surface multiple branches under the parent organization. Add additional
+// centres to this array — schema and UI both extend automatically.
+const centres = [
+  {
+    id: "burslem",
+    name: `${SITE_NAME} — Burslem Learning Centre`,
+    streetAddress: "Duncalf Street, Burslem",
+    addressLocality: "Stoke-on-Trent",
+    postalCode: "ST6 3LJ",
+    region: "Staffordshire",
+    telephone: "+44-1782-365365",
+    latitude: 53.043,
+    longitude: -2.191,
+  },
+];
+
+const centresSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: `${SITE_URL}/assets/PAZlogo-BYea4nq1.png`,
+      department: centres.map((c) => ({ "@id": `${SITE_URL}/centres#${c.id}` })),
+    },
+    ...centres.map((c) => ({
+      "@type": ["EducationalOrganization", "LocalBusiness"],
+      "@id": `${SITE_URL}/centres#${c.id}`,
+      name: c.name,
+      url: `${SITE_URL}/centres#${c.id}`,
+      parentOrganization: { "@id": `${SITE_URL}/#organization` },
+      telephone: c.telephone,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: c.streetAddress,
+        addressLocality: c.addressLocality,
+        postalCode: c.postalCode,
+        addressRegion: c.region,
+        addressCountry: "GB",
+      },
+      geo: { "@type": "GeoCoordinates", latitude: c.latitude, longitude: c.longitude },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "08:30",
+          closes: "16:00",
+        },
+      ],
+      areaServed: { "@type": "AdministrativeArea", name: c.region },
+    })),
+  ],
+};
+
 export default function Centres() {
   return (
     <Layout>
+      <Seo
+        title="Our Centres"
+        description="Visit our purpose-built Alternative Provision centre in Burslem, Stoke-on-Trent. Small classrooms, breakout spaces, IT suite, transport links and a structured daily timetable."
+        jsonLd={centresSchema}
+      />
       <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
         <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Centres & Facilities</span>
         <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Our Learning Environments</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Our centres are designed to feel safe, calm, and welcoming – environments where young people can focus on learning and growth.</p>
       </div></section>
+      <section className="py-8 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Centres" }]} /></div></section>
       <section className="py-24 bg-background"><div className="container mx-auto px-4"><div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">Burslem Learning Centre</h2>
