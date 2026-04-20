@@ -213,22 +213,48 @@ export default function Careers() {
       <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-2xl">
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-4">Speculative Applications</h2>
         <p className="text-muted-foreground text-center mb-10">Don't see a suitable role? We're always interested in hearing from talented individuals.</p>
-        <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 space-y-4">
+        <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div><label className="text-sm font-medium text-foreground mb-1 block">Your Name *</label><input required value={form.name} onChange={update("name")} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm" /></div>
-            <div><label className="text-sm font-medium text-foreground mb-1 block">Email Address *</label><input required type="email" value={form.email} onChange={update("email")} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm" /></div>
+            <FormField id="careers-name" label="Your Name" required autoComplete="name" placeholder="Full name" error={errors.name?.message} {...register("name")} />
+            <FormField id="careers-email" label="Email Address" required type="email" inputMode="email" autoComplete="email" placeholder="your@email.com" error={errors.email?.message} {...register("email")} />
           </div>
-          <div><label className="text-sm font-medium text-foreground mb-1 block">Phone Number</label><input value={form.phone} onChange={update("phone")} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm" /></div>
-          <div><label className="text-sm font-medium text-foreground mb-1 block">Area of Interest *</label><select required value={form.interest} onChange={update("interest")} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm"><option value="">Select area</option><option>Teaching</option><option>Youth Work</option><option>Learning Support</option><option>Administration</option><option>Other</option></select></div>
-          <div><label className="text-sm font-medium text-foreground mb-1 block">Tell Us About Yourself *</label><textarea required value={form.about} onChange={update("about")} rows={4} className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm" /></div>
+          <FormField
+            id="careers-phone"
+            label="Phone Number"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="07123 456789"
+            hint="UK landline or mobile"
+            value={phone || ""}
+            onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
+            error={errors.phone?.message}
+          />
+
+          <Controller
+            name="interest"
+            control={control}
+            render={({ field }) => (
+              <IllustratedRadio
+                name="interest"
+                legend="Area of Interest"
+                hint="Pick the closest match — we route applications by team."
+                options={interestOptions}
+                value={field.value || ""}
+                onChange={field.onChange}
+                required
+                columns={5}
+                error={errors.interest?.message}
+              />
+            )}
+          />
+
+          <FormField as="textarea" id="careers-about" label="Tell Us About Yourself" required rows={5} maxLength={1500} placeholder="Background, qualifications, why you'd like to join us…" error={errors.about?.message} {...register("about")} />
+
           <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full">
             {loading ? (
-              <span className="inline-flex items-center gap-2">
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Submitting...
-              </span>
-            ) : (
-              "Submit Enquiry"
-            )}
+              <span className="inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Submitting...</span>
+            ) : ("Submit Enquiry")}
           </Button>
           {success && (
             <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
