@@ -100,40 +100,56 @@ const vacanciesSchema = [
   },
 ];
 
+const interestOptions: IllustratedOption[] = [
+  { value: "teaching", label: "Teaching", description: "Subject or SEMH teacher", icon: BookOpen },
+  { value: "youth-work", label: "Youth Work", description: "Mentoring & pastoral", icon: HandHeart },
+  { value: "support", label: "Learning Support", description: "TA / LSA roles", icon: Users },
+  { value: "admin", label: "Administration", description: "Operations & HR", icon: ClipboardList },
+  { value: "other", label: "Other", description: "Tell us more below", icon: Sparkles },
+];
+
+const formSchema = z.object({
+  name: personName({ required: true }),
+  email: email({ required: true }),
+  phone: ukPhone(),
+  interest: z.enum(["teaching", "youth-work", "support", "admin", "other"], { required_error: "Please choose an area of interest" }),
+  about: longMessage(1500, true),
+});
+type FormValues = z.infer<typeof formSchema>;
+
 export default function Careers() {
   const { toast } = useToast();
-  const [form, setForm] = useState({ name: "", email: "", phone: "", interest: "", about: "" });
-  // Simulated short load so the skeleton is perceivable; a real WP REST
-  // fetch of `paz_vacancy` would populate this in production.
   const [listLoading, setListLoading] = useState(true);
   useEffect(() => {
     const t = setTimeout(() => setListLoading(false), 450);
     return () => clearTimeout(t);
   }, []);
 
-  const { submit, loading, error, success, reset } = useFormSubmit<typeof form>({
+  const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    mode: "onTouched",
+    defaultValues: { name: "", email: "", phone: "", interest: undefined, about: "" },
+  });
+
+  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string }>({
     url: CAREERS_WEBHOOK,
     method: "POST",
     format: "json",
     extra: { source: "careers-speculative" },
-    onSuccess: () =>
-      toast({ title: "Application submitted", description: "We'll be in touch soon." }),
+    onSuccess: () => {
+      toast({ title: "Application submitted", description: "We'll be in touch soon." });
+      resetForm();
+    },
     onError: (err) =>
-      toast({
-        variant: "destructive",
-        title: "Couldn't submit",
-        description: err instanceof Error ? err.message : "Please try again.",
-      }),
+      toast({ variant: "destructive", title: "Couldn't submit", description: err instanceof Error ? err.message : "Please try again." }),
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await submit(form);
-  };
-  const update = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    if (success || error) reset();
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
-  };
+  const onSubmit = handleSubmit(async (values) => {
+    if (success || error) resetStatus();
+    await submit({ ...values, phone_e164: normaliseUkPhone(values.phone || "") });
+  });
+
+  const phone = watch("phone");
 
   return (
     <Layout>
@@ -147,6 +163,7 @@ export default function Careers() {
         <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Join Our Team</h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives.</p>
       </div></section>
+      <section className="py-8 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Careers" }]} /></div></section>
       <section className="py-24 bg-background"><div className="container mx-auto px-4">
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Why Work at Pathway Academy Zone?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
