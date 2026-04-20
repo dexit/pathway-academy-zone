@@ -15,28 +15,21 @@ export default function KnowledgeHub() {
       />
       <main className="min-h-screen bg-background">
         {/* Page Header */}
-        <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-2xl">
-              <Breadcrumbs
-                items={[{ label: "Knowledge Hub" }]}
-                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-              />
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
-                Pathway Academy Zone
-              </p>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Knowledge Hub
-              </h1>
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
-                Your comprehensive resource for understanding Alternative
-                Provision. Expert guides, practical comparisons, and
-                evidence-based best practices for educators, parents, and
-                professionals.
-              </p>
-            </div>
+              <header className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[{ label: "Knowledge Hub" }]}
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 tracking-tight">Alternative Provision Knowledge Hub</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              Essential resources, guides, and best practices for educators, parents, and professionals navigating Alternative Provision.
+            </p>
           </div>
-        </header>
+        </div>
+      </header>
+
 
         <div className="container mx-auto px-4 py-10 md:py-16 space-y-14">
           {/* Featured resource */}

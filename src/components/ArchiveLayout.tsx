@@ -39,7 +39,7 @@ export function ArchiveLayout({
           <div className="max-w-2xl">
             <Breadcrumbs
               items={crumbs}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
             />
             {eyebrow && (
               <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">

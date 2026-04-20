@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { School, Building2, GraduationCap, Users, Briefcase, Stethoscope, ArrowRight, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo, Breadcrumbs } from "@/components/Seo";
 import careersImg from "@/assets/careers-event.jpg";
 import mentoringImg from "@/assets/mentoring-session.jpg";
 
@@ -20,11 +21,21 @@ const areas = ["Stafford","Cannock Chase","East Staffordshire","Lichfield","Newc
 export default function Partners() {
   return (
     <Layout>
-      <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Local Partnerships</span>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Working Together Across Staffordshire</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Strong partnerships are essential to supporting young people effectively.</p>
-      </div></section>
+            <header className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[{ label: "Partners" }]}
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 tracking-tight">Our Partners</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              We work collaboratively with schools, local authorities, and employers to ensure the best outcomes for our young people.
+            </p>
+          </div>
+        </div>
+      </header>
+
       <section className="py-24 bg-background"><div className="container mx-auto px-4"><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {partners.map((p, i) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md transition-shadow">
           <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4"><p.icon className="h-6 w-6 text-primary" /></div>
