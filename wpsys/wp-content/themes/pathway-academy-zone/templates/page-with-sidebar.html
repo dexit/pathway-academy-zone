@@ -1,0 +1,27 @@
+<!-- wp:template-part {"slug":"announcement-bar"} /-->
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+    <!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"2rem","left":"3rem"},"padding":{"top":"3rem","bottom":"3rem"}}}} -->
+    <div class="wp-block-columns" style="padding-top:3rem;padding-bottom:3rem">
+        <!-- wp:column {"width":"66%"} -->
+        <div class="wp-block-column" style="flex-basis:66%">
+            <!-- wp:post-title {"level":1} /-->
+            <!-- wp:post-featured-image {"aspectRatio":"16/9"} /-->
+            <!-- wp:post-content /-->
+        </div>
+        <!-- /wp:column -->
+
+        <!-- wp:column {"width":"34%"} -->
+        <div class="wp-block-column" style="flex-basis:34%">
+            <!-- wp:template-part {"slug":"sidebar","tagName":"aside"} /-->
+        </div>
+        <!-- /wp:column -->
+    </div>
+    <!-- /wp:columns -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"cta-banner"} /-->
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

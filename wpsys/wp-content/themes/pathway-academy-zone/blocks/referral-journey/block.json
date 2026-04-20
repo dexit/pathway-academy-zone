@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/referral-journey",
+	"title": "Referral Journey",
+	"category": "paz",
+	"icon": "list-view",
+	"description": "4-step card grid explaining the referral process.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"heading": { "type": "string", "default": "The Referral Journey" }
+	},
+	"render": "file:./render.php"
+}

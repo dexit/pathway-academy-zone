@@ -1,0 +1,12 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/accordion-faq",
+  "title": "Accordion FAQ",
+  "category": "pazone",
+  "icon": "editor-help",
+  "description": "Displays FAQ items in an accordion list.",
+  "textdomain": "pathway-academy-zone",
+  "attributes": {
+    "limit": { "type": "number", "default": 10 }
+  }
+}

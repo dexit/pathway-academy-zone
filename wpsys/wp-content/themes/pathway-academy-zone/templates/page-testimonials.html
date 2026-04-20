@@ -1,0 +1,28 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="padding-top:4rem;padding-bottom:4rem">
+        <!-- wp:heading {"level":1,"textAlign":"center"} -->
+        <h1 class="has-text-align-center">What People Say</h1>
+        <!-- /wp:heading -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:query {"queryId":4,"query":{"postType":"testimonial"}} -->
+    <div class="wp-block-query">
+        <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+            <!-- wp:group {"style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem","left":"2rem","right":"2rem"}},"border":{"width":"1px","color":"var:preset|color|muted","radius":"1rem"}},"backgroundColor":"secondary"} -->
+            <div class="wp-block-group has-secondary-background-color has-background" style="border-color:var(--wp--preset--color--muted);border-radius:1rem;border-width:1px;padding-bottom:2rem;padding-left:2rem;padding-right:2rem;padding-top:2rem">
+                <!-- wp:post-content /-->
+                <!-- wp:post-title {"level":4} /-->
+            </div>
+            <!-- /wp:group -->
+        <!-- /wp:post-template -->
+    </div>
+    <!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

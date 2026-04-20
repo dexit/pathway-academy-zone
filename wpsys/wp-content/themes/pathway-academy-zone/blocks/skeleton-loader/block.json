@@ -1,0 +1,9 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/skeleton-loader",
+  "title": "Skeleton Loader",
+  "category": "pazone",
+  "icon": "ellipsis",
+  "description": "Animated skeleton placeholder for loading states.",
+  "textdomain": "pathway-academy-zone"
+}

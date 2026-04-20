@@ -1,0 +1,122 @@
+{
+	"pages": [
+		{
+			"slug": "home",
+			"title": "Home",
+			"content": "<!-- wp:pattern {\"slug\":\"pathway-academy-zone/hero\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/approach\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/stats\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/cta\"} /-->"
+		},
+		{
+			"slug": "about",
+			"title": "About Us",
+			"content": "<!-- wp:paragraph --><p>Pathway Academy Zone is an Alternative Provision (AP) academy based in Stoke-on-Trent, dedicated to supporting young people who benefit from a relational, trauma-informed approach to education.</p><!-- /wp:paragraph -->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/values\"} /-->"
+		},
+		{
+			"slug": "team",
+			"title": "Our Team",
+			"content": "<!-- wp:pazone/team-grid /-->"
+		},
+		{
+			"slug": "programmes",
+			"title": "Programmes",
+			"content": "<!-- wp:paragraph --><p>We offer a range of full-time and short-term re-engagement programmes tailored to Key Stage 3 and 4 learners.</p><!-- /wp:paragraph -->"
+		},
+		{
+			"slug": "centres",
+			"title": "Our Centres",
+			"content": "<!-- wp:paragraph --><p>We operate from two high-quality learning environments in Staffordshire.</p><!-- /wp:paragraph -->"
+		},
+		{
+			"slug": "outcomes",
+			"title": "Outcomes & Impact",
+			"content": "<!-- wp:pazone/stat-grid /-->"
+		},
+		{
+			"slug": "partners",
+			"title": "Partners",
+			"content": "<!-- wp:paragraph --><p>We work closely with schools, Local Authorities, and community partners.</p><!-- /wp:paragraph -->"
+		},
+		{
+			"slug": "referral",
+			"title": "Make a Referral",
+			"content": "<!-- wp:pattern {\"slug\":\"pathway-academy-zone/referral-journey\"} /-->\n<!-- wp:pazone/webhook-form {\"target\":\"https://hook.make.com/xxxx\",\"method\":\"POST\"} -->\n<!-- wp:paragraph --><p>Please use the form below to start a referral.</p><!-- /wp:paragraph -->\n<!-- /wp:pazone/webhook-form -->"
+		},
+		{
+			"slug": "safeguarding",
+			"title": "Safeguarding",
+			"content": "<!-- wp:paragraph --><p>Safeguarding is our number one priority. All staff are rigorously trained and DBS-checked.</p><!-- /wp:paragraph -->"
+		},
+		{
+			"slug": "knowledge-hub",
+			"title": "Knowledge Hub",
+			"content": "<!-- wp:paragraph --><p>Resources, guides, and information for parents and professionals.</p><!-- /wp:paragraph -->"
+		},
+		{
+			"slug": "faqs",
+			"title": "FAQs",
+			"content": "<!-- wp:pazone/accordion-faq /-->"
+		},
+		{
+			"slug": "news",
+			"title": "News",
+			"content": "<!-- wp:paragraph --><p>The latest updates from Pathway Academy Zone.</p><!-- /wp:paragraph -->"
+		},
+		{
+			"slug": "contact",
+			"title": "Contact",
+			"content": "<!-- wp:paragraph --><p>Get in touch with us today.</p><!-- /wp:paragraph -->"
+		},
+		{
+			"slug": "policies",
+			"title": "Policies",
+			"content": "<!-- wp:pazone/key-policies /-->"
+		},
+		{
+			"slug": "careers",
+			"title": "Careers",
+			"content": "<!-- wp:pazone/job-board {"showInternal":true} /-->"
+		}
+	],
+	"menus": {
+		"primary": [
+			{ "slug": "home",          "title": "Home" },
+			{ "slug": "about",         "title": "About" },
+			{ "slug": "team",          "title": "Team" },
+			{ "slug": "programmes",    "title": "Programmes" },
+			{ "slug": "centres",       "title": "Centres" },
+			{ "slug": "outcomes",      "title": "Outcomes" },
+			{ "slug": "partners",      "title": "Partners" },
+			{ "slug": "referral",      "title": "Make a Referral" },
+			{ "slug": "safeguarding",  "title": "Safeguarding" },
+			{ "slug": "knowledge-hub", "title": "Knowledge Hub" },
+			{ "slug": "faqs",          "title": "FAQs" },
+			{ "slug": "news",          "title": "News" },
+			{ "slug": "contact",       "title": "Contact" }
+		],
+		"footer": [
+			{ "slug": "about",         "title": "About" },
+			{ "slug": "policies",      "title": "Policies" },
+			{ "slug": "careers",       "title": "Careers" },
+			{ "slug": "contact",       "title": "Contact" },
+			{ "slug": "knowledge-hub", "title": "Knowledge Hub" }
+		]
+	},
+	"paz_team": [
+		{ "slug": "martin-chandler", "title": "Martin Chandler", "excerpt": "Designated Safeguarding Lead", "meta": { "paz_role": "Designated Safeguarding Lead", "paz_email": "martin.chandler@pathwayacademyzone.co.uk" } },
+		{ "slug": "jane-doe",        "title": "Jane Doe",        "excerpt": "Headteacher",                 "meta": { "paz_role": "Headteacher" } }
+	],
+	"paz_programme": [
+		{ "slug": "ks3-bridge",      "title": "KS3 Bridge",       "excerpt": "A 12-week re-engagement programme for Key Stage 3 learners.",        "meta": { "paz_subtitle": "Re-engagement", "paz_duration": "12 weeks", "paz_key_stage": "KS3" } }
+	],
+	"paz_policy": [
+		{ "slug": "child-protection-safeguarding", "title": "Child Protection & Safeguarding Policy", "excerpt": "Our primary safeguarding policy." }
+	],
+	"paz_vacancy": [
+		{ "slug": "semh-teacher", "title": "SEMH Teacher", "excerpt": "Join our team in Stafford.", "meta": { "paz_job_city": "Stafford", "paz_job_salary_min": "28000", "paz_job_salary_max": "35000", "paz_job_employment_type": "Full-time" } }
+	],
+	"paz_faq": [
+		{ "slug": "what-is-ap", "title": "What is Alternative Provision?", "content": "Alternative Provision is education for students who cannot attend mainstream school." }
+	],
+	"paz_testimonial": [
+		{ "slug": "parent-feedback", "title": "Parent Feedback", "content": "Pathway has changed my son's life.", "meta": { "paz_author_role": "Parent" } }
+	]
+}
