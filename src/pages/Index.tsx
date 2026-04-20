@@ -89,7 +89,7 @@ export default function HomePage() {
       <Seo
         title="Alternative Provision Stoke-on-Trent"
         description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities."
-        jsonLd={faqJsonLd}
+        jsonLd={homeJsonLd}
       />
       {/* Hero - Full screen with image overlay */}
       <section className="relative min-h-[calc(100vh-5rem)] flex items-center">
