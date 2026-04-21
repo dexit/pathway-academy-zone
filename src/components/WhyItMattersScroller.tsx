@@ -202,7 +202,7 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
           {chapter.title}
         </h3>
 
-        <div className="grid lg:grid-cols-[1fr_220px] gap-6 items-start">
+        <div className="grid lg:grid-cols-[1fr_260px] gap-6 items-start">
           <p className="text-muted-foreground leading-relaxed text-[15px] md:text-base">
             {chapter.body}
           </p>
@@ -213,10 +213,16 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15, duration: 0.5 }}
-            className="relative rounded-2xl border border-primary/15 bg-gradient-to-br from-accent/40 to-background p-5 overflow-hidden"
+            className="relative rounded-2xl border border-primary/15 bg-gradient-to-br from-accent/40 to-background p-6 overflow-hidden w-full"
           >
             <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
-            <p className="relative font-display text-2xl md:text-3xl font-bold text-gradient-primary leading-none mb-2">
+            <p
+              className={`relative font-display font-bold text-gradient-primary leading-tight mb-2 break-words ${
+                chapter.stat.value.length > 8
+                  ? "text-xl md:text-2xl"
+                  : "text-2xl md:text-3xl"
+              }`}
+            >
               {chapter.stat.value}
             </p>
             <p className="relative text-xs text-muted-foreground leading-snug">
