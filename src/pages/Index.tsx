@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig, MapPin, ClipboardList, Sparkles, GraduationCap, ShieldCheck, PhoneCall } from "lucide-react";
-import { useRef } from "react";
 import Layout from "@/components/Layout";
 import { Seo } from "@/components/Seo";
 //import heroImg from "@/assets/hero-classroom.jpg";
