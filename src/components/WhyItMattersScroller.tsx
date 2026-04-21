@@ -10,6 +10,12 @@ import {
   PhoneCall,
   type LucideIcon,
 } from "lucide-react";
+import why1 from "@/assets/why-1-local-picture.jpg";
+import why2 from "@/assets/why-2-who-we-are.jpg";
+import why3 from "@/assets/why-3-every-story.jpg";
+import why4 from "@/assets/why-4-curriculum.jpg";
+import why5 from "@/assets/why-5-safeguarding.jpg";
+import why6 from "@/assets/why-6-start-conversation.jpg";
 
 type Chapter = {
   id: string;
@@ -19,6 +25,8 @@ type Chapter = {
   icon: LucideIcon;
   body: React.ReactNode;
   stat: { value: string; label: string };
+  image: string;
+  imageAlt: string;
 };
 
 const chapters: Chapter[] = [
@@ -28,6 +36,8 @@ const chapters: Chapter[] = [
     pillLabel: "Local picture",
     title: "Hundreds of Stoke-on-Trent learners are at risk each year",
     icon: MapPin,
+    image: why1,
+    imageAlt: "Map of the UK with location pins marking Stoke-on-Trent and surrounding areas",
     stat: { value: "100s", label: "of young people locally at risk of exclusion" },
     body: (
       <>
@@ -46,6 +56,8 @@ const chapters: Chapter[] = [
     pillLabel: "Who we are",
     title: "A registered AP for KS3 & KS4 learners aged 11–16",
     icon: ClipboardList,
+    image: why2,
+    imageAlt: "Small group of teenagers sitting calmly with a friendly mentor in a classroom",
     stat: { value: "11–16", label: "Key Stage 3 & 4 learners" },
     body: (
       <>
@@ -63,6 +75,8 @@ const chapters: Chapter[] = [
     pillLabel: "Every story",
     title: "Calm assessment, personalised plans, dignity first",
     icon: Sparkles,
+    image: why3,
+    imageAlt: "Teenager sitting calmly with a notebook by a sunlit window",
     stat: { value: "1:1", label: "or small-group timetables" },
     body: (
       <>
@@ -81,6 +95,8 @@ const chapters: Chapter[] = [
     pillLabel: "Curriculum",
     title: "Core academics, vocational routes, real qualifications",
     icon: GraduationCap,
+    image: why4,
+    imageAlt: "Curriculum icons including a book, calculator, hard hat and spanner",
     stat: { value: "GCSE · BTEC", label: "Functional Skills & vocational routes" },
     body: (
       <>
@@ -99,6 +115,8 @@ const chapters: Chapter[] = [
     pillLabel: "Safeguarding",
     title: "Trained leads, robust processes, trusted partnerships",
     icon: ShieldCheck,
+    image: why5,
+    imageAlt: "Protective shield with a heart surrounded by supportive figures forming a circle",
     stat: { value: "DSL", label: "Designated lead + LADO partnerships" },
     body: (
       <>
@@ -116,6 +134,8 @@ const chapters: Chapter[] = [
     pillLabel: "Start the conversation",
     title: "Refer a learner, talk to our team, or read the guide",
     icon: PhoneCall,
+    image: why6,
+    imageAlt: "Smartphone, referral form and speech bubble representing starting a conversation",
     stat: { value: "01782 365365", label: "Direct line to our team" },
     body: (
       <>
@@ -187,6 +207,38 @@ function ChapterContent({
   );
 }
 
+function ChapterIllustration({
+  chapter,
+  from,
+}: {
+  chapter: Chapter;
+  from: "left" | "right";
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: from === "left" ? -30 : 30, scale: 0.96 }}
+      whileInView={{ opacity: 1, x: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+      className={`relative ${from === "right" ? "md:ml-auto" : "md:mr-auto"} max-w-[360px]`}
+    >
+      {/* Decorative blob */}
+      <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/10 via-accent/30 to-transparent blur-2xl pointer-events-none" />
+      <div className="relative aspect-square rounded-3xl overflow-hidden border border-primary/10 bg-gradient-to-br from-accent/40 to-background shadow-lg shadow-primary/5">
+        <img
+          src={chapter.image}
+          alt={chapter.imageAlt}
+          loading="lazy"
+          width={896}
+          height={896}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none" />
+      </div>
+    </motion.div>
+  );
+}
+
 function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number; total: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -206,7 +258,7 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
     >
       {/* LEFT column */}
       <div className="hidden md:block relative">
-        {isLeft && (
+        {isLeft ? (
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -220,6 +272,8 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
               className="absolute top-3 right-0 h-px w-12 translate-x-full bg-gradient-to-l from-primary/60 to-transparent"
             />
           </motion.div>
+        ) : (
+          <ChapterIllustration chapter={chapter} from="left" />
         )}
       </div>
 
@@ -246,7 +300,7 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
 
       {/* RIGHT column */}
       <div className="hidden md:block relative">
-        {!isLeft && (
+        {!isLeft ? (
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -260,6 +314,8 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
               className="absolute top-3 left-0 h-px w-12 -translate-x-full bg-gradient-to-r from-primary/60 to-transparent"
             />
           </motion.div>
+        ) : (
+          <ChapterIllustration chapter={chapter} from="right" />
         )}
       </div>
 
