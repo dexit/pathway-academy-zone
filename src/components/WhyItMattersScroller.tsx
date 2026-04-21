@@ -56,6 +56,8 @@ const chapters: Chapter[] = [
     pillLabel: "Who we are",
     title: "A registered AP for KS3 & KS4 learners aged 11–16",
     icon: ClipboardList,
+    image: why2,
+    imageAlt: "Small group of teenagers sitting calmly with a friendly mentor in a classroom",
     stat: { value: "11–16", label: "Key Stage 3 & 4 learners" },
     body: (
       <>
