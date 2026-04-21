@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig, MapPin, ClipboardList, Sparkles, GraduationCap, ShieldCheck, PhoneCall } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo } from "@/components/Seo";
+import WhyItMattersScroller from "@/components/WhyItMattersScroller";
 //import heroImg from "@/assets/hero-classroom.jpg";
 //import classroomImg from "@/assets/classroom-learning.jpg";
 //import vocationalImg from "@/assets/vocational-training.jpg";
