@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Layout from "@/components/Layout"
+import { Breadcrumbs } from "@/components/Seo"
 import { Button } from "@/components/ui/button"
 
 const terms: { term: string; slug: string; definition: string }[] = [
