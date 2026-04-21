@@ -1,219 +1,93 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Menu, X, Phone, ChevronDown, Search as SearchIcon } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Search, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
-import SearchBar from "@/components/SearchBar";
-import ThemeToggle from "@/components/ThemeToggle";
-import { navLinks } from "@/config/navigation";
+import { mainNav } from "@/config/navigation";
+import { SITE_NAME } from "@/config/site";
 
 export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-background border-b border-border">
-      <div className="container mx-auto flex items-center justify-between h-20 px-4 gap-4">
-        <Link to="/" className="flex items-center shrink-0">
-          <img
-            src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
-            alt="Pathway Academy Zone Logo"
-            className="h-14 w-auto"
-          />
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-background/80 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"
+      }`}
+    >
+      <div className="container mx-auto px-4 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2 group">
+          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-bold text-xl group-hover:scale-105 transition-transform">P</div>
+          <span className={`font-display font-bold text-xl tracking-tight ${!isScrolled && location.pathname === "/" ? "text-primary" : "text-foreground"}`}>
+            {SITE_NAME}
+          </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) =>
-            link.children ? (
-              <div
-                key={link.label}
-                className="relative"
-                onMouseEnter={() => setOpenDropdown(link.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
-              >
-                <button
-                  className="px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 text-muted-foreground hover:text-foreground hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                >
-                  {link.label}
-                  <ChevronDown className="h-3.5 w-3.5" />
-                </button>
-                <AnimatePresence>
-                  {openDropdown === link.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 mt-1 w-52 bg-card rounded-xl shadow-lg border border-border py-2"
-                    >
-                      {link.children.map((child, idx) => (
-                        <motion.div
-                          key={child.path}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.2, delay: idx * 0.04 }}
-                        >
-                          <Link
-                            to={child.path}
-                            title={child.label}
-                            rel="next"
-                            aria-current={location.pathname === child.path ? "page" : undefined}
-                            className={`block px-4 py-2.5 mx-2 my-1 rounded-xl text-sm transition-colors ${
-                              location.pathname === child.path
-                                ? "text-primary bg-secondary"
-                                : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                            }`}
-                          >
-                            {child.label}
-                          </Link>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ) : (
-              <Link
-                key={link.path}
-                to={link.path!}
-                title={link.label}
-                rel={link.path === "/" ? "home" : undefined}
-                aria-current={location.pathname === link.path ? "page" : undefined}
-                className={`px-3 py-2 mx-2 text-sm font-medium rounded-xl transition-colors ${
-                  location.pathname === link.path
-                    ? "text-primary bg-secondary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-              >
-                {link.label}
-              </Link>
-            )
-          )}
+        <nav className="hidden md:flex items-center gap-8">
+          {mainNav.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                location.pathname === item.href ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              {item.title}
+            </Link>
+          ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3 shrink-0">
-          <button
-            onClick={() => setSearchOpen((s) => !s)}
-            aria-label={searchOpen ? "Close search" : "Open search"}
-            aria-expanded={searchOpen}
-            title="Search"
-            className="p-2 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-          >
-            <SearchIcon className="h-4 w-4" />
-          </button>
-          <a
-            href="tel:+441782365365"
-            aria-label="Call 01782 365365"
-            title="01782 365365"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors xl:px-2 lg:p-2 lg:rounded-full lg:hover:bg-muted xl:hover:bg-transparent xl:rounded-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-          >
-            <Phone className="h-4 w-4" />
-            <span className="hidden xl:inline">01782 365365</span>
-          </a>
-          <ThemeToggle />
-          <Button asChild size="sm">
-            <Link to="/referral">Make a Referral</Link>
+        <div className="hidden md:flex items-center gap-4">
+          <Link to="/search" className="p-2 text-muted-foreground hover:text-primary transition-colors">
+            <Search className="h-5 w-5" />
+          </Link>
+          <Button asChild className="rounded-full">
+            <Link to="/contact">Get in Touch</Link>
           </Button>
         </div>
 
-        <div className="lg:hidden flex items-center gap-1">
-          <button
-            onClick={() => setSearchOpen((s) => !s)}
-            aria-label="Search"
-            className="p-2 rounded-full hover:bg-muted text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-          >
-            <SearchIcon className="h-5 w-5" />
-          </button>
-          <ThemeToggle />
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded-lg"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
+        <button className="md:hidden p-2 text-foreground" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {mobileMenuOpen ? <X /> : <Menu />}
+        </button>
       </div>
 
-      <AnimatePresence>
-        {searchOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="border-t border-border bg-card overflow-hidden"
-          >
-            <div className="container mx-auto px-4 py-4">
-              <SearchBar compact />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-card border-b border-border overflow-hidden"
-          >
-            <nav className="flex flex-col p-4 gap-1">
-              {navLinks.map((link) =>
-                link.children ? (
-                  <div key={link.label}>
-                    <p className="px-4 py-2 text-xs font-semibold uppercase text-muted-foreground tracking-wider">
-                      {link.label}
-                    </p>
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.path}
-                        to={child.path}
-                        onClick={() => setMobileOpen(false)}
-                        title={child.label}
-                        rel="next"
-                        aria-current={location.pathname === child.path ? "page" : undefined}
-                        className={`block px-6 py-2.5 mx-2 rounded-xl text-sm font-medium transition-colors ${
-                          location.pathname === child.path
-                            ? "text-primary bg-secondary"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                        }`}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <Link
-                    key={link.path}
-                    to={link.path!}
-                    onClick={() => setMobileOpen(false)}
-                    title={link.label}
-                    rel={link.path === "/" ? "home" : undefined}
-                    aria-current={location.pathname === link.path ? "page" : undefined}
-                    className={`px-4 py-3 mx-2 rounded-xl text-sm font-medium transition-colors ${
-                      location.pathname === link.path
-                        ? "text-primary bg-secondary"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
-              <Button asChild size="lg" className="mt-3">
-                <Link to="/referral" onClick={() => setMobileOpen(false)}>
-                  Make a Referral
-                </Link>
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 bg-background border-t border-border p-6 shadow-xl animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="flex flex-col gap-4">
+            {mainNav.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`text-lg font-semibold flex items-center justify-between ${
+                  location.pathname === item.href ? "text-primary" : "text-foreground"
+                }`}
+              >
+                {item.title}
+                <ChevronRight className="h-4 w-4 opacity-50" />
+              </Link>
+            ))}
+            <div className="pt-4 flex flex-col gap-3">
+              <Button asChild variant="outline" className="w-full justify-center rounded-full">
+                <Link to="/search" className="flex items-center gap-2"><Search className="h-4 w-4" /> Search Resources</Link>
               </Button>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <Button asChild className="w-full justify-center rounded-full">
+                <Link to="/contact">Get in Touch</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

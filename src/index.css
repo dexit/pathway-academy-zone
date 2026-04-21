@@ -71,15 +71,14 @@
     --popover: 0 0% 100%;
     --popover-foreground: 160 10% 15%;
 
-    /* Brand green — matches the live site exactly */
-    --primary: 152 45% 35%; /* L=35% is slightly low for white foreground but okay for large text. Let's adjust to be safer. */
+    --primary: 152 45% 35%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 150 20% 95%;
     --secondary-foreground: 160 10% 15%;
 
     --muted: 150 15% 94%;
-    --muted-foreground: 160 10% 40%; /* Was 45%, darker for better contrast */
+    --muted-foreground: 160 10% 40%;
 
     --accent: 152 35% 90%;
     --accent-foreground: 152 45% 25%;
@@ -99,7 +98,7 @@
     --teal-dark: 160 45% 22%;
     --teal-light: 152 35% 90%;
     --navy: 160 20% 12%;
-    --warm-gray: 160 8% 50%; /* Was 55%, darker for better contrast */
+    --warm-gray: 160 8% 50%;
   }
 
   .dark {

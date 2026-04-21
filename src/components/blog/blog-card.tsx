@@ -9,15 +9,13 @@ interface BlogCardProps {
 
 export function BlogCard({ post }: BlogCardProps) {
   return (
-    <article className="group relative flex flex-col bg-card rounded-xl border border-border overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2">
-      <Link to={`/blog/${post.slug}`} className="absolute inset-0 z-10" aria-label={`Read ${post.title}`} />
-
+    <article className="group flex flex-col bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
       {/* Thumbnail */}
       <div className="relative h-48 overflow-hidden bg-muted">
         <img
           src={post.image}
           alt={post.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>
 
@@ -30,7 +28,7 @@ export function BlogCard({ post }: BlogCardProps) {
           {post.category}
         </Badge>
 
-        <h3 className="font-bold text-foreground text-lg leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+        <h3 className="font-semibold text-foreground text-base leading-snug line-clamp-2 group-hover:text-primary transition-colors">
           {post.title}
         </h3>
 
@@ -38,7 +36,7 @@ export function BlogCard({ post }: BlogCardProps) {
           {post.excerpt}
         </p>
 
-        <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
+        <div className="flex items-center justify-between pt-2 border-t border-border mt-auto">
           <div className="flex items-center gap-3 text-muted-foreground text-xs">
             <span className="flex items-center gap-1">
               <Clock className="w-3 h-3" />
@@ -47,12 +45,14 @@ export function BlogCard({ post }: BlogCardProps) {
             <span>{post.date}</span>
           </div>
 
-          <div
-            className="flex items-center gap-1 text-primary font-bold text-sm group-hover:gap-2 transition-all duration-300"
+          <Link
+            to={`/blog/${post.slug}`}
+            className="flex items-center gap-1 text-primary font-semibold text-xs hover:gap-2 transition-all"
+            aria-label={`Read ${post.title}`}
           >
             Read
-            <ArrowRight className="w-4 h-4" />
-          </div>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
     </article>

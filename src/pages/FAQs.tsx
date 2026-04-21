@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowRight, Phone, Search } from "lucide-react";
-import Seo from "@/components/Seo";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArchiveLayout } from "@/components/ArchiveLayout";

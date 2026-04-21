@@ -6,7 +6,7 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { BLOG_POSTS, CATEGORIES } from "@/config/data/blog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Seo from "@/components/Seo";
+import { Seo } from "@/components/Seo";
 import { ArchiveLayout } from "@/components/ArchiveLayout";
 import { FilterPills } from "@/components/FilterPills";
 import { ArchivePagination } from "@/components/ArchivePagination";
