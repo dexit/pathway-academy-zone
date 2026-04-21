@@ -1,56 +1,50 @@
 import { ReactNode } from "react";
-import Layout from "@/components/Layout";
-import { Breadcrumbs } from "@/components/Seo";
-import { ContentSidebar } from "@/components/ContentSidebar";
-import type { ComponentProps } from "react";
+import Layout from "./Layout";
+import { Breadcrumbs, Crumb } from "./Seo";
+import { ContentSidebar, ContentSidebarProps } from "./ContentSidebar";
 
 interface ArchiveLayoutProps {
-  /** Breadcrumb trail items (last item is the current page). */
-  crumbs: { label: string; to?: string }[];
-  eyebrow?: string;
+  children: ReactNode;
   title: string;
   intro?: string;
-  /** Sidebar configuration — passed straight to ContentSidebar. */
-  sidebar?: ComponentProps<typeof ContentSidebar>;
-  /** Optional element rendered above the main column (e.g. featured card). */
-  beforeMain?: ReactNode;
-  children: ReactNode;
+  eyebrow?: string;
+  crumbs: Crumb[];
+  sidebar?: ContentSidebarProps;
 }
 
-/**
- * Unified archive page chrome shared by Blog, News, FAQs, Policies, Search.
- * Provides: primary header band → optional `beforeMain` slot →
- * two-column grid (main + ContentSidebar). Keeps spacing and breakpoints
- * consistent so every archive feels like part of one system.
- */
 export function ArchiveLayout({
-  crumbs,
-  eyebrow = "Pathway Academy Zone",
+  children,
   title,
   intro,
+  eyebrow,
+  crumbs,
   sidebar,
-  beforeMain,
-  children,
 }: ArchiveLayoutProps) {
   return (
     <Layout>
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-2xl">
+      <header className="bg-primary pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden relative">
+        {/* Background Accents */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-[-20deg] translate-x-1/2 pointer-events-none" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl">
             <Breadcrumbs
               items={crumbs}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              className="text-white/60 mb-8 md:mb-12 [&_a]:text-white/80 [&_a:hover]:text-white [&_span]:text-white"
             />
+
             {eyebrow && (
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
+              <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-white/90 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 backdrop-blur-sm border border-white/10">
                 {eyebrow}
-              </p>
+              </span>
             )}
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
               {title}
             </h1>
+
             {intro && (
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
+              <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-2xl">
                 {intro}
               </p>
             )}
@@ -58,11 +52,17 @@ export function ArchiveLayout({
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-10 md:py-16">
-        {beforeMain && <div className="mb-10">{beforeMain}</div>}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
-          <div className="space-y-8 min-w-0">{children}</div>
-          {sidebar && <ContentSidebar {...sidebar} />}
+      <div className="container mx-auto px-4 py-12 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 xl:gap-20">
+          <main className="min-w-0">
+            {children}
+          </main>
+
+          {sidebar && (
+            <aside className="hidden lg:block">
+              <ContentSidebar {...sidebar} />
+            </aside>
+          )}
         </div>
       </div>
     </Layout>

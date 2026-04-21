@@ -10,18 +10,25 @@ export function RenderBlocks({ blocks }: { blocks: Block[] }) {
   )
 }
 
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 function BlockRenderer({ block }: { block: Block }) {
   switch (block.type) {
     case "p":
       return <p className="text-muted-foreground leading-relaxed text-base md:text-lg">{block.text}</p>
     case "h2":
       return (
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground pt-4 border-t border-border">
+        <h2 id={slugify(block.text)} className="text-2xl md:text-3xl font-bold text-foreground pt-4 border-t border-border scroll-mt-24">
           {block.text}
         </h2>
       )
     case "h3":
-      return <h3 className="text-xl font-semibold text-foreground">{block.text}</h3>
+      return <h3 id={slugify(block.text)} className="text-xl font-semibold text-foreground scroll-mt-24">{block.text}</h3>
     case "ul":
       return (
         <ul className="space-y-2 list-disc list-inside text-muted-foreground leading-relaxed">
