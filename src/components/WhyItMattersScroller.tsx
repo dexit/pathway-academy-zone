@@ -145,6 +145,48 @@ const chapters: Chapter[] = [
   },
 ];
 
+function ChapterContent({
+  chapter,
+  align,
+}: {
+  chapter: Chapter;
+  align: "left" | "right";
+}) {
+  return (
+    <div className={align === "right" ? "md:ml-auto md:max-w-md md:text-right" : "md:mr-auto md:max-w-md text-left"}>
+      <p className="text-xs font-semibold tracking-[0.18em] uppercase text-primary mb-2">
+        {chapter.eyebrow}
+      </p>
+      <h3 className="font-display text-2xl md:text-[26px] font-bold text-foreground leading-tight mb-4">
+        {chapter.title}
+      </h3>
+      <p className="text-muted-foreground leading-relaxed text-[15px] md:text-base mb-5">
+        {chapter.body}
+      </p>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.15, duration: 0.5 }}
+        className="relative inline-block text-left rounded-2xl border border-primary/15 bg-gradient-to-br from-accent/40 to-background p-5 overflow-hidden min-w-[220px]"
+      >
+        <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
+        <p
+          className={`relative font-display font-bold text-gradient-primary leading-tight mb-2 break-words ${
+            chapter.stat.value.length > 8 ? "text-xl md:text-2xl" : "text-2xl md:text-3xl"
+          }`}
+        >
+          {chapter.stat.value}
+        </p>
+        <p className="relative text-xs text-muted-foreground leading-snug">
+          {chapter.stat.label}
+        </p>
+      </motion.div>
+    </div>
+  );
+}
+
 function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number; total: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -153,10 +195,35 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
   });
 
   const Icon = chapter.icon;
+  const isLeft = index % 2 === 0;
+  const connectorX = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
   return (
-    <div ref={ref} id={chapter.id} className="relative grid md:grid-cols-[88px_1fr] gap-6 md:gap-10 py-12 md:py-16">
-      {/* Timeline rail node */}
+    <div
+      ref={ref}
+      id={chapter.id}
+      className="relative md:grid md:grid-cols-[1fr_88px_1fr] md:gap-8 py-12 md:py-20"
+    >
+      {/* LEFT column */}
+      <div className="hidden md:block relative">
+        {isLeft && (
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <ChapterContent chapter={chapter} align="right" />
+            {/* Connector line from content to rail */}
+            <motion.div
+              style={{ scaleX: connectorX, transformOrigin: "right" }}
+              className="absolute top-3 right-0 h-px w-12 translate-x-full bg-gradient-to-l from-primary/60 to-transparent"
+            />
+          </motion.div>
+        )}
+      </div>
+
+      {/* CENTER rail node (desktop) */}
       <div className="hidden md:flex flex-col items-center">
         <motion.div
           style={{ scale: useTransform(scrollYProgress, [0, 0.4, 1], [0.85, 1.1, 1]) }}
@@ -164,7 +231,7 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
         >
           <div className="relative">
             <motion.div
-              style={{ opacity: useTransform(scrollYProgress, [0, 0.4], [0, 0.4]) }}
+              style={{ opacity: useTransform(scrollYProgress, [0, 0.4], [0, 0.5]) }}
               className="absolute inset-0 rounded-2xl bg-primary/30 blur-2xl"
             />
             <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-[hsl(var(--teal-dark))] flex items-center justify-center shadow-lg shadow-primary/20 ring-4 ring-background">
@@ -177,16 +244,34 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
         </motion.div>
       </div>
 
-      {/* Content */}
+      {/* RIGHT column */}
+      <div className="hidden md:block relative">
+        {!isLeft && (
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <ChapterContent chapter={chapter} align="left" />
+            {/* Connector line from rail to content */}
+            <motion.div
+              style={{ scaleX: connectorX, transformOrigin: "left" }}
+              className="absolute top-3 left-0 h-px w-12 -translate-x-full bg-gradient-to-r from-primary/60 to-transparent"
+            />
+          </motion.div>
+        )}
+      </div>
+
+      {/* MOBILE single-column */}
       <motion.div
         initial={{ opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative"
+        className="md:hidden"
       >
-        {/* Mobile node */}
-        <div className="md:hidden flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-4">
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-[hsl(var(--teal-dark))] flex items-center justify-center shadow-md">
             <Icon className="h-5 w-5 text-primary-foreground" />
           </div>
@@ -194,42 +279,7 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
             {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
           </span>
         </div>
-
-        <p className="text-xs font-semibold tracking-[0.18em] uppercase text-primary mb-2">
-          {chapter.eyebrow}
-        </p>
-        <h3 className="font-display text-2xl md:text-[28px] font-bold text-foreground leading-tight mb-5">
-          {chapter.title}
-        </h3>
-
-        <div className="grid lg:grid-cols-[1fr_260px] gap-6 items-start">
-          <p className="text-muted-foreground leading-relaxed text-[15px] md:text-base">
-            {chapter.body}
-          </p>
-
-          {/* Stat card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.5 }}
-            className="relative rounded-2xl border border-primary/15 bg-gradient-to-br from-accent/40 to-background p-6 overflow-hidden w-full"
-          >
-            <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
-            <p
-              className={`relative font-display font-bold text-gradient-primary leading-tight mb-2 break-words ${
-                chapter.stat.value.length > 8
-                  ? "text-xl md:text-2xl"
-                  : "text-2xl md:text-3xl"
-              }`}
-            >
-              {chapter.stat.value}
-            </p>
-            <p className="relative text-xs text-muted-foreground leading-snug">
-              {chapter.stat.label}
-            </p>
-          </motion.div>
-        </div>
+        <ChapterContent chapter={chapter} align="left" />
       </motion.div>
     </div>
   );
