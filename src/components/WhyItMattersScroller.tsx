@@ -207,7 +207,39 @@ function ChapterContent({
   );
 }
 
-function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number; total: number }) {
+function ChapterIllustration({
+  chapter,
+  from,
+}: {
+  chapter: Chapter;
+  from: "left" | "right";
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: from === "left" ? -30 : 30, scale: 0.96 }}
+      whileInView={{ opacity: 1, x: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+      className={`relative ${from === "right" ? "md:ml-auto" : "md:mr-auto"} max-w-[360px]`}
+    >
+      {/* Decorative blob */}
+      <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/10 via-accent/30 to-transparent blur-2xl pointer-events-none" />
+      <div className="relative aspect-square rounded-3xl overflow-hidden border border-primary/10 bg-gradient-to-br from-accent/40 to-background shadow-lg shadow-primary/5">
+        <img
+          src={chapter.image}
+          alt={chapter.imageAlt}
+          loading="lazy"
+          width={896}
+          height={896}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none" />
+      </div>
+    </motion.div>
+  );
+}
+
+
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
