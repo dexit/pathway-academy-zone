@@ -14,6 +14,7 @@ import {
 type Chapter = {
   id: string;
   eyebrow: string;
+  pillLabel: string;
   title: string;
   icon: LucideIcon;
   body: React.ReactNode;
@@ -24,6 +25,7 @@ const chapters: Chapter[] = [
   {
     id: "context",
     eyebrow: "01 — The local picture",
+    pillLabel: "Local picture",
     title: "Hundreds of Stoke-on-Trent learners are at risk each year",
     icon: MapPin,
     stat: { value: "100s", label: "of young people locally at risk of exclusion" },
@@ -41,6 +43,7 @@ const chapters: Chapter[] = [
   {
     id: "who",
     eyebrow: "02 — Who we are",
+    pillLabel: "Who we are",
     title: "A registered AP for KS3 & KS4 learners aged 11–16",
     icon: ClipboardList,
     stat: { value: "11–16", label: "Key Stage 3 & 4 learners" },
@@ -57,6 +60,7 @@ const chapters: Chapter[] = [
   {
     id: "story",
     eyebrow: "03 — Every story is different",
+    pillLabel: "Every story",
     title: "Calm assessment, personalised plans, dignity first",
     icon: Sparkles,
     stat: { value: "1:1", label: "or small-group timetables" },
@@ -74,6 +78,7 @@ const chapters: Chapter[] = [
   {
     id: "curriculum",
     eyebrow: "04 — A balanced curriculum",
+    pillLabel: "Curriculum",
     title: "Core academics, vocational routes, real qualifications",
     icon: GraduationCap,
     stat: { value: "GCSE · BTEC", label: "Functional Skills & vocational routes" },
@@ -91,6 +96,7 @@ const chapters: Chapter[] = [
   {
     id: "safeguarding",
     eyebrow: "05 — Safeguarding at the centre",
+    pillLabel: "Safeguarding",
     title: "Trained leads, robust processes, trusted partnerships",
     icon: ShieldCheck,
     stat: { value: "DSL", label: "Designated lead + LADO partnerships" },
@@ -107,6 +113,7 @@ const chapters: Chapter[] = [
   {
     id: "next",
     eyebrow: "06 — Start the conversation",
+    pillLabel: "Start the conversation",
     title: "Refer a learner, talk to our team, or read the guide",
     icon: PhoneCall,
     stat: { value: "01782 365365", label: "Direct line to our team" },
@@ -264,9 +271,17 @@ export default function WhyItMattersScroller() {
               <a
                 key={c.id}
                 href={`#${c.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById(c.id)
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  if (history.replaceState) history.replaceState(null, "", `#${c.id}`);
+                }}
                 className="text-xs font-medium px-3 py-1.5 rounded-full border border-border bg-card hover:border-primary hover:text-primary transition-colors"
               >
-                {String(i + 1).padStart(2, "0")} · {c.eyebrow.split("—")[1]?.trim() ?? c.id}
+                <span className="text-primary/70 mr-1">{String(i + 1).padStart(2, "0")}</span>
+                {c.pillLabel}
               </a>
             ))}
           </div>
