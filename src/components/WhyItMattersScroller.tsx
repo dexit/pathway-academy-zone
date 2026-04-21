@@ -14,6 +14,7 @@ import {
 type Chapter = {
   id: string;
   eyebrow: string;
+  pillLabel: string;
   title: string;
   icon: LucideIcon;
   body: React.ReactNode;
