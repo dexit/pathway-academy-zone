@@ -36,6 +36,8 @@ const chapters: Chapter[] = [
     pillLabel: "Local picture",
     title: "Hundreds of Stoke-on-Trent learners are at risk each year",
     icon: MapPin,
+    image: why1,
+    imageAlt: "Map of the UK with location pins marking Stoke-on-Trent and surrounding areas",
     stat: { value: "100s", label: "of young people locally at risk of exclusion" },
     body: (
       <>
