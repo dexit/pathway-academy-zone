@@ -271,9 +271,17 @@ export default function WhyItMattersScroller() {
               <a
                 key={c.id}
                 href={`#${c.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById(c.id)
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  if (history.replaceState) history.replaceState(null, "", `#${c.id}`);
+                }}
                 className="text-xs font-medium px-3 py-1.5 rounded-full border border-border bg-card hover:border-primary hover:text-primary transition-colors"
               >
-                {String(i + 1).padStart(2, "0")} · {c.eyebrow.split("—")[1]?.trim() ?? c.id}
+                <span className="text-primary/70 mr-1">{String(i + 1).padStart(2, "0")}</span>
+                {c.pillLabel}
               </a>
             ))}
           </div>
