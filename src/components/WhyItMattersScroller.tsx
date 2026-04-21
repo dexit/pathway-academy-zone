@@ -345,12 +345,12 @@ export default function WhyItMattersScroller() {
 
         {/* Scroll content with timeline rail */}
         <div className="relative">
-          {/* Vertical rail */}
-          <div className="hidden md:block absolute left-[43px] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
+          {/* Vertical rail (centered on desktop) */}
+          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
           {/* Animated rail progress */}
           <motion.div
             style={{ scaleY: progressY, transformOrigin: "top" }}
-            className="hidden md:block absolute left-[43px] top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/60 to-transparent"
+            className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/60 to-transparent"
           />
 
           {chapters.map((chapter, i) => (
