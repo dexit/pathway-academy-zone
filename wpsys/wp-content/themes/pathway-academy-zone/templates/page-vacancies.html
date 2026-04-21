@@ -1,0 +1,42 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+    <!-- wp:group {"backgroundColor":"primary","textColor":"background","style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group has-primary-background-color has-background has-background-text-color" style="padding-top:4rem;padding-bottom:4rem">
+        <!-- wp:heading {"level":1} -->
+        <h1 class="wp-block-heading paz-page-title">Join Our Team</h1>
+        <!-- /wp:heading -->
+        <!-- wp:paragraph -->
+        <p>Explore current vacancies and career opportunities at Pathway Academy Zone.</p>
+        <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:group {"style":{"spacing":{"margin":{"top":"4rem","bottom":"4rem"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="margin-top:4rem;margin-bottom:4rem">
+        <!-- wp:query {"queryId":2,"query":{"postType":"paz_vacancy","order":"desc","orderBy":"date"}} -->
+        <div class="wp-block-query">
+            <!-- wp:post-template -->
+                <!-- wp:group {"style":{"spacing":{"padding":{"top":"2rem","bottom":"2rem"}},"border":{"bottom":{"color":"var:preset|color|muted","width":"1px"}}}} -->
+                <div class="wp-block-group" style="border-bottom-color:var(--wp--preset--color--muted);border-bottom-width:1px;padding-bottom:2rem;padding-top:2rem">
+                    <!-- wp:post-title {"isLink":true} /-->
+                    <!-- wp:post-excerpt /-->
+                    <!-- wp:buttons -->
+                    <div class="wp-block-buttons">
+                        <!-- wp:button -->
+                        <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Apply Now</a></div>
+                        <!-- /wp:button -->
+                    </div>
+                    <!-- /wp:buttons -->
+                </div>
+                <!-- /wp:group -->
+            <!-- /wp:post-template -->
+        </div>
+        <!-- /wp:query -->
+    </div>
+    <!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

@@ -1,0 +1,39 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
+
+	<!-- wp:pazone/breadcrumbs /-->
+
+	<!-- wp:post-terms {"term":"paz_vacancy_department","className":"paz-kicker"} /-->
+	<!-- wp:post-title {"level":1,"className":"paz-page-title"} /-->
+
+	<!-- wp:group {"className":"paz-vacancy-meta-row","layout":{"type":"flex","flexWrap":"wrap"}} -->
+	<div class="wp-block-group paz-vacancy-meta-row">
+		<!-- wp:paragraph -->
+		<p><strong>Location:</strong> Stoke-on-Trent</p>
+		<!-- /wp:paragraph -->
+		<!-- wp:paragraph -->
+		<p><strong>Type:</strong> Full Time</p>
+		<!-- /wp:paragraph -->
+		<!-- wp:post-date {"format":"F j, Y","displayType":"date"} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+	<!-- wp:buttons {"className":"paz-vacancy-cta"} -->
+	<div class="wp-block-buttons paz-vacancy-cta">
+		<!-- wp:button {"className":"is-style-fill"} -->
+		<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/contact/">Apply for this role</a></div>
+		<!-- /wp:button -->
+		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/vacancies/">All vacancies</a></div>
+		<!-- /wp:button -->
+	</div>
+	<!-- /wp:buttons -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

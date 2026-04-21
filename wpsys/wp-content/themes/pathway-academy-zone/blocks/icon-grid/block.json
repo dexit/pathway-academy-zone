@@ -1,0 +1,9 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/icon-grid",
+  "title": "Icon Grid",
+  "category": "pazone",
+  "icon": "grid-view",
+  "description": "Grid of icons with text.",
+  "textdomain": "pathway-academy-zone"
+}

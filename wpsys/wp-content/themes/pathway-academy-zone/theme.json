@@ -1,0 +1,141 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 2,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"layout": {
+			"contentSize": "800px",
+			"wideSize": "1200px"
+		},
+		"color": {
+			"custom": true,
+			"customDuotone": true,
+			"customGradient": true,
+			"palette": [
+				{ "name": "Background",       "slug": "background",       "color": "#fcfdfc" },
+				{ "name": "Foreground",       "slug": "foreground",       "color": "#0f1a16" },
+				{ "name": "Primary",          "slug": "primary",          "color": "#2e8158" },
+				{ "name": "Primary Soft",     "slug": "primary-soft",     "color": "#e8f3ed" },
+				{ "name": "Accent",           "slug": "accent",           "color": "#e69540" },
+				{ "name": "Muted",            "slug": "muted",            "color": "#f3f5f4" },
+				{ "name": "Muted Foreground", "slug": "muted-foreground", "color": "#5b6b65" },
+				{ "name": "Border",           "slug": "border",           "color": "#e0e5e2" },
+				{ "name": "Card",             "slug": "card",             "color": "#ffffff" },
+				{ "name": "Destructive",      "slug": "destructive",      "color": "#c0392b" },
+				{ "name": "Navy",             "slug": "navy",             "color": "#182521" },
+				{ "name": "Teal Dark",        "slug": "teal-dark",        "color": "#1f503d" },
+				{ "name": "Teal Light",       "slug": "teal-light",       "color": "#e2efe9" }
+			],
+			"gradients": [
+				{ "name": "Primary to Teal", "slug": "primary-teal", "gradient": "linear-gradient(135deg, #2e8158 0%, #1f503d 100%)" }
+			],
+			"duotone": [
+				{ "colors": [ "#1f503d", "#fcfdfc" ], "slug": "teal-to-light", "name": "Teal to Light" },
+				{ "colors": [ "#0f1a16", "#2e8158" ], "slug": "dark-to-primary", "name": "Dark to Primary" }
+			]
+		},
+		"typography": {
+			"fluid": true,
+			"fontFamilies": [
+				{
+					"name": "Plus Jakarta Sans",
+					"slug": "plus-jakarta-sans",
+					"fontFamily": "\"Plus Jakarta Sans\", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+				}
+			],
+			"fontSizes": [
+				{ "size": "0.875rem", "name": "Small",    "slug": "small" },
+				{ "size": "1rem",     "name": "Medium",   "slug": "medium" },
+				{ "size": "1.25rem",  "name": "Large",    "slug": "large" },
+				{ "size": "1.75rem",  "name": "X-Large",  "slug": "x-large" },
+				{ "size": "2.5rem",   "name": "XX-Large", "slug": "xx-large" },
+				{ "size": "clamp(2.5rem, 4vw + 1rem, 4rem)", "name": "Display", "slug": "display" }
+			],
+			"fontWeight": true,
+			"fontStyle": true,
+			"textTransform": true,
+			"lineHeight": true,
+			"letterSpacing": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true,
+			"blockGap": true,
+			"units": ["px", "em", "rem", "%", "vh", "vw"],
+			"spacingScale": {
+				"operator": "*",
+				"increment": 1.5,
+				"steps": 7,
+				"mediumStep": 1.5,
+				"unit": "rem"
+			}
+		},
+		"border": { "color": true, "radius": true, "style": true, "width": true },
+		"shadow": {
+			"presets": [
+				{ "name": "Natural", "slug": "natural", "shadow": "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)" },
+				{ "name": "Deep", "slug": "deep", "shadow": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }
+			]
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--background)",
+			"text": "var(--wp--preset--color--foreground)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--plus-jakarta-sans)",
+			"fontSize": "1rem",
+			"lineHeight": "1.6",
+			"letterSpacing": "-0.01em"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--plus-jakarta-sans)",
+					"fontWeight": "700",
+					"lineHeight": "1.15",
+					"letterSpacing": "-0.02em"
+				}
+			},
+			"h1": { "typography": { "fontSize": "var(--wp--preset--font-size--display)" } },
+			"h2": { "typography": { "fontSize": "var(--wp--preset--font-size--xx-large)" } },
+			"h3": { "typography": { "fontSize": "var(--wp--preset--font-size--x-large)" } },
+			"link": {
+				"color": { "text": "var(--wp--preset--color--primary)" },
+				"typography": { "textDecoration": "none" },
+				":hover": { "typography": { "textDecoration": "underline" } }
+			},
+			"button": {
+				"border": { "radius": "9999px" },
+				"color": {
+					"background": "var(--wp--preset--color--primary)",
+					"text": "#ffffff"
+				},
+				"spacing": { "padding": { "top": "0.75rem", "bottom": "0.75rem", "left": "1.5rem", "right": "1.5rem" } },
+				"typography": { "fontWeight": "600", "fontSize": "0.95rem" },
+				":hover": { "color": { "background": "#256947" } }
+			}
+		}
+	},
+	"templateParts": [
+		{ "name": "header",            "title": "Header",            "area": "header" },
+		{ "name": "footer",            "title": "Footer",            "area": "footer" },
+		{ "name": "sidebar",           "title": "Sidebar",           "area": "uncategorized" },
+		{ "name": "announcement-bar",  "title": "Announcement Bar",  "area": "uncategorized" },
+		{ "name": "cta-banner",        "title": "CTA Banner",        "area": "uncategorized" }
+	],
+	"customTemplates": [
+		{ "name": "page-full-width",    "title": "Full Width Page",    "postTypes": ["page"] },
+		{ "name": "page-landing",       "title": "Landing Page",       "postTypes": ["page"] },
+		{ "name": "page-with-sidebar",  "title": "Page with Sidebar",  "postTypes": ["page", "post"] },
+		{ "name": "page-contact",       "title": "Contact Page",       "postTypes": ["page"] },
+		{ "name": "page-knowledge-hub", "title": "Knowledge Hub Page", "postTypes": ["page"] },
+		{ "name": "page-policies",      "title": "Policies Page",      "postTypes": ["page"] },
+		{ "name": "page-partners",      "title": "Partners Page",      "postTypes": ["page"] },
+		{ "name": "page-case-studies",  "title": "Case Studies Page",  "postTypes": ["page"] },
+		{ "name": "page-testimonials",  "title": "Testimonials Page",  "postTypes": ["page"] },
+		{ "name": "page-vacancies",     "title": "Vacancies Page",     "postTypes": ["page"] }
+	]
+}
