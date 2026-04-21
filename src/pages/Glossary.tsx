@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Layout from "@/components/Layout"
+import { Breadcrumbs } from "@/components/Seo"
 import { Button } from "@/components/ui/button"
 
 const terms: { term: string; slug: string; definition: string }[] = [
@@ -28,26 +29,24 @@ export default function Glossary() {
   return (
     <Layout>
       <main className="min-h-screen bg-background">
-        <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-3xl">
-              <Link
-                to="/knowledge-hub"
-                className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground mb-6 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Knowledge Hub
-              </Link>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Alternative Provision Glossary
-              </h1>
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
-                Clear, searchable definitions of key terms and concepts used in Alternative Provision. A quick
-                reference guide for educators, parents, and professionals.
-              </p>
-            </div>
+              <header className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[
+                { label: "Knowledge Hub", to: "/knowledge-hub" },
+                { label: "Glossary" }
+              ]}
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 tracking-tight">Alternative Provision Glossary</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              Clear definitions of key terms and concepts used in Alternative Provision — a quick reference guide for educators and families.
+            </p>
           </div>
-        </header>
+        </div>
+      </header>
+
 
         <div className="container mx-auto px-4 py-10 md:py-16">
           <div className="max-w-3xl mx-auto space-y-6">

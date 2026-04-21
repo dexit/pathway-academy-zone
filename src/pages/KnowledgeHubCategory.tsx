@@ -1,8 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs } from "@/components/Seo";
+import { ArrowRight, BookOpen } from "lucide-react";
+import { Seo } from "@/components/Seo";
+import { ArchiveLayout } from "@/components/ArchiveLayout";
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data";
+import Layout from "@/components/Layout";
+import { Button } from "@/components/ui/button";
 
 export default function KnowledgeHubCategory() {
   const { categoryId } = useParams();
@@ -27,6 +29,12 @@ export default function KnowledgeHubCategory() {
     );
   }
 
+  const otherCategories = HUB_SECTIONS.filter((s) => s.id !== categoryId).map((s) => ({
+    label: s.title,
+    href: `/knowledge-hub/${s.id}`,
+    description: `Browse ${s.title.toLowerCase()} resources`,
+  }));
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -40,55 +48,78 @@ export default function KnowledgeHubCategory() {
   };
 
   return (
-    <Layout>
+    <>
       <Seo
         title={section.title}
         description={section.description}
         jsonLd={jsonLd}
       />
 
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <Breadcrumbs
-            items={[
-              { label: "Knowledge Hub", to: "/knowledge-hub" },
-              { label: section.title },
-            ]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-            {section.title}
-          </h1>
-          <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-3xl">
-            {section.description}
-          </p>
-          <Link
-            to="/knowledge-hub"
-            className="inline-flex items-center gap-2 my-6 text-primary-foreground/70 hover:text-primary-foreground mb-5 transition-colors text-sm"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Knowledge Hub
-          </Link>
-        </div>
-      </header>
-
-      <div className="container mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <ArchiveLayout
+        crumbs={[
+          { label: "Knowledge Hub", to: "/knowledge-hub" },
+          { label: section.title },
+        ]}
+        title={section.title}
+        intro={section.description}
+        sidebar={{
+          ctas: [
+            ...otherCategories,
+            {
+              label: "Complete Guide",
+              href: "/knowledge-hub/complete-guide",
+              description: "Read our full guide to Alternative Provision",
+              tone: "primary",
+            },
+          ],
+          quickContact: {
+            phone: "01782 365365",
+            email: "info@pathwayacademyzone.co.uk",
+          },
+        }}
+      >
+        <div className="grid grid-cols-1 gap-4">
           {section.resources.map((resource) => (
             <Link
               key={resource.href}
               to={resource.href}
-              className="flex items-center justify-between p-6 bg-card rounded-xl border border-border hover:shadow-md transition-shadow group"
+              className="group flex flex-col sm:flex-row sm:items-center justify-between p-6 bg-card rounded-2xl border border-border/50 hover:border-primary/40 hover:shadow-md transition-all gap-4"
             >
-              <span className="font-semibold text-foreground pr-4">
-                {resource.title}
-              </span>
-              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">
+                    {resource.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    Click to read full article
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-sm font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                Read Guide <ArrowRight className="w-4 h-4" />
+              </div>
             </Link>
           ))}
         </div>
-      </div>
-    </Layout>
+
+        <div className="mt-12 p-8 rounded-3xl bg-muted/40 border border-border/50 text-center">
+          <h2 className="text-xl font-bold text-foreground mb-3">Looking for something else?</h2>
+          <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
+            Our Knowledge Hub is constantly being updated with new resources, case studies, and regulatory guidance.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Button asChild variant="outline">
+              <Link to="/knowledge-hub">Browse All Hub</Link>
+            </Button>
+            <Button asChild>
+              <Link to="/contact">Request a Resource</Link>
+            </Button>
+          </div>
+        </div>
+      </ArchiveLayout>
+    </>
   );
 }

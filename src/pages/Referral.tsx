@@ -99,19 +99,21 @@ export default function Referral() {
         description="Refer a young person to Pathway Academy Zone — Alternative Provision in Stoke-on-Trent for ages 11–16. Schools, Local Authorities, social workers and virtual schools welcome."
       />
 
-      <section className="py-32 bg-muted/30">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Referral Process</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">How to Refer a Young Person</h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We accept referrals from schools, local authorities, social workers, and virtual schools.</p>
+            <header className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[{ label: "Referral" }]}
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 tracking-tight">Make a Referral</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              We accept referrals from schools, local authorities, social workers, and virtual schools across Staffordshire.
+            </p>
+          </div>
         </div>
-      </section>
+      </header>
 
-      <section className="py-12 bg-background">
-        <div className="container mx-auto px-4">
-          <Breadcrumbs items={[{ label: "Referral" }]} />
-        </div>
-      </section>
 
       <section className="pb-24 bg-background">
         <div className="container mx-auto px-4">
