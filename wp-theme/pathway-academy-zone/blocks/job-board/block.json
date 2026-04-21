@@ -1,0 +1,29 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "pazone/job-board",
+    "version": "1.0.0",
+    "title": "Job Board (Multi-Feed)",
+    "category": "pazone",
+    "description": "Displays local vacancies and allows searching/filtering external job feeds (Reed, Adzuna, CV-Library).",
+    "attributes": {
+        "showExternal": {
+            "type": "boolean",
+            "default": true
+        },
+        "query": {
+            "type": "string",
+            "default": "Education"
+        }
+    },
+    "supports": {
+        "html": false,
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "textdomain": "pathway-academy-zone",
+    "editorScript": "file:./index.js",
+    "render": "file:./render.php"
+}
