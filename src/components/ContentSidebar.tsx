@@ -1,127 +1,118 @@
-import { Link } from "react-router-dom"
-import { ReactNode } from "react"
-import { ArrowRight, Phone } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Link } from "react-router-dom";
+import { ArrowRight, Phone, Mail, FileText, ChevronRight } from "lucide-react";
+import { Button } from "./ui/button";
+import { TocItem } from "@/hooks/useTableOfContents";
 
-interface TocItem {
-  id: string
-  label: string
-  level?: 2 | 3
+export interface ContentSidebarProps {
+  toc?: {
+    items: TocItem[];
+    activeId: string;
+  };
+  ctas?: {
+    label: string;
+    description: string;
+    href: string;
+    tone?: "primary" | "muted";
+  }[];
+  quickContact?: {
+    phone: string;
+    email: string;
+  };
 }
 
-interface CtaItem {
-  label: string
-  href: string
-  description?: string
-  tone?: "primary" | "subtle"
-}
-
-/**
- * Right-rail sidebar intended for long-form content pages (Knowledge Hub
- * detail, Safeguarding, Policies). Composes a sticky TOC, contact CTA, and
- * any number of related-link cards. Collapses to a single column on mobile.
- */
-export function ContentSidebar({
-  toc,
-  ctas,
-  quickContact,
-  children,
-  className,
-}: {
-  toc?: TocItem[]
-  ctas?: CtaItem[]
-  quickContact?: { phone?: string; email?: string }
-  children?: ReactNode
-  className?: string
-}) {
+export function ContentSidebar({ toc, ctas, quickContact }: ContentSidebarProps) {
   return (
-    <aside
-      aria-label="Sidebar"
-      className={cn(
-        "lg:sticky lg:top-24 space-y-6 self-start",
-        className
-      )}
-    >
-      {toc && toc.length > 0 && (
-        <nav aria-label="On this page" className="rounded-2xl border border-border bg-card p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+    <div className="space-y-10 sticky top-24">
+      {/* Table of Contents */}
+      {toc && toc.items.length > 0 && (
+        <nav aria-label="On this page" className="bg-card rounded-3xl p-8 border border-border/50 shadow-sm">
+          <h3 className="font-display font-bold text-foreground mb-6 flex items-center gap-2">
+            <span className="w-1.5 h-4 bg-primary rounded-full" />
             On this page
-          </p>
-          <ol className="space-y-1.5 text-sm">
-            {toc.map((item) => (
-              <li key={item.id} className={item.level === 3 ? "pl-4" : ""}>
+          </h3>
+          <ul className="space-y-4">
+            {toc.items.map((item) => (
+              <li
+                key={item.id}
+                className={`${item.level === 3 ? "pl-4" : ""}`}
+              >
                 <a
                   href={`#${item.id}`}
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className={`group flex items-start gap-2 text-sm transition-all ${
+                    toc.activeId === item.id
+                      ? "text-primary font-bold"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
+                  <ChevronRight className={`h-3.5 w-3.5 mt-0.5 shrink-0 transition-transform ${
+                    toc.activeId === item.id ? "translate-x-0.5" : "opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0"
+                  }`} />
                   {item.label}
                 </a>
               </li>
             ))}
-          </ol>
+          </ul>
         </nav>
       )}
 
-      {ctas && ctas.length > 0 && (
-        <div className="space-y-3">
-          {ctas.map((cta) => (
-            <Link
-              key={cta.href}
-              to={cta.href}
-              className={cn(
-                "group block rounded-2xl p-5 transition-all",
-                cta.tone === "primary"
-                  ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                  : "border border-border bg-card hover:border-primary/40"
-              )}
-            >
-              <p className="font-display font-semibold">{cta.label}</p>
-              {cta.description && (
-                <p
-                  className={cn(
-                    "text-sm mt-1",
-                    cta.tone === "primary"
-                      ? "text-primary-foreground/80"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {cta.description}
-                </p>
-              )}
-              <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium">
-                Learn more <ArrowRight className="h-3.5 w-3.5" />
-              </span>
-            </Link>
-          ))}
-        </div>
-      )}
-
-      {quickContact && (quickContact.phone || quickContact.email) && (
-        <div className="rounded-2xl border border-border bg-muted/50 p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-            Need to speak to us?
+      {/* Actionable CTAs */}
+      {ctas && ctas.map((cta) => (
+        <div
+          key={cta.href}
+          className={`rounded-3xl p-8 border transition-all ${
+            cta.tone === "primary"
+              ? "bg-primary border-primary text-primary-foreground shadow-lg shadow-primary/20"
+              : "bg-card border-border/50 text-foreground"
+          }`}
+        >
+          <h4 className="font-display font-bold text-lg mb-2">{cta.label}</h4>
+          <p className={`text-sm mb-6 ${cta.tone === "primary" ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+            {cta.description}
           </p>
-          {quickContact.phone && (
+          <Button
+            asChild
+            variant={cta.tone === "primary" ? "secondary" : "outline"}
+            className="w-full rounded-full font-bold"
+          >
+            <Link to={cta.href}>
+              Get Started <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      ))}
+
+      {/* Quick Contact */}
+      {quickContact && (
+        <div className="bg-muted/30 rounded-3xl p-8 border border-border/50">
+          <h4 className="font-display font-bold text-foreground mb-6">Need assistance?</h4>
+          <div className="space-y-5">
             <a
-              href={`tel:${quickContact.phone.replace(/\s+/g, "")}`}
-              className="flex items-center gap-2 text-foreground font-medium hover:text-primary transition-colors"
+              href={`tel:${quickContact.phone.replace(/\s/g, "")}`}
+              className="flex items-center gap-4 group"
             >
-              <Phone className="h-4 w-4 text-primary" />
-              {quickContact.phone}
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm border border-border/50 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <Phone className="h-4 w-4" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground">Call our team</span>
+                <span className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{quickContact.phone}</span>
+              </div>
             </a>
-          )}
-          {quickContact.email && (
             <a
               href={`mailto:${quickContact.email}`}
-              className="block text-sm text-muted-foreground hover:text-primary transition-colors mt-1"
+              className="flex items-center gap-4 group"
             >
-              {quickContact.email}
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm border border-border/50 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <Mail className="h-4 w-4" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground">Email us</span>
+                <span className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{quickContact.email}</span>
+              </div>
             </a>
-          )}
+          </div>
         </div>
       )}
-
-      {children}
-    </aside>
-  )
+    </div>
+  );
 }

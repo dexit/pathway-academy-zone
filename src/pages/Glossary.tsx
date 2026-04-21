@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom"
-import { ArrowLeft, ArrowRight } from "lucide-react"
-import Layout from "@/components/Layout"
-import { Button } from "@/components/ui/button"
+import { useState, useMemo } from "react";
+import { Search, Info, ArrowLeft, ArrowRight } from "lucide-react";
+import Layout from "@/components/Layout";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Breadcrumbs } from "@/components/Seo";
+import { motion, AnimatePresence } from "framer-motion";
 
-const terms: { term: string; slug: string; definition: string }[] = [
+const terms = [
   { term: "Alternative Provision (AP)", slug: "alternative-provision", definition: "Education arranged for pupils who, because of exclusion, illness, or other reasons, would not otherwise receive suitable education. AP can be delivered by local authorities, schools, or registered providers outside of mainstream and special school settings." },
   { term: "SEMH (Social, Emotional and Mental Health)", slug: "semh", definition: "A category of Special Educational Needs covering difficulties with social interaction, emotional regulation, and mental health that significantly impact a young person's ability to learn. SEMH needs often require specialist support and therapeutic interventions." },
   { term: "EHCP (Education, Health and Care Plan)", slug: "ehcp", definition: "A legal document for children and young people aged 0-25 with more complex special educational needs. EHCPs describe the child's needs, the support required, and the outcomes to be achieved. They are reviewed annually." },
@@ -22,67 +25,124 @@ const terms: { term: string; slug: string; definition: string }[] = [
   { term: "Personal Education Plan (PEP)", slug: "pep", definition: "A plan required for all Children Looked After that forms part of their overall care plan. The PEP identifies educational needs, sets targets, and outlines the support required to help the young person achieve." },
   { term: "Elective Home Education (EHE)", slug: "ehe", definition: "When parents choose to educate their child at home rather than sending them to school. Parents are responsible for providing a suitable full-time education but are not required to follow the national curriculum." },
   { term: "NEET (Not in Education, Employment or Training)", slug: "neet", definition: "A classification for young people aged 16-24 who are not engaged in any form of education, employment, or training. Reducing NEET rates is a key outcome measure for Alternative Provision." },
-]
+].sort((a, b) => a.term.localeCompare(b.term));
+
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function Glossary() {
+  const [search, setSearch] = useState("");
+  const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
+
+  const filteredTerms = useMemo(() => {
+    return terms.filter((item) => {
+      const matchesSearch = item.term.toLowerCase().includes(search.toLowerCase()) ||
+                           item.definition.toLowerCase().includes(search.toLowerCase());
+      const matchesLetter = !selectedLetter || item.term.toUpperCase().startsWith(selectedLetter);
+      return matchesSearch && matchesLetter;
+    });
+  }, [search, selectedLetter]);
+
+  const availableLetters = useMemo(() => {
+    return new Set(terms.map(t => t.term.charAt(0).toUpperCase()));
+  }, []);
+
   return (
     <Layout>
-      <main className="min-h-screen bg-background">
-        <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-3xl">
-              <Link
-                to="/knowledge-hub"
-                className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground mb-6 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Knowledge Hub
-              </Link>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Alternative Provision Glossary
-              </h1>
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
-                Clear, searchable definitions of key terms and concepts used in Alternative Provision. A quick
-                reference guide for educators, parents, and professionals.
-              </p>
-            </div>
-          </div>
-        </header>
-
-        <div className="container mx-auto px-4 py-10 md:py-16">
-          <div className="max-w-3xl mx-auto space-y-6">
-            {terms.map((item) => (
-              <article
-                key={item.slug}
-                id={item.slug}
-                className="p-6 bg-card rounded-xl border border-border scroll-mt-24"
-              >
-                <h2 className="text-xl font-bold text-foreground mb-2">{item.term}</h2>
-                <p className="text-muted-foreground leading-relaxed">{item.definition}</p>
-              </article>
-            ))}
-          </div>
-
-          <section className="mt-14 rounded-2xl border border-border bg-card p-8 md:p-10 max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-foreground mb-3">Explore More Resources</h2>
-            <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-6">
-              Dive deeper into Alternative Provision with our comprehensive guides and best practice
-              resources.
+      <header className="bg-primary pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-[-20deg] translate-x-1/2 pointer-events-none" />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl">
+            <Breadcrumbs
+              items={[{ label: "Knowledge Hub", to: "/knowledge-hub" }, { label: "A-Z Glossary" }]}
+              className="text-white/60 mb-8 md:mb-12 [&_a]:text-white/80 [&_a:hover]:text-white [&_span]:text-white"
+            />
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              A-Z Glossary
+            </h1>
+            <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              Clear, searchable definitions of key terms and concepts used in Alternative Provision.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button asChild>
-                <Link to="/knowledge-hub/complete-guide">
-                  Read the Complete Guide
-                  <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link to="/knowledge-hub">Back to Knowledge Hub</Link>
-              </Button>
-            </div>
-          </section>
+          </div>
         </div>
-      </main>
+      </header>
+
+      <div className="container mx-auto px-4 py-12 md:py-20">
+        <div className="max-w-4xl mx-auto">
+          {/* Controls */}
+          <div className="space-y-8 mb-12">
+            <div className="relative max-w-md">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                placeholder="Search definitions..."
+                className="pl-12 h-14 rounded-2xl bg-card border-border/50 shadow-sm focus-visible:ring-primary/20"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant={selectedLetter === null ? "primary" : "outline"}
+                size="sm"
+                className="rounded-full px-4"
+                onClick={() => setSelectedLetter(null)}
+              >
+                All
+              </Button>
+              {alphabet.map((letter) => (
+                <Button
+                  key={letter}
+                  variant={selectedLetter === letter ? "primary" : "outline"}
+                  size="sm"
+                  disabled={!availableLetters.has(letter)}
+                  className={`rounded-full w-10 h-10 p-0 ${!availableLetters.has(letter) ? 'opacity-30' : ''}`}
+                  onClick={() => setSelectedLetter(letter)}
+                >
+                  {letter}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <AnimatePresence mode="popLayout">
+              {filteredTerms.map((item) => (
+                <motion.article
+                  key={item.slug}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="p-8 bg-card rounded-3xl border border-border/50 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                      <Info className="h-5 w-5" />
+                    </div>
+                    <h2 className="text-xl font-bold text-foreground">{item.term}</h2>
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{item.definition}</p>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+
+            {filteredTerms.length === 0 && (
+              <div className="col-span-full py-20 text-center">
+                <p className="text-muted-foreground italic">No terms found matching your criteria.</p>
+                <Button
+                  variant="link"
+                  onClick={() => { setSearch(""); setSelectedLetter(null); }}
+                  className="mt-2"
+                >
+                  Clear all filters
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </Layout>
-  )
+  );
 }
