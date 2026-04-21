@@ -75,6 +75,8 @@ const chapters: Chapter[] = [
     pillLabel: "Every story",
     title: "Calm assessment, personalised plans, dignity first",
     icon: Sparkles,
+    image: why3,
+    imageAlt: "Teenager sitting calmly with a notebook by a sunlit window",
     stat: { value: "1:1", label: "or small-group timetables" },
     body: (
       <>
@@ -93,6 +95,8 @@ const chapters: Chapter[] = [
     pillLabel: "Curriculum",
     title: "Core academics, vocational routes, real qualifications",
     icon: GraduationCap,
+    image: why4,
+    imageAlt: "Curriculum icons including a book, calculator, hard hat and spanner",
     stat: { value: "GCSE · BTEC", label: "Functional Skills & vocational routes" },
     body: (
       <>
@@ -111,6 +115,8 @@ const chapters: Chapter[] = [
     pillLabel: "Safeguarding",
     title: "Trained leads, robust processes, trusted partnerships",
     icon: ShieldCheck,
+    image: why5,
+    imageAlt: "Protective shield with a heart surrounded by supportive figures forming a circle",
     stat: { value: "DSL", label: "Designated lead + LADO partnerships" },
     body: (
       <>
@@ -128,6 +134,8 @@ const chapters: Chapter[] = [
     pillLabel: "Start the conversation",
     title: "Refer a learner, talk to our team, or read the guide",
     icon: PhoneCall,
+    image: why6,
+    imageAlt: "Smartphone, referral form and speech bubble representing starting a conversation",
     stat: { value: "01782 365365", label: "Direct line to our team" },
     body: (
       <>
