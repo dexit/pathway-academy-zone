@@ -226,7 +226,7 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
     >
       {/* LEFT column */}
       <div className="hidden md:block relative">
-        {isLeft && (
+        {isLeft ? (
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -240,6 +240,8 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
               className="absolute top-3 right-0 h-px w-12 translate-x-full bg-gradient-to-l from-primary/60 to-transparent"
             />
           </motion.div>
+        ) : (
+          <ChapterIllustration chapter={chapter} from="left" />
         )}
       </div>
 
@@ -266,7 +268,7 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
 
       {/* RIGHT column */}
       <div className="hidden md:block relative">
-        {!isLeft && (
+        {!isLeft ? (
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -280,6 +282,8 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
               className="absolute top-3 left-0 h-px w-12 -translate-x-full bg-gradient-to-r from-primary/60 to-transparent"
             />
           </motion.div>
+        ) : (
+          <ChapterIllustration chapter={chapter} from="right" />
         )}
       </div>
 
