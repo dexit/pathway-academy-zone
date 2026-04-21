@@ -239,7 +239,7 @@ function ChapterIllustration({
   );
 }
 
-
+function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number; total: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
