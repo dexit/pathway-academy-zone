@@ -66,7 +66,7 @@ export default function NewsDetail() {
               <p key={i}>{paragraph}</p>
             ))}
 
-            <div className="not-prose flex flex-col sm:flex-row items-center justify-between gap-4 mt-10 p-6 rounded-2xl border border-border bg-muted/40">
+            <div className="not-prose flex flex-col sm:flex-row items-center justify-between gap-4 mt-10 p-6 rounded-2xl border border-border bg-accent/20">
               <Button asChild variant="ghost">
                 <Link to="/news" title="Back to all news">
                   <ArrowLeft className="mr-1 h-4 w-4" /> All news

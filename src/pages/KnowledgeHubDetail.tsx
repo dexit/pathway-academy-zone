@@ -1,13 +1,13 @@
 import { Link, useParams } from "react-router-dom"
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import { ArrowLeft, ArrowRight, Clock, Share2 } from "lucide-react"
 import Layout from "@/components/Layout"
 import { Button } from "@/components/ui/button"
 import { DETAIL_CONTENT } from "@/config/data/knowledge-hub-detail"
 import { RenderBlocks } from "@/components/knowledge-hub/detail-blocks"
 import { Seo, Breadcrumbs } from "@/components/Seo"
-import { SummaryBlock, ReadingTime, RelatedContent, type RelatedItem } from "@/components/SeoBlocks"
+import { SummaryBlock } from "@/components/SeoBlocks"
 import { ContentSidebar } from "@/components/ContentSidebar"
-import { HUB_SECTIONS } from "@/config/data/knowledge-hub"
+import { motion } from "framer-motion"
 
 export default function KnowledgeHubDetail() {
   const { category, slug } = useParams()
@@ -17,180 +17,118 @@ export default function KnowledgeHubDetail() {
   if (!content) {
     return (
       <Layout>
-        <Seo title="Resource not found" noIndex />
+        <Seo title="Intel Not Found" noIndex />
         <main className="min-h-screen bg-background">
-          <header className="bg-primary text-primary-foreground">
-            <div className="container mx-auto px-4 py-14 md:py-20">
+          <header className="pt-40 pb-24 bg-foreground text-background">
+            <div className="container mx-auto px-4">
               <div className="max-w-3xl">
                 <Link
                   to="/knowledge-hub"
-                  className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground mb-6 transition-colors"
+                  className="inline-flex items-center gap-3 text-primary font-black uppercase tracking-widest mb-12 hover:gap-5 transition-all text-sm"
                 >
-                  <ArrowLeft className="w-4 h-4" />
-                  Back to Knowledge Hub
+                  <ArrowLeft className="w-5 h-5" /> BACK TO HUB
                 </Link>
-                <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4 capitalize">
-                  {slug?.replace(/-/g, " ") || "Resource"}
+                <h1 className="text-6xl md:text-8xl font-black italic uppercase tracking-tighter mb-8 leading-none">
+                  INTEL <br /><span className="text-primary">MISSING.</span>
                 </h1>
-                <p className="text-primary-foreground/70 text-lg leading-relaxed">
-                  This resource is being prepared. Explore the rest of our Knowledge Hub in the meantime.
+                <p className="text-background/60 text-xl font-medium leading-relaxed">
+                  This repository has not been initialized yet.
                 </p>
               </div>
             </div>
           </header>
-          <div className="container mx-auto px-4 py-10 md:py-16 text-center">
-            <Button asChild>
-              <Link to="/knowledge-hub">Browse Knowledge Hub</Link>
-            </Button>
-          </div>
         </main>
       </Layout>
     )
   }
 
-  // Word-count-based reading time from all text blocks.
-  const words = content.blocks
-    .map((b) => {
-      if ("text" in b && typeof b.text === "string") return b.text
-      if ("items" in b && Array.isArray(b.items))
-        return b.items.map((i) => (typeof i === "string" ? i : (i.title + " " + (i.body ?? "")))).join(" ")
-      return ""
-    })
-    .join(" ")
-  const minutes = Math.max(3, Math.round(words.trim().split(/\s+/).length / 230))
-
-  // Sibling resources from the same Knowledge Hub section for "Related".
-  const section = HUB_SECTIONS.find((s) => s.title === content.categoryLabel)
-  const related: RelatedItem[] = (section?.resources ?? [])
-    .filter((r) => !r.href.endsWith(`/${slug}`))
-    .slice(0, 4)
-    .map((r) => ({ title: r.title, href: r.href, category: content.categoryLabel }))
-
-  // Table-of-contents built from h2 blocks.
-  const toc = content.blocks
-    .filter((b): b is { type: "h2"; text: string } => b.type === "h2")
-    .map((h) => ({
-      id: h.text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
-      label: h.text,
-      level: 2 as const,
-    }))
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: content.title,
-    description: content.summary,
-    abstract: content.summary,
-    wordCount: words.trim().split(/\s+/).length,
-    timeRequired: `PT${minutes}M`,
-    author: { "@type": "Organization", name: "Pathway Academy Zone" },
-    publisher: {
-      "@type": "Organization",
-      name: "Pathway Academy Zone",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png",
-      },
-    },
-    articleSection: content.categoryLabel,
-  }
-
   return (
     <Layout>
-      <Seo title={content.title} description={content.summary} jsonLd={jsonLd} />
+      <Seo title={content.title} description={content.summary} type="article" />
+
       <main className="min-h-screen bg-background">
-        <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-3xl lg:max-w-4xl xl:max-w-5xl">
+        <header className="pt-40 pb-24 bg-accent/30 border-b border-border/10">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl">
               <Breadcrumbs
                 items={[
                   { label: "Knowledge Hub", to: "/knowledge-hub" },
                   { label: content.categoryLabel, to: content.categoryHref },
                   { label: content.title },
                 ]}
-                className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+                className="mb-8"
               />
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4 text-balance">
+              <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-6 block">DOC_TYPE: INTELLIGENCE_REPORT</span>
+              <h1 className="text-5xl md:text-8xl font-black italic uppercase tracking-tighter mb-8 leading-none">
                 {content.title}
               </h1>
-              <SummaryBlock summary={content.summary} variant="onDark" className="mb-4" />
-              <div className="flex flex-wrap items-center gap-4 text-primary-foreground/70 text-sm">
-                <ReadingTime
-                  minutes={minutes}
-                  className="text-primary-foreground/70"
-                />
+              <div className="flex flex-wrap items-center gap-8 text-muted-foreground text-sm font-black uppercase tracking-widest mt-12">
+                <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-primary" /> 6 MIN READ</div>
+                <div className="flex items-center gap-2"><Share2 className="w-4 h-4 text-primary" /> ENCRYPTED SHARE</div>
               </div>
             </div>
           </div>
         </header>
 
-        <div className="container mx-auto px-4 py-10 md:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-16">
-            <article className="max-w-none mx-auto lg:mx-0 w-full">
-              <RenderBlocks blocks={content.blocks} />
+        <div className="container mx-auto px-4 py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-20 lg:gap-32">
+            <article className="min-w-0">
+              <SummaryBlock summary={content.summary} className="mb-16 p-10 bg-primary/5 rounded-[2rem] border-2 border-primary/10 text-2xl font-medium leading-relaxed italic text-foreground" />
 
-              {related.length > 0 && (
-                <RelatedContent items={related} className="mt-14" />
+              <div className="prose prose-xl prose-primary dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-black prose-headings:italic prose-headings:uppercase prose-headings:tracking-tighter prose-p:text-muted-foreground prose-p:font-medium prose-p:leading-relaxed">
+                <RenderBlocks blocks={content.blocks} />
+              </div>
+
+              {content.ctaTitle && (
+                <section className="mt-24 rounded-[2.5rem] bg-foreground text-background p-12 md:p-20 relative overflow-hidden shadow-2xl">
+                  <div className="absolute inset-0 bg-primary/10 opacity-20 pointer-events-none" />
+                  <div className="relative z-10">
+                    <h2 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter mb-8 leading-none">
+                      {content.ctaTitle}
+                    </h2>
+                    {content.ctaBody && (
+                      <p className="text-background/60 text-lg md:text-xl font-medium leading-relaxed mb-12 max-w-xl">
+                        {content.ctaBody}
+                      </p>
+                    )}
+                    <div className="flex flex-col sm:flex-row gap-6">
+                      <Button asChild size="lg" className="rounded-full px-12 h-16 text-lg font-black italic shadow-xl">
+                        <Link to="/referral">INITIATE PROTOCOL</Link>
+                      </Button>
+                    </div>
+                  </div>
+                </section>
               )}
 
-            {content.ctaTitle && (
-              <section className="mt-14 rounded-2xl border border-border bg-card p-8 md:p-10 text-center bg-primary/10">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-                  {content.ctaTitle}
-                </h2>
-                {content.ctaBody && (
-                  <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-6">
-                    {content.ctaBody}
-                  </p>
-                )}
-                {content.ctaButtons && (
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    {content.ctaButtons.map((btn) => (
-                      <Button
-                        key={btn.href}
-                        asChild
-                        variant={btn.variant === "outline" ? "outline" : "default"}
-                        className={btn.variant === "primary" ? "bg-primary text-primary-foreground hover:bg-primary/90" : ""}
-                      >
-                        <Link to={btn.href}>{btn.label}</Link>
-                      </Button>
-                    ))}
-                  </div>
-                )}
-              </section>
-            )}
-
-              <div className="mt-10 flex justify-center">
+              <div className="mt-20 pt-20 border-t border-border/10 flex justify-center">
                 <Link
-                  to="/knowledge-hub/complete-guide"
-                  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+                  to="/knowledge-hub"
+                  className="inline-flex items-center gap-4 text-muted-foreground hover:text-primary transition-all font-black uppercase tracking-[0.2em] text-sm"
                 >
-                  <ArrowLeft className="w-4 h-4" />
-                  Back to The Complete Guide to Alternative Provision
+                  <ArrowLeft className="w-5 h-5" /> BACK TO CENTRAL HUB
                 </Link>
               </div>
             </article>
 
-            <ContentSidebar
-              toc={toc}
-              ctas={[
-                {
-                  label: "Make a Referral",
-                  description: "Refer a young person in 4 steps",
-                  href: "/referral",
-                  tone: "primary",
-                },
-                {
-                  label: "Download Policies",
-                  description: "Safeguarding & pastoral documents",
-                  href: "/policies",
-                },
-              ]}
-              quickContact={{
-                phone: "01782 365365",
-                email: "info@pathwayacademyzone.co.uk",
-              }}
-            />
+            <aside className="sticky top-32">
+              <ContentSidebar
+                ctas={[
+                  {
+                    label: "Make a Referral",
+                    href: "/referral",
+                    tone: "primary",
+                  },
+                  {
+                    label: "Download Briefing",
+                    href: "/policies",
+                  },
+                ]}
+                quickContact={{
+                  phone: "01782 365365",
+                  email: "info@pathwayacademyzone.co.uk",
+                }}
+              />
+            </aside>
           </div>
         </div>
       </main>

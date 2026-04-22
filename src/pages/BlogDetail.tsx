@@ -1,198 +1,64 @@
-import { Link, useParams, Navigate } from "react-router-dom";
-import { Calendar, Clock, ArrowLeft, ArrowRight, User } from "lucide-react";
+import { useParams, Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs } from "@/components/Seo";
-import { ContentSidebar } from "@/components/ContentSidebar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/blog/blog-card";
 import { BLOG_POSTS } from "@/config/data/blog";
+import { Seo, Breadcrumbs } from "@/components/Seo";
+import { ContentSidebar } from "@/components/ContentSidebar";
 
 export default function BlogDetail() {
   const { slug } = useParams();
   const post = BLOG_POSTS.find((p) => p.slug === slug);
 
   if (!post) {
-    return <Navigate to="/blog" replace />;
+    return <Layout><div className="py-20 text-center">Post not found</div></Layout>;
   }
 
-  // Build a simple TOC from the post body sections so the sidebar feels alive.
-  const toc = [
-    { id: "introduction", label: "Introduction", level: 2 as const },
-    { id: "key-points", label: "Key points", level: 2 as const },
-    { id: "what-this-means", label: "What this means in practice", level: 2 as const },
-    { id: "next-steps", label: "Next steps", level: 2 as const },
-  ];
-
-  const related = BLOG_POSTS.filter(
-    (p) => p.slug !== post.slug && p.category === post.category
-  ).slice(0, 3);
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.date,
-    author: { "@type": "Organization", name: post.author },
-    articleSection: post.category,
-    image: post.image,
-    publisher: {
-      "@type": "Organization",
-      name: "Pathway Academy Zone",
-    },
-  };
+  const related = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
     <Layout>
-      <Seo
-        title={post.title}
-        description={post.excerpt}
-        jsonLd={jsonLd}
-      />
+      <Seo title={post.title} description={post.excerpt} image={post.image} type="article" />
 
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-3xl">
-            <Breadcrumbs
-              items={[
-                { label: "Blog", to: "/blog" },
-                { label: post.title },
-              ]}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-            />
-            <Badge className="mb-4 bg-accent text-accent-foreground hover:bg-accent/90 border-0 text-xs font-semibold tracking-wide uppercase">
-              {post.category}
-            </Badge>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              {post.title}
-            </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6">
-              {post.excerpt}
-            </p>
-            <div className="flex flex-wrap items-center gap-5 text-primary-foreground/70 text-sm">
-              <span className="inline-flex items-center gap-1.5">
-                <User className="h-4 w-4" /> {post.author}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Calendar className="h-4 w-4" /> {post.date}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Clock className="h-4 w-4" /> {post.readTime}
-              </span>
-            </div>
-          </div>
+      <section className="pt-40 pb-24 bg-accent/30 border-b border-border/10">
+        <div className="container mx-auto px-4">
+          <Breadcrumbs items={[{ label: "Blog", to: "/blog" }, { label: post.title }]} className="mb-8" />
+          <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-6 block">{post.category} — {post.date}</span>
+          <h1 className="text-5xl md:text-8xl tracking-tighter uppercase italic max-w-5xl">{post.title}</h1>
         </div>
-      </header>
+      </section>
 
-      <div className="container mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
-          {/* Article body */}
-          <article className="min-w-0 prose prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="w-full h-64 md:h-96 object-cover rounded-2xl border border-border not-prose mb-8"
-            />
-
-            <h2 id="introduction">Introduction</h2>
-            <p>{post.excerpt}</p>
-            <p>
-              At Pathway Academy Zone we work every day with young people in
-              Stoke-on-Trent and across Staffordshire whose education has been
-              disrupted. The themes covered in this article reflect the
-              questions we hear most often from schools, Local Authorities and
-              families.
-            </p>
-
-            <h2 id="key-points">Key points</h2>
-            <ul>
-              <li>Definitions and the legal basis for {post.category}.</li>
-              <li>How this looks in practice in an Alternative Provision setting.</li>
-              <li>What good looks like for learners, families and commissioners.</li>
-              <li>Practical next steps for anyone considering a referral.</li>
-            </ul>
-
-            <h2 id="what-this-means">What this means in practice</h2>
-            <p>
-              Each learner who joins us receives a personalised plan agreed
-              with their commissioning school and family. The plan covers
-              attendance, academic targets, pastoral priorities, and the
-              progression route we are working towards together &mdash; whether
-              that is a managed return to mainstream, a sustained AP placement,
-              or a planned transition to post-16 study or training.
-            </p>
-            <p>
-              Our team includes qualified teachers, trained mentors and
-              pastoral specialists. We hold the relational space young people
-              need to re-engage, while keeping the academic thread intact.
-            </p>
-
-            <h2 id="next-steps">Next steps</h2>
-            <p>
-              If this article has raised questions about a specific young
-              person, please get in touch. We welcome conversations from
-              schools, Local Authorities, social workers, parents and carers.
-              You can{" "}
-              <Link to="/referral">start a formal referral</Link>, browse our{" "}
-              <Link to="/knowledge-hub">Knowledge Hub</Link>, or{" "}
-              <Link to="/contact">contact our team</Link> directly.
-            </p>
-
-            <div className="not-prose flex flex-col sm:flex-row items-center justify-between gap-4 mt-10 p-6 rounded-2xl border border-border bg-muted/40">
-              <Button asChild variant="ghost">
-                <Link to="/blog" title="Back to all articles">
-                  <ArrowLeft className="mr-1 h-4 w-4" /> All articles
-                </Link>
-              </Button>
-              <Button asChild>
-                <Link to="/referral" title="Start a referral">
-                  Make a Referral <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
-              </Button>
+      <div className="container mx-auto px-4 py-20 md:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-16 lg:gap-24 items-start">
+          <article className="prose prose-xl prose-primary dark:prose-invert max-w-none">
+            <div className="aspect-[21/9] rounded-3xl overflow-hidden mb-12 border-2 border-border/50">
+              <img src={post.image} className="w-full h-full object-cover" alt="" />
             </div>
-
-            {related.length > 0 && (
-              <section className="not-prose mt-14">
-                <h2 className="font-display text-2xl font-bold text-foreground mb-6">
-                  Related articles
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {related.map((r) => (
-                    <BlogCard key={r.slug} post={r} />
-                  ))}
-                </div>
-              </section>
-            )}
+            <p className="lead text-2xl font-medium text-muted-foreground">{post.excerpt}</p>
+            <div className="h-px w-full bg-border/20 my-12" />
+            <div className="space-y-8">
+              <p>This is a placeholder for the blog content. In a production environment, this would be dynamically rendered from a CMS or markdown files.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
           </article>
 
-          {/* Sidebar */}
-          <ContentSidebar
-            toc={toc}
-            ctas={[
-              {
-                label: "Make a Referral",
-                href: "/referral",
-                description:
-                  "Begin the placement process for a young person.",
-                tone: "primary",
-              },
-              {
-                label: "Knowledge Hub",
-                href: "/knowledge-hub",
-                description: "Long-form guides on Alternative Provision.",
-              },
-              {
-                label: "All Blog Articles",
-                href: "/blog",
-                description: "Browse the full archive.",
-              },
-            ]}
-            quickContact={{
-              phone: "01782 365365",
-              email: "info@pathwayacademyzone.co.uk",
-            }}
-          />
+          <aside className="sticky top-32">
+            <ContentSidebar
+              ctas={[
+                { label: "Make a Referral", href: "/referral", tone: "primary" },
+                { label: "Contact Team", href: "/contact" }
+              ]}
+              quickContact={{ phone: "01782 365365", email: "info@pathwayacademyzone.co.uk" }}
+            />
+          </aside>
+        </div>
+
+        <div className="mt-32 pt-20 border-t border-border/20">
+          <h2 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter mb-12">NEXT <span className="text-primary">INTEL.</span></h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {related.map(p => <BlogCard key={p.slug} post={p} />)}
+          </div>
         </div>
       </div>
     </Layout>

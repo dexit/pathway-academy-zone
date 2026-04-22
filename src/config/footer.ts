@@ -1,5 +1,4 @@
-import { Facebook, Linkedin, Twitter, type LucideIcon } from "lucide-react";
-import { socials as siteSocials } from "./site";
+import { Facebook, Linkedin, Twitter, type LucideIcon, Phone, Mail, MapPin } from "lucide-react";
 
 export const footerLinks = {
   provision: [
@@ -12,8 +11,6 @@ export const footerLinks = {
     { label: "Knowledge Hub", path: "/knowledge-hub" },
     { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
     { label: "Glossary", path: "/knowledge-hub/glossary" },
-    { label: "Blog", path: "/blog" },
-    { label: "News", path: "/news" },
     { label: "FAQs", path: "/faqs" },
   ],
   about: [
@@ -30,13 +27,19 @@ export const footerLinks = {
   ],
 };
 
-const iconMap: Record<string, LucideIcon> = {
-  Facebook: Facebook,
-  LinkedIn: Linkedin,
-  Twitter: Twitter,
-};
+export const socials = [
+  { label: "Facebook", icon: Facebook, href: "https://www.facebook.com/PathwayAcademyZone" },
+  { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/pathway-academy-zone" },
+  { label: "Twitter / X", icon: Twitter, href: "https://twitter.com/PathwayAcademyZ" },
+];
 
-export const socials = siteSocials.map(s => ({
-  ...s,
-  icon: iconMap[s.label] || Twitter
-}));
+export const contactInfo = {
+  phone: "01782 365365",
+  email: "enquiries@pathwayacademyzone.co.uk",
+  address: "Stoke-on-Trent, Staffordshire",
+  icons: {
+    phone: Phone,
+    email: Mail,
+    address: MapPin
+  }
+};

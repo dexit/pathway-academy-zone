@@ -13,6 +13,7 @@ export interface SeoProps {
   url?: string;
   type?: string;
   noIndex?: boolean;
+  jsonLd?: any;
 }
 
 export function Seo({
@@ -22,10 +23,11 @@ export function Seo({
   url: manualUrl,
   type = "website",
   noIndex = false,
+  jsonLd,
 }: SeoProps) {
   const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
   const location = useLocation();
-  const fullUrl = manualUrl ? `${SITE_URL}${manualUrl}` : `${SITE_URL}${location.pathname}${location.search}`;
+  const fullUrl = manualUrl ? `${SITE_URL}${manualUrl}` : `${SITE_URL}${location.pathname}`;
 
   return (
     <Helmet>
@@ -45,13 +47,19 @@ export function Seo({
       <meta name="twitter:image" content={image} />
 
       <link rel="canonical" href={fullUrl} />
+
+      {jsonLd && (
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </script>
+      )}
     </Helmet>
   );
 }
 
-export function Breadcrumbs({ items }: { items: { label: string; path?: string }[] }) {
+export function Breadcrumbs({ items, className }: { items: { label: string; path?: string }[]; className?: string }) {
   return (
-    <nav aria-label="Breadcrumb" className="flex mb-6 overflow-x-auto no-scrollbar py-1">
+    <nav aria-label="Breadcrumb" className={`flex mb-6 overflow-x-auto no-scrollbar py-1 ${className || ""}`}>
       <ol className="flex items-center space-x-2 text-xs font-medium text-muted-foreground whitespace-nowrap">
         <li className="flex items-center">
           <Link to="/" className="hover:text-primary transition-colors flex items-center gap-1">

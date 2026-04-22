@@ -5,25 +5,24 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-95 disabled:pointer-events-none disabled:opacity-50 [transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0_svg]:pointer-events-none [transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0_svg]:size-4 [transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0_svg]:shrink-0",
+  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-bold uppercase tracking-widest ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/50 active:scale-95 disabled:pointer-events-none disabled:opacity-50 overflow-hidden group",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-md",
-        outline: "border-2 border-primary text-primary hover:bg-primary/5 rounded-lg",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-lg",
-        ghost: "hover:bg-accent hover:text-accent-foreground rounded-md",
+        default: "bg-primary text-primary-foreground hover:bg-emerald-vivid shadow-[0_10px_20px_-10px_oklch(var(--primary)/0.5)]",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary",
+        secondary: "bg-accent text-accent-foreground hover:bg-accent/80",
+        ghost: "hover:bg-primary/10 hover:text-primary",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-primary text-primary-foreground hover:bg-teal-dark rounded-lg shadow-lg hover:shadow-xl text-base font-semibold",
-        heroPill: "border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-lg backdrop-blur-sm",
+        hero: "bg-primary text-primary-foreground hover:scale-105 active:scale-95 text-base md:text-lg px-10 py-8 shadow-2xl transition-physics",
+        heroPill: "border-2 border-foreground/10 text-foreground hover:bg-foreground hover:text-background transition-physics",
       },
       size: {
-        default: "h-10 px-6 py-2",
-        sm: "h-9 px-4",
-        lg: "h-12 px-8 text-base",
-        xl: "h-14 px-10 text-lg",
-        icon: "h-10 w-10",
+        default: "h-12 px-6",
+        sm: "h-10 px-4",
+        lg: "h-14 px-10 text-base",
+        icon: "h-12 w-12",
       },
     },
     defaultVariants: {
@@ -42,7 +41,19 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      >
+        <span className="relative z-10 flex items-center gap-2">
+          {props.children}
+        </span>
+        {/* Shine effect on hover */}
+        <span className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shine" />
+      </Comp>
+    );
   },
 );
 Button.displayName = "Button";

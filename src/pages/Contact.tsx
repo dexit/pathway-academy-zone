@@ -1,86 +1,37 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Phone, Mail, MapPin, Clock, ExternalLink, Loader2, CheckCircle2, AlertCircle,
-  HandHeart, School, Handshake, Briefcase, MessageSquare, MoreHorizontal,
-} from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Phone, Mail, MapPin, Send } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
-import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
+import { Seo, Breadcrumbs } from "@/components/Seo";
 import { FormField } from "@/components/forms/FormField";
-import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
-import { email, ukPhone, personName, shortText, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
-import buildingImg from "@/assets/building-exterior.jpg";
+import { IllustratedRadio } from "@/components/forms/IllustratedRadio";
+import { personName, email, ukPhone, longMessage } from "@/lib/uk-validators";
+import { maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
+import { contactInformation, enquiryOptions, quickLinks } from "@/config/data/contact";
+import { SITE_URL } from "@/config/site";
 
+const CONTACT_WEBHOOK = "https://hooks.zapier.com/fake-webhook";
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
-const contactInfo = [
-  { icon: Phone, title: "Phone", main: "01782 365365", sub: "Mon-Fri 8:30am - 4:00pm" },
-  { icon: Mail, title: "Email", main: "info@pathwayacademyzone.co.uk", sub: "We aim to respond within 24 hours" },
-  { icon: MapPin, title: "Address", main: "Duncalf St, Burslem", sub: "Stoke-on-Trent ST6 3LJ" },
-  { icon: Clock, title: "Opening Hours", main: "Monday - Friday", sub: "8:30am - 4:00pm" },
-];
-
-const CONTACT_WEBHOOK = import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined;
-
-const contactSchema = {
-  "@context": "https://schema.org",
-  "@type": ["EducationalOrganization", "LocalBusiness"],
-  name: SITE_NAME,
-  url: SITE_URL,
-  telephone: "+44-1782-365365",
-  email: "info@pathwayacademyzone.co.uk",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Duncalf Street, Burslem",
-    addressLocality: "Stoke-on-Trent",
-    postalCode: "ST6 3LJ",
-    addressCountry: "GB",
-  },
-  geo: { "@type": "GeoCoordinates", latitude: 53.043, longitude: -2.191 },
-  openingHoursSpecification: [
-    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:30", closes: "16:00" },
-  ],
-  contactPoint: [
-    { "@type": "ContactPoint", contactType: "customer service", telephone: "+44-1782-365365", email: "info@pathwayacademyzone.co.uk", areaServed: "GB", availableLanguage: ["English"] },
-    { "@type": "ContactPoint", contactType: "referrals", telephone: "+44-1782-365365", email: "referrals@pathwayacademyzone.co.uk" },
-  ],
-};
-
-const quickLinks = [
-  { title: "Make a Referral", desc: "Start the referral process for a young person", path: "/referral" },
-  { title: "Visit Our Centre", desc: "See our facilities and meet the team", path: "/centres" },
-  { title: "Join Our Team", desc: "View current vacancies and opportunities", path: "/careers" },
-];
-
-const enquiryOptions: IllustratedOption[] = [
-  { value: "parent-carer", label: "Parent / Carer", description: "I'm asking about my young person", icon: HandHeart },
-  { value: "school-la", label: "School / Local Authority", description: "Referral or commissioning enquiry", icon: School },
-  { value: "partner", label: "Partner Organisation", description: "Charity, employer or service partner", icon: Handshake },
-  { value: "careers", label: "Careers Enquiry", description: "Vacancies or speculative application", icon: Briefcase },
-  { value: "general", label: "General Question", description: "Anything else we can help with", icon: MessageSquare },
-  { value: "other", label: "Other", description: "Tell us more in your message", icon: MoreHorizontal },
-];
 
 const formSchema = z.object({
   name: personName({ required: true }),
   email: email({ required: true }),
   phone: ukPhone(),
-  enquiryType: z.enum(["parent-carer", "school-la", "partner", "careers", "general", "other"], {
-    required_error: "Please choose an enquiry type",
-  }),
-  organisation: shortText(120, false),
+  enquiryType: z.enum(["referral", "general", "visit"], { required_error: "Select enquiry type" }),
+  organisation: z.string().optional(),
   message: longMessage(1000, true),
 });
+
 type FormValues = z.infer<typeof formSchema>;
 
 export default function Contact() {
   const { toast } = useToast();
-
   const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { name: "", email: "", phone: "", enquiryType: undefined, organisation: "", message: "" },
@@ -93,11 +44,11 @@ export default function Contact() {
     format: "json",
     extra: { source: "contact-form", site: SITE_URL },
     onSuccess: () => {
-      toast({ title: "Message sent", description: "Thank you. We'll be in touch within 24 hours." });
+      toast({ title: "Transmission Received", description: "We will respond within 24 hours." });
       resetForm();
     },
     onError: (err) =>
-      toast({ variant: "destructive", title: "Couldn't send message", description: err instanceof Error ? err.message : "Please try again." }),
+      toast({ variant: "destructive", title: "Transmission Blocked", description: "Please try another channel." }),
   });
 
   const onSubmit = handleSubmit(async (values) => {
@@ -109,100 +60,79 @@ export default function Contact() {
 
   return (
     <Layout>
-      <Seo
-        title="Contact Us"
-        description="Get in touch with Pathway Academy Zone in Stoke-on-Trent. Call, email, or send a message — Mon–Fri 8:30am–4:00pm."
-        jsonLd={contactSchema}
-      />
-      <section className="relative py-32">
-        <div className="absolute inset-0">
-          <img src={buildingImg} alt="Pathway Academy Zone building" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-foreground/60" />
-        </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">Contact Us</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Get in Touch</h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.</p>
+      <Seo title="Establish Contact" description="Establish a direct link with Pathway Academy Zone. Our team is standing by for your enquiry." />
+
+      {/* Header */}
+      <section className="pt-40 pb-24 bg-foreground text-background overflow-hidden relative">
+        <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+             <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-8 block">COMMUNICATION HUB</span>
+            <h1 className="text-6xl md:text-9xl mb-8 tracking-tighter uppercase italic">
+              ESTABLISH <br />
+              <span className="text-primary">CONTACT.</span>
+            </h1>
+            <p className="text-background/60 text-xl md:text-2xl max-w-2xl font-medium leading-tight">
+              Ready to start a referral or need specific mission intel? Use the secure channel below.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-24 bg-background">
+      <section className="py-8 bg-background border-b border-border/10">
         <div className="container mx-auto px-4">
-          <Breadcrumbs items={[{ label: "Contact" }]} className="mb-10" />
-          <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
-            <motion.aside variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <h2 className="font-display text-2xl font-bold text-foreground mb-6">Contact Information</h2>
-              <div className="space-y-4 mb-8">
-                {contactInfo.map((c) => (
-                  <div key={c.title} className="flex items-start gap-4 bg-card rounded-xl p-5 border border-border/50">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <c.icon className="h-5 w-5 text-primary" />
+          <Breadcrumbs items={[{ label: "Contact" }]} />
+        </div>
+      </section>
+
+      {/* Contact Grid */}
+      <section className="py-32 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
+
+            {/* Info Cards */}
+            <div className="lg:col-span-4 space-y-8">
+              <h2 className="text-4xl mb-12 uppercase italic font-black tracking-tighter">DIRECT <span className="text-primary">LINES.</span></h2>
+              <div className="space-y-6">
+                {contactInformation.map((c) => (
+                  <motion.div key={c.title} variants={fadeUp} initial="hidden" whileInView="visible" className="bg-card p-8 rounded-3xl border-2 border-border/50 shadow-sm hover:border-primary/20 transition-all">
+                    <div className="flex items-center gap-6 mb-6">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                        <c.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <p className="font-black text-xs uppercase tracking-[0.2em] text-muted-foreground">{c.title}</p>
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground text-sm">{c.title}</p>
-                      <p className="text-foreground text-sm">{c.main}</p>
-                      <p className="text-muted-foreground text-xs">{c.sub}</p>
-                    </div>
-                  </div>
+                    <p className="text-xl font-bold text-foreground break-all">{c.main}</p>
+                    <p className="text-sm text-muted-foreground mt-2 font-medium">{c.sub}</p>
+                  </motion.div>
                 ))}
               </div>
-              <a
-                href="https://maps.google.com/?q=Duncalf+St+Burslem+Stoke-on-Trent+ST6+3LJ"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-primary font-medium hover:underline"
-              >
-                Open in Maps <ExternalLink className="h-4 w-4" />
-              </a>
-            </motion.aside>
 
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <h2 className="font-display text-2xl font-bold text-foreground mb-6">Send Us a Message</h2>
-              <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 border border-border/50 space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    id="contact-name"
-                    label="Your Name"
-                    required
-                    placeholder="Full name"
-                    autoComplete="name"
-                    error={errors.name?.message}
-                    {...register("name")}
+              <div className="rounded-[2rem] overflow-hidden border-2 border-border/50 shadow-2xl aspect-square lg:aspect-auto h-[400px]">
+                 <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2397.8584766858147!2d-2.1916!3d53.0447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487a6836a0d0f8eb%3A0x0!2sDuncalf%20St%2C%20Burslem%2C%20Stoke-on-Trent%20ST6%203LJ%2C%20UK!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, filter: 'grayscale(1) invert(0.1)' }}
+                    allowFullScreen
+                    loading="lazy"
+                    title="HQ"
                   />
-                  <FormField
-                    id="contact-email"
-                    label="Email Address"
-                    required
-                    type="email"
-                    inputMode="email"
-                    placeholder="your@email.com"
-                    autoComplete="email"
-                    error={errors.email?.message}
-                    {...register("email")}
-                  />
+              </div>
+            </div>
+
+            {/* Secure Form */}
+            <div className="lg:col-span-8">
+              <h2 className="text-4xl mb-12 uppercase italic font-black tracking-tighter">SECURE <span className="text-primary">CHANNEL.</span></h2>
+              <form onSubmit={onSubmit} noValidate className="bg-card rounded-[2.5rem] p-12 border-2 border-border/50 shadow-[0_32px_64px_-16px_oklch(var(--primary)/0.15)] space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <FormField id="contact-name" label="ID / FULL NAME" required placeholder="Your Name" error={errors.name?.message} {...register("name")} />
+                  <FormField id="contact-email" label="COMMUNICATION CHANNEL" required type="email" placeholder="email@example.com" error={errors.email?.message} {...register("email")} />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    id="contact-phone"
-                    label="Phone Number"
-                    type="tel"
-                    inputMode="tel"
-                    autoComplete="tel"
-                    placeholder="01782 365365"
-                    hint="UK landline or mobile"
-                    value={phone || ""}
-                    onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
-                    error={errors.phone?.message}
-                  />
-                  <FormField
-                    id="contact-org"
-                    label="Organisation (if applicable)"
-                    placeholder="School, Local Authority, etc."
-                    autoComplete="organization"
-                    error={errors.organisation?.message}
-                    {...register("organisation")}
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <FormField id="contact-phone" label="MOBILE LINE" type="tel" placeholder="07XXX XXXXXX" value={phone || ""} onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })} error={errors.phone?.message} />
+                  <FormField id="contact-org" label="ORGANISATION" placeholder="School, LA, etc." {...register("organisation")} />
                 </div>
 
                 <Controller
@@ -211,8 +141,7 @@ export default function Contact() {
                   render={({ field }) => (
                     <IllustratedRadio
                       name="enquiryType"
-                      legend="What's your enquiry about?"
-                      hint="Pick the closest match — we'll route your message to the right team."
+                      legend="ENQUIRY SECTOR"
                       options={enquiryOptions}
                       value={field.value || ""}
                       onChange={field.onChange}
@@ -223,49 +152,37 @@ export default function Contact() {
                   )}
                 />
 
-                <FormField
-                  as="textarea"
-                  id="contact-message"
-                  label="Your Message"
-                  required
-                  rows={5}
-                  placeholder="How can we help you?"
-                  maxLength={1000}
-                  error={errors.message?.message}
-                  {...register("message")}
-                />
+                <FormField as="textarea" id="contact-message" label="INTEL / MESSAGE" required rows={5} placeholder="How can we help?" maxLength={1000} error={errors.message?.message} {...register("message")} />
 
-                <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full">
+                <Button type="submit" size="lg" disabled={loading} className="w-full h-24 rounded-3xl text-2xl font-black italic shadow-2xl group">
                   {loading ? (
-                    <span className="inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending...</span>
-                  ) : ("Send Message")}
+                    <span className="flex items-center gap-3"><Loader2 className="h-8 w-8 animate-spin" /> SYNCHRONIZING...</span>
+                  ) : (
+                    <span className="flex items-center gap-3">TRANSMIT INTEL <Send className="h-6 w-6 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" /></span>
+                  )}
                 </Button>
 
                 {success && (
-                  <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
-                    <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Message sent — we&apos;ll reply within 24 hours.
+                   <p className="flex items-center justify-center gap-4 text-xl font-black text-primary uppercase italic p-8 bg-primary/10 rounded-2xl border border-primary/20">
+                    <CheckCircle2 className="h-8 w-8" /> CHANNEL OPEN. WE WILL RESPOND SHORTLY.
                   </p>
                 )}
-                {error && (
-                  <p className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
-                    <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
-                  </p>
-                )}
-                <p className="text-xs text-muted-foreground text-center">By submitting this form, you agree to our privacy policy.</p>
               </form>
-            </motion.div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <h2 className="font-display text-2xl font-bold text-foreground text-center mb-10">Looking for Something Specific?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      {/* Quick Links */}
+      <section className="py-32 bg-accent/20 border-t border-accent/50">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl md:text-6xl mb-16 uppercase italic font-black tracking-tighter">FAST <span className="text-primary">TRACK.</span></h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {quickLinks.map((l) => (
-              <Link key={l.path} to={l.path} title={l.title} className="bg-card rounded-2xl p-6 border border-border/50 hover:shadow-md transition-shadow group">
-                <h3 className="font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors">{l.title}</h3>
-                <p className="text-muted-foreground text-sm">{l.desc}</p>
+              <Link key={l.path} to={l.path} className="bg-card p-10 rounded-3xl border-2 border-border/50 hover:border-primary/20 hover:shadow-xl transition-all active:scale-[0.98] group">
+                <h3 className="text-2xl mb-4 uppercase italic font-black group-hover:text-primary transition-colors">{l.title}</h3>
+                <p className="text-muted-foreground text-sm font-medium">{l.desc}</p>
               </Link>
             ))}
           </div>

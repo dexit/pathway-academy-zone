@@ -1,91 +1,14 @@
-import { useMemo, useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ArrowRight, Phone, Search } from "lucide-react";
-import { Seo } from "@/components/Seo";
+import { ChevronDown, Search, Phone, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArchiveLayout } from "@/components/ArchiveLayout";
 import { FilterPills } from "@/components/FilterPills";
+import { Seo } from "@/components/Seo";
 import { cn } from "@/lib/utils";
-
-type QA = { q: string; a: string };
-type FAQGroup = { id: string; title: string; items: QA[] };
-
-const GROUPS: FAQGroup[] = [
-  {
-    id: "about-ap",
-    title: "About Alternative Provision",
-    items: [
-      {
-        q: "What is Alternative Provision?",
-        a: "Alternative Provision (AP) is education arranged for pupils who can't attend mainstream school due to exclusion, illness, SEMH needs, or other reasons. It provides structured learning in smaller, more supportive environments alongside pastoral and therapeutic input.",
-      },
-      {
-        q: "Who is Pathway Academy Zone for?",
-        a: "We support young people aged 11-16 (Key Stages 3 and 4) who are permanently excluded, at risk of exclusion, disengaged from mainstream education, or who have social, emotional and mental health (SEMH) needs that mainstream cannot currently meet.",
-      },
-      {
-        q: "Is AP the same as being 'sent away from school'?",
-        a: "No. AP is a legitimate, statutory education route. Many of our learners remain dual-rolled with their home school and return to mainstream after a successful placement.",
-      },
-    ],
-  },
-  {
-    id: "referrals",
-    title: "Referrals",
-    items: [
-      {
-        q: "How does the referral process work?",
-        a: "Referrals are made by schools, local authorities, social workers, or parents. We review every referral within 48 hours, hold an assessment meeting with the young person and family, then agree a personalised placement plan with all parties.",
-      },
-      {
-        q: "How quickly can a learner start?",
-        a: "Emergency placements can begin within 48 hours. Standard placements typically start within 1-2 weeks following the assessment process.",
-      },
-      {
-        q: "Can parents self-refer?",
-        a: "Parents and carers are welcome to contact us for a conversation. Formal placements are normally commissioned by a school or the local authority, but we can guide you through who to speak to next.",
-      },
-    ],
-  },
-  {
-    id: "life-at-paz",
-    title: "Life at Pathway Academy Zone",
-    items: [
-      {
-        q: "What does a typical day look like?",
-        a: "Each day starts with a regulation check-in and breakfast, followed by core academic sessions in small groups, a structured lunch, vocational or enrichment input in the afternoon, and a reflective close with your key adult.",
-      },
-      {
-        q: "What qualifications can learners achieve?",
-        a: "Learners can access GCSE English, Maths, and Science, Functional Skills, and a range of BTEC and vocational Level 1 and 2 qualifications depending on their pathway.",
-      },
-      {
-        q: "How do you keep learners safe?",
-        a: "Safeguarding is our top priority. All staff are DBS checked and trained, we have a designated safeguarding lead on site every day, robust reporting procedures, and we work closely with local safeguarding partners.",
-      },
-    ],
-  },
-  {
-    id: "commissioners",
-    title: "Commissioners & Partner Schools",
-    items: [
-      {
-        q: "Are you on the Staffordshire AP Directory?",
-        a: "Yes. Pathway Academy Zone is an approved provider on the Staffordshire Alternative Provision Directory and meets the DfE's AP performance framework.",
-      },
-      {
-        q: "What outcomes data do you publish?",
-        a: "We publish attendance, progression to positive destinations, and qualification gains each academic year. Summary data is available on our Outcomes page; full reports are shared with commissioners on request.",
-      },
-      {
-        q: "Can you support reintegration to mainstream?",
-        a: "Absolutely. Reintegration is one of our core progression routes. We work closely with home schools, SENCos, and families to plan and phase the return.",
-      },
-    ],
-  },
-];
+import { FAQ_GROUPS } from "@/config/data/faqs";
 
 const ALL = "All";
 
@@ -93,7 +16,7 @@ export default function FAQs() {
   const [activeCategory, setActiveCategory] = useState<string>(ALL);
   const [query, setQuery] = useState("");
 
-  const allItems = useMemo(() => GROUPS.flatMap((g) => g.items), []);
+  const allItems = useMemo(() => FAQ_GROUPS.flatMap((g) => g.items), []);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -107,7 +30,7 @@ export default function FAQs() {
 
   const filteredGroups = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return GROUPS
+    return FAQ_GROUPS
       .filter((g) => activeCategory === ALL || g.title === activeCategory)
       .map((g) => ({
         ...g,
@@ -121,7 +44,7 @@ export default function FAQs() {
       .filter((g) => g.items.length > 0);
   }, [activeCategory, query]);
 
-  const categories = [ALL, ...GROUPS.map((g) => g.title)];
+  const categories = [ALL, ...FAQ_GROUPS.map((g) => g.title)];
   const totalMatches = filteredGroups.reduce((n, g) => n + g.items.length, 0);
 
   return (
@@ -136,7 +59,7 @@ export default function FAQs() {
         title="Frequently Asked Questions"
         intro="Quick answers for parents, carers, schools, local authorities, and anyone new to Alternative Provision."
         sidebar={{
-          toc: GROUPS.map((g) => ({ id: g.id, label: g.title, level: 2 })),
+          toc: FAQ_GROUPS.map((g) => ({ id: g.id, label: g.title, level: 2 })),
           ctas: [
             {
               label: "Make a Referral",
@@ -234,7 +157,7 @@ export default function FAQs() {
           </div>
         )}
 
-        <div className="rounded-2xl bg-muted/50 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="rounded-2xl bg-accent/50 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Phone className="h-5 w-5 text-primary" />
@@ -287,7 +210,7 @@ function FaqItem({
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="w-full font-display font-semibold text-foreground flex items-center justify-between p-6 text-left gap-4"
+        className="w-full font-display font-semibold text-foreground flex items-center justify-between p-6 text-left gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
       >
         <span>{question}</span>
         <motion.span
@@ -295,7 +218,7 @@ function FaqItem({
           transition={{ duration: 0.3, ease: "easeOut" }}
           className={cn(
             "shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors",
-            open ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+            open ? "bg-primary text-primary-foreground" : "bg-accent text-primary"
           )}
         >
           <ChevronDown className="h-4 w-4" />

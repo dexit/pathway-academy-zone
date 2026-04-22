@@ -7,68 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Seo } from "@/components/Seo";
 import { ArchiveLayout } from "@/components/ArchiveLayout";
 import { FilterPills } from "@/components/FilterPills";
+import { POLICIES } from "@/config/data/policies";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
-
-type Policy = {
-  name: string;
-  file: string;
-  description: string;
-  category:
-    | "Safeguarding"
-    | "Inclusion"
-    | "Conduct"
-    | "Data & Privacy"
-    | "Complaints";
-};
-
-const POLICIES: Policy[] = [
-  {
-    name: "Safeguarding Children & Young Person's Policy",
-    file: "Safeguarding-Children-Young-Persons-Policy.pdf",
-    description:
-      "Our statutory policy covering safeguarding, child protection, designated leads, and reporting procedures.",
-    category: "Safeguarding",
-  },
-  {
-    name: "Equality, Diversity & Inclusion Policy",
-    file: "Equality-Diversity-Inclusion-Policy.pdf",
-    description:
-      "How we uphold equality, celebrate diversity, and ensure every learner is included.",
-    category: "Inclusion",
-  },
-  {
-    name: "Complaints & Compliments Policy",
-    file: "Complaints-Compliments-Policy.pdf",
-    description:
-      "The process for raising concerns, making complaints, or sharing positive feedback.",
-    category: "Complaints",
-  },
-  {
-    name: "Learner Behaviour & Conduct Policy",
-    file: "Learner-Behaviour-Conduct-Policy.pdf",
-    description:
-      "Our relational, restorative approach to behaviour and learner conduct expectations.",
-    category: "Conduct",
-  },
-  {
-    name: "Safeguarding Information for Visitors",
-    file: "Safeguarding-Information-Visitors.pdf",
-    description:
-      "Essential safeguarding information for contractors, volunteers, and all site visitors.",
-    category: "Safeguarding",
-  },
-  {
-    name: "Privacy Notice & GDPR Statement",
-    file: "Privacy-Notice-GDPR.pdf",
-    description:
-      "How we collect, use, store, and protect personal data in line with UK GDPR.",
-    category: "Data & Privacy",
-  },
-];
 
 const ALL = "All";
 
@@ -204,7 +148,7 @@ export default function Policies() {
                     <p className="text-sm text-muted-foreground mt-1">
                       {p.description}
                     </p>
-                    <span className="inline-block mt-2 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-muted text-muted-foreground">
+                    <span className="inline-block mt-2 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-accent text-primary">
                       {p.category}
                     </span>
                   </div>
@@ -230,7 +174,7 @@ export default function Policies() {
           </div>
         )}
 
-        <div className="rounded-2xl bg-muted/50 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="rounded-2xl bg-accent/50 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h2 className="text-xl font-bold text-foreground mb-1">
               Need a Different Document?

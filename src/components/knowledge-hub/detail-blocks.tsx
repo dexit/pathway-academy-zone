@@ -1,4 +1,4 @@
-import type { Block } from "@/config/data/knowledge-hub-detail"
+import type { Block } from "./detail-content"
 
 export function RenderBlocks({ blocks }: { blocks: Block[] }) {
   return (

@@ -9,7 +9,7 @@ import { Seo, Breadcrumbs } from "@/components/Seo";
 const classroomImg = "/assets/classroom-learning.jpg";
 const mentoringImg = "/assets/mentoring-session.jpg";
 
-const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+const fadeUp = { hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } };
 
 export default function About() {
   return (
@@ -18,112 +18,123 @@ export default function About() {
         title="Who We Are"
         description="Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire."
       />
-      <section className="relative py-32">
-        <div className="absolute inset-0">
-          <img src={classroomImg} alt="Students learning" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-foreground/60" />
-        </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">About Us</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Who We Are</h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.</p>
+
+      {/* Header - Kinetic Growth */}
+      <section className="relative pt-40 pb-24 overflow-hidden bg-foreground text-background">
+        <motion.div
+          animate={{ rotate: [0, 5, 0], scale: [1, 1.05, 1] }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[100px] pointer-events-none"
+        />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="text-primary font-black text-xs uppercase tracking-[0.5em] mb-8 block">THE IDENTITY</span>
+            <h1 className="text-6xl md:text-9xl mb-8 tracking-tighter uppercase italic">
+              BEYOND THE <br />
+              <span className="text-primary">CLASSROOM.</span>
+            </h1>
+            <p className="text-background/60 text-xl md:text-2xl max-w-2xl font-medium leading-tight">
+              We are a specialist Alternative Provision built on the belief that environment dictates potential.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-8 bg-background">
+      <section className="py-8 bg-background border-b border-border/10">
         <div className="container mx-auto px-4">
           <Breadcrumbs items={[{ label: "About Us" }]} />
         </div>
       </section>
 
-      <section className="py-24 bg-background">
+      {/* Mission Section - Asymmetrical */}
+      <section className="py-32 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Mission</span>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">Empowering Young People to Succeed</h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">We believe every young person deserves access to quality education, regardless of their circumstances. Our mission is to provide structured, trauma-informed Alternative Provision that helps students overcome barriers, develop resilience, and build the skills they need for a successful future.</p>
-              <p className="text-muted-foreground leading-relaxed mb-4">Founded with a deep understanding of the challenges facing young people in the AP sector, Pathway Academy Zone combines academic rigour with therapeutic support, vocational opportunities, and strong pastoral care.</p>
-              <p className="text-muted-foreground leading-relaxed">We work closely with mainstream schools, local authorities, virtual schools, and families to ensure every young person receives the support they need to thrive.</p>
-            </motion.div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <img src={mentoringImg} alt="Young people attending a careers presentation" className="rounded-2xl shadow-lg w-full" loading="lazy" />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-28 bg-gradient-to-b from-accent/50 via-background to-accent/50 overflow-hidden">
-        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.04] [background-image:radial-gradient(hsl(var(--primary))_1px,transparent_1px)] [background-size:24px_24px]" />
-        <div aria-hidden className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-primary/10 blur-3xl" />
-        <div className="container mx-auto px-4 relative">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-20">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-[0.2em] uppercase border border-primary/20">Our Values</span>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-4 tracking-tight">What Guides <span className="text-gradient-primary">Us</span></h2>
-            <p className="text-muted-foreground mt-5 max-w-2xl mx-auto leading-relaxed">Our values shape everything we do, from how we design programmes to how we interact with young people and their families.</p>
-          </motion.div>
-
-          <div className="relative max-w-6xl mx-auto">
-            {/* Connecting line — desktop only */}
-            <div aria-hidden className="hidden md:block absolute top-10 left-0 right-0 h-px overflow-hidden">
-              <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeInOut" }} style={{ transformOrigin: "left" }} className="h-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div className="lg:col-span-6">
+              <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                <span className="text-primary font-black text-xs uppercase tracking-widest mb-6 block">OUR MISSION</span>
+                <h2 className="text-5xl md:text-7xl mb-8 uppercase italic tracking-tighter">EMPOWERING <span className="text-primary">LEGENDS.</span></h2>
+                <div className="space-y-6 text-muted-foreground text-lg md:text-xl font-medium leading-relaxed">
+                  <p>We believe every young person deserves access to quality education, regardless of their circumstances. Our mission is to provide structured, trauma-informed Alternative Provision that helps students overcome barriers.</p>
+                  <p>Founded with a deep understanding of the challenges facing young people, Pathway Academy Zone combines academic rigour with therapeutic support and vocational opportunities.</p>
+                </div>
+              </motion.div>
             </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4">
-              {values.map((v, i) => (
-                <motion.div
-                  key={v.letter}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 + i * 0.12, ease: "easeOut" }}
-                  className="group relative flex flex-col items-center text-center"
-                >
-                  <div className="relative mb-5">
-                    <div aria-hidden className="absolute inset-0 rounded-full bg-primary/30 blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-primary to-[hsl(var(--teal-dark))] flex items-center justify-center shadow-lg shadow-primary/30 ring-4 ring-background group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500">
-                      <span className="text-primary-foreground font-display font-bold text-3xl">{v.letter}</span>
-                    </div>
-                    <span aria-hidden className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-background border border-primary/30 text-primary text-[11px] font-semibold flex items-center justify-center shadow-sm">{String(i + 1).padStart(2, "0")}</span>
-                  </div>
-
-                  <div className="relative w-full bg-card/80 backdrop-blur-sm rounded-2xl p-5 border border-border/60 shadow-sm group-hover:shadow-xl group-hover:border-primary/40 group-hover:-translate-y-1 transition-all duration-500 active:scale-[0.98]">
-                    <h3 className="font-display text-lg font-bold text-foreground mb-2">{v.name}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
-                    <div aria-hidden className="absolute inset-x-6 -bottom-px h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                  </div>
-                </motion.div>
-              ))}
+            <div className="lg:col-span-6 relative group">
+              <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-[60px] group-hover:bg-primary/40 transition-all duration-700" />
+              <img src={mentoringImg} alt="Mentoring" className="relative rounded-2xl shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700 scale-105" />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Philosophy</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">A Trauma-Informed Approach</h2>
-            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">We understand that many young people in Alternative Provision have experienced adverse childhood experiences that affect their ability to learn and engage.</p>
+      {/* Values - The CARES Grid */}
+      <section className="py-32 bg-accent/20 border-y border-accent/50 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-24">
+            <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-6 block">OUR VALUES</span>
+            <h2 className="text-6xl md:text-8xl tracking-tighter uppercase italic">THE <span className="text-primary italic">DNA</span> OF GROWTH.</h2>
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {philosophy.map((item, i) => (
-              <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md transition-shadow active:scale-[0.98]">
-                <h3 className="font-display text-xl font-bold text-foreground mb-3">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+            {values.map((v, i) => (
+              <motion.div
+                key={v.letter}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-card p-10 rounded-2xl border-2 border-border/50 hover:border-primary/40 transition-all group"
+              >
+                <div className="text-7xl font-display font-black text-primary/20 group-hover:text-primary transition-colors mb-8 italic">{v.letter}</div>
+                <h3 className="text-2xl mb-4 uppercase tracking-tighter group-hover:text-primary transition-colors">{v.name}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-accent/50">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">Want to Learn More?</h2>
-          <p className="text-muted-foreground mb-8">Meet our dedicated team or explore our programmes to see how we can support your young person.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild className="rounded-full shadow-lg"><Link to="/team">Meet the Team <ArrowRight className="ml-1 h-4 w-4" /></Link></Button>
-            <Button asChild variant="outline" className="rounded-full"><Link to="/programmes">Our Programmes</Link></Button>
+      {/* Philosophy - Deep Cards */}
+      <section className="py-32 bg-background">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-24">
+            <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-6 block">OUR PHILOSOPHY</span>
+            <h2 className="text-5xl md:text-7xl tracking-tighter uppercase italic">RADICAL <span className="text-primary">EMPATHY.</span></h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {philosophy.map((item, i) => (
+              <motion.div
+                key={item.title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-card p-12 rounded-3xl border-2 border-border/50 hover:border-primary/30 hover:shadow-2xl transition-all active:scale-[0.98]"
+              >
+                <h3 className="text-2xl mb-6 uppercase italic tracking-tighter">{item.title}</h3>
+                <p className="text-muted-foreground text-base leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-40 bg-primary text-primary-foreground text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.15)_0,transparent_70%)]" />
+        <div className="container mx-auto px-4 relative z-10">
+          <h2 className="text-6xl md:text-9xl font-black italic uppercase tracking-tighter mb-12">NEXT STEP.</h2>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Button asChild size="lg" className="bg-white text-primary hover:scale-110 transition-physics px-16 py-10 rounded-full text-xl shadow-2xl">
+              <Link to="/team">MEET THE SQUAD</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white hover:text-primary px-16 py-10 rounded-full text-xl backdrop-blur-md">
+              <Link to="/programmes">SEE THE PATHS</Link>
+            </Button>
           </div>
         </div>
       </section>

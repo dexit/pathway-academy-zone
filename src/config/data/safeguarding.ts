@@ -13,14 +13,6 @@ export const pastoral = [
     title: "Key Worker System",
     desc: "Every young person has a dedicated key worker who knows them well and advocates for their needs."
   },
-  {
-    title: "Family Support",
-    desc: "We work closely with families, offering regular communication and support to address challenges together."
-  },
-  {
-    title: "Multi-Agency Working",
-    desc: "We collaborate with external agencies including CAMHS, social care, and specialist services."
-  },
 ];
 
 export const keyPolicies = [
@@ -29,5 +21,4 @@ export const keyPolicies = [
   "Anti-Bullying Policy",
   "Behaviour & Positive Relationships Policy",
   "Safer Recruitment Policy",
-  "Whistleblowing Policy"
 ];

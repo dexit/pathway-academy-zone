@@ -39,18 +39,4 @@ export const vacancies = [
     salary: "£22,000 - £26,000",
     closing: "Open until filled"
   },
-  {
-    title: "Vocational Instructor (Construction)",
-    type: "Full-time / Part-time",
-    location: "Burslem Centre",
-    salary: "Competitive based on experience",
-    closing: "31st March 2025"
-  },
-  {
-    title: "Bank Support Staff",
-    type: "Casual",
-    location: "Various Centres",
-    salary: "Competitive hourly rate",
-    closing: "Ongoing"
-  }
 ];

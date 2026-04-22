@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs } from "@/components/Seo";
 import { HUB_SECTIONS } from "@/config/data/knowledge-hub";
+import { motion } from "framer-motion";
 
 export default function KnowledgeHubCategory() {
   const { categoryId } = useParams();
@@ -11,15 +12,13 @@ export default function KnowledgeHubCategory() {
   if (!section) {
     return (
       <Layout>
-        <Seo title="Category not found" noIndex />
-        <main className="min-h-screen bg-background flex items-center justify-center py-24">
-          <div className="text-center max-w-md px-4">
-            <h1 className="text-2xl font-bold mb-3">Category not found</h1>
-            <Link
-              to="/knowledge-hub"
-              className="text-primary hover:underline font-semibold"
-            >
-              Back to Knowledge Hub
+        <Seo title="Repo Not Found" noIndex />
+        <main className="min-h-screen bg-background flex items-center justify-center py-24 text-center">
+          <div className="max-w-md px-4">
+             <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-8 block">SYSTEM ERROR</span>
+            <h1 className="text-6xl font-black uppercase italic mb-8">404.</h1>
+            <Link to="/knowledge-hub" className="text-primary font-black uppercase tracking-widest hover:underline">
+              REBOOT TO HUB
             </Link>
           </div>
         </main>
@@ -27,66 +26,65 @@ export default function KnowledgeHubCategory() {
     );
   }
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: section.title,
-    description: section.description,
-    hasPart: section.resources.map((r) => ({
-      "@type": "Article",
-      name: r.title,
-      url: `https://pathwayacademyzone.co.uk${r.href}`,
-    })),
-  };
-
   return (
     <Layout>
-      <Seo
-        title={section.title}
-        description={section.description}
-        jsonLd={jsonLd}
-      />
+      <Seo title={section.title} description={section.description} />
 
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <Breadcrumbs
-            items={[
-              { label: "Knowledge Hub", to: "/knowledge-hub" },
-              { label: section.title },
-            ]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-            {section.title}
-          </h1>
-          <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-3xl">
-            {section.description}
-          </p>
-          <Link
-            to="/knowledge-hub"
-            className="inline-flex items-center gap-2 my-6 text-primary-foreground/70 hover:text-primary-foreground mb-5 transition-colors text-sm"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Knowledge Hub
-          </Link>
+      <header className="pt-40 pb-24 bg-accent/30 border-b border-border/10">
+        <div className="container mx-auto px-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <Breadcrumbs
+              items={[
+                { label: "Knowledge Hub", to: "/knowledge-hub" },
+                { label: section.title },
+              ]}
+              className="mb-8"
+            />
+            <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-6 block">REPOSITORY</span>
+            <h1 className="text-5xl md:text-8xl lg:text-9xl mb-8 tracking-tighter uppercase italic">
+              {section.title.split(' ').map((w, i) => (
+                <span key={i} className={i % 2 === 1 ? 'text-primary' : ''}>{w} </span>
+              ))}
+            </h1>
+            <p className="text-muted-foreground text-xl md:text-2xl max-w-3xl leading-tight font-medium">
+              {section.description}
+            </p>
+          </motion.div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {section.resources.map((resource) => (
-            <Link
-              key={resource.href}
-              to={resource.href}
-              className="flex items-center justify-between p-6 bg-card rounded-xl border border-border hover:shadow-md transition-shadow group"
+      <div className="container mx-auto px-4 py-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {section.resources.map((resource, i) => (
+            <motion.div
+               key={resource.href}
+               initial={{ opacity: 0, x: -20 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               transition={{ delay: i * 0.05 }}
+               viewport={{ once: true }}
             >
-              <span className="font-semibold text-foreground pr-4">
-                {resource.title}
-              </span>
-              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
-            </Link>
+              <Link
+                to={resource.href}
+                className="flex items-center justify-between p-10 bg-card rounded-2xl border-2 border-border/50 hover:border-primary/30 hover:shadow-2xl transition-all group active:scale-[0.98]"
+              >
+                <span className="text-xl font-bold uppercase italic tracking-tighter text-foreground group-hover:text-primary transition-colors">
+                  {resource.title}
+                </span>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
+                  <ArrowRight className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-all" />
+                </div>
+              </Link>
+            </motion.div>
           ))}
+        </div>
+
+        <div className="mt-32 text-center">
+           <Link
+            to="/knowledge-hub"
+            className="inline-flex items-center gap-4 text-muted-foreground hover:text-primary transition-all font-black uppercase tracking-[0.2em] text-sm"
+          >
+            <ArrowLeft className="w-5 h-5" /> BACK TO CENTRAL HUB
+          </Link>
         </div>
       </div>
     </Layout>

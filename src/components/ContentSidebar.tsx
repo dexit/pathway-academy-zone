@@ -43,7 +43,7 @@ export function ContentSidebar({
       )}
     >
       {toc && toc.length > 0 && (
-        <nav aria-label="On this page" className="rounded-2xl border border-border bg-card p-5">
+        <nav aria-label="On this page" className="rounded-2xl border border-border/50 bg-card/50 p-5">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
             On this page
           </p>
@@ -72,7 +72,7 @@ export function ContentSidebar({
                 "group block rounded-2xl p-5 transition-all",
                 cta.tone === "primary"
                   ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                  : "border border-border bg-card hover:border-primary/40"
+                  : "border border-border/50 bg-card/50 hover:border-primary/40"
               )}
             >
               <p className="font-display font-semibold">{cta.label}</p>
@@ -97,7 +97,7 @@ export function ContentSidebar({
       )}
 
       {quickContact && (quickContact.phone || quickContact.email) && (
-        <div className="rounded-2xl border border-border bg-muted/50 p-5">
+        <div className="rounded-2xl border border-border/50 bg-accent/20 p-5">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
             Need to speak to us?
           </p>

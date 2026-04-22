@@ -1,56 +1,53 @@
 import { Link } from "react-router-dom"
-import { ChevronRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { HubSection } from "@/config/data/knowledge-hub"
 
-interface HubSectionCardProps {
-  section: HubSection
-}
-
-export function HubSectionCard({ section }: HubSectionCardProps) {
+export function HubSectionCard({ section }: { section: any }) {
   const Icon = section.icon
 
   return (
-    <div className="flex flex-col bg-card rounded-xl border border-border overflow-hidden hover:shadow-md transition-shadow h-full">
+    <div className="flex flex-col bg-card rounded-[2rem] border-2 border-border/50 overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl h-full group">
       {/* Card header */}
-      <div className="p-6 border-b border-border">
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-col md:flex-row md:items-center gap-3">
-            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-secondary flex items-center justify-center">
-              <Icon className={cn("w-5 h-5", section.color)} />
-            </div>
-            <h3 className="text-base font-semibold text-foreground">
+      <div className="p-10 border-b-2 border-border/10">
+        <div className="flex flex-col gap-6">
+          <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-500">
+            <Icon className="w-8 h-8 text-primary group-hover:text-primary-foreground transition-colors" />
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-2xl font-display font-black uppercase italic tracking-tighter text-foreground group-hover:text-primary transition-colors">
               {section.title}
             </h3>
+            <p className="text-muted-foreground text-sm font-medium leading-relaxed">
+              {section.description}
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {section.description}
-          </p>
         </div>
       </div>
 
       {/* Resource links */}
-      <ul className="flex flex-col divide-y divide-border flex-1">
-        {section.resources.map((resource) => (
-          <li key={resource.href}>
-            <Link
-              to={resource.href}
-              className="flex items-center justify-between px-6 py-3.5 text-sm text-foreground hover:bg-secondary hover:text-primary group transition-colors"
-            >
-              <span className="leading-snug">{resource.title}</span>
-              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 ml-2" />
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="flex-1 p-4">
+        <ul className="space-y-2">
+          {section.resources.slice(0, 3).map((resource: any) => (
+            <li key={resource.href}>
+              <Link
+                to={resource.href}
+                className="flex items-center justify-between p-4 rounded-xl text-sm font-bold uppercase italic tracking-tighter text-foreground hover:bg-primary/5 hover:text-primary transition-all group/link"
+              >
+                <span>{resource.title}</span>
+                <ArrowRight className="w-4 h-4 text-primary opacity-0 group-hover/link:opacity-100 -translate-x-2 group-hover/link:translate-x-0 transition-all" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* View all */}
-      <div className="p-4 pt-0">
+      <div className="p-10 pt-0">
         <Link
           to={`/knowledge-hub/${section.id}`}
-          className="block text-center text-xs font-semibold text-primary hover:underline mt-4"
+          className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-primary hover:gap-4 transition-all"
         >
-          View all {section.title.toLowerCase()} &rarr;
+          VIEW FULL REPO <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs } from "@/components/Seo";
 import { team, execs } from "@/config/data/team";
@@ -39,51 +39,64 @@ export default function Team() {
   return (
     <Layout>
       <Seo
-        title="Our Team"
-        description="Meet the educators, mentors and leadership team behind Pathway Academy Zone — Alternative Provision in Stoke-on-Trent."
+        title="The Squad"
+        description="Meet the legends behind Pathway Academy Zone — the mentors and leaders redefining Alternative Provision."
         jsonLd={teamSchema}
       />
-      <section className="py-32 bg-accent/50">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Our Team</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">Meet the People Behind {SITE_NAME}</h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">Our dedicated team of educators, mentors, and specialists work together to support every young person on their journey.</p>
+
+      {/* Header */}
+      <section className="pt-40 pb-24 bg-accent/30 border-b border-border/10">
+        <div className="container mx-auto px-4 text-center md:text-left">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-8 block">MEET THE SQUAD</span>
+            <h1 className="text-6xl md:text-9xl mb-8 tracking-tighter uppercase italic">
+              BUILT BY <br />
+              <span className="text-primary">EXPERTS.</span>
+            </h1>
+            <p className="text-muted-foreground text-xl md:text-2xl max-w-2xl font-medium leading-tight">
+              We've assembled a team of specialists who don't just teach—they mentor, advocate, and lead.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-8 bg-background border-b border-border">
+      <section className="py-8 bg-background border-b border-border/10">
         <div className="container mx-auto px-4">
           <Breadcrumbs items={[{ label: "Team" }]} />
         </div>
       </section>
 
-      <section className="py-24 bg-background">
+      {/* Leadership */}
+      <section className="py-32 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground text-center mb-16 tracking-tight">Executive Leadership</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 max-w-3xl mx-auto">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
+            <h2 className="text-5xl md:text-7xl uppercase italic font-black tracking-tighter">THE <span className="text-primary">EXECS.</span></h2>
+            <p className="text-muted-foreground text-lg max-w-sm">Defining the vision and setting the standard for excellence.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 max-w-4xl">
             {execs.map((m, i) => {
               const id = slugify(m.name);
               return (
                 <motion.article
                   key={m.name}
                   id={id}
-                  itemScope
-                  itemType="https://schema.org/Person"
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.1 }}
-                  className="group"
+                  viewport={{ once: true }}
+                  className="group relative"
                 >
-                  <div className="bg-card rounded-3xl overflow-hidden shadow-sm border border-border/50 transition-all duration-500 group-hover:shadow-2xl group-hover:border-primary/20 active:scale-[0.98]">
-                    <div className="aspect-square overflow-hidden bg-accent/30 relative">
-                      <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+                  <div className="bg-card rounded-3xl overflow-hidden border-2 border-border/50 transition-all duration-500 group-hover:border-primary/30 group-hover:shadow-[0_20px_50px_-20px_oklch(var(--primary)/0.4)]">
+                    <div className="aspect-square overflow-hidden bg-accent/20 relative">
+                       <img src={m.img} alt={m.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
+                       <div className="absolute top-6 right-6 w-12 h-12 rounded-xl bg-primary text-primary-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                         <Star className="h-6 w-6 fill-current" />
+                       </div>
                     </div>
-                    <div className="p-8 text-center bg-card">
-                      <h3 itemProp="name" className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">{m.name}</h3>
-                      <p itemProp="jobTitle" className="text-primary font-semibold text-sm mt-2 uppercase tracking-wider">{m.role}</p>
+                    <div className="p-10">
+                      <h3 className="text-3xl mb-2 group-hover:text-primary transition-colors uppercase italic font-black">{m.name}</h3>
+                      <p className="text-primary font-black text-xs uppercase tracking-widest">{m.role}</p>
                     </div>
                   </div>
                 </motion.article>
@@ -93,32 +106,34 @@ export default function Team() {
         </div>
       </section>
 
-      <section className="py-24 bg-accent/50">
+      {/* Operational Team */}
+      <section className="py-32 bg-accent/20 border-y border-accent/50 relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground text-center mb-16 tracking-tight">Our Operational Team</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-8">
+            <h2 className="text-5xl md:text-7xl uppercase italic font-black tracking-tighter">MISSION <span className="text-primary">CONTROL.</span></h2>
+            <p className="text-muted-foreground text-lg max-w-sm">The team on the ground, making impact every single day.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
             {team.map((m, i) => {
               const id = slugify(m.name);
               return (
                 <motion.article
                   key={m.name}
                   id={id}
-                  itemScope
-                  itemType="https://schema.org/Person"
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
                   className="group"
                 >
-                  <div className="bg-card rounded-2xl overflow-hidden shadow-md border border-border/50 transition-all duration-500 group-hover:shadow-xl group-hover:border-primary/20 active:scale-[0.98]">
+                  <div className="bg-card rounded-2xl overflow-hidden border-2 border-border/50 transition-all duration-500 hover:shadow-2xl hover:border-primary/20 active:scale-[0.98]">
                     <div className="aspect-[4/5] overflow-hidden bg-accent/30">
-                      <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" loading="lazy" />
+                      <img src={m.img} alt={m.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" loading="lazy" />
                     </div>
-                    <div className="p-6 text-center">
-                      <h3 itemProp="name" className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">{m.name}</h3>
-                      <p itemProp="jobTitle" className="text-muted-foreground text-sm mt-1 leading-tight">{m.role}</p>
+                    <div className="p-8 text-center bg-card">
+                      <h3 className="text-xl font-display font-black text-foreground group-hover:text-primary transition-colors uppercase italic">{m.name}</h3>
+                      <p className="text-muted-foreground text-xs font-black uppercase tracking-widest mt-3 leading-tight">{m.role}</p>
                     </div>
                   </div>
                 </motion.article>
@@ -128,13 +143,15 @@ export default function Team() {
         </div>
       </section>
 
-      <section className="py-24 bg-primary text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0,transparent_70%)]" />
+      {/* Join the Team */}
+      <section className="py-40 bg-foreground text-background text-center relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-6 tracking-tight">Join Our Growing Team</h2>
-          <p className="text-primary-foreground/80 mb-10 max-w-2xl mx-auto text-lg leading-relaxed">We're always looking for passionate educators and support staff who share our vision for transforming young lives.</p>
-          <Button asChild size="xl" className="bg-white text-primary hover:bg-white/90 rounded-full shadow-xl px-12">
-            <Link to="/careers" title="Current vacancies">View Current Vacancies <ArrowRight className="ml-2 h-6 w-6" /></Link>
+          <h2 className="text-6xl md:text-9xl font-black italic uppercase tracking-tighter mb-12">WANT IN?</h2>
+          <p className="text-background/60 text-xl md:text-2xl max-w-2xl mx-auto mb-16 font-medium">
+            We're always looking for legends to join our mission. Ready to make a real difference?
+          </p>
+          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:scale-110 transition-physics px-20 py-10 rounded-full text-2xl shadow-2xl">
+            <Link to="/careers">JOIN THE SQUAD</Link>
           </Button>
         </div>
       </section>

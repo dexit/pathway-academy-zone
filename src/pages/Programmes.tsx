@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
-  CheckCircle, Calendar, Clock, ArrowRight, Building2, MapPin
+  CheckCircle, ArrowRight, Building2, MapPin, Clock
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs } from "@/components/Seo";
@@ -11,111 +11,76 @@ import { SITE_NAME, SITE_URL } from "@/config/site";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
-const programmesSchema = [
-  ...programmes.map((p) => ({
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: p.title,
-    description: p.desc,
-    url: `${SITE_URL}/programmes#${p.slug}`,
-    provider: {
-      "@type": "EducationalOrganization",
-      name: SITE_NAME,
-      sameAs: SITE_URL,
-    },
-    educationalLevel: "Key Stage 3 / Key Stage 4",
-    inLanguage: "en-GB",
-    audience: { "@type": "EducationalAudience", educationalRole: "student", audienceType: "Ages 11–16" },
-    hasCourseInstance: {
-      "@type": "CourseInstance",
-      courseMode: "Onsite",
-      location: {
-        "@type": "Place",
-        name: `${SITE_NAME} — Burslem Learning Centre`,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Duncalf Street, Burslem",
-          addressLocality: "Stoke-on-Trent",
-          postalCode: "ST6 3LJ",
-          addressCountry: "GB",
-        },
-      },
-      courseSchedule: { "@type": "Schedule", description: `${p.schedule} — ${p.time}` },
-    },
-    offers: { "@type": "Offer", category: "Alternative Provision", availability: "https://schema.org/InStock" },
-  })),
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Pathway Academy Zone Programmes",
-    itemListOrder: "https://schema.org/ItemListOrderAscending",
-    numberOfItems: programmes.length,
-    itemListElement: programmes.map((p, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      url: `${SITE_URL}/programmes#${p.slug}`,
-      name: p.title,
-    })),
-  },
-];
-
 export default function Programmes() {
   return (
     <Layout>
       <Seo
-        title="Our Programmes"
-        description="Academic re-engagement, vocational learning, SEMH support and more — Alternative Provision programmes in Stoke-on-Trent for ages 11–16."
-        jsonLd={programmesSchema}
+        title="Choose Your Path"
+        description="Explore the specialised learning pathways at Pathway Academy Zone. From core academics to high-growth vocational sectors."
       />
-      <section className="py-32 bg-accent/50">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Our Programmes</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Pathways to Success</h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We offer a range of structured programmes designed to meet individual needs, combining academic learning with vocational skills and therapeutic support.</p>
+
+      {/* Header - Massive & Impactful */}
+      <section className="pt-40 pb-24 bg-accent/50 border-b border-border/50">
+        <div className="container mx-auto px-4">
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
+            <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-8 block text-center md:text-left">PROGRAMME MANIFESTO</span>
+            <h1 className="text-6xl md:text-9xl mb-8 tracking-tighter uppercase italic text-center md:text-left">
+              YOUR <span className="text-primary">UPGRADE</span><br />
+              STARTS HERE.
+            </h1>
+            <p className="text-muted-foreground text-xl md:text-2xl max-w-2xl leading-tight font-medium text-center md:text-left">
+              Bespoke education designed for the future. No templates. No busy work. Just the skills you need to win.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-8 bg-background">
+      <section className="py-8 bg-background border-b border-border/10">
         <div className="container mx-auto px-4">
           <Breadcrumbs items={[{ label: "Programmes" }]} />
         </div>
       </section>
 
-      <section className="py-16 bg-background">
+      {/* Pathway Map - Exploration Grid */}
+      <section className="py-32 bg-background">
         <div className="container mx-auto px-4">
-          <div className="space-y-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {programmes.map((prog, i) => (
               <motion.article
                 id={prog.slug}
                 key={prog.title}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center scroll-mt-24`}
+                className="group relative"
               >
-                <div className={i % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center mb-5 shadow-lg shadow-primary/20">
-                    <prog.icon className="h-7 w-7 text-primary-foreground" />
+                <div className="bg-card rounded-2xl border-2 border-border/50 overflow-hidden transition-all duration-500 hover:shadow-[0_20px_50px_-20px_oklch(var(--primary)/0.3)] hover:border-primary/30 h-full flex flex-col active:scale-[0.98]">
+                  <div className="relative h-64 overflow-hidden">
+                    <img src={prog.img} alt={prog.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60" />
+                    <div className="absolute top-6 left-6 w-14 h-14 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+                      <prog.icon className="h-7 w-7" />
+                    </div>
                   </div>
-                  <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">{prog.title}</h2>
-                  <p className="text-muted-foreground leading-relaxed mb-6">{prog.desc}</p>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 mb-8">
-                    {prog.features.map((f) => (
-                      <li key={f} className="flex items-start gap-3 text-foreground text-sm">
-                        <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex flex-wrap items-center gap-6 p-4 bg-accent/30 rounded-2xl border border-accent/50 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-2"><Calendar className="h-4 w-4 text-primary" />{prog.schedule}</span>
-                    <span className="flex items-center gap-2"><Clock className="h-4 w-4 text-primary" />{prog.time}</span>
+
+                  <div className="p-10 flex-1 flex flex-col">
+                    <h2 className="text-3xl mb-4 group-hover:text-primary transition-colors">{prog.title}</h2>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-8 flex-1">{prog.desc}</p>
+
+                    <ul className="space-y-3 mb-10">
+                      {prog.features.slice(0, 3).map((f) => (
+                        <li key={f} className="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-foreground/80">
+                          <CheckCircle className="h-4 w-4 text-primary shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Button asChild variant="outline" className="w-full rounded-xl group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all">
+                      <Link to="/contact">ENQUIRE FOR PATH</Link>
+                    </Button>
                   </div>
-                </div>
-                <div className={`${i % 2 === 1 ? "lg:order-1" : ""} relative group`}>
-                  <div className="absolute inset-0 bg-primary/10 rounded-3xl translate-x-3 translate-y-3 -z-10 group-hover:translate-x-4 group-hover:translate-y-4 transition-transform" />
-                  <img src={prog.img} alt={prog.title} className="rounded-3xl shadow-xl w-full h-96 object-cover border-4 border-white" loading="lazy" />
                 </div>
               </motion.article>
             ))}
@@ -123,56 +88,64 @@ export default function Programmes() {
         </div>
       </section>
 
-      <section className="py-20 bg-accent/50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-center bg-card rounded-3xl border border-border p-8 md:p-12 shadow-xl">
+      {/* Facilities - Modern Sidebar Layout */}
+      <section className="py-32 bg-foreground text-background overflow-hidden relative">
+        <motion.div
+          animate={{ x: [-100, 100], opacity: [0.05, 0.1, 0.05] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute top-0 left-0 text-[20rem] font-display font-black leading-none whitespace-nowrap -mt-20 pointer-events-none select-none uppercase italic"
+        >
+          THE CAMPUS THE CAMPUS THE CAMPUS
+        </motion.div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div>
-              <span className="inline-flex items-center gap-2 text-primary font-bold text-sm tracking-widest uppercase mb-4">
-                <Building2 className="h-5 w-5" /> Where We Deliver
-              </span>
-              <h2 className="font-display text-2xl md:text-4xl font-bold text-foreground mb-4">
-                Our Centres in Stoke-on-Trent
-              </h2>
-              <p className="text-muted-foreground leading-relaxed max-w-xl text-lg">
-                Every programme is delivered in our purpose-built learning
-                centre in Burslem. Visit our centres to see our facilities and meet the team.
+              <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-8 block">WHERE WE OPERATE</span>
+              <h2 className="text-5xl md:text-8xl mb-8 uppercase italic tracking-tighter">ELITE ENVIRONMENTS.</h2>
+              <p className="text-background/60 text-xl leading-relaxed mb-12">
+                We deliver our programmes across specialized centers in Stoke-on-Trent. These aren't classrooms—they are workspaces, tech labs, and creative studios.
               </p>
-              <div className="flex flex-wrap items-center gap-6 mt-8 text-sm font-medium text-foreground">
-                <span className="inline-flex items-center gap-2 bg-background px-4 py-2 rounded-full border border-border shadow-sm">
-                  <MapPin className="h-4 w-4 text-primary" /> Duncalf St, Burslem ST6 3LJ
-                </span>
-                <span className="inline-flex items-center gap-2 bg-background px-4 py-2 rounded-full border border-border shadow-sm">
-                  <Clock className="h-4 w-4 text-primary" /> Mon–Fri, 8:30am–4:00pm
-                </span>
+              <div className="space-y-6">
+                <div className="flex items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                  <MapPin className="h-8 w-8 text-primary" />
+                  <div>
+                    <p className="font-bold text-lg">BURSLEM LEARNING CENTRE</p>
+                    <p className="text-background/40 text-sm">Duncalf St, ST6 3LJ</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                  <Clock className="h-8 w-8 text-primary" />
+                  <div>
+                    <p className="font-bold text-lg">ACCESS HOURS</p>
+                    <p className="text-background/40 text-sm">Mon–Fri, 8:30am–4:00pm</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-4 shrink-0">
-              <Button asChild size="lg" className="rounded-full shadow-lg">
-                <Link to="/centres">
-                  Explore Centres <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-full">
-                <Link to="/contact">
-                  Arrange a Tour
-                </Link>
-              </Button>
+            <div className="relative group">
+              <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-[80px] group-hover:bg-primary/40 transition-all" />
+              <div className="relative aspect-video rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl">
+                 <img src="/assets/building-exterior.jpg" className="w-full h-full object-cover" alt="The Campus" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-primary text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0,transparent_70%)]" />
-        <div className="container mx-auto px-4 relative z-10">
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mb-6 tracking-tight">Find the Right Programme</h2>
-          <p className="text-primary-foreground/80 mb-10 max-w-2xl mx-auto text-lg leading-relaxed">Every young person is unique. Contact us to discuss which pathway would best support your student's needs and goals.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild size="xl" className="bg-white text-primary hover:bg-white/90 rounded-full shadow-xl px-10">
-              <Link to="/referral">Make a Referral <ArrowRight className="ml-2 h-6 w-6" /></Link>
+      {/* Final Call */}
+      <section className="py-40 bg-background text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-5xl md:text-8xl mb-12 uppercase italic font-black">STILL UNSURE?</h2>
+          <p className="text-muted-foreground text-xl max-w-xl mx-auto mb-12">
+            Every pathway is unique. Talk to a mentor today and let's find yours.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Button asChild size="lg" variant="hero" className="px-16">
+              <Link to="/referral">START THE UPGRADE</Link>
             </Button>
-            <Button asChild size="xl" className="border-2 border-white/40 text-white hover:bg-white/10 rounded-full bg-transparent px-10">
-              <Link to="/contact">Contact Us</Link>
+            <Button asChild size="lg" variant="outline" className="px-16 rounded-full">
+              <Link to="/contact">VISIT CAMPUS</Link>
             </Button>
           </div>
         </div>

@@ -1,28 +1,20 @@
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
 import { Breadcrumbs } from "@/components/Seo";
 import { ContentSidebar } from "@/components/ContentSidebar";
 import type { ComponentProps } from "react";
 
 interface ArchiveLayoutProps {
-  /** Breadcrumb trail items (last item is the current page). */
   crumbs: { label: string; to?: string }[];
   eyebrow?: string;
   title: string;
   intro?: string;
-  /** Sidebar configuration — passed straight to ContentSidebar. */
   sidebar?: ComponentProps<typeof ContentSidebar>;
-  /** Optional element rendered above the main column (e.g. featured card). */
   beforeMain?: ReactNode;
   children: ReactNode;
 }
 
-/**
- * Unified archive page chrome shared by Blog, News, FAQs, Policies, Search.
- * Provides: primary header band → optional `beforeMain` slot →
- * two-column grid (main + ContentSidebar). Keeps spacing and breakpoints
- * consistent so every archive feels like part of one system.
- */
 export function ArchiveLayout({
   crumbs,
   eyebrow = "Pathway Academy Zone",
@@ -34,35 +26,45 @@ export function ArchiveLayout({
 }: ArchiveLayoutProps) {
   return (
     <Layout>
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-2xl">
+      <section className="pt-40 pb-24 bg-accent/30 border-b border-border/10">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
             <Breadcrumbs
               items={crumbs}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              className="mb-8"
             />
             {eyebrow && (
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
+              <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-6 block">
                 {eyebrow}
-              </p>
+              </span>
             )}
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              {title}
+            <h1 className="text-5xl md:text-8xl lg:text-9xl mb-8 tracking-tighter uppercase italic">
+              {title.split(' ').map((word, i) => (
+                <span key={i} className={i % 2 === 1 ? "text-primary" : ""}>{word} </span>
+              ))}
             </h1>
             {intro && (
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
+              <p className="text-muted-foreground text-xl md:text-2xl max-w-3xl leading-tight font-medium">
                 {intro}
               </p>
             )}
-          </div>
+          </motion.div>
         </div>
-      </header>
+      </section>
 
-      <div className="container mx-auto px-4 py-10 md:py-16">
-        {beforeMain && <div className="mb-10">{beforeMain}</div>}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
-          <div className="space-y-8 min-w-0">{children}</div>
-          {sidebar && <ContentSidebar {...sidebar} />}
+      <div className="container mx-auto px-4 py-20 md:py-32">
+        {beforeMain && <div className="mb-20">{beforeMain}</div>}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-16 lg:gap-24 items-start">
+          <div className="space-y-12 min-w-0">{children}</div>
+          {sidebar && (
+            <aside className="sticky top-32">
+              <ContentSidebar {...sidebar} />
+            </aside>
+          )}
         </div>
       </div>
     </Layout>

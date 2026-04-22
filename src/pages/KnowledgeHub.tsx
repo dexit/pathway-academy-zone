@@ -5,159 +5,123 @@ import { HubSectionCard } from "@/components/knowledge-hub/hub-section-card"
 import { HUB_SECTIONS } from "@/config/data/knowledge-hub"
 import Layout from "@/components/Layout"
 import { Seo, Breadcrumbs } from "@/components/Seo"
+import { motion } from "framer-motion"
 
 export default function KnowledgeHub() {
   return (
     <Layout>
       <Seo
-        title="Knowledge Hub"
-        description="Your comprehensive resource for Alternative Provision. Expert guides, practical comparisons, and evidence-based best practices for educators, parents, and professionals."
+        title="Intel Hub"
+        description="Your comprehensive resource for Alternative Provision. Expert guides, practical comparisons, and evidence-based best practices."
       />
-      <main className="min-h-screen bg-background">
-        {/* Page Header */}
-        <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-2xl">
-              <Breadcrumbs
-                items={[{ label: "Knowledge Hub" }]}
-                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-              />
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
-                Pathway Academy Zone
-              </p>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Knowledge Hub
-              </h1>
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
-                Your comprehensive resource for understanding Alternative
-                Provision. Expert guides, practical comparisons, and
-                evidence-based best practices for educators, parents, and
-                professionals.
-              </p>
-            </div>
+
+      {/* Header */}
+      <section className="pt-40 pb-24 bg-accent/30 border-b border-border/10">
+        <div className="container mx-auto px-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+             <Breadcrumbs items={[{ label: "Knowledge Hub" }]} className="mb-8" />
+             <span className="text-primary font-black text-xs uppercase tracking-[0.4em] mb-8 block">CENTRAL INTELLIGENCE</span>
+            <h1 className="text-6xl md:text-9xl mb-8 tracking-tighter uppercase italic">
+              KNOWLEDGE <br />
+              <span className="text-primary">HUB.</span>
+            </h1>
+            <p className="text-muted-foreground text-xl md:text-2xl max-w-2xl font-medium leading-tight">
+              Master the system. Browse our deep-dive guides into Alternative Provision and SEMH strategy.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 py-32 space-y-32">
+        {/* Featured resource */}
+        <section>
+          <div className="flex items-center gap-4 mb-12">
+            <div className="h-0.5 w-12 bg-primary" />
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-primary">FEATURED INTEL</h2>
           </div>
-        </header>
 
-        <div className="container mx-auto px-4 py-10 md:py-16 space-y-14">
-          {/* Featured resource */}
-          <section aria-labelledby="featured-heading">
-            <div className="flex items-center gap-2 mb-5">
-              <span className="block w-1 h-5 rounded-full bg-accent" aria-hidden="true" />
-              <h2
-                id="featured-heading"
-                className="text-sm font-semibold text-muted-foreground tracking-widest uppercase"
-              >
-                Featured Resource
-              </h2>
-            </div>
-
-            <div className="relative overflow-hidden rounded-2xl bg-primary text-primary-foreground">
-              {/* Decorative background pattern */}
-              <div
-                className="absolute inset-0 opacity-5"
-                aria-hidden="true"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle at 70% 50%, white 1px, transparent 1px)",
-                  backgroundSize: "28px 28px",
-                }}
-              />
-              <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 p-8 md:p-12">
-                <div className="flex flex-col items-start gap-5">
-                  <div className="flex flex-row  w-full gap-3">
-                 
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
-                    <BookOpen className="w-6 h-6 text-accent" />
-                  </div>
-                                      <h3 className="text-xl md:text-2xl font-bold mb-1 items-center">
-                      The Complete Guide to Alternative Provision
-                    </h3>
-                     </div>
-                  <div className="max-w-xl">
-
-                    <p className="text-primary-foreground/70 leading-relaxed text-sm md:text-base">
-                      Our definitive guide covering the full AP journey from
-                      referral triggers to progression routes. Essential reading
-                      for anyone involved in supporting young people outside
-                      mainstream education.
-                    </p>
-                  </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="relative overflow-hidden rounded-[2.5rem] bg-foreground text-background p-12 md:p-20 shadow-2xl group"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(var(--primary-rgb),0.15)_0,transparent_70%)] opacity-20" />
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center mb-10 shadow-2xl shadow-primary/20">
+                  <BookOpen className="w-10 h-10 text-primary-foreground" />
                 </div>
+                <h3 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter mb-8 leading-none">
+                  THE COMPLETE <br /><span className="text-primary">AP GUIDE.</span>
+                </h3>
+                <p className="text-background/60 text-lg md:text-xl leading-relaxed mb-12 font-medium">
+                  The definitive breakdown of Alternative Provision in 2025. From legal duties to radical reintegration models.
+                </p>
                 <Button
                   asChild
-                  className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shrink-0 gap-2"
+                  size="lg"
+                  className="bg-primary text-primary-foreground hover:scale-105 transition-physics px-12 h-16 rounded-full text-lg shadow-xl"
                 >
                   <Link to="/knowledge-hub/complete-guide">
-                    Read the Complete Guide
-                    <ArrowRight className="w-4 h-4" />
+                    ACCESS FULL GUIDE <ArrowRight className="ml-3 h-6 w-6" />
                   </Link>
                 </Button>
               </div>
+              <div className="hidden lg:block relative">
+                 <div className="absolute -inset-10 bg-primary/10 rounded-full blur-[100px]" />
+                 <img src="/assets/classroom-learning.jpg" className="relative rounded-[2rem] shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700 rotate-2 group-hover:rotate-0" alt="" />
+              </div>
             </div>
-          </section>
+          </motion.div>
+        </section>
 
-          {/* Section cards grid */}
-          <section aria-labelledby="resources-heading">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="block w-1 h-5 rounded-full bg-accent" aria-hidden="true" />
-              <h2
-                id="resources-heading"
-                className="text-sm font-semibold text-muted-foreground tracking-widest uppercase"
+        {/* Section cards grid */}
+        <section>
+          <div className="flex items-center gap-4 mb-16">
+            <div className="h-0.5 w-12 bg-primary" />
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-primary">SECTOR REPOS</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {HUB_SECTIONS.map((section, i) => (
+              <motion.div
+                key={section.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
               >
-                Browse by Topic
+                <HubSectionCard section={section} />
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Support CTA */}
+        <section className="rounded-[3rem] bg-accent/20 border-2 border-accent/50 p-12 md:p-20 flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="max-w-xl">
+            <div className="flex items-center gap-6 mb-8">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
+                <Phone className="w-8 h-8 text-primary" />
+              </div>
+              <h2 className="text-4xl font-black uppercase italic tracking-tighter text-foreground">
+                MISSION <br /><span className="text-primary">SUPPORT.</span>
               </h2>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {HUB_SECTIONS.map((section) => (
-                <HubSectionCard key={section.id} section={section} />
-              ))}
-            </div>
-          </section>
-
-          {/* Referral CTA */}
-          <section className="rounded-2xl border border-border bg-card px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-8 bg-primary/10">
-            <div className="max-w-lg">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
-                  <Phone className="w-4 h-4 text-primary" />
-                </div>
-                <h2 className="text-xl font-bold text-foreground">
-                  Need Support with a Referral?
-                </h2>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                If you&apos;re considering Alternative Provision for a young
-                person, our team is here to help guide you through the process.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
-              <Button
-                asChild
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold gap-2"
-              >
-                <Link to="/referral">
-                  Start a Referral
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="font-semibold">
-                <Link to="/contact">Contact Us</Link>
-              </Button>
-            </div>
-          </section>
-
-          {/* Back nav */}
-          <div className="flex justify-center pb-4">
-            <Link
-              to="/"
-              className="text-muted-foreground text-sm hover:text-foreground transition-colors"
-            >
-              ← Back to Home
-            </Link>
+            <p className="text-muted-foreground text-xl font-medium leading-relaxed">
+              Need direct intel on a referral? Our squad is standing by to guide you through the protocol.
+            </p>
           </div>
-        </div>
-      </main>
+          <div className="flex flex-col sm:flex-row gap-6 shrink-0 w-full md:w-auto">
+            <Button asChild size="lg" className="rounded-full px-12 h-20 text-xl font-black shadow-2xl">
+              <Link to="/referral">START REFERRAL</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full px-12 h-20 text-xl font-black bg-white">
+              <Link to="/contact">CONTACT HQ</Link>
+            </Button>
+          </div>
+        </section>
+      </div>
     </Layout>
   )
 }

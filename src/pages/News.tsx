@@ -155,7 +155,7 @@ export default function News() {
           onChange={setPage}
         />
 
-        <div className="mt-4 rounded-2xl bg-muted/50 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-4 rounded-2xl bg-accent/20 border border-border p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h2 className="text-xl font-bold text-foreground mb-1">
               Looking for longer reads?

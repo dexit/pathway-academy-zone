@@ -1,76 +1,45 @@
-import { BookOpen, GitCompare, Star, BookMarked } from "lucide-react"
-import type { LucideIcon } from "lucide-react"
+import { BookOpen, Shield, Users, Lightbulb } from "lucide-react"
 
-export type HubResource = {
-  title: string
-  href: string
-}
-
-export type HubSection = {
-  id: string
-  title: string
-  description: string
-  icon: LucideIcon
-  color: string
-  resources: HubResource[]
-}
-
-export const HUB_SECTIONS: HubSection[] = [
+export const HUB_SECTIONS = [
   {
-    id: "core-guides",
-    title: "Core Guides",
-    description:
-      "Essential guides explaining Alternative Provision fundamentals, processes, and pathways for educators, parents, and referring professionals.",
+    id: "understanding-ap",
+    title: "Understanding Alternative Provision",
+    description: "New to AP? Start here to learn the basics, legal duties, and how it differs from mainstream education.",
     icon: BookOpen,
-    color: "text-primary",
     resources: [
-      { title: "What is Alternative Provision", href: "/knowledge-hub/guides/what-is-alternative-provision" },
-      { title: "How AP Works in Staffordshire", href: "/knowledge-hub/guides/how-ap-works-staffordshire" },
-      { title: "High-Quality AP Provider", href: "/knowledge-hub/guides/high-quality-ap-provider" },
-      { title: "When to Refer a Learner", href: "/knowledge-hub/guides/when-to-refer" },
-      { title: "Academic vs Vocational", href: "/knowledge-hub/guides/academic-vs-vocational" },
+      { title: "What is Alternative Provision?", href: "/knowledge-hub/understanding-ap/what-is-ap" },
+      { title: "The Legal Framework for AP", href: "/knowledge-hub/understanding-ap/legal-framework" },
+      { title: "Who is AP for?", href: "/knowledge-hub/understanding-ap/who-is-ap-for" },
     ],
   },
   {
-    id: "comparisons",
-    title: "Comparisons",
-    description:
-      "Side-by-side comparisons to help decision-makers understand the differences between various AP models and approaches.",
-    icon: GitCompare,
-    color: "text-primary",
+    id: "referral-best-practice",
+    title: "Referral & Commissioning",
+    description: "Guides for schools and Local Authorities on how to identify needs and commission the right provision.",
+    icon: Users,
     resources: [
-      { title: "AP vs Mainstream Schooling", href: "/knowledge-hub/comparisons/ap-vs-mainstream" },
-      { title: "Group vs One-to-One", href: "/knowledge-hub/comparisons/group-vs-one-to-one" },
-      { title: "Short-Term vs Long-Term", href: "/knowledge-hub/comparisons/short-vs-long-term" },
-      { title: "Onsite vs Offsite", href: "/knowledge-hub/comparisons/onsite-vs-offsite" },
+      { title: "When to refer a student", href: "/knowledge-hub/referral-best-practice/when-to-refer" },
+      { title: "Effective commissioning guide", href: "/knowledge-hub/referral-best-practice/effective-commissioning" },
+    ],
+  },
+  {
+    id: "safeguarding-wellbeing",
+    title: "Safeguarding & Wellbeing",
+    description: "Trauma-informed practice, mental health support, and keeping young people safe in specialized settings.",
+    icon: Shield,
+    resources: [
+      { title: "Trauma-informed approaches", href: "/knowledge-hub/safeguarding-wellbeing/trauma-informed" },
+      { title: "SEMH support strategies", href: "/knowledge-hub/safeguarding-wellbeing/semh-strategies" },
     ],
   },
   {
     id: "best-practice",
-    title: "Best Practice",
-    description:
-      "Evidence-based strategies and proven approaches for achieving the best outcomes in Alternative Provision settings.",
-    icon: Star,
-    color: "text-primary",
+    title: "Best Practice & Innovation",
+    description: "Evidence-based research and innovative models for the future of Alternative Provision.",
+    icon: Lightbulb,
     resources: [
-      { title: "SEMH Pathways", href: "/knowledge-hub/best-practice/semh-pathways" },
-      { title: "Attendance Strategies", href: "/knowledge-hub/best-practice/attendance-strategies" },
-      { title: "Vocational Routes", href: "/knowledge-hub/best-practice/vocational-routes" },
-      { title: "Post-16 Progression", href: "/knowledge-hub/best-practice/post-16-progression" },
-    ],
-  },
-  {
-    id: "glossary",
-    title: "Glossary",
-    description:
-      "Clear definitions of key Alternative Provision terms and concepts for quick reference and understanding.",
-    icon: BookMarked,
-    color: "text-primary",
-    resources: [
-      { title: "Alternative Provision", href: "/knowledge-hub/glossary#alternative-provision" },
-      { title: "SEMH", href: "/knowledge-hub/glossary#semh" },
-      { title: "EHCP", href: "/knowledge-hub/glossary#ehcp" },
-      { title: "Managed Move", href: "/knowledge-hub/glossary#managed-move" },
+      { title: "Vocational integration models", href: "/knowledge-hub/best-practice/vocational-models" },
+      { title: "The future of AP 2025", href: "/knowledge-hub/best-practice/future-of-ap" },
     ],
   },
 ]

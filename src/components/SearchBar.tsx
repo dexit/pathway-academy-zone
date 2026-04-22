@@ -85,7 +85,7 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
                 onFocus={() => setResultsOpen(true)}
                 placeholder="Search..."
                 aria-label="Search the site"
-                className="w-full h-10 pl-9 pr-9 rounded-full text-sm bg-muted/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 placeholder:text-muted-foreground"
+                className="w-full h-10 pl-9 pr-9 rounded-full text-sm bg-accent/20 border border-border focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 placeholder:text-muted-foreground"
               />
               {query && (
                 <button
