@@ -273,16 +273,38 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="py-16 bg-muted/50">
+      <section className="py-20 bg-muted/40">
         <div className="container mx-auto px-4">
-          <h2 className="font-display text-2xl font-bold text-foreground text-center mb-10">Looking for Something Specific?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {quickLinks.map((l) => (
-              <Link key={l.path} to={l.path} title={l.title} className="bg-card rounded-2xl p-6 border border-border/50 hover:shadow-md transition-shadow group">
-                <h3 className="font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors">{l.title}</h3>
-                <p className="text-muted-foreground text-sm">{l.desc}</p>
-              </Link>
-            ))}
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-widest uppercase mb-3">Quick Links</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">Looking for Something Specific?</h2>
+            <p className="text-muted-foreground">Skip the form — jump straight to the page you need.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {quickLinks.map((l, i) => {
+              const icons = [HandHeart, MapPin, Briefcase];
+              const Icon = icons[i] || ExternalLink;
+              return (
+                <Link
+                  key={l.path}
+                  to={l.path}
+                  title={l.title}
+                  className="group relative bg-card rounded-2xl p-7 border border-border/60 hover:border-primary/50 hover:shadow-lg transition-all overflow-hidden"
+                >
+                  <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-primary/5 group-hover:bg-primary/10 transition-colors" aria-hidden />
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-display font-bold text-lg text-foreground mb-1.5 group-hover:text-primary transition-colors">{l.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4">{l.desc}</p>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                      Open page <ExternalLink className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
