@@ -132,7 +132,7 @@ export default function Careers() {
     defaultValues: { firstName: "", lastName: "", email: "", phone: "", interest: undefined, about: "" },
   });
 
-  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string }>({
+  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string; name?: string }>({
     url: CAREERS_WEBHOOK,
     method: "POST",
     format: "json",
