@@ -67,9 +67,10 @@ const enquiryOptions: IllustratedOption[] = [
 ];
 
 const formSchema = z.object({
-  name: personName({ required: true }),
+  firstName: personName({ required: true }),
+  lastName: personName({ required: true }),
   email: email({ required: true }),
-  phone: ukPhone(),
+  phone: ukPhone({ required: true }),
   enquiryType: z.enum(["parent-carer", "school-la", "partner", "careers", "general", "other"], {
     required_error: "Please choose an enquiry type",
   }),
@@ -83,7 +84,7 @@ export default function Contact() {
 
   const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", email: "", phone: "", enquiryType: undefined, organisation: "", message: "" },
+    defaultValues: { firstName: "", lastName: "", email: "", phone: "", enquiryType: undefined, organisation: "", message: "" },
     mode: "onTouched",
   });
 
@@ -176,14 +177,26 @@ export default function Contact() {
               <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 border border-border/50 space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
-                    id="contact-name"
-                    label="Your Name"
+                    id="contact-firstname"
+                    label="First Name"
                     required
-                    placeholder="Full name"
-                    autoComplete="name"
-                    error={errors.name?.message}
-                    {...register("name")}
+                    placeholder="First name"
+                    autoComplete="given-name"
+                    error={errors.firstName?.message}
+                    {...register("firstName")}
                   />
+                  <FormField
+                    id="contact-lastname"
+                    label="Last Name"
+                    required
+                    placeholder="Last name"
+                    autoComplete="family-name"
+                    error={errors.lastName?.message}
+                    {...register("lastName")}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     id="contact-email"
                     label="Email Address"
@@ -194,6 +207,19 @@ export default function Contact() {
                     autoComplete="email"
                     error={errors.email?.message}
                     {...register("email")}
+                  />
+                  <FormField
+                    id="contact-phone"
+                    label="Phone Number"
+                    required
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    placeholder="07123 456789"
+                    hint="UK landline or mobile"
+                    value={phone || ""}
+                    onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
+                    error={errors.phone?.message}
                   />
                 </div>
 
