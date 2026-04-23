@@ -113,7 +113,7 @@ export default function KnowledgeHubDetail() {
 
         <div className="container mx-auto px-4 py-10 md:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-16">
-            <article className="max-w-none mx-auto lg:mx-0 w-full">
+            <article ref={articleRef} className="max-w-none mx-auto lg:mx-0 w-full">
               <RenderBlocks blocks={content.blocks} />
 
               {related.length > 0 && (
