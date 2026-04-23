@@ -14,8 +14,8 @@ import { Seo, SITE_URL, Breadcrumbs } from "@/components/Seo";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
 import {
-  email, ukPhone, personName, shortText, longMessage, dateOfBirth,
-  maskUkPhone, normaliseUkPhone,
+  email, ukPhone, personName, shortText, longMessage, dateOfBirth, ukPostcode,
+  maskUkPhone, normaliseUkPhone, maskUkPostcode,
 } from "@/lib/uk-validators";
 
 const REFERRAL_WEBHOOK = import.meta.env.VITE_REFERRAL_WEBHOOK as string | undefined;
@@ -44,12 +44,15 @@ const roleOptions = ["School Staff","Local Authority","Social Worker","Virtual S
 const yearGroupOptions = ["Year 7","Year 8","Year 9","Year 10","Year 11"] as const;
 
 const formSchema = z.object({
-  name: personName({ required: true }),
+  firstName: personName({ required: true }),
+  lastName: personName({ required: true }),
   role: z.enum(roleOptions, { required_error: "Please select your role" }),
   email: email({ required: true }),
   phone: ukPhone({ required: true }),
   organisation: shortText(120, false),
-  ypName: personName({ required: true }),
+  postcode: ukPostcode({ required: true }),
+  ypFirstName: personName({ required: true }),
+  ypLastName: personName({ required: true }),
   dob: dateOfBirth({ required: true, minAge: 10, maxAge: 18 }),
   yearGroup: z.enum(yearGroupOptions, { required_error: "Please select a year group" }),
   currentSchool: shortText(160, false),
@@ -66,8 +69,8 @@ export default function Referral() {
     resolver: zodResolver(formSchema),
     mode: "onTouched",
     defaultValues: {
-      name: "", role: undefined, email: "", phone: "", organisation: "",
-      ypName: "", dob: "", yearGroup: undefined, currentSchool: "",
+      firstName: "", lastName: "", role: undefined, email: "", phone: "", organisation: "", postcode: "",
+      ypFirstName: "", ypLastName: "", dob: "", yearGroup: undefined, currentSchool: "",
       programme: undefined, reason: "", additionalInfo: "",
     },
   });
@@ -91,6 +94,7 @@ export default function Referral() {
   });
 
   const phone = watch("phone");
+  const postcode = watch("postcode");
 
   return (
     <Layout>
@@ -158,7 +162,8 @@ export default function Referral() {
 
             <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField id="ref-name" label="Your Name" required autoComplete="name" placeholder="Full name" error={errors.name?.message} {...register("name")} />
+                <FormField id="ref-firstname" label="First Name" required autoComplete="given-name" placeholder="First name" error={errors.firstName?.message} {...register("firstName")} />
+                <FormField id="ref-lastname" label="Last Name" required autoComplete="family-name" placeholder="Last name" error={errors.lastName?.message} {...register("lastName")} />
                 <FormField as="select" id="ref-role" label="Your Role" required error={errors.role?.message} {...register("role")}>
                   <option value="">Select role</option>
                   {roleOptions.map((r) => <option key={r} value={r}>{r}</option>)}
@@ -171,11 +176,22 @@ export default function Referral() {
                   type="tel"
                   inputMode="tel"
                   autoComplete="tel"
-                  placeholder="01782 365365"
+                  placeholder="07123 456789"
                   hint="UK landline or mobile"
                   value={phone || ""}
                   onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
                   error={errors.phone?.message}
+                />
+                <FormField
+                  id="ref-postcode"
+                  label="Postcode"
+                  required
+                  autoComplete="postal-code"
+                  placeholder="ST6 3LJ"
+                  hint="UK postcode of the young person"
+                  value={postcode || ""}
+                  onChange={(e) => setValue("postcode", maskUkPostcode((e.target as HTMLInputElement).value), { shouldValidate: true })}
+                  error={errors.postcode?.message}
                 />
               </div>
               <FormField id="ref-org" label="Organisation / School" autoComplete="organization" placeholder="e.g. Burslem High School" error={errors.organisation?.message} {...register("organisation")} />
@@ -183,7 +199,8 @@ export default function Referral() {
               <hr className="border-border" />
               <h3 className="font-display text-lg font-bold text-foreground">Young Person Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField id="ref-yp" label="Young Person's Name" required placeholder="Full name" error={errors.ypName?.message} {...register("ypName")} />
+                <FormField id="ref-yp-firstname" label="Young Person's First Name" required placeholder="First name" error={errors.ypFirstName?.message} {...register("ypFirstName")} />
+                <FormField id="ref-yp-lastname" label="Young Person's Last Name" required placeholder="Last name" error={errors.ypLastName?.message} {...register("ypLastName")} />
                 <FormField id="ref-dob" label="Date of Birth" required type="date" max={new Date().toISOString().slice(0,10)} hint="DD/MM/YYYY" error={errors.dob?.message} {...register("dob")} />
                 <FormField as="select" id="ref-yg" label="Year Group" required error={errors.yearGroup?.message} {...register("yearGroup")}>
                   <option value="">Select year</option>
