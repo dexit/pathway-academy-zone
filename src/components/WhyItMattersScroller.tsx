@@ -173,7 +173,7 @@ function ChapterContent({
   align: "left" | "right";
 }) {
   return (
-    <div className={align === "right" ? "md:ml-auto md:max-w-md md:text-right" : "md:mr-auto md:max-w-md text-left"}>
+    <div className={align === "right" ? "md:ml-auto md:max-w-[420px] md:text-right" : "md:mr-auto md:max-w-[420px] text-left"}>
       <p className="text-xs font-semibold tracking-[0.18em] uppercase text-primary mb-2">
         {chapter.eyebrow}
       </p>
@@ -220,7 +220,7 @@ function ChapterIllustration({
       whileInView={{ opacity: 1, x: 0, scale: 1 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-      className={`relative ${from === "right" ? "md:ml-auto" : "md:mr-auto"} max-w-[360px]`}
+      className={`relative ${from === "right" ? "md:ml-auto" : "md:mr-auto"} w-full max-w-[380px]`}
     >
       {/* Decorative blob */}
       <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/10 via-accent/30 to-transparent blur-2xl pointer-events-none" />
@@ -254,7 +254,7 @@ function ChapterRow({ chapter, index, total }: { chapter: Chapter; index: number
     <div
       ref={ref}
       id={chapter.id}
-      className="relative md:grid md:grid-cols-[1fr_88px_1fr] md:gap-8 py-12 md:py-20"
+      className="relative md:grid md:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] md:gap-10 lg:gap-14 py-14 md:py-24 items-center"
     >
       {/* LEFT column */}
       <div className="hidden md:block relative">
