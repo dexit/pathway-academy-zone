@@ -351,6 +351,28 @@ export default function CompleteGuide() {
                 </Button>
               </div>
             </section>
+            </div>
+
+            <ContentSidebar
+              toc={toc.length ? toc : anchors.map((a) => ({ id: a.id, label: a.label, level: 2 as const }))}
+              ctas={[
+                {
+                  label: "Make a Referral",
+                  description: "Refer a young person in 4 steps",
+                  href: "/referral",
+                  tone: "primary",
+                },
+                {
+                  label: "Browse Knowledge Hub",
+                  description: "All guides and references",
+                  href: "/knowledge-hub",
+                },
+              ]}
+              quickContact={{
+                phone: "01782 365365",
+                email: "info@pathwayacademyzone.co.uk",
+              }}
+            />
           </div>
         </div>
       </main>
