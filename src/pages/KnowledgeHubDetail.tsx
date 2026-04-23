@@ -1,13 +1,16 @@
+import { useRef } from "react"
 import { Link, useParams } from "react-router-dom"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Layout from "@/components/Layout"
 import { Button } from "@/components/ui/button"
 import { DETAIL_CONTENT } from "@/components/knowledge-hub/detail-content"
 import { RenderBlocks } from "@/components/knowledge-hub/detail-blocks"
-import { Seo, Breadcrumbs } from "@/components/Seo"
+import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo"
 import { SummaryBlock, ReadingTime, RelatedContent, type RelatedItem } from "@/components/SeoBlocks"
 import { ContentSidebar } from "@/components/ContentSidebar"
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
+import { useAutoToc } from "@/hooks/use-auto-toc"
+import { buildArticleJsonLd } from "@/lib/json-ld"
 
 export default function KnowledgeHubDetail() {
   const { category, slug } = useParams()

@@ -63,7 +63,7 @@ export default function CompleteGuide() {
                 professionals, parents, and educators need to know about AP in England, with specific focus on
                 Staffordshire provision.
               </p>
-              <p className="text-primary-foreground/60 text-sm mb-6">15 min read · For educators, parents &amp; professionals</p>
+              <p className="text-primary-foreground/60 text-sm mb-6 inline-flex items-center gap-3"><ReadingTime minutes={15} className="text-primary-foreground/70" /> · For educators, parents &amp; professionals</p>
               <nav aria-label="On this page" className="flex flex-wrap gap-2">
                 {anchors.map((a) => (
                   <a
