@@ -1,8 +1,13 @@
+import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { ArrowRight, BookOpen } from "lucide-react"
 import Layout from "@/components/Layout"
 import { Button } from "@/components/ui/button"
-import { Seo, Breadcrumbs } from "@/components/Seo"
+import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo"
+import { ContentSidebar } from "@/components/ContentSidebar"
+import { ReadingTime } from "@/components/SeoBlocks"
+import { useAutoToc } from "@/hooks/use-auto-toc"
+import { buildArticleJsonLd } from "@/lib/json-ld"
 
 const anchors = [
   { id: "what-is-ap", label: "What is AP" },
@@ -14,23 +19,18 @@ const anchors = [
 ]
 
 export default function CompleteGuide() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: "The Complete Guide to Alternative Provision",
+  const articleRef = useRef<HTMLDivElement>(null)
+  const toc = useAutoToc(articleRef, [])
+
+  const jsonLd = buildArticleJsonLd({
+    title: "The Complete Guide to Alternative Provision",
     description:
       "A definitive guide covering the full Alternative Provision journey from referral triggers to progression routes, written for educators, parents, and professionals.",
-    author: { "@type": "Organization", name: "Pathway Academy Zone" },
-    publisher: {
-      "@type": "Organization",
-      name: "Pathway Academy Zone",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png",
-      },
-    },
-    articleSection: "Featured Resource",
-  }
+    url: `${SITE_URL}/knowledge-hub/complete-guide`,
+    section: "Featured Resource",
+    minutesToRead: 15,
+    wordCount: 3450,
+  })
 
   return (
     <Layout>
@@ -80,7 +80,8 @@ export default function CompleteGuide() {
         </header>
 
         <div className="container mx-auto px-4 py-10 md:py-16">
-          <div className="max-w-3xl mx-auto space-y-14">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
+            <div ref={articleRef} className="min-w-0 space-y-14">
             <section id="what-is-ap" className="scroll-mt-24 space-y-5">
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">What is Alternative Provision?</h2>
               <p className="text-muted-foreground leading-relaxed">
