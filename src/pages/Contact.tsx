@@ -223,28 +223,14 @@ export default function Contact() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    id="contact-phone"
-                    label="Phone Number"
-                    type="tel"
-                    inputMode="tel"
-                    autoComplete="tel"
-                    placeholder="01782 365365"
-                    hint="UK landline or mobile"
-                    value={phone || ""}
-                    onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
-                    error={errors.phone?.message}
-                  />
-                  <FormField
-                    id="contact-org"
-                    label="Organisation (if applicable)"
-                    placeholder="School, Local Authority, etc."
-                    autoComplete="organization"
-                    error={errors.organisation?.message}
-                    {...register("organisation")}
-                  />
-                </div>
+                <FormField
+                  id="contact-org"
+                  label="Organisation (if applicable)"
+                  placeholder="School, Local Authority, etc."
+                  autoComplete="organization"
+                  error={errors.organisation?.message}
+                  {...register("organisation")}
+                />
 
                 <Controller
                   name="enquiryType"
