@@ -109,7 +109,8 @@ const interestOptions: IllustratedOption[] = [
 ];
 
 const formSchema = z.object({
-  name: personName({ required: true }),
+  firstName: personName({ required: true }),
+  lastName: personName({ required: true }),
   email: email({ required: true }),
   phone: ukPhone(),
   interest: z.enum(["teaching", "youth-work", "support", "admin", "other"], { required_error: "Please choose an area of interest" }),
@@ -128,7 +129,7 @@ export default function Careers() {
   const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     mode: "onTouched",
-    defaultValues: { name: "", email: "", phone: "", interest: undefined, about: "" },
+    defaultValues: { firstName: "", lastName: "", email: "", phone: "", interest: undefined, about: "" },
   });
 
   const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string }>({
@@ -146,7 +147,11 @@ export default function Careers() {
 
   const onSubmit = handleSubmit(async (values) => {
     if (success || error) resetStatus();
-    await submit({ ...values, phone_e164: normaliseUkPhone(values.phone || "") });
+    await submit({
+      ...values,
+      name: `${values.firstName} ${values.lastName}`.trim(),
+      phone_e164: normaliseUkPhone(values.phone || ""),
+    });
   });
 
   const phone = watch("phone");
@@ -215,21 +220,50 @@ export default function Careers() {
         <p className="text-muted-foreground text-center mb-10">Don't see a suitable role? We're always interested in hearing from talented individuals.</p>
         <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField id="careers-name" label="Your Name" required autoComplete="name" placeholder="Full name" error={errors.name?.message} {...register("name")} />
-            <FormField id="careers-email" label="Email Address" required type="email" inputMode="email" autoComplete="email" placeholder="your@email.com" error={errors.email?.message} {...register("email")} />
+            <FormField
+              id="careers-firstname"
+              label="First Name"
+              required
+              autoComplete="given-name"
+              placeholder="First name"
+              error={errors.firstName?.message}
+              {...register("firstName")}
+            />
+            <FormField
+              id="careers-lastname"
+              label="Last Name"
+              required
+              autoComplete="family-name"
+              placeholder="Last name"
+              error={errors.lastName?.message}
+              {...register("lastName")}
+            />
           </div>
-          <FormField
-            id="careers-phone"
-            label="Phone Number"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="07123 456789"
-            hint="UK landline or mobile"
-            value={phone || ""}
-            onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
-            error={errors.phone?.message}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              id="careers-email"
+              label="Email Address"
+              required
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              placeholder="your@email.com"
+              error={errors.email?.message}
+              {...register("email")}
+            />
+            <FormField
+              id="careers-phone"
+              label="Phone Number"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              placeholder="07123 456789"
+              hint="UK landline or mobile"
+              value={phone || ""}
+              onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
+              error={errors.phone?.message}
+            />
+          </div>
 
           <Controller
             name="interest"
