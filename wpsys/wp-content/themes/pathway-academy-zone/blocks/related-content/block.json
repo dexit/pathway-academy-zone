@@ -1,0 +1,12 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/related-content",
+  "title": "Related Content",
+  "category": "pazone",
+  "icon": "admin-post",
+  "description": "Displays related posts from the same category or post type.",
+  "textdomain": "pathway-academy-zone",
+  "attributes": {
+    "limit": { "type": "number", "default": 3 }
+  }
+}

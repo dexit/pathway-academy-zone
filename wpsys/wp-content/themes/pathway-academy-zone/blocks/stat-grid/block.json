@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/stat-grid",
+	"title": "Stat Grid",
+	"category": "paz",
+	"icon": "chart-bar",
+	"description": "Four-card outcome stat grid.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"render": "file:./render.php"
+}

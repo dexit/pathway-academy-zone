@@ -1,9 +1,13 @@
+import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { ArrowRight, BookOpen, Info, CheckCircle2, LayoutDashboard, Search, FileText, UserPlus, GraduationCap, ShieldAlert } from "lucide-react"
 import Layout from "@/components/Layout"
 import { Button } from "@/components/ui/button"
-import { Seo, Breadcrumbs } from "@/components/Seo"
+import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo"
 import { ContentSidebar } from "@/components/ContentSidebar"
+import { ReadingTime } from "@/components/SeoBlocks"
+import { useAutoToc } from "@/hooks/use-auto-toc"
+import { buildArticleJsonLd } from "@/lib/json-ld"
 
 const toc = [
   { id: "what-is-ap", label: "What is AP?", level: 2 },
@@ -15,36 +19,69 @@ const toc = [
 ]
 
 export default function CompleteGuide() {
+  const articleRef = useRef<HTMLDivElement>(null)
+  const toc = useAutoToc(articleRef, [])
+
+  const jsonLd = buildArticleJsonLd({
+    title: "The Complete Guide to Alternative Provision",
+    description:
+      "A definitive guide covering the full Alternative Provision journey from referral triggers to progression routes, written for educators, parents, and professionals.",
+    url: `${SITE_URL}/knowledge-hub/complete-guide`,
+    section: "Featured Resource",
+    minutesToRead: 15,
+    wordCount: 3450,
+  })
+
   return (
     <Layout>
       <Seo
         title="The Complete Guide to Alternative Provision"
         description="Our comprehensive guide to Alternative Provision: understanding the legal basis, who it's for, and how to achieve the best outcomes for learners."
       />
-
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-3xl">
-            <Breadcrumbs
-              items={[
-                { label: "Knowledge Hub", to: "/knowledge-hub" },
-                { label: "Complete Guide" }
-              ]}
-              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-            />
-            <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 tracking-tight text-balance">
-              The Complete Guide to Alternative Provision
-            </h1>
-            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
-              Everything you need to know about AP: from understanding what it is and how it works, to best practices for referrals and supporting learners.
-            </p>
+      <main className="min-h-screen bg-background">
+        <header className="bg-primary text-primary-foreground">
+          <div className="container mx-auto px-4 py-14 md:py-20">
+            <div className="max-w-3xl">
+              <Breadcrumbs
+                items={[
+                  { label: "Knowledge Hub", to: "/knowledge-hub" },
+                  { label: "The Complete Guide" },
+                ]}
+                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              />
+              <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-4 py-1.5 text-xs font-semibold tracking-widest uppercase mb-5">
+                <BookOpen className="w-3.5 h-3.5" />
+                Source of Truth
+              </div>
+              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-5 text-balance">
+                The Complete Guide to Alternative Provision
+              </h1>
+              <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6">
+                Alternative Provision (AP) is education arranged for pupils who cannot attend mainstream school
+                due to exclusion, illness, or other reasons. This comprehensive guide covers everything
+                professionals, parents, and educators need to know about AP in England, with specific focus on
+                Staffordshire provision.
+              </p>
+              <p className="text-primary-foreground/60 text-sm mb-6 inline-flex items-center gap-3"><ReadingTime minutes={15} className="text-primary-foreground/70" /> · For educators, parents &amp; professionals</p>
+              <nav aria-label="On this page" className="flex flex-wrap gap-2">
+                {anchors.map((a) => (
+                  <a
+                    key={a.id}
+                    href={`#${a.id}`}
+                    className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
+                  >
+                    {a.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
-          <div className="space-y-16 min-w-0">
+        <div className="container mx-auto px-4 py-10 md:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
+            <div ref={articleRef} className="min-w-0 space-y-14">
             <section id="what-is-ap" className="scroll-mt-24 space-y-5">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
                 <Info className="w-3.5 h-3.5" />
@@ -261,6 +298,28 @@ export default function CompleteGuide() {
                 </Button>
               </div>
             </section>
+            </div>
+
+            <ContentSidebar
+              toc={toc.length ? toc : anchors.map((a) => ({ id: a.id, label: a.label, level: 2 as const }))}
+              ctas={[
+                {
+                  label: "Make a Referral",
+                  description: "Refer a young person in 4 steps",
+                  href: "/referral",
+                  tone: "primary",
+                },
+                {
+                  label: "Browse Knowledge Hub",
+                  description: "All guides and references",
+                  href: "/knowledge-hub",
+                },
+              ]}
+              quickContact={{
+                phone: "01782 365365",
+                email: "info@pathwayacademyzone.co.uk",
+              }}
+            />
           </div>
 
           <ContentSidebar
