@@ -12,8 +12,8 @@ const footerLinks = {
     { label: "Knowledge Hub", path: "/knowledge-hub" },
     { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
     { label: "Glossary", path: "/knowledge-hub/glossary" },
-    { label: "Blog", path: "/blog" },
-    { label: "News", path: "/news" },
+//{ label: "Blog", path: "/blog" },
+  //  { label: "News", path: "/news" },
     { label: "FAQs", path: "/faqs" },
   ],
   about: [
@@ -55,7 +55,8 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-background/60 dark:text-foreground/60 max-w-xs">
-              Alternative Provision supporting young people aged 11–16 across Stoke-on-Trent and Staffordshire.
+Pathway Academy Zone is an Alternative Provision specialist in Staffordshire focused on safeguarding, engagement, and positive outcomes for young people who cannot thrive in mainstream education.
+
             </p>
             <div className="flex items-center gap-2">
               {socials.map((s) => (
@@ -111,7 +112,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t dark:border-foreground/10 border-background/10 mt-8 pt-6 flex flex-col md:flex-row gap-3 items-center justify-between text-sm text-background/40 dark:text-foreground/40">
-          <p>© {new Date().getFullYear()} Pathway Academy Zone. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Pathway AcademyZone. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link to="/policies" className="hover:text-primary transition-colors">Policies</Link>
             <Link to="/safeguarding" className="hover:text-primary transition-colors">Safeguarding</Link>

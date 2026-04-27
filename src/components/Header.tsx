@@ -10,32 +10,53 @@ const navLinks = [
   { label: "Home", path: "/" },
   {
     label: "About Us",
+   // path: "/about",
     children: [
-      { label: "Who We Are", path: "/about" },
+      //{ label: "About Us", path: "/about" },
+      //{ label: "Our Team", path: "/team" },
+      //{ label: "Our Centres", path: "/centres" },
+      //{ label: "Outcomes & Impact", path: "/outcomes" },
+            { label: "About Us", path: "/about" },
       { label: "Our Team", path: "/team" },
-      { label: "Our Centres", path: "/centres" },
-      { label: "Outcomes & Impact", path: "/outcomes" },
+        { label: "Partners", path: "/partners" },
+    
+      // label: "Outcomes & Impact", path: "/outcomes" },
+  
+      { label: "Centres", path: "/centres" },
+          { label: "Careers", path: "/careers" },
     ],
   },
-  { label: "Programmes", path: "/programmes" },
+  { label: "Programmes",
+    children: [
+    { label: "Programmes", path: "/programmes" },
+    { label: "Outcomes", path: "/outcomes" },
+    ],
+  },
   {
-    label: "Resources",
+    label: "Knowledge Hub",
     children: [
       { label: "Knowledge Hub", path: "/knowledge-hub" },
-      { label: "Blog", path: "/blog" },
-      { label: "News", path: "/news" },
-      { label: "FAQs", path: "/faqs" },
+      { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
+      
+      { label: "Best Practice", path: "/knowledge-hub/best-practice" }, // Best Practice
+       { label: "Glossary", path: "/knowledge-hub/glossary" },
+     // { label: "Blog", path: "/blog" },
+      //{ label: "News", path: "/news" },
+     
     ],
   },
   {
     label: "Support",
     children: [
+        { label: "Referral Process", path: "/referral" },
       { label: "Safeguarding", path: "/safeguarding" },
-      { label: "Partners", path: "/partners" },
-      { label: "Policies", path: "/policies" },
+       { label: "FAQs", path: "/faqs" },
+
+    //  { label: "Partners", path: "/partners" },
+     // { label: "Policies", path: "/policies" },
     ],
   },
-  { label: "Careers", path: "/careers" },
+  //{ label: "Careers", path: "/careers" },
   { label: "Contact", path: "/contact" },
 ];
 
