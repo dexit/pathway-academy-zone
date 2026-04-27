@@ -51,7 +51,7 @@ export default function KnowledgeHubCategory() {
   const Icon = section.icon;
 
   return (
-    <Layout>
+    <>
       <Seo
         title={section.title}
         description={section.description}
@@ -204,7 +204,22 @@ export default function KnowledgeHubCategory() {
             </div>
           </ContentSidebar>
         </div>
-      </div>
-    </Layout>
+
+        <div className="mt-12 p-8 rounded-3xl bg-muted/40 border border-border/50 text-center">
+          <h2 className="text-xl font-bold text-foreground mb-3">Looking for something else?</h2>
+          <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
+            Our Knowledge Hub is constantly being updated with new resources, case studies, and regulatory guidance.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Button asChild variant="outline">
+              <Link to="/knowledge-hub">Browse All Hub</Link>
+            </Button>
+            <Button asChild>
+              <Link to="/contact">Request a Resource</Link>
+            </Button>
+          </div>
+        </div>
+      </ArchiveLayout>
+    </>
   );
 }

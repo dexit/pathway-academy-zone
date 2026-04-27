@@ -90,12 +90,21 @@ export default function Centres() {
         description="Visit our purpose-built Alternative Provision centre in Burslem, Stoke-on-Trent. Small classrooms, breakout spaces, IT suite, transport links and a structured daily timetable."
         jsonLd={centresSchema}
       />
-      <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Centres & Facilities</span>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Our Learning Environments</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Our centres are designed to feel safe, calm, and welcoming – environments where young people can focus on learning and growth.</p>
-      </div></section>
-      <section className="py-8 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Centres" }]} /></div></section>
+            <header className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[{ label: "Centres" }]}
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 tracking-tight">Our Centres</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              Purpose-built environments designed to support learning, development, and wellbeing for every young person.
+            </p>
+          </div>
+        </div>
+      </header>
+
       <section className="py-24 bg-background"><div className="container mx-auto px-4"><div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">Burslem Learning Centre</h2>

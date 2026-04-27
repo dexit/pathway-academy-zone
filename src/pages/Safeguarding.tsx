@@ -1,80 +1,177 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight } from "lucide-react";
+import { Shield, Lock, Users, Phone, Heart, ClipboardCheck, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo, Breadcrumbs } from "@/components/Seo";
+import { ContentSidebar } from "@/components/ContentSidebar";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { CheckCircle2 } from "lucide-react";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
-const commitments = ["All staff complete enhanced DBS checks and receive regular safeguarding training","We maintain clear reporting procedures and work closely with local safeguarding partners","Young people are taught to recognise risks and know who to talk to if they feel unsafe"];
-const pastoral = [
-  { title: "Trauma-Informed Practice", desc: "All staff are trained in trauma-informed approaches, understanding how adverse experiences affect behaviour and learning." },
-  { title: "Key Worker System", desc: "Every young person has a dedicated key worker who knows them well and advocates for their needs." },
-  { title: "Family Support", desc: "We work closely with families, offering regular communication and support to address challenges together." },
-  { title: "Multi-Agency Working", desc: "We collaborate with external agencies including CAMHS, social care, and specialist services." },
+
+const toc = [
+  { id: "our-commitment", label: "Our Commitment", level: 2 },
+  { id: "key-principles", label: "Key Principles", level: 2 },
+  { id: "staff-training", label: "Staff Training", level: 2 },
+  { id: "reporting-concerns", label: "Reporting Concerns", level: 2 },
+  { id: "useful-contacts", label: "Useful Contacts", level: 2 },
 ];
-const policies = ["Child Protection & Safeguarding Policy","Online Safety Policy","Anti-Bullying Policy","Behaviour & Positive Relationships Policy","Safer Recruitment Policy","Whistleblowing Policy"];
 
 export default function Safeguarding() {
   return (
     <Layout>
-      <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Support & Safeguarding</span>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Keeping Young People Safe</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Safeguarding is everyone's responsibility. We maintain the highest standards to ensure all young people feel safe, supported, and heard.</p>
-      </div></section>
-      <section className="py-24 bg-background"><div className="container mx-auto px-4 max-w-4xl">
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 items-start">
-          <div className="mx-auto md:mx-0"><img src="https://pathwayacademyzone.co.uk/assets/martin-chandler-DvF3rkDn.png" alt="Martin Chandler - DSL" className="w-48 h-48 rounded-2xl object-cover shadow-lg" /></div>
-          <div>
-            <h2 className="font-display text-lg text-muted-foreground mb-1">Our Designated Safeguarding Lead</h2>
-            <h3 className="font-display text-2xl font-bold text-foreground mb-1">Martin Chandler</h3>
-            <p className="text-primary font-medium text-sm mb-4">Designated Safeguarding Lead</p>
-            <p className="text-muted-foreground leading-relaxed mb-6">Martin leads our safeguarding practice and is the first point of contact for any safeguarding concerns. He works closely with external agencies and ensures all staff receive regular safeguarding training.</p>
-            <div className="bg-destructive/10 rounded-xl p-4 border border-destructive/20"><p className="text-sm font-medium text-foreground"><strong>Urgent Safeguarding Concerns</strong></p><p className="text-sm text-muted-foreground">Contact Martin directly by email on <strong>martin.chandler@pathwayacademyzone.co.uk</strong></p></div>
+      <Seo
+        title="Safeguarding & Welfare"
+        description="The safety and wellbeing of our young people is our absolute priority. We maintain a robust, trauma-informed safeguarding culture across all our provision."
+      />
+
+      <header className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[{ label: "Safeguarding" }]}
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 tracking-tight">Safeguarding & Welfare</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              The safety and wellbeing of our young people is our absolute priority. We maintain a robust, trauma-informed safeguarding culture.
+            </p>
           </div>
-        </motion.div>
-      </div></section>
-      <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-4xl"><motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <h2 className="font-display text-2xl font-bold text-foreground mb-4">Our Commitment</h2>
-        <p className="text-muted-foreground mb-8">At Pathway Academy Zone, we recognise that young people in Alternative Provision may be particularly vulnerable. Our approach to safeguarding is proactive, relational, and trauma-informed.</p>
-        <div className="space-y-4">{commitments.map((c, i) => (<div key={i} className="flex items-start gap-4 bg-card rounded-xl p-6 border border-border/50"><span className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm shrink-0">{i + 1}</span><p className="text-foreground">{c}</p></div>))}</div>
-      </motion.div></div></section>
-      <section className="py-24 bg-background"><div className="container mx-auto px-4 max-w-4xl">
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
-          <span className="text-primary font-medium text-sm tracking-wider uppercase">Pastoral Care</span>
-          <h2 className="font-display text-3xl font-bold text-foreground mt-2">How We Support Young People</h2>
-        </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{pastoral.map((p, i) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 border border-border/50 shadow-sm"><h3 className="font-display text-lg font-bold text-foreground mb-2">{p.title}</h3><p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p></motion.div>))}</div>
-      </div></section>
-      <section className="py-24 bg-muted/50">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <h2 className="font-display text-3xl font-bold text-foreground mb-4">Key Policies</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-10">
-            Our safeguarding and pastoral policies are available for review. For full documents, please visit our{" "}
-            <Link to="/policies" className="text-primary font-medium hover:underline">
-              Policies page
-            </Link>
-            .
-          </p>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left mb-10">
-            {policies.map((p) => (
-              <li
-                key={p}
-                className="flex items-center gap-3 rounded-xl px-5 py-4 bg-primary/10 hover:bg-primary/15 transition-colors"
-              >
-                <FileText className="h-5 w-5 text-primary shrink-0" aria-hidden="true" />
-                <span className="text-sm font-medium text-foreground">{p}</span>
-              </li>
-            ))}
-          </ul>
-          <Button asChild variant="outline">
-            <Link to="/policies">
-              View All Policies
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </Link>
-          </Button>
         </div>
-      </section>
+      </header>
+
+      <div className="container mx-auto px-4 py-10 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
+          <div className="space-y-16 min-w-0">
+            <section id="our-commitment" className="scroll-mt-24 space-y-5">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">Our Commitment</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                At Pathway Academy Zone, we recognise our moral and statutory responsibility to safeguard and promote the welfare of all pupils. We endeavour to provide a safe and welcoming environment where children are respected and valued. We are alert to the signs of abuse and neglect and follow our procedures to ensure that children receive effective support, protection, and justice.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                {[
+                  { icon: Shield, title: "Prevention", text: "Creating a positive atmosphere and teaching pupils to stay safe." },
+                  { icon: Lock, title: "Protection", text: "Identifying and responding to child protection concerns." },
+                ].map((item) => (
+                  <div key={item.title} className="p-6 rounded-2xl bg-card border border-border shadow-sm">
+                    <item.icon className="w-8 h-8 text-primary mb-4" />
+                    <h3 className="font-bold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section id="key-principles" className="scroll-mt-24 space-y-5">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">Key Principles</h2>
+              <div className="space-y-4">
+                {[
+                  { title: "Trauma-Informed", desc: "Understanding the impact of adverse childhood experiences on behaviour and wellbeing." },
+                  { title: "Student-Centred", desc: "Always acting in the best interests of the young person." },
+                  { title: "Collaborative", desc: "Working closely with parents, schools, and multi-agency partners." },
+                  { title: "Vigilant", desc: "Maintaining a culture where safeguarding is everyone&apos;s responsibility." },
+                ].map((p, i) => (
+                  <motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="flex items-start gap-4 p-5 rounded-2xl bg-muted/30 border border-border/50">
+                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <div>
+                      <h4 className="font-bold text-foreground">{p.title}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+
+            <section id="staff-training" className="scroll-mt-24 space-y-5">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">Staff Training & Expertise</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                All staff at Pathway Academy Zone undergo rigorous background checks and receive regular, high-quality safeguarding training. Our team includes specialists in SEMH and trauma-informed practice.
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  "Enhanced DBS checks for all staff",
+                  "Regular Level 3 Safeguarding training",
+                  "Prevent Duty and FGM training",
+                  "Trauma-informed practice workshops",
+                  "Online safety training",
+                  "Crisis prevention and intervention",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-sm text-muted-foreground font-medium">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section id="reporting-concerns" className="scroll-mt-24 space-y-5">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">Reporting Concerns</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                If you have a concern about a young person attending Pathway Academy Zone, please contact our Designated Safeguarding Lead (DSL) immediately.
+              </p>
+              <div className="p-8 rounded-3xl bg-primary text-primary-foreground">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-xl text-balance">Designated Safeguarding Lead (DSL)</h3>
+                </div>
+                <p className="text-primary-foreground/90 mb-6 text-sm">
+                  Our DSL is responsible for all safeguarding and child protection matters across our provision.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-white/10 border border-white/20">
+                    <p className="text-xs font-bold uppercase tracking-wider opacity-60 mb-1">DSL Name</p>
+                    <p className="font-bold">Martin Chandler</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-white/10 border border-white/20">
+                    <p className="text-xs font-bold uppercase tracking-wider opacity-60 mb-1">Contact Number</p>
+                    <p className="font-bold">01782 365365</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="useful-contacts" className="scroll-mt-24 space-y-5">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">Useful Contacts</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { label: "Childline", contact: "0800 1111" },
+                  { label: "NSPCC", contact: "0808 800 5000" },
+                  { label: "Staffordshire First Response", contact: "0800 1313 126" },
+                  { label: "Stoke-on-Trent ChAD", contact: "01782 232200" },
+                ].map((c) => (
+                  <div key={c.label} className="p-5 rounded-2xl bg-card border border-border flex items-center justify-between shadow-sm">
+                    <span className="font-bold text-foreground">{c.label}</span>
+                    <span className="text-primary font-bold">{c.contact}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <ContentSidebar
+            toc={toc}
+            ctas={[
+              {
+                label: "Download Policy",
+                description: "Read our full Safeguarding Policy",
+                href: "/policies",
+                tone: "primary",
+              },
+              {
+                label: "Our Team",
+                description: "Meet our safeguarding leads",
+                href: "/team",
+              },
+            ]}
+            quickContact={{
+              phone: "01782 365365",
+              email: "info@pathwayacademyzone.co.uk",
+            }}
+          />
+        </div>
+      </div>
     </Layout>
   );
 }

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout.tsx";
-import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME, Breadcrumbs, SITE_URL as _SITE_URL } from "@/components/Seo";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const team = [
@@ -56,12 +56,21 @@ export default function Team() {
         description="Meet the educators, mentors and leadership team behind Pathway Academy Zone — Alternative Provision in Stoke-on-Trent."
         jsonLd={teamSchema}
       />
-      <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Our Team</span>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Meet the People Behind Pathway Academy Zone</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Our dedicated team of educators, mentors, and specialists work together to support every young person on their journey.</p>
-      </div></section>
-      <section className="py-8 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Team" }]} /></div></section>
+            <header className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[{ label: "Team" }]}
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 tracking-tight">Our Team</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              Meet the educators, mentors and leadership team behind Pathway Academy Zone — dedicated to supporting every young person.
+            </p>
+          </div>
+        </div>
+      </header>
+
       <section className="py-16 bg-background"><div className="container mx-auto px-4">
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Our Team</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
