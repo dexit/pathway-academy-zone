@@ -1,0 +1,9 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/breadcrumbs",
+  "title": "Breadcrumbs",
+  "category": "pazone",
+  "icon": "arrow-right-alt",
+  "description": "Navigational breadcrumbs.",
+  "textdomain": "pathway-academy-zone"
+}

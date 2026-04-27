@@ -1,0 +1,9 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/summary",
+  "title": "Summary",
+  "category": "pazone",
+  "icon": "excerpt-view",
+  "description": "Displays the post excerpt or a short summary.",
+  "textdomain": "pathway-academy-zone"
+}

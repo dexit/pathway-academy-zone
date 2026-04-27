@@ -1,0 +1,12 @@
+{
+	"pages": [
+		{ "slug": "home", "title": "Home", "content": "<!-- wp:pattern {\"slug\":\"pathway-academy-zone/hero\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/stats\"} /-->" },
+		{ "slug": "contact", "title": "Contact Us", "content": "<!-- wp:pazone/webhook-form {\"target\":\"https://hook.make.com/demo\"} /-->" }
+	],
+	"paz_vacancy": [
+		{ "slug": "lead-teacher", "title": "Lead Teacher", "meta": { "paz_job_city": "Stoke", "paz_job_salary_min": "35000" } }
+	],
+	"paz_form_entry": [
+		{ "title": "Sample Submission", "meta": { "_paz_form_data": { "name": "John Doe", "email": "john@example.com" } } }
+	]
+}

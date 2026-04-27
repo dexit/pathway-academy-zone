@@ -1,0 +1,9 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/timeline",
+  "title": "Timeline",
+  "category": "pazone",
+  "icon": "list-view",
+  "description": "A vertical timeline of events.",
+  "textdomain": "pathway-academy-zone"
+}
