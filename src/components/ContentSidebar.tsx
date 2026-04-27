@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Phone, Mail, FileText, ChevronRight } from "lucide-react";
+import { ArrowRight, Phone, Mail, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { TocItem } from "@/hooks/useTableOfContents";
 
@@ -40,12 +40,12 @@ export function ContentSidebar({ toc, ctas, quickContact }: ContentSidebarProps)
                   href={`#${item.id}`}
                   className={`group flex items-start gap-2 text-sm transition-all ${
                     toc.activeId === item.id
-                      ? "text-primary font-bold"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-primary font-bold translate-x-1"
+                      : "text-muted-foreground hover:text-foreground hover:translate-x-1"
                   }`}
                 >
-                  <ChevronRight className={`h-3.5 w-3.5 mt-0.5 shrink-0 transition-transform ${
-                    toc.activeId === item.id ? "translate-x-0.5" : "opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0"
+                  <ChevronRight className={`h-3.5 w-3.5 mt-0.5 shrink-0 transition-all ${
+                    toc.activeId === item.id ? "opacity-100" : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
                   }`} />
                   {item.label}
                 </a>
@@ -59,10 +59,10 @@ export function ContentSidebar({ toc, ctas, quickContact }: ContentSidebarProps)
       {ctas && ctas.map((cta) => (
         <div
           key={cta.href}
-          className={`rounded-3xl p-8 border transition-all ${
+          className={`rounded-3xl p-8 border transition-all hover:shadow-xl hover:-translate-y-1 duration-300 ${
             cta.tone === "primary"
               ? "bg-primary border-primary text-primary-foreground shadow-lg shadow-primary/20"
-              : "bg-card border-border/50 text-foreground"
+              : "bg-card border-border/50 text-foreground shadow-sm"
           }`}
         >
           <h4 className="font-display font-bold text-lg mb-2">{cta.label}</h4>
@@ -72,7 +72,7 @@ export function ContentSidebar({ toc, ctas, quickContact }: ContentSidebarProps)
           <Button
             asChild
             variant={cta.tone === "primary" ? "secondary" : "outline"}
-            className="w-full rounded-full font-bold"
+            className="w-full rounded-full font-bold active:scale-95 transition-transform"
           >
             <Link to={cta.href}>
               Get Started <ArrowRight className="ml-2 h-4 w-4" />
@@ -88,9 +88,9 @@ export function ContentSidebar({ toc, ctas, quickContact }: ContentSidebarProps)
           <div className="space-y-5">
             <a
               href={`tel:${quickContact.phone.replace(/\s/g, "")}`}
-              className="flex items-center gap-4 group"
+              className="flex items-center gap-4 group no-transition"
             >
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm border border-border/50 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <div className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-primary shadow-sm border border-border/50 transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
                 <Phone className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
@@ -100,9 +100,9 @@ export function ContentSidebar({ toc, ctas, quickContact }: ContentSidebarProps)
             </a>
             <a
               href={`mailto:${quickContact.email}`}
-              className="flex items-center gap-4 group"
+              className="flex items-center gap-4 group no-transition"
             >
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary shadow-sm border border-border/50 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+              <div className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-primary shadow-sm border border-border/50 transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
                 <Mail className="h-4 w-4" />
               </div>
               <div className="flex flex-col">

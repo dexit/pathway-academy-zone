@@ -1,0 +1,31 @@
+# Pathway Academy Zone - Context for AI Agents
+
+Pathway Academy Zone is a specialist Alternative Provision (AP) organisation based in Stoke-on-Trent, Staffordshire, supporting vulnerable young people aged 11–16.
+
+## Mission
+To provide structured, trauma-informed education and therapeutic support to students who cannot thrive in mainstream education due to exclusion, SEMH needs, or anxiety-based non-attendance.
+
+## Core Programmes
+- **Academic Re-engagement:** GCSEs and Functional Skills in core subjects.
+- **Vocational Learning:** Practical skills in construction, catering, and mechanics.
+- **SEMH Support:** Integrated therapeutic intervention and mental health support.
+- **Life & Employability Skills:** Independent living and career preparation.
+
+## Technical Context
+- **Frontend:** React SPA built with Vite and Tailwind CSS.
+- **CMS:** Headless WordPress (planned/ongoing integration).
+- **SEO:** Comprehensive LD+JSON schema for Articles, Courses, and Local Business.
+- **Forms:** Integrated UK validation for Postcodes and Phone numbers.
+
+## Sitemap Structure
+- /about - Mission and trauma-informed approach.
+- /programmes - Details of educational pathways.
+- /referral - Guidance and form for schools/LAs to refer learners.
+- /knowledge-hub - Comprehensive guides on AP legislation and best practice.
+- /knowledge-hub/glossary - A-Z of AP terminology.
+- /team - Leadership and safeguarding staff.
+- /contact - Local contact information and enquiry form.
+
+## API & Data Logic
+The site uses a unified fetching logic compatible with WordPress REST API.
+Webhooks are used for form submissions with support for multiple post-submit actions (e.g., SMTP).

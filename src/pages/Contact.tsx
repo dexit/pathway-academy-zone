@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
-  Phone, Mail, MapPin, Clock, ExternalLink, Loader2, CheckCircle2, AlertCircle,
-  HandHeart, School, Handshake, Briefcase, MessageSquare, MoreHorizontal,
+  Phone, Mail, MapPin, Clock, Loader2, CheckCircle2, AlertCircle,
+  HandHeart, School, Handshake, Briefcase, MessageSquare, MoreHorizontal, ArrowRight,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
@@ -14,10 +14,12 @@ import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
-import { email, ukPhone, personName, shortText, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
+import { email, ukPhone, personName, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
+import { API_ENDPOINTS, FORM_SOURCES } from "@/config/api";
 import buildingImg from "@/assets/building-exterior.jpg";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+
 const contactInfo = [
   { icon: Phone, title: "Phone", main: "01782 365365", sub: "Mon-Fri 8:30am - 4:00pm" },
   { icon: Mail, title: "Email", main: "info@pathwayacademyzone.co.uk", sub: "We aim to respond within 24 hours" },
@@ -25,51 +27,61 @@ const contactInfo = [
   { icon: Clock, title: "Opening Hours", main: "Monday - Friday", sub: "8:30am - 4:00pm" },
 ];
 
-const CONTACT_WEBHOOK = import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined;
-
 const contactSchema = {
   "@context": "https://schema.org",
-  "@type": ["EducationalOrganization", "LocalBusiness"],
-  name: SITE_NAME,
-  url: SITE_URL,
-  telephone: "+44 1782 365365",
-  email: "info@pathwayacademyzone.co.uk",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Duncalf Street, Burslem",
-    addressLocality: "Stoke-on-Trent",
-    postalCode: "ST6 3LJ",
-    addressCountry: "GB",
-  },
-  geo: { "@type": "GeoCoordinates", latitude: 53.043, longitude: -2.191 },
-  openingHoursSpecification: [
-    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:30", closes: "16:00" },
-  ],
-  contactPoint: [
-    { "@type": "ContactPoint", contactType: "customer service", telephone: "+44-1782-365365", email: "info@pathwayacademyzone.co.uk", areaServed: "GB", availableLanguage: ["English"] },
-    { "@type": "ContactPoint", contactType: "referrals", telephone: "+44-1782-365365", email: "info@pathwayacademyzone.co.uk" },
-  ],
+  "@type": "ContactPage",
+  "name": "Contact Pathway Academy Zone",
+  "description": "Get in touch with Pathway Academy Zone in Stoke-on-Trent for enquiries regarding Alternative Provision, SEMH support, and referrals.",
+  "mainEntity": {
+    "@type": "EducationalOrganization",
+    "name": "Pathway Academy Zone",
+    "telephone": "+44-1782-365365",
+    "email": "info@pathwayacademyzone.co.uk",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Duncalf Street, Burslem",
+      "addressLocality": "Stoke-on-Trent",
+      "postalCode": "ST6 3LJ",
+      "addressCountry": "GB"
+    }
+  }
 };
 
-const quickLinks = [
-  { title: "Make a Referral", desc: "Start the referral process for a young person", path: "/referral" },
-  { title: "Visit Our Centre", desc: "See our facilities and meet the team", path: "/centres" },
-  { title: "Join Our Team", desc: "View current vacancies and opportunities", path: "/careers" },
-];
+const formSchema = z.object({
+  firstName: personName(),
+  lastName: personName(),
+  email: email(),
+  phone: ukPhone({ required: false }),
+  enquiryType: z.enum(["general", "referral", "visit", "partnership", "career", "other"], {
+    errorMap: () => ({ message: "Please select an enquiry type" }),
+  }),
+  organisation: z.string().max(100).optional(),
+  message: longMessage(),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 const enquiryOptions: IllustratedOption[] = [
-  { value: "parent-carer", label: "Parent / Carer", description: "I'm asking about my young person", icon: HandHeart },
-  { value: "school-la", label: "School / Local Authority", description: "Referral or commissioning enquiry", icon: School },
-  { value: "partner", label: "Partner Organisation", description: "Charity, employer or service partner", icon: Handshake },
-  { value: "careers", label: "Careers Enquiry", description: "Vacancies or speculative application", icon: Briefcase },
-  { value: "general", label: "General Question", description: "Anything else we can help with", icon: MessageSquare },
-  { value: "other", label: "Other", description: "Tell us more in your message", icon: MoreHorizontal },
+  { value: "general", label: "General", desc: "Just a quick question", icon: MessageSquare },
+  { value: "referral", label: "Referral", desc: "Placing a learner", icon: School },
+  { value: "visit", label: "Visit", desc: "See our facilities", icon: HandHeart },
+  { value: "partnership", label: "Partnership", desc: "Work with us", icon: Handshake },
+  { value: "career", label: "Career", desc: "Join our team", icon: Briefcase },
+  { value: "other", label: "Other", desc: "Something else", icon: MoreHorizontal },
 ];
 
+<<<<<<< HEAD
+const quickLinks = [
+  { title: "Make a Referral", desc: "Start the placement process for a young person.", path: "/referral" },
+  { title: "Browse Careers", desc: "See current vacancies and join our mission.", path: "/careers" },
+  { title: "Knowledge Hub", desc: "Explore our guides and resources.", path: "/knowledge-hub" },
+];
+=======
 const formSchema = z.object({
-  name: personName({ required: true }),
+  firstName: personName({ required: true }),
+  lastName: personName({ required: true }),
   email: email({ required: true }),
-  phone: ukPhone(),
+  phone: ukPhone({ required: true }),
   enquiryType: z.enum(["parent-carer", "school-la", "partner", "careers", "general", "other"], {
     required_error: "Please choose an enquiry type",
   }),
@@ -77,21 +89,21 @@ const formSchema = z.object({
   message: longMessage(1000, true),
 });
 type FormValues = z.infer<typeof formSchema>;
+>>>>>>> origin/main
 
 export default function Contact() {
   const { toast } = useToast();
-
   const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", email: "", phone: "", enquiryType: undefined, organisation: "", message: "" },
+    defaultValues: { firstName: "", lastName: "", email: "", phone: "", enquiryType: undefined, organisation: "", message: "" },
     mode: "onTouched",
   });
 
   const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string }>({
-    url: CONTACT_WEBHOOK,
+    url: API_ENDPOINTS.SUBMIT,
     method: "POST",
     format: "json",
-    extra: { source: "contact-form", site: SITE_URL },
+    extra: { source: FORM_SOURCES.CONTACT, site: SITE_URL },
     onSuccess: () => {
       toast({ title: "Message sent", description: "Thank you. We'll be in touch within 24 hours." });
       resetForm();
@@ -119,15 +131,15 @@ export default function Contact() {
           <img src={buildingImg} alt="Pathway Academy Zone building" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-foreground/60" />
         </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <div className="container-wide text-center relative z-10">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">Contact Us</span>
           <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Get in Touch</h1>
           <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.</p>
         </div>
       </section>
 
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="section-py bg-background">
+        <div className="container-wide">
           <Breadcrumbs items={[{ label: "Contact" }]} className="mb-10" />
           <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
             <motion.aside variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
@@ -136,9 +148,9 @@ export default function Contact() {
                 {contactInfo.map((c) => (
                   <div key={c.title} className="flex items-start gap-4 bg-card rounded-xl p-5 border border-border/50 bg-accent/50">
                     <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0">
-                      <c.icon className="h-5 w-5 text-white" />
+                      <c.icon className="h-5 w-5 text-primary-foreground" />
                     </div>
-<div>
+                    <div>
                       <p className="font-medium text-foreground text-sm">{c.title}</p>
                       {c.title === "Email" ? (
                         <a href={`mailto:${c.main}`} className="text-foreground text-sm hover:underline">{c.main}</a>
@@ -173,17 +185,56 @@ export default function Contact() {
 
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
               <h2 className="font-display text-2xl font-bold text-foreground mb-6">Send Us a Message</h2>
-              <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 border border-border/50 space-y-5">
+              <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 border border-border/50 space-y-5 shadow-sm">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
-                    id="contact-name"
-                    label="Your Name"
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    id="contact-firstName"
+                    label="First Name"
                     required
-                    placeholder="Full name"
-                    autoComplete="name"
-                    error={errors.name?.message}
-                    {...register("name")}
+                    placeholder="e.g. John"
+=======
+                    id="contact-firstname"
+                    label="First Name"
+                    required
+                    placeholder="First name"
+>>>>>>> origin/main
+=======
+                    id="contact-firstname"
+                    label="First Name"
+                    required
+                    placeholder="First name"
+>>>>>>> origin/main
+                    autoComplete="given-name"
+                    error={errors.firstName?.message}
+                    {...register("firstName")}
                   />
+                  <FormField
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    id="contact-lastName"
+                    label="Last Name"
+                    required
+                    placeholder="e.g. Smith"
+=======
+=======
+>>>>>>> origin/main
+                    id="contact-lastname"
+                    label="Last Name"
+                    required
+                    placeholder="Last name"
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
+                    autoComplete="family-name"
+                    error={errors.lastName?.message}
+                    {...register("lastName")}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     id="contact-email"
                     label="Email Address"
@@ -195,30 +246,29 @@ export default function Contact() {
                     error={errors.email?.message}
                     {...register("email")}
                   />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     id="contact-phone"
                     label="Phone Number"
+                    required
                     type="tel"
                     inputMode="tel"
                     autoComplete="tel"
-                    placeholder="01782 365365"
+                    placeholder="07123 456789"
                     hint="UK landline or mobile"
                     value={phone || ""}
                     onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
                     error={errors.phone?.message}
                   />
-                  <FormField
-                    id="contact-org"
-                    label="Organisation (if applicable)"
-                    placeholder="School, Local Authority, etc."
-                    autoComplete="organization"
-                    error={errors.organisation?.message}
-                    {...register("organisation")}
-                  />
                 </div>
+
+                <FormField
+                  id="contact-org"
+                  label="Organisation (if applicable)"
+                  placeholder="School, Local Authority, etc."
+                  autoComplete="organization"
+                  error={errors.organisation?.message}
+                  {...register("organisation")}
+                />
 
                 <Controller
                   name="enquiryType"
@@ -250,21 +300,21 @@ export default function Contact() {
                   {...register("message")}
                 />
 
-                <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full">
+                <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full h-14 text-base font-bold shadow-lg shadow-primary/20 active:scale-95 transition-transform">
                   {loading ? (
-                    <span className="inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending...</span>
+                    <span className="inline-flex items-center gap-2"><Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" /> Sending...</span>
                   ) : ("Send Message")}
                 </Button>
 
                 {success && (
-                  <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
-                    <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Message sent — we&apos;ll reply within 24 hours.
-                  </p>
+                  <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-center gap-2 text-sm font-medium text-primary">
+                    <CheckCircle2 className="h-5 w-5" aria-hidden="true" /> Message sent — we&apos;ll reply within 24 hours.
+                  </motion.p>
                 )}
                 {error && (
-                  <p className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
-                    <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
-                  </p>
+                  <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-center gap-2 text-sm font-medium text-destructive">
+                    <AlertCircle className="h-5 w-5" aria-hidden="true" /> {error}
+                  </motion.p>
                 )}
                 <p className="text-xs text-muted-foreground text-center">By submitting this form, you agree to our privacy policy.</p>
               </form>
@@ -273,16 +323,60 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4">
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <section className="py-16 bg-muted/50 border-t border-border/50">
+        <div className="container-wide">
           <h2 className="font-display text-2xl font-bold text-foreground text-center mb-10">Looking for Something Specific?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {quickLinks.map((l) => (
-              <Link key={l.path} to={l.path} title={l.title} className="bg-card rounded-2xl p-6 border border-border/50 hover:shadow-md transition-shadow group">
-                <h3 className="font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors">{l.title}</h3>
-                <p className="text-muted-foreground text-sm">{l.desc}</p>
+              <Link key={l.path} to={l.path} title={l.title} className="bg-card rounded-2xl p-8 border border-border/50 hover:border-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
+                  <ArrowRight className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                </div>
+                <h3 className="font-display font-bold text-xl text-foreground mb-2 group-hover:text-primary transition-colors">{l.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{l.desc}</p>
               </Link>
             ))}
+=======
+=======
+>>>>>>> origin/main
+      <section className="py-20 bg-muted/40">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-widest uppercase mb-3">Quick Links</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">Looking for Something Specific?</h2>
+            <p className="text-muted-foreground">Skip the form — jump straight to the page you need.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {quickLinks.map((l, i) => {
+              const icons = [HandHeart, MapPin, Briefcase];
+              const Icon = icons[i] || ExternalLink;
+              return (
+                <Link
+                  key={l.path}
+                  to={l.path}
+                  title={l.title}
+                  className="group relative bg-card rounded-2xl p-7 border border-border/60 hover:border-primary/50 hover:shadow-lg transition-all overflow-hidden"
+                >
+                  <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-primary/5 group-hover:bg-primary/10 transition-colors" aria-hidden />
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-display font-bold text-lg text-foreground mb-1.5 group-hover:text-primary transition-colors">{l.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4">{l.desc}</p>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                      Open page <ExternalLink className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
           </div>
         </div>
       </section>

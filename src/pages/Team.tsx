@@ -6,6 +6,7 @@ import Layout from "@/components/Layout.tsx";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+
 const team = [
   { name: "Martin Chandler", role: "Head of Community and Engagement (Safeguarding)", img: "https://pathwayacademyzone.co.uk/assets/martin-chandler-DvF3rkDn.png" },
   { name: "Liam Farrall", role: "Head of Alternative Provision", img: "https://pathwayacademyzone.co.uk/assets/liam-farrall-DwXnuzxA.jpg" },
@@ -13,6 +14,7 @@ const team = [
   { name: "Ahsan Hussain", role: "Head of Partnerships and Impact", img: "https://pathwayacademyzone.co.uk/assets/ahsan-hussain-OIFhfXvg.png" },
   { name: "Zulekha Ali", role: "HR and Executive Support", img: "https://pathwayacademyzone.co.uk/assets/zulekha-ali-Dfoelgdx.png" },
 ];
+
 const execs = [
   { name: "Safaraz Ali", role: "Founder & CEO", img: "https://pathwayacademyzone.co.uk/assets/safaraz-ali-R0JVDMEt.png" },
   { name: "Waheed Azam", role: "Executive Director", img: "https://pathwayacademyzone.co.uk/assets/waheed-azam-DQhc8GBT.jpeg" },
@@ -21,10 +23,6 @@ const execs = [
 const slugify = (s: string) =>
   s.toLowerCase().replace(/,.*$/, "").trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-// Person schema for every team member, plus an organization-level
-// employee graph so search engines can connect each person to the
-// EducationalOrganization. Each Person also surfaces the role via
-// `jobTitle` and the headshot via `image`.
 const everyone = [...execs, ...team];
 const teamSchema = [
   {
@@ -56,79 +54,102 @@ export default function Team() {
         description="Meet the educators, mentors and leadership team behind Pathway Academy Zone — Alternative Provision in Stoke-on-Trent."
         jsonLd={teamSchema}
       />
-      <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Our Team</span>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Meet the People Behind Pathway Academy Zone</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Our dedicated team of educators, mentors, and specialists work together to support every young person on their journey.</p>
-      </div></section>
-      <section className="py-8 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Team" }]} /></div></section>
-      <section className="py-16 bg-background"><div className="container mx-auto px-4">
-        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Our Team</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {team.map((m, i) => {
-            const id = slugify(m.name);
-            return (
-              <motion.article
-                key={m.name}
-                id={id}
-                itemScope
-                itemType="https://schema.org/Person"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-md transition-shadow scroll-mt-24"
-              >
-                <div className="aspect-[3/4] overflow-hidden bg-muted">
-                  <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover" loading="lazy" />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 itemProp="name" className="font-display text-lg font-bold text-foreground">{m.name}</h3>
-                  <p itemProp="jobTitle" className="text-muted-foreground text-sm mt-1">{m.role}</p>
-                </div>
-              </motion.article>
-            );
-          })}
+      <section className="relative py-32 bg-primary overflow-hidden">
+        <div aria-hidden className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-background rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         </div>
-      </div></section>
-      <section className="py-24 bg-muted/50"><div className="container mx-auto px-4">
-        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Executive Leadership</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          {execs.map((m, i) => {
-            const id = slugify(m.name);
-            return (
-              <motion.article
-                key={m.name}
-                id={id}
-                itemScope
-                itemType="https://schema.org/Person"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-md transition-shadow scroll-mt-24"
-              >
-                <div className="aspect-[3/4] overflow-hidden bg-muted">
-                  <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover" loading="lazy" />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 itemProp="name" className="font-display text-lg font-bold text-foreground">{m.name}</h3>
-                  <p itemProp="jobTitle" className="text-muted-foreground text-sm mt-1">{m.role}</p>
-                </div>
-              </motion.article>
-            );
-          })}
+        <div className="container-wide text-center relative z-10">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-background/10 text-primary-foreground text-sm font-medium mb-4 border border-white/20">Our Team</span>
+          <h1 className="font-display text-4xl md:text-6xl font-bold text-primary-foreground mb-6">Meet the Experts</h1>
+          <p className="text-primary-foreground/80 text-xl max-w-2xl mx-auto leading-relaxed">Our dedicated team of educators, mentors, and specialists work together to support every young person on their journey.</p>
         </div>
-      </div></section>
-      <section className="py-16 bg-background text-center"><div className="container mx-auto px-4">
-        <h2 className="font-display text-2xl font-bold text-foreground mb-4">Join Our Team</h2>
-        <p className="text-muted-foreground mb-8">We're always looking for passionate educators and support staff who share our vision for transforming young lives.</p>
-        <Button asChild>
-          <Link to="/careers" title="Current vacancies">View Current Vacancies <ArrowRight className="ml-1 h-4 w-4" /></Link>
-        </Button>
-      </div></section>
+      </section>
+
+      <section className="py-8 bg-background border-b border-border/50">
+        <div className="container-wide">
+          <Breadcrumbs items={[{ label: "Team" }]} />
+        </div>
+      </section>
+
+      <section className="section-py bg-background">
+        <div className="container-wide">
+          <h2 className="font-display text-3xl font-bold text-foreground text-center mb-16 underline decoration-primary/30 underline-offset-8">Academy Leadership</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+            {team.map((m, i) => {
+              const id = slugify(m.name);
+              return (
+                <motion.article
+                  key={m.name}
+                  id={id}
+                  itemScope
+                  itemType="https://schema.org/Person"
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group bg-card rounded-3xl overflow-hidden shadow-sm border border-border/50 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 scroll-mt-24"
+                >
+                  <div className="aspect-[4/5] overflow-hidden bg-muted relative">
+                    <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="p-8 text-center">
+                    <h3 itemProp="name" className="font-display text-2xl font-bold text-foreground group-hover:text-primary transition-colors">{m.name}</h3>
+                    <p itemProp="jobTitle" className="text-muted-foreground font-medium mt-2">{m.role}</p>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-py bg-muted/30">
+        <div className="container-wide">
+          <h2 className="font-display text-3xl font-bold text-foreground text-center mb-16">Executive Board</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-4xl mx-auto">
+            {execs.map((m, i) => {
+              const id = slugify(m.name);
+              return (
+                <motion.article
+                  key={m.name}
+                  id={id}
+                  itemScope
+                  itemType="https://schema.org/Person"
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group bg-card rounded-3xl overflow-hidden shadow-md border border-border/50 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 scroll-mt-24"
+                >
+                  <div className="aspect-[4/5] overflow-hidden bg-muted relative">
+                    <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <div className="p-8 text-center">
+                    <h3 itemProp="name" className="font-display text-2xl font-bold text-foreground group-hover:text-primary transition-colors">{m.name}</h3>
+                    <p itemProp="jobTitle" className="text-muted-foreground font-medium mt-2">{m.role}</p>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-py bg-background text-center">
+        <div className="container-wide max-w-3xl">
+          <div className="bg-primary/5 rounded-3xl p-10 md:p-16 border border-primary/10">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">Join Our Mission</h2>
+            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">We're always looking for passionate educators and support staff who share our vision for transforming young lives.</p>
+            <Button asChild size="xl" className="rounded-full px-10 font-bold shadow-lg shadow-primary/20">
+                <Link to="/careers" title="Current vacancies">View Current Vacancies <ArrowRight className="ml-2 h-5 w-5" /></Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 }

@@ -1,10 +1,27 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 import { useState, useMemo } from "react";
-import { Search, Info, ArrowLeft, ArrowRight } from "lucide-react";
+import { Search, Info } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Breadcrumbs } from "@/components/Seo";
+import { Seo, Breadcrumbs } from "@/components/Seo";
 import { motion, AnimatePresence } from "framer-motion";
+=======
+=======
+>>>>>>> origin/main
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Search, BookMarked } from "lucide-react";
+import Layout from "@/components/Layout";
+import { Button } from "@/components/ui/button";
+import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo";
+import { ContentSidebar } from "@/components/ContentSidebar";
+import { buildDefinedTermSetJsonLd } from "@/lib/json-ld";
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
 
 const terms = [
   { term: "Alternative Provision (AP)", slug: "alternative-provision", definition: "Education arranged for pupils who, because of exclusion, illness, or other reasons, would not otherwise receive suitable education. AP can be delivered by local authorities, schools, or registered providers outside of mainstream and special school settings." },
@@ -25,6 +42,8 @@ const terms = [
   { term: "Personal Education Plan (PEP)", slug: "pep", definition: "A plan required for all Children Looked After that forms part of their overall care plan. The PEP identifies educational needs, sets targets, and outlines the support required to help the young person achieve." },
   { term: "Elective Home Education (EHE)", slug: "ehe", definition: "When parents choose to educate their child at home rather than sending them to school. Parents are responsible for providing a suitable full-time education but are not required to follow the national curriculum." },
   { term: "NEET (Not in Education, Employment or Training)", slug: "neet", definition: "A classification for young people aged 16-24 who are not engaged in any form of education, employment, or training. Reducing NEET rates is a key outcome measure for Alternative Provision." },
+<<<<<<< HEAD
+<<<<<<< HEAD
 ].sort((a, b) => a.term.localeCompare(b.term));
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -48,29 +67,30 @@ export default function Glossary() {
 
   return (
     <Layout>
+      <Seo title="A-Z Glossary" description="Definitions of key terms in Alternative Provision, SEMH, and special education." />
       <header className="bg-primary pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-[-20deg] translate-x-1/2 pointer-events-none" />
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-background/5 skew-x-[-20deg] translate-x-1/2 pointer-events-none" />
+        <div className="container-wide relative z-10">
           <div className="max-w-4xl">
             <Breadcrumbs
               items={[{ label: "Knowledge Hub", to: "/knowledge-hub" }, { label: "A-Z Glossary" }]}
-              className="text-white/60 mb-8 md:mb-12 [&_a]:text-white/80 [&_a:hover]:text-white [&_span]:text-white"
+              className="text-primary-foreground/60 mb-8 md:mb-12 [&_a]:text-primary-foreground/80 [&_a:hover]:text-primary-foreground [&_span]:text-primary-foreground"
             />
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6">
               A-Z Glossary
             </h1>
-            <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
               Clear, searchable definitions of key terms and concepts used in Alternative Provision.
             </p>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-12 md:py-20">
-        <div className="max-w-4xl mx-auto">
+      <div className="container-wide py-12 md:py-20">
+        <div className="max-w-7xl mx-auto">
           {/* Controls */}
           <div className="space-y-8 mb-12">
-            <div className="relative max-w-md">
+            <div className="relative max-w-lg">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
                 placeholder="Search definitions..."
@@ -105,7 +125,7 @@ export default function Glossary() {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <AnimatePresence mode="popLayout">
               {filteredTerms.map((item) => (
                 <motion.article
@@ -115,10 +135,10 @@ export default function Glossary() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
-                  className="p-8 bg-card rounded-3xl border border-border/50 shadow-sm hover:shadow-md transition-shadow"
+                  className="p-8 bg-card rounded-3xl border border-border/50 shadow-sm hover:border-primary/40 hover:shadow-xl transition-all duration-300"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                       <Info className="h-5 w-5" />
                     </div>
                     <h2 className="text-xl font-bold text-foreground">{item.term}</h2>
@@ -142,6 +162,250 @@ export default function Glossary() {
             )}
           </div>
         </div>
+=======
+];
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+export default function Glossary() {
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return terms;
+    return terms.filter(
+      (t) =>
+        t.term.toLowerCase().includes(q) ||
+        t.definition.toLowerCase().includes(q)
+    );
+  }, [query]);
+
+  // Group by first letter for the A–Z view.
+  const grouped = useMemo(() => {
+    const map = new Map<string, typeof terms>();
+    filtered.forEach((t) => {
+      const letter = t.term[0]?.toUpperCase() || "#";
+      if (!map.has(letter)) map.set(letter, []);
+      map.get(letter)!.push(t);
+    });
+    return Array.from(map.entries()).sort(([a], [b]) => a.localeCompare(b));
+  }, [filtered]);
+
+  const availableLetters = useMemo(
+    () => new Set(grouped.map(([l]) => l)),
+    [grouped]
+  );
+
+  const url = `${SITE_URL}/knowledge-hub/glossary`;
+  const jsonLd = buildDefinedTermSetJsonLd("Alternative Provision Glossary", url, terms);
+
+  return (
+    <Layout>
+=======
+];
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+export default function Glossary() {
+  const [query, setQuery] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return terms;
+    return terms.filter(
+      (t) =>
+        t.term.toLowerCase().includes(q) ||
+        t.definition.toLowerCase().includes(q)
+    );
+  }, [query]);
+
+  // Group by first letter for the A–Z view.
+  const grouped = useMemo(() => {
+    const map = new Map<string, typeof terms>();
+    filtered.forEach((t) => {
+      const letter = t.term[0]?.toUpperCase() || "#";
+      if (!map.has(letter)) map.set(letter, []);
+      map.get(letter)!.push(t);
+    });
+    return Array.from(map.entries()).sort(([a], [b]) => a.localeCompare(b));
+  }, [filtered]);
+
+  const availableLetters = useMemo(
+    () => new Set(grouped.map(([l]) => l)),
+    [grouped]
+  );
+
+  const url = `${SITE_URL}/knowledge-hub/glossary`;
+  const jsonLd = buildDefinedTermSetJsonLd("Alternative Provision Glossary", url, terms);
+
+  return (
+    <Layout>
+>>>>>>> origin/main
+      <Seo
+        title="Alternative Provision Glossary"
+        description="Searchable A–Z glossary of Alternative Provision, SEND and SEMH terminology for educators, parents and professionals."
+        jsonLd={jsonLd}
+      />
+
+      <header className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-14 md:py-20">
+          <div className="max-w-3xl">
+            <Breadcrumbs
+              items={[
+                { label: "Knowledge Hub", to: "/knowledge-hub" },
+                { label: "Glossary" },
+              ]}
+              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4">
+              <BookMarked className="w-3.5 h-3.5" />
+              Reference
+            </div>
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+              Alternative Provision Glossary
+            </h1>
+            <p className="text-primary-foreground/70 text-lg leading-relaxed">
+              Clear, searchable definitions of key terms and concepts used in Alternative Provision —
+              for educators, parents, and professionals.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-10 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
+          <div className="min-w-0 space-y-8">
+            {/* Search + A–Z */}
+            <div className="rounded-2xl border border-border bg-card p-5 md:p-6 space-y-5 sticky top-20 z-10 shadow-sm">
+              <label className="block">
+                <span className="sr-only">Search glossary</span>
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <input
+                    type="search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search terms or definitions…"
+                    className="w-full rounded-full border border-input bg-background pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
+                  />
+                </div>
+              </label>
+              <div className="flex flex-wrap gap-1.5" role="navigation" aria-label="Glossary A to Z">
+                {ALPHABET.map((letter) => {
+                  const enabled = availableLetters.has(letter);
+                  return (
+                    <a
+                      key={letter}
+                      href={enabled ? `#letter-${letter}` : undefined}
+                      onClick={(e) => {
+                        if (!enabled) {
+                          e.preventDefault();
+                          return;
+                        }
+                        e.preventDefault();
+                        document
+                          .getElementById(`letter-${letter}`)
+                          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
+                      aria-disabled={!enabled}
+                      className={
+                        "w-8 h-8 inline-flex items-center justify-center rounded-md text-xs font-semibold transition-colors " +
+                        (enabled
+                          ? "bg-secondary hover:bg-primary hover:text-primary-foreground text-foreground cursor-pointer"
+                          : "bg-muted/40 text-muted-foreground/40 cursor-not-allowed")
+                      }
+                    >
+                      {letter}
+                    </a>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {filtered.length} of {terms.length} terms
+              </p>
+            </div>
+
+            {grouped.length === 0 ? (
+              <div className="rounded-xl border border-dashed border-border p-10 text-center">
+                <p className="text-muted-foreground">
+                  No terms match <strong className="text-foreground">{query}</strong>.
+                </p>
+                <Button variant="outline" className="mt-4" onClick={() => setQuery("")}>
+                  Clear search
+                </Button>
+              </div>
+            ) : (
+              grouped.map(([letter, items]) => (
+                <section key={letter} id={`letter-${letter}`} className="scroll-mt-32">
+                  <div className="flex items-baseline gap-3 mb-4">
+                    <h2 className="font-display text-3xl font-bold text-primary">{letter}</h2>
+                    <span className="text-xs text-muted-foreground uppercase tracking-widest">
+                      {items.length} term{items.length === 1 ? "" : "s"}
+                    </span>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {items.map((item) => (
+                      <article
+                        key={item.slug}
+                        id={item.slug}
+                        className="p-5 bg-card rounded-xl border border-border scroll-mt-32 hover:border-primary/40 transition-colors"
+                      >
+                        <h3 className="text-base font-bold text-foreground mb-1.5">{item.term}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {item.definition}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              ))
+            )}
+
+            <section className="mt-6 rounded-2xl border border-border bg-primary/10 p-8 md:p-10 text-center">
+              <h2 className="text-2xl font-bold text-foreground mb-3">Explore More Resources</h2>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-6">
+                Dive deeper into Alternative Provision with our comprehensive guides and best
+                practice resources.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button asChild>
+                  <Link to="/knowledge-hub/complete-guide">
+                    Read the Complete Guide
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link to="/knowledge-hub">Back to Knowledge Hub</Link>
+                </Button>
+              </div>
+            </section>
+          </div>
+
+          <ContentSidebar
+            toc={grouped.map(([l]) => ({ id: `letter-${l}`, label: l, level: 2 }))}
+            ctas={[
+              {
+                label: "Make a Referral",
+                description: "Refer a young person in 4 steps",
+                href: "/referral",
+                tone: "primary",
+              },
+              {
+                label: "Browse Knowledge Hub",
+                description: "All categories and resources",
+                href: "/knowledge-hub",
+              },
+            ]}
+            quickContact={{
+              phone: "01782 365365",
+              email: "info@pathwayacademyzone.co.uk",
+            }}
+          />
+        </div>
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
+>>>>>>> origin/main
       </div>
     </Layout>
   );

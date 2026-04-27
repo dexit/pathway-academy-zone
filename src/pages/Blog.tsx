@@ -184,7 +184,7 @@ export default function Blog() {
             <Input
               type="email"
               placeholder="Enter your email"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 md:w-64 focus-visible:ring-accent"
+              className="bg-background/10 border-white/20 text-primary-foreground placeholder:text-primary-foreground/50 md:w-64 focus-visible:ring-accent"
               aria-label="Email address for newsletter"
             />
             <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shrink-0">

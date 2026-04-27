@@ -5,12 +5,6 @@
 @tailwind utilities;
 
 @layer base {
-  /*
-   * Palette + typography synced with the live pathwayacademyzone.co.uk WordPress
-   * theme so the React replica renders identically. Plus Jakarta Sans is the
-   * single font family across body and headings. Tokens are authored as raw
-   * HSL triples so Tailwind's `hsl(var(--token))` utilities continue to work.
-   */
   :root {
     --background: 120 20% 99%;
     --foreground: 160 10% 15%;
@@ -21,7 +15,6 @@
     --popover: 0 0% 100%;
     --popover-foreground: 160 10% 15%;
 
-    /* Brand green — matches the live site exactly */
     --primary: 152 45% 35%;
     --primary-foreground: 0 0% 100%;
 
@@ -29,7 +22,7 @@
     --secondary-foreground: 160 10% 15%;
 
     --muted: 150 15% 94%;
-    --muted-foreground: 160 10% 45%;
+    --muted-foreground: 160 10% 38%;
 
     --accent: 152 35% 90%;
     --accent-foreground: 152 45% 25%;
@@ -46,27 +39,10 @@
 
     --radius: 0.75rem;
 
-    /* Derived brand tokens used across the replica (hero gradients, CARES values
-       timeline, etc.) — tuned to the new green-forward palette. */
     --teal-dark: 160 45% 22%;
     --teal-light: 152 35% 90%;
     --navy: 160 20% 12%;
     --warm-gray: 160 8% 55%;
-
-    /* Sidebar + chart tokens from the live WP theme */
-    --sidebar-background: 150 20% 97%;
-    --sidebar-foreground: 160 10% 15%;
-    --sidebar-primary: 152 45% 35%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 152 35% 92%;
-    --sidebar-accent-foreground: 152 45% 25%;
-    --sidebar-border: 150 15% 88%;
-    --sidebar-ring: 152 45% 35%;
-    --chart-1: 152 45% 35%;
-    --chart-2: 142 76% 36%;
-    --chart-3: 160 40% 50%;
-    --chart-4: 120 35% 45%;
-    --chart-5: 180 50% 40%;
 
     --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
       BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -89,7 +65,7 @@
     --secondary-foreground: 150 15% 95%;
 
     --muted: 160 15% 18%;
-    --muted-foreground: 150 10% 70%;
+    --muted-foreground: 150 10% 65%;
 
     --accent: 152 30% 20%;
     --accent-foreground: 152 50% 80%;
@@ -104,57 +80,50 @@
     --input: 160 15% 22%;
     --ring: 152 50% 45%;
 
-    /* Brand tokens inverted to stay legible on the dark bg */
     --teal-dark: 152 45% 60%;
-    --teal-light: 152 30% 20%;
-    --navy: 150 15% 95%;
     --warm-gray: 150 10% 72%;
-
-    --sidebar-background: 160 20% 10%;
-    --sidebar-foreground: 150 15% 95%;
-    --sidebar-primary: 152 50% 45%;
-    --sidebar-primary-foreground: 160 20% 8%;
-    --sidebar-accent: 152 30% 18%;
-    --sidebar-accent-foreground: 152 50% 80%;
-    --sidebar-border: 160 15% 22%;
-    --sidebar-ring: 152 50% 45%;
-    --chart-1: 152 50% 50%;
-    --chart-2: 142 70% 45%;
-    --chart-3: 160 45% 55%;
-    --chart-4: 120 40% 50%;
-    --chart-5: 180 55% 45%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border transition-colors duration-200;
   }
 
   html {
     scroll-behavior: smooth;
+    font-size: 16px;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary;
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-sans);
-    letter-spacing: -0.01em;
-  }
+  h1 { @apply font-bold tracking-tight text-[clamp(2.5rem,5vw+1rem,4.5rem)] leading-[1.1] text-foreground; }
+  h2 { @apply font-bold tracking-tight text-[clamp(1.75rem,3vw+1rem,3rem)] leading-[1.2] text-foreground; }
+  h3 { @apply font-bold tracking-tight text-[clamp(1.25rem,2vw+1rem,2rem)] leading-[1.3] text-foreground; }
+
+  .section-py { @apply py-16 md:py-24 lg:py-32; }
+  .container-wide { @apply container mx-auto px-4 max-w-7xl; }
 
   :focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 
-  img, video {
-    max-width: 100%;
-    height: auto;
+  a:not([class*="wp-block-button"]):not(.no-transition) {
+    @apply transition-all duration-300;
+  }
+
+  /* Standard Link Style */
+  .paz-link {
+    @apply text-primary font-semibold hover:underline decoration-primary/30 underline-offset-4 transition-all;
+  }
+
+  /* Nav/Footer Link Style */
+  .paz-nav-link {
+    @apply text-muted-foreground hover:text-primary transition-colors duration-200;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -172,4 +141,37 @@
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--teal-dark)));
   }
+}
+
+/* FSE Block Compat */
+.wp-block-group { @apply max-w-7xl mx-auto px-4; }
+.has-text-align-center { @apply text-center; }
+.has-primary-color { @apply text-primary; }
+.has-muted-foreground-color { @apply text-muted-foreground; }
+.wp-block-buttons { @apply flex flex-wrap gap-4; }
+.wp-block-button__link { @apply inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-sm font-bold text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:scale-105 active:scale-95; }
+
+/* Custom components normalization */
+.prose-paz {
+  @apply max-w-none;
+}
+
+.prose-paz h2 {
+  @apply scroll-mt-24 pt-10 border-t border-border mb-8 mt-16 first:border-0 first:pt-0 first:mt-0 font-display text-3xl md:text-4xl font-bold text-foreground;
+}
+
+.prose-paz p {
+  @apply text-muted-foreground leading-relaxed text-lg mb-8;
+}
+
+.prose-paz ul {
+  @apply space-y-4 list-disc list-inside mb-10;
+}
+
+.prose-paz li {
+  @apply text-muted-foreground pl-2 text-lg;
+}
+
+.prose-paz a {
+    @apply paz-link;
 }

@@ -1,311 +1,269 @@
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig, MapPin, ClipboardList, Sparkles, GraduationCap, ShieldCheck, PhoneCall } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ArrowRight,
+  CheckCircle,
+  Users,
+  GraduationCap,
+  Target,
+  TrendingUp,
+  Heart,
+  ChevronDown,
+  Building2,
+  BookOpen,
+  Calendar,
+  Phone,
+  Sparkles
+} from "lucide-react";
+import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Seo } from "@/components/Seo";
+import { Button } from "@/components/ui/button";
 import WhyItMattersScroller from "@/components/WhyItMattersScroller";
-//import heroImg from "@/assets/hero-classroom.jpg";
-//import classroomImg from "@/assets/classroom-learning.jpg";
-//import vocationalImg from "@/assets/vocational-training.jpg";
-//import mentoringImg from "@/assets/mentoring-session.jpg";
-
-// ✅ Use the functions or direct strings instead
-import { getVocationalImg, getMentoringImg, getClassroomImg, getHeroImg, getCareersImg } from "@/utils/images";
+import { Seo } from "@/components/Seo";
 
 const heroImg = "/assets/hero-classroom.jpg";
-const classroomImg = "/assets/classroom-learning.jpg";
-const vocationalImg = "/assets/vocational-training.jpg";
-const mentoringImg = "/assets/mentoring-session.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 };
 
-const stats = [
-  { icon: TrendingUp, value: "94%", label: "Attendance Improvement" },
-  { icon: Target, value: "87%", label: "Positive Destinations" },
-  { icon: Users, value: "150+", label: "Young People Supported" },
-  { icon: School, value: "12+", label: "Partner Schools" },
+const features = [
+  {
+    title: "Trauma-Informed Approach",
+    desc: "We understand that behavior is communication. Our staff are trained to support young people with complex needs through a relational, empathy-led model.",
+    icon: Heart,
+  },
+  {
+    title: "GCSE & Vocational Pathways",
+    desc: "From core academics to practical skills like construction and catering, we provide qualifications that open real doors for future success.",
+    icon: GraduationCap,
+  },
+  {
+    title: "Specialist SEMH Support",
+    desc: "Integrated therapeutic support and low staff-to-student ratios ensure every learner feels seen, safe, and supported to grow.",
+    icon: Target,
+  }
 ];
 
-const approaches = [
-  { icon: Heart, title: "Trauma-Informed Approach", desc: "Our practice is grounded in understanding how trauma affects learning and behaviour, creating safe spaces for growth." },
-  { icon: Target, title: "Personalised Pathways", desc: "Every young person receives a tailored learning plan designed around their strengths, interests, and goals." },
-  { icon: UserCheck, title: "Expert Staff", desc: "Our team includes qualified teachers, youth workers, and pastoral specialists dedicated to every student's success." },
-  { icon: Shield, title: "Safe Environment", desc: "We maintain the highest safeguarding standards, ensuring all young people feel secure and supported." },
+const stats = [
+  { label: "Positive Destinations", value: "94%", icon: TrendingUp },
+  { label: "Attendance Increase", value: "68%", icon: Calendar },
+  { label: "Qualified Staff", value: "100%", icon: Users },
+  { label: "Years Experience", value: "15+", icon: Building2 }
 ];
 
 const faqs = [
-  { q: "What is Alternative Provision?", a: "Alternative Provision (AP) is education arranged for pupils who can't attend mainstream school due to exclusion, illness, or other reasons. It provides structured learning in smaller, more supportive environments." },
-  { q: "Who is Pathway Academy Zone for?", a: "We support young people aged 11-16 (KS3 & KS4) who are permanently excluded, at risk of exclusion, disengaged from mainstream education, or have social, emotional and mental health needs." },
-  { q: "How does the referral process work?", a: "Referrals are made by schools, local authorities, or social workers. Contact us to discuss needs, we gather information, hold an assessment meeting, then create a personalised placement plan." },
-  { q: "How quickly can a learner start?", a: "Emergency placements can begin within 48 hours. Standard placements typically start within 1-2 weeks following the assessment process." },
-  { q: "How do you keep learners safe?", a: "Safeguarding is our top priority. All staff are DBS checked and trained, we have a dedicated safeguarding lead, clear reporting procedures, and work closely with local safeguarding partners." },
+  {
+    q: "What is Alternative Provision?",
+    a: "Alternative Provision (AP) is education for pupils who, because of exclusion, illness, or other reasons, would not otherwise receive suitable education in a mainstream or special school."
+  },
+  {
+    q: "How do I make a referral?",
+    a: "Referrals are typically made by schools or local authorities. You can start the process by visiting our Referral page and completing the initial form."
+  },
+  {
+    q: "What qualifications do you offer?",
+    a: "We offer GCSEs in core subjects (English, Maths, Science), Functional Skills, and various vocational BTEC qualifications tailored to individual learner pathways."
+  }
 ];
 
-export default function HomePage() {
-  const orgJsonLd = {
-    "@context": "https://schema.org",
-    "@type": ["EducationalOrganization", "Organization"],
-    "@id": "https://pathwayacademyzone.co.uk/#organization",
-    name: "Pathway Academy Zone",
-    alternateName: "PAZ",
-    url: "https://pathwayacademyzone.co.uk",
-    logo: "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png",
-    description:
-      "Alternative Provision in Stoke-on-Trent for ages 11–16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities.",
-    telephone: "+44-1782-365365",
-    email: "info@pathwayacademyzone.co.uk",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Duncalf Street, Burslem",
-      addressLocality: "Stoke-on-Trent",
-      postalCode: "ST6 3LJ",
-      addressRegion: "Staffordshire",
-      addressCountry: "GB",
-    },
-    areaServed: { "@type": "AdministrativeArea", name: "Staffordshire" },
-    sameAs: [
-      "https://www.linkedin.com/company/pathway-academy-zone",
-    ],
-  };
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
-  const homeJsonLd = [orgJsonLd, faqJsonLd];
-
+export default function Index() {
   return (
     <Layout>
       <Seo
-        title="Alternative Provision Stoke-on-Trent"
-        description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities."
-        jsonLd={homeJsonLd}
+        title="Specialist Alternative Provision in Stoke-on-Trent"
+        description="Pathway Academy Zone provides trauma-informed Alternative Provision for ages 11–16. Empowering young people through academic and vocational success."
       />
-      {/* Hero - Full screen with image overlay */}
-      <section className="relative min-h-[calc(100vh-5rem)] flex items-center">
-        <div className="absolute inset-0">
+
+      {/* Hero Section */}
+      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
           <img
             src={heroImg}
-            alt="Students collaborating around a laptop in a supportive Alternative Provision classroom in Stoke-on-Trent"
-            title="Pathway Academy Zone classroom"
-            className="w-full h-full object-cover"
-            width="1920"
-            height="1080"
-            fetchPriority="high"
-            decoding="async"
+            alt="Students working together in a classroom"
+            className="w-full h-full object-cover object-center scale-105"
           />
-          <div className="absolute inset-0 bg-foreground/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/60 to-transparent" />
         </div>
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-2xl">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-white/15 text-white text-sm font-medium mb-6 backdrop-blur-sm border border-white/25">
-              Alternative Provision in Staffordshire
-            </span>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
-              Every Young Person Deserves a Pathway To Success
-            </h1>
-            <p className="text-white/90 text-lg md:text-xl mb-4 max-w-xl">
-              We provide specialist education for young people who need a different approach.
-            </p>
-            <p className="text-white/75 text-base md:text-lg mb-10 max-w-xl">
-              Through structure, care and high expectations, we help young people re-engage, rebuild confidence and move forward in education, employment or training.
-            </p>
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <Button asChild size="xl" className="rounded-full shadow-lg px-8">
-                <Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-5 w-5" /></Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-2 border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white backdrop-blur-sm"
-              >
-                <Link to="/about">Learn About Us</Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Who We Are */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-              <span className="text-primary font-medium text-sm tracking-wider uppercase">Who We Are</span>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">Specialist Education for Those Who Need It Most</h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                Pathway Academy Zone works with young people aged 11-16 who have been excluded from mainstream education, or who are at risk of exclusion. We partner with schools, local authorities, and families across Staffordshire to provide structured, supportive learning environments where every student can succeed.
+        <div className="container-wide relative z-10">
+          <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary-foreground text-sm font-medium mb-6 backdrop-blur-md border border-white/10">
+                Ofsted Registered Alternative Provision
+              </span>
+              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6">
+                Empowering Young People to <span className="text-primary">Succeed</span>
+              </h1>
+              <p className="text-xl text-primary-foreground/80 mb-10 max-w-2xl leading-relaxed">
+                Specialist trauma-informed education and vocational pathways for learners aged 11–16 in Stoke-on-Trent and Staffordshire.
               </p>
-              <ul className="space-y-3 mb-8">
-                {["SEMH-focused curriculum delivery", "Small group and 1:1 support", "Qualified teachers and mentors", "Strong pastoral care teams", "Vocational and academic pathways"].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-foreground">
-                    <CircleCheckBig className="w-5 h-5 text-primary shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild>
-                <Link to="/programmes">Explore Our Programmes <ArrowRight className="ml-1 h-4 w-4" /></Link>
-              </Button>
-            </motion.div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-2 gap-4">
-              <img src={classroomImg} alt="Students at careers fair" className="rounded-2xl shadow-lg w-full h-64 object-cover" loading="lazy" />
-              <img src={vocationalImg} alt="Young people exploring apprenticeships" className="rounded-2xl shadow-lg w-full h-64 object-cover mt-8" loading="lazy" />
-              <img src={mentoringImg} alt="Young people at careers stand" className="rounded-2xl shadow-lg w-full h-64 object-cover col-span-2" loading="lazy" />
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild size="xl" className="rounded-full shadow-xl shadow-primary/20">
+                  <Link to="/referral">Make a Referral <ArrowRight className="ml-2 h-5 w-5" /></Link>
+                </Button>
+                <Button asChild size="xl" variant="outline" className="rounded-full border-white/20 bg-background/5 text-primary-foreground hover:bg-background/10 backdrop-blur-md">
+                  <Link to="/about">Our Approach</Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* How We Support */}
-      <section className="py-24 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Approach</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">How We Support Young People</h2>
-            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">Our evidence-based approach combines therapeutic support with quality education to help students overcome barriers and achieve their potential.</p>
-          </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {approaches.map((item, i) => (
-              <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md transition-shadow">
-                <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center mb-5">
-                  <item.icon className="h-7 w-7 text-primary-foreground" />
+      {/* Features Grid */}
+      <section className="section-py bg-background">
+        <div className="container-wide">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((item, i) => (
+              <motion.div
+                key={item.title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-card rounded-[2rem] p-10 shadow-sm border border-border/50 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:bg-primary transition-all duration-500">
+                  <item.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground transition-all duration-500" />
                 </div>
-                <h3 className="font-display text-xl font-bold text-foreground mb-2">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="font-display text-2xl font-bold text-foreground mb-4">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Alternative Provision Matters - interactive scrolling visualization */}
+      {/* Scroller Visualization */}
       <WhyItMattersScroller />
 
-      {/* Stats */}
-      <section className="py-20 bg-primary">
-        <div className="container mx-auto px-4">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">Making a Real Difference</h2>
-            <p className="text-primary-foreground/70 mt-3 max-w-xl mx-auto">Our outcomes speak to the transformative impact we have on young people's lives across Staffordshire.</p>
-          </motion.div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {/* Stats Section */}
+      <section className="section-py bg-primary relative overflow-hidden">
+        <div aria-hidden className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-background rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-background rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        </div>
+        <div className="container-wide relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             {stats.map((stat, i) => (
-              <motion.div key={stat.label} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="text-center">
-                <div className="w-14 h-14 rounded-full bg-primary-foreground/10 flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="h-7 w-7 text-primary-foreground" />
+              <motion.div
+                key={stat.label}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="w-20 h-20 rounded-3xl bg-background/10 flex items-center justify-center mx-auto mb-8 backdrop-blur-sm border border-white/10">
+                  <stat.icon className="h-10 w-10 text-primary-foreground" />
                 </div>
-                <p className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">{stat.value}</p>
-                <p className="text-primary-foreground/70 text-sm">{stat.label}</p>
+                <div className="text-4xl md:text-6xl font-bold text-primary-foreground mb-3">{stat.value}</div>
+                <div className="text-primary-foreground/70 text-sm font-bold uppercase tracking-widest">{stat.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-
-      {/* Latest Blog Posts */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
-            <div className="max-w-2xl">
-              <span className="text-primary font-medium text-sm tracking-wider uppercase">Stay Updated</span>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">Latest from our Blog</h2>
-              <p className="text-muted-foreground mt-4">Insights, guides, and updates on Alternative Provision and SEMH support.</p>
-            </div>
-            <Button asChild variant="outline">
-              <Link to="/blog">View All Articles <ArrowRight className="ml-2 h-4 w-4" /></Link>
-            </Button>
+      {/* FAQ Section */}
+      <section className="section-py bg-background">
+        <div className="container-wide max-w-4xl">
+          <div className="text-center mb-16">
+            <span className="text-primary font-bold text-sm tracking-widest uppercase mb-4 block">Common Questions</span>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+              Find quick answers to help you understand our provision and how we support young people.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { title: "What Is Alternative Provision?", excerpt: "A complete overview for 2024 covering education for pupils who cannot attend mainstream school.", date: "10 Dec 2024", slug: "what-is-alternative-provision" },
-              { title: "Understanding SEMH Needs", excerpt: "Social, Emotional and Mental Health difficulties are among the most common reasons for AP referrals.", date: "1 Dec 2024", slug: "semh-needs-in-ap" },
-              { title: "When to Refer a Learner", excerpt: "Knowing the right time to refer can make all the difference for a young person's education.", date: "20 Nov 2024", slug: "when-to-refer-a-learner" }
-            ].map((post) => (
-              <Link key={post.slug} to={`/blog/${post.slug}`} className="group bg-card rounded-2xl border border-border/50 overflow-hidden hover:shadow-md transition-shadow">
-                <div className="aspect-video bg-muted" />
-                <div className="p-6">
-                  <p className="text-xs text-muted-foreground mb-2">{post.date}</p>
-                  <h3 className="font-display font-bold text-xl text-foreground group-hover:text-primary transition-colors mb-2">{post.title}</h3>
-                  <p className="text-muted-foreground text-sm line-clamp-2">{post.excerpt}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase">Common Questions</span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">Frequently Asked Questions</h2>
-            <p className="text-muted-foreground mt-4">Quick answers to help you understand Alternative Provision and how Pathway Academy Zone works.</p>
-          </motion.div>
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-3">
+          <div className="space-y-4">
             {faqs.map((faq, idx) => (
               <FaqItem key={faq.q} question={faq.q} answer={faq.a} index={idx} />
             ))}
-          </motion.div>
-        </div>
-      </section>
-
-
-      {/* Knowledge Hub Preview */}
-      <section className="py-24 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="bg-card rounded-3xl p-8 md:p-12 border border-border shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="max-w-xl">
-              <h2 className="font-display text-3xl font-bold text-foreground mb-4">Educational Resources & Guides</h2>
-              <p className="text-muted-foreground">Explore our Knowledge Hub for comprehensive guides on Alternative Provision, SEMH support, and educational best practices.</p>
-            </div>
-            <Button asChild size="lg" className="shrink-0">
-              <Link to="/knowledge-hub">Visit Knowledge Hub <ArrowRight className="ml-2 h-5 w-5" /></Link>
+          </div>
+          <div className="mt-16 text-center">
+            <Button asChild variant="outline" size="lg" className="rounded-full font-bold px-10 border-primary/20 hover:bg-primary/5 transition-all">
+              <Link to="/faqs">View All FAQs <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 bg-primary relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10 text-center">
+      {/* Knowledge Hub Preview */}
+      <section className="section-py bg-muted/30">
+        <div className="container-wide">
+          <div className="bg-card rounded-[3rem] p-10 md:p-20 border border-border shadow-sm flex flex-col lg:flex-row items-center justify-between gap-12 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+            <div className="max-w-2xl relative z-10 text-center lg:text-left">
+              <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-8 leading-tight">
+                Empowering the AP Sector with Expert Insights
+              </h2>
+              <p className="text-muted-foreground text-xl mb-10 leading-relaxed">
+                Explore our Knowledge Hub for comprehensive guides on Alternative Provision, SEMH support, and educational best practices. Designed for schools, LAs, and parents.
+              </p>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-6">
+                <Button asChild size="xl" className="rounded-full font-bold px-10 shadow-lg shadow-primary/20 active:scale-95 transition-all">
+                  <Link to="/knowledge-hub">Visit Knowledge Hub</Link>
+                </Button>
+                <Button asChild variant="ghost" size="xl" className="rounded-full font-bold px-8 group hover:bg-primary/5 transition-all">
+                  <Link to="/knowledge-hub/glossary">Browse Glossary <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" /></Link>
+                </Button>
+              </div>
+            </div>
+            <div className="w-full lg:w-auto relative z-10">
+              <div className="bg-background rounded-[2rem] border border-border/50 p-10 shadow-2xl max-w-sm mx-auto rotate-3 hover:rotate-0 transition-transform duration-700">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                    <BookOpen className="h-6 w-6" />
+                  </div>
+                  <span className="font-bold text-foreground">Featured Resource</span>
+                </div>
+                <h3 className="font-display font-bold text-2xl mb-4 leading-tight">The Complete Guide to AP</h3>
+                <p className="text-muted-foreground leading-relaxed mb-8">A 5,000+ word deep dive into Alternative Provision legislation and practice.</p>
+                <Link to="/knowledge-hub/complete-guide" className="text-primary font-bold hover:underline inline-flex items-center gap-2 group/link">
+                  Read Now <ArrowRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="section-py bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-background rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        </div>
+        <div className="container-wide relative z-10 text-center">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
-              Ready to Make a Referral?
+            <h2 className="font-display text-4xl md:text-7xl font-bold text-primary-foreground mb-10 leading-tight">
+              Start the Journey Today
             </h2>
-            <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto mb-10">
-              Whether you're a school, local authority, social worker, or parent, we're here to help. Our team will guide you through the referral process and find the right pathway for your young person.
+            <p className="text-primary-foreground/80 text-xl max-w-3xl mx-auto mb-16 leading-relaxed">
+              Whether you're a school, local authority, or parent, our specialist team is ready to support your young person's educational journey through empathy and expertise.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
               <Button
                 asChild
                 size="xl"
-                className="rounded-full bg-white text-primary hover:bg-white/90 font-semibold shadow-lg"
+                className="rounded-full bg-background text-primary hover:bg-background/90 font-bold px-12 h-20 text-xl shadow-2xl scale-110 active:scale-105 transition-all"
               >
-                <Link to="/referral">Start a Referral <ArrowRight className="ml-1 h-5 w-5" /></Link>
+                <Link to="/referral">Make a Referral <ArrowRight className="ml-3 h-8 w-8" /></Link>
               </Button>
               <Button
                 asChild
-                size="lg"
+                size="xl"
                 variant="outline"
-                className="rounded-full border-2 border-white/40 bg-transparent text-white hover:bg-white/10 hover:text-white backdrop-blur-sm"
+                className="rounded-full border-white/40 bg-transparent text-primary-foreground hover:bg-background/10 hover:text-primary-foreground backdrop-blur-sm px-10 h-20 text-xl font-bold transition-all"
               >
-                <Link to="/contact">Contact Us</Link>
+                <Link to="/contact">Speak to our Team</Link>
               </Button>
             </div>
           </motion.div>
@@ -323,25 +281,25 @@ function FaqItem({ question, answer, index }: { question: string; answer: string
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className={`bg-card rounded-2xl border overflow-hidden transition-all duration-300 ${
-        open ? "border-primary/40 shadow-md" : "border-border/50 hover:border-border"
+      className={`bg-card rounded-[1.5rem] border overflow-hidden transition-all duration-300 ${
+        open ? "border-primary/40 shadow-xl" : "border-border/50 hover:border-border hover:shadow-md"
       }`}
     >
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="w-full font-display font-semibold text-foreground flex items-center justify-between p-6 text-left gap-4"
+        className="w-full font-display font-bold text-foreground flex items-center justify-between p-8 text-left gap-6"
       >
-        <span>{question}</span>
+        <span className="text-lg md:text-xl">{question}</span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+          className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
             open ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
           }`}
         >
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown className="h-5 w-5" />
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
@@ -355,11 +313,11 @@ function FaqItem({ question, answer, index }: { question: string; answer: string
             className="overflow-hidden"
           >
             <motion.div
-              initial={{ y: -8 }}
+              initial={{ y: -10 }}
               animate={{ y: 0 }}
-              exit={{ y: -8 }}
+              exit={{ y: -10 }}
               transition={{ duration: 0.25 }}
-              className="px-6 pb-6 text-muted-foreground text-sm leading-relaxed"
+              className="px-8 pb-8 text-muted-foreground text-lg leading-relaxed"
             >
               {answer}
             </motion.div>

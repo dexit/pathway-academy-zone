@@ -1,0 +1,9 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/reading-time",
+  "title": "Reading Time",
+  "category": "pazone",
+  "icon": "clock",
+  "description": "Calculates and displays the estimated reading time.",
+  "textdomain": "pathway-academy-zone"
+}

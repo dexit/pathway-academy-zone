@@ -26,20 +26,20 @@ export function BlogHero({ post }: BlogHeroProps) {
           {post.category}
         </Badge>
 
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-4">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground leading-tight mb-4">
           {post.title}
         </h2>
 
-        <p className="text-white/70 text-base leading-relaxed mb-6 max-w-xl">
+        <p className="text-primary-foreground/70 text-base leading-relaxed mb-6 max-w-xl">
           {post.excerpt}
         </p>
 
         <div className="flex items-center gap-6 flex-wrap">
-          <div className="flex items-center gap-1.5 text-white/50 text-sm">
+          <div className="flex items-center gap-1.5 text-primary-foreground/50 text-sm">
             <Clock className="w-3.5 h-3.5" />
             <span>{post.readTime}</span>
           </div>
-          <span className="text-white/30 text-sm">{post.date}</span>
+          <span className="text-primary-foreground/30 text-sm">{post.date}</span>
 
           <Link
             to={`/blog/${post.slug}`}

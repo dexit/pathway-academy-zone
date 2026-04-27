@@ -12,8 +12,6 @@ const footerLinks = {
     { label: "Knowledge Hub", path: "/knowledge-hub" },
     { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
     { label: "Glossary", path: "/knowledge-hub/glossary" },
-//{ label: "Blog", path: "/blog" },
-  //  { label: "News", path: "/news" },
     { label: "FAQs", path: "/faqs" },
   ],
   about: [
@@ -38,11 +36,11 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-foreground text-background/80 dark:bg-background dark:text-foreground/80">
+    <footer className="bg-foreground text-background/80 dark:bg-card dark:text-foreground/80">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center mb-6" aria-label="Pathway Academy Zone home">
+            <Link to="/" className="flex items-center mb-6 no-transition" aria-label="Pathway Academy Zone home">
               <img
                 src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
                 alt="Pathway Academy Zone"
@@ -55,8 +53,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm leading-relaxed mb-6 text-background/60 dark:text-foreground/60 max-w-xs">
-Pathway Academy Zone is an Alternative Provision specialist in Staffordshire focused on safeguarding, engagement, and positive outcomes for young people who cannot thrive in mainstream education.
-
+              Pathway Academy Zone is an Alternative Provision specialist in Staffordshire focused on safeguarding, engagement, and positive outcomes for young people who cannot thrive in mainstream education.
             </p>
             <div className="flex items-center gap-2">
               {socials.map((s) => (
@@ -67,7 +64,7 @@ Pathway Academy Zone is an Alternative Provision specialist in Staffordshire foc
                   rel="noopener noreferrer"
                   aria-label={`${s.label} (opens in new tab)`}
                   title={s.label}
-                  className="h-9 w-9 inline-flex items-center justify-center rounded-full border dark:border-foreground/20 dark:hover:border-primary dark:hover:text-primary border-background/20 hover:border-primary hover:text-primary transition-colors"
+                  className="h-9 w-9 inline-flex items-center justify-center rounded-full border border-background/20 dark:border-foreground/20 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary transition-colors no-transition"
                 >
                   <s.icon className="h-4 w-4" aria-hidden="true" />
                 </a>
@@ -86,7 +83,7 @@ Pathway Academy Zone is an Alternative Provision specialist in Staffordshire foc
               <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.path}>
-                    <Link to={link.path} className="text-sm hover:text-primary transition-colors">
+                    <Link to={link.path} className="paz-nav-link text-sm dark:text-foreground/60 dark:hover:text-primary text-background/70 hover:text-primary">
                       {link.label}
                     </Link>
                   </li>
@@ -99,24 +96,24 @@ Pathway Academy Zone is an Alternative Provision specialist in Staffordshire foc
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm border-t border-background/10 dark:border-foreground/10 mt-12 pt-8 justify-between">
           <div className="flex items-start gap-3 justify-start">
             <MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" aria-hidden="true" />
-            <address className="not-italic text-background/70 dark:text-foreground/70 ">Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ</address>
+            <address className="not-italic text-background/70 dark:text-foreground/70">Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ</address>
           </div>
-          <a href="tel:+441782365365" className="flex items-center gap-3 text-background/70 dark:text-foreground/70 dark:hover:text-primary hover:text-primary transition-colors  justify-center">
+          <a href="tel:+441782365365" className="flex items-center gap-3 text-background/70 dark:text-foreground/70 hover:text-primary transition-colors justify-center no-transition">
             <Phone className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
             01782 365365
           </a>
-          <a href="mailto:info@pathwayacademyzone.co.uk" className="flex items-center gap-3 text-background/70 dark:text-foreground/70 dark:hover:text-primary hover:text-primary transition-colors  justify-end">
+          <a href="mailto:info@pathwayacademyzone.co.uk" className="flex items-center gap-3 text-background/70 dark:text-foreground/70 hover:text-primary transition-colors justify-end no-transition">
             <Mail className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
             info@pathwayacademyzone.co.uk
           </a>
         </div>
 
-        <div className="border-t dark:border-foreground/10 border-background/10 mt-8 pt-6 flex flex-col md:flex-row gap-3 items-center justify-between text-sm text-background/40 dark:text-foreground/40">
-          <p>© {new Date().getFullYear()} Pathway AcademyZone. All rights reserved.</p>
+        <div className="border-t border-background/10 dark:border-foreground/10 mt-8 pt-6 flex flex-col md:flex-row gap-3 items-center justify-between text-sm text-background/40 dark:text-foreground/40">
+          <p>© {new Date().getFullYear()} Pathway Academy Zone. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <Link to="/policies" className="hover:text-primary transition-colors">Policies</Link>
-            <Link to="/safeguarding" className="hover:text-primary transition-colors">Safeguarding</Link>
-            <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
+            <Link to="/policies" className="paz-nav-link dark:text-foreground/40 dark:hover:text-primary text-background/40 hover:text-primary">Policies</Link>
+            <Link to="/safeguarding" className="paz-nav-link dark:text-foreground/40 dark:hover:text-primary text-background/40 hover:text-primary">Safeguarding</Link>
+            <Link to="/contact" className="paz-nav-link dark:text-foreground/40 dark:hover:text-primary text-background/40 hover:text-primary">Contact</Link>
           </div>
         </div>
       </div>

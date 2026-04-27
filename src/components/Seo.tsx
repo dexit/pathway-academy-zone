@@ -15,6 +15,30 @@ type SeoProps = {
   image?: string;
   jsonLd?: JsonLd;
   noIndex?: boolean;
+  type?: "website" | "article" | "profile";
+};
+
+const SOCIAL_LINKS = [
+  "https://www.facebook.com/PathwayAcademyZone",
+  "https://www.linkedin.com/company/pathway-academy-zone",
+  "https://twitter.com/PathwayAcademyZ",
+];
+
+const ORG_LD = {
+  "@type": "Organization",
+  "@id": `${SITE_URL}#organization`,
+  "name": SITE_NAME,
+  "url": SITE_URL,
+  "logo": { "@type": "ImageObject", "url": DEFAULT_OG_IMAGE, "width": 512, "height": 512 },
+  "sameAs": SOCIAL_LINKS,
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+44-1782-365365",
+    "contactType": "customer service",
+    "email": "info@pathwayacademyzone.co.uk",
+    "areaServed": "GB",
+    "availableLanguage": ["English"]
+  }
 };
 
 function upsertMeta(attr: "name" | "property", key: string, content: string) {
@@ -28,11 +52,8 @@ function upsertMeta(attr: "name" | "property", key: string, content: string) {
 }
 
 function upsertCanonical(href: string) {
-  // Remove any duplicates first to satisfy the "single canonical" rule.
   const existing = document.head.querySelectorAll('link[rel="canonical"]');
-  existing.forEach((node, i) => {
-    if (i > 0) node.remove();
-  });
+  existing.forEach((node, i) => { if (i > 0) node.remove(); });
   let el = existing[0] as HTMLLinkElement | undefined;
   if (!el) {
     el = document.createElement("link");
@@ -52,7 +73,7 @@ function injectJsonLd(id: string, data: JsonLd) {
   document.head.appendChild(script);
 }
 
-export function Seo({ title, description, canonical, image, jsonLd, noIndex }: SeoProps) {
+export function Seo({ title, description, canonical, image, jsonLd, noIndex, type = "website" }: SeoProps) {
   const { pathname } = useLocation();
   const url = canonical || `${SITE_URL}${pathname}`;
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
@@ -67,7 +88,7 @@ export function Seo({ title, description, canonical, image, jsonLd, noIndex }: S
     upsertMeta("property", "og:title", fullTitle);
     if (description) upsertMeta("property", "og:description", description);
     upsertMeta("property", "og:url", url);
-    upsertMeta("property", "og:type", "website");
+    upsertMeta("property", "og:type", type);
     upsertMeta("property", "og:site_name", SITE_NAME);
     upsertMeta("property", "og:locale", "en_GB");
     upsertMeta("property", "og:image", ogImage);
@@ -77,13 +98,49 @@ export function Seo({ title, description, canonical, image, jsonLd, noIndex }: S
     upsertMeta("name", "twitter:title", fullTitle);
     if (description) upsertMeta("name", "twitter:description", description);
     upsertMeta("name", "twitter:image", ogImage);
+    upsertMeta("name", "twitter:site", "@PathwayAcademyZ");
 
-    if (jsonLd) injectJsonLd("page", jsonLd);
+    // Unified Graph LD-JSON
+    const graph = {
+      "@context": "https://schema.org",
+      "@graph": [
+        ORG_LD,
+        {
+          "@type": "WebSite",
+          "@id": `${SITE_URL}#website`,
+          "url": SITE_URL,
+          "name": SITE_NAME,
+          "publisher": { "@id": `${SITE_URL}#organization` },
+          "inLanguage": "en-GB"
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${url}#webpage`,
+          "url": url,
+          "name": fullTitle,
+          "isPartOf": { "@id": `${SITE_URL}#website` },
+          "description": description,
+          "breadcrumb": { "@id": `${url}#breadcrumb` },
+          "inLanguage": "en-GB"
+        }
+      ]
+    };
+
+    if (jsonLd) {
+      if (Array.isArray(jsonLd)) {
+        (graph["@graph"] as any[]).push(...jsonLd);
+      } else {
+        (graph["@graph"] as any[]).push(jsonLd);
+      }
+    }
+
+    injectJsonLd("page", graph);
+
     return () => {
       const el = document.head.querySelector('script[data-seo="page"]');
       if (el) el.remove();
     };
-  }, [fullTitle, description, url, ogImage, jsonLd, noIndex]);
+  }, [fullTitle, description, url, ogImage, jsonLd, noIndex, type]);
 
   return null;
 }
@@ -91,15 +148,19 @@ export function Seo({ title, description, canonical, image, jsonLd, noIndex }: S
 export type Crumb = { label: string; to?: string };
 
 export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: string }) {
+  const { pathname } = useLocation();
+  const url = `${SITE_URL}${pathname}`;
   const trail: Crumb[] = [{ label: "Home", to: "/" }, ...items];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: trail.map((c, i) => ({
+    "@id": `${url}#breadcrumb`,
+    "itemListElement": trail.map((c, i) => ({
       "@type": "ListItem",
-      position: i + 1,
-      name: c.label,
-      ...(c.to ? { item: `${SITE_URL}${c.to}` } : {}),
+      "position": i + 1,
+      "name": c.label,
+      ...(c.to ? { "item": `${SITE_URL}${c.to}` } : {})
     })),
   };
 
@@ -112,25 +173,22 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
   }, [JSON.stringify(jsonLd)]);
 
   return (
-    <nav
-      aria-label="Breadcrumb"
-      className={"flex items-center flex-wrap gap-1 text-sm text-muted-foreground " + (className || "")}
-    >
+    <nav aria-label="Breadcrumb" className={"flex items-center flex-wrap gap-2 text-sm text-muted-foreground " + (className || "")}>
       {trail.map((c, i) => {
         const isLast = i === trail.length - 1;
         return (
-          <span key={`${c.label}-${i}`} className="flex items-center gap-1">
-            {i === 0 ? <Home className="h-3.5 w-3.5 opacity-70" aria-hidden="true" /> : null}
+          <span key={`${c.label}-${i}`} className="flex items-center gap-2">
+            {i === 0 ? <Home className="h-4 w-4 opacity-70" aria-hidden="true" /> : null}
             {isLast || !c.to ? (
-              <span aria-current={isLast ? "page" : undefined} className="text-foreground font-medium">
+              <span aria-current={isLast ? "page" : undefined} className="text-foreground font-semibold">
                 {c.label}
               </span>
             ) : (
-              <Link to={c.to} className="hover:text-foreground transition-colors">
+              <Link to={c.to} className="hover:text-primary transition-colors">
                 {c.label}
               </Link>
             )}
-            {!isLast && <ChevronRight className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />}
+            {!isLast && <ChevronRight className="h-3.5 w-3.5 opacity-40 shrink-0" aria-hidden="true" />}
           </span>
         );
       })}

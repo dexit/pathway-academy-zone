@@ -24,27 +24,27 @@ export function ArchiveLayout({
     <Layout>
       <header className="bg-primary pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden relative">
         {/* Background Accents */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-[-20deg] translate-x-1/2 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-background/5 skew-x-[-20deg] translate-x-1/2 pointer-events-none" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <Breadcrumbs
               items={crumbs}
-              className="text-white/60 mb-8 md:mb-12 [&_a]:text-white/80 [&_a:hover]:text-white [&_span]:text-white"
+              className="text-primary-foreground/60 mb-8 md:mb-12 [&_a]:text-primary-foreground/80 [&_a:hover]:text-primary-foreground [&_span]:text-primary-foreground"
             />
 
             {eyebrow && (
-              <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-white/90 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 backdrop-blur-sm border border-white/10">
+              <span className="inline-block px-3 py-1 rounded-full bg-background/10 text-primary-foreground/90 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 backdrop-blur-sm border border-background/10">
                 {eyebrow}
               </span>
             )}
 
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6">
               {title}
             </h1>
 
             {intro && (
-              <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+              <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl">
                 {intro}
               </p>
             )}
@@ -53,7 +53,7 @@ export function ArchiveLayout({
       </header>
 
       <div className="container mx-auto px-4 py-12 md:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 xl:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-12 xl:gap-20">
           <main className="min-w-0">
             {children}
           </main>
