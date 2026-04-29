@@ -133,6 +133,8 @@
 
   html {
     scroll-behavior: smooth;
+    /* Prevent horizontal scroll caused by any overflowing child */
+    overflow-x: hidden;
   }
 
   body {
@@ -141,6 +143,10 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Belt-and-braces horizontal-scroll guard */
+    overflow-x: hidden;
+    /* Minimum comfortable touch target line-height */
+    -webkit-text-size-adjust: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {

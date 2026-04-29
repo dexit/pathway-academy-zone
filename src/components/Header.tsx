@@ -177,21 +177,24 @@ export default function Header() {
           </Button>
         </div>
 
-        <div className="lg:hidden flex items-center gap-1">
+        <div className="lg:hidden flex items-center gap-0.5">
           <button
             onClick={() => setSearchOpen((s) => !s)}
             aria-label="Search"
-            className="p-2 rounded-full hover:bg-muted text-muted-foreground"
+            aria-expanded={searchOpen}
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-muted text-muted-foreground transition-colors"
           >
             <SearchIcon className="h-5 w-5" />
           </button>
           <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 text-foreground"
-            aria-label="Toggle menu"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-muted text-foreground transition-colors"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
           >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
@@ -218,17 +221,17 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             className="lg:hidden bg-card border-b border-border"
-            style={{ overflow: "hidden" }}
-            onAnimationComplete={() => {
-              // Allow the inner nav to scroll once the open animation finishes
-              const el = document.getElementById("mobile-nav");
-              if (el) el.style.overflow = mobileOpen ? "auto" : "hidden";
-            }}
+            // No overflow:hidden here — Framer Motion handles clipping during the
+            // height animation internally. After animation the outer wrapper must
+            // be overflow-visible so the inner nav's overflow-y-auto can scroll.
           >
             <nav
               id="mobile-nav"
+              aria-label="Mobile navigation"
               className="flex flex-col p-4 gap-1 max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain"
+              style={{ WebkitOverflowScrolling: "touch" }}
             >
               {navLinks.map((link) =>
                 link.children ? (
@@ -244,7 +247,7 @@ export default function Header() {
                         title={child.label}
                         rel="next"
                         aria-current={location.pathname === child.path ? "page" : undefined}
-                        className={`block px-6 py-2.5 mx-2 rounded-xl text-sm font-medium transition-colors ${
+                        className={`block px-6 py-3 mx-2 rounded-xl text-sm font-medium transition-colors min-h-[44px] flex items-center ${
                           location.pathname === child.path
                             ? "text-primary bg-secondary"
                             : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -262,7 +265,7 @@ export default function Header() {
                     title={link.label}
                     rel={link.path === "/" ? "home" : undefined}
                     aria-current={location.pathname === link.path ? "page" : undefined}
-                    className={`px-4 py-3 mx-2 rounded-xl text-sm font-medium transition-colors ${
+                    className={`px-4 py-3 mx-2 rounded-xl text-sm font-medium transition-colors min-h-[44px] flex items-center ${
                       location.pathname === link.path
                         ? "text-primary bg-secondary"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted"

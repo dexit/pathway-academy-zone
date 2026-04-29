@@ -52,7 +52,7 @@ export function ContentSidebar({
               <li key={item.id} className={item.level === 3 ? "pl-4" : ""}>
                 <a
                   href={`#${item.id}`}
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200"
                 >
                   {item.label}
                 </a>
