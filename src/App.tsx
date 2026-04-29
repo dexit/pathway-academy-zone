@@ -27,6 +27,7 @@ import News from "./pages/News.tsx";
 import NewsDetail from "./pages/NewsDetail.tsx";
 import FAQs from "./pages/FAQs.tsx";
 import Search from "./pages/Search.tsx";
+import AreaPage from "./pages/AreaPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -61,6 +62,7 @@ const App = () => (
           <Route path="/knowledge-hub/complete-guide" element={<CompleteGuide />} />
           <Route path="/knowledge-hub/:categoryId" element={<KnowledgeHubCategory />} />
           <Route path="/knowledge-hub/:category/:slug" element={<KnowledgeHubDetail />} />
+          <Route path="/alternative-provision/:areaSlug" element={<AreaPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

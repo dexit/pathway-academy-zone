@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
-  Heart, Users, GraduationCap, Clock, CheckCircle, MapPin, Briefcase,
-  Loader2, CheckCircle2, AlertCircle, BookOpen, HandHeart, ClipboardList, Sparkles,
+  Heart, Users, GraduationCap, Clock, CheckCircle,
+  Loader2, CheckCircle2, AlertCircle, BookOpen, HandHeart, ClipboardList, Sparkles, ExternalLink,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
-import { JobListSkeleton } from "@/components/SkeletonPlaceholders";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
 import { email, ukPhone, personName, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
 
 const CAREERS_WEBHOOK = import.meta.env.VITE_CAREERS_WEBHOOK as string | undefined;
+const JOBS_EMBED_URL = "https://job.pathwaygroup.co.uk/";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const perks = [
@@ -27,78 +27,19 @@ const perks = [
   { icon: Clock, title: "Work-Life Balance", desc: "Term-time working options and flexible arrangements" },
 ];
 const qualities = ["Believe in every young person's potential","Are resilient and patient, even when things are challenging","Build strong, trusting relationships with young people","Collaborate effectively with colleagues and partners","Are committed to continuous learning and improvement"];
-const vacancies = [
-  { title: "SEMH Teacher", type: "Full-time, Permanent", location: "Stafford", salary: "£28,000 - £35,000", closing: "15 January 2025" },
-  { title: "Youth Mentor", type: "Full-time, Fixed Term", location: "Stafford", salary: "£22,000 - £26,000", closing: "22 January 2025" },
-  { title: "Learning Support Assistant", type: "Part-time (20hrs)", location: "Stafford", salary: "£12.50/hour", closing: "8 January 2025" },
-];
 
-function toJobPosting(v: (typeof vacancies)[number]) {
-  const [minStr, maxStr] = v.salary.replace(/[£,]/g, "").split(/[-–]/).map((s) => s.trim());
-  const min = parseInt(minStr, 10);
-  const max = parseInt(maxStr, 10);
-  const slug = v.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-  return {
-    "@context": "https://schema.org",
-    "@type": "JobPosting",
-    title: v.title,
-    description: `${v.title} at ${SITE_NAME}. ${v.type}, based in ${v.location}.`,
-    employmentType: /part-time/i.test(v.type) ? "PART_TIME" : "FULL_TIME",
-    datePosted: new Date().toISOString().slice(0, 10),
-    validThrough: new Date(`${v.closing} UTC`).toISOString(),
-    hiringOrganization: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      sameAs: SITE_URL,
-      logo: `${SITE_URL}/assets/PAZlogo-BYea4nq1.png`,
-    },
-    jobLocation: {
-      "@type": "Place",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: v.location,
-        addressRegion: "Staffordshire",
-        addressCountry: "GB",
-      },
-    },
-    ...(Number.isFinite(min) && Number.isFinite(max)
-      ? {
-          baseSalary: {
-            "@type": "MonetaryAmount",
-            currency: "GBP",
-            value: { "@type": "QuantitativeValue", minValue: min, maxValue: max, unitText: "YEAR" },
-          },
-        }
-      : /hour/i.test(v.salary)
-        ? {
-            baseSalary: {
-              "@type": "MonetaryAmount",
-              currency: "GBP",
-              value: {
-                "@type": "QuantitativeValue",
-                value: parseFloat(v.salary.replace(/[^0-9.]/g, "")),
-                unitText: "HOUR",
-              },
-            },
-          }
-        : {}),
-    url: `${SITE_URL}/careers#${slug}`,
-  };
-}
-
-const vacanciesSchema = [
-  ...vacancies.map(toJobPosting),
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: vacancies.map((v, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: v.title,
-      url: `${SITE_URL}/careers#${v.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`,
-    })),
+const careersSchema = {
+  "@context": "https://schema.org",
+  "@type": "EmployerAggregateRating",
+  itemReviewed: {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    sameAs: SITE_URL,
   },
-];
+  description: "Pathway Academy Zone careers and vacancies — join our team supporting young people in Staffordshire.",
+  url: `${SITE_URL}/careers`,
+};
 
 const interestOptions: IllustratedOption[] = [
   { value: "teaching", label: "Teaching", description: "Subject or SEMH teacher", icon: BookOpen },
@@ -120,11 +61,6 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function Careers() {
   const { toast } = useToast();
-  const [listLoading, setListLoading] = useState(true);
-  useEffect(() => {
-    const t = setTimeout(() => setListLoading(false), 450);
-    return () => clearTimeout(t);
-  }, []);
 
   const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -161,7 +97,7 @@ export default function Careers() {
       <Seo
         title="Careers"
         description="Current vacancies and speculative applications at Pathway Academy Zone. Join a team making a real difference for young people in Staffordshire."
-        jsonLd={vacanciesSchema}
+        jsonLd={careersSchema}
       />
       <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
         <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Careers</span>
@@ -180,41 +116,42 @@ export default function Careers() {
         <p className="text-muted-foreground text-center mb-10">We value attitude and commitment as much as qualifications. Our ideal team members:</p>
         <div className="space-y-3">{qualities.map((q) => (<div key={q} className="flex items-center gap-3 bg-card rounded-xl px-6 py-4 border border-border/50"><CheckCircle className="h-5 w-5 text-primary shrink-0" /><span className="text-foreground">{q}</span></div>))}</div>
       </div></section>
-      <section className="py-24 bg-background"><div className="container mx-auto px-4 max-w-4xl">
-        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Current Vacancies</h2>
-        {listLoading ? (
-          <JobListSkeleton count={3} />
-        ) : (
-          <div className="space-y-6">{vacancies.map((v, i) => {
-            const slug = v.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-            return (
-              <motion.article
-                key={v.title}
-                id={slug}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 hover:shadow-md transition-shadow"
-              >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div>
-                    <h3 className="font-display text-xl font-bold text-foreground mb-2">{v.title}</h3>
-                    <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                      <span className="flex items-center gap-1"><Briefcase className="h-4 w-4" />{v.type}</span>
-                      <span className="flex items-center gap-1"><MapPin className="h-4 w-4" />{v.location}</span>
-                    </div>
-                    <p className="text-primary font-semibold mt-2">{v.salary}</p>
-                    <p className="text-sm text-muted-foreground mt-1">Closing: {v.closing}</p>
-                  </div>
-                  <Button className="shrink-0 rounded-full">View Details & Apply</Button>
-                </div>
-              </motion.article>
-            );
-          })}</div>
-        )}
-      </div></section>
+      <section className="py-24 bg-background" id="vacancies">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <h2 className="font-display text-2xl font-bold text-foreground">Current Vacancies</h2>
+            <a
+              href={JOBS_EMBED_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium content-link"
+            >
+              Open in new tab <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
+          <div className="rounded-2xl border border-border overflow-hidden shadow-sm bg-card">
+            <iframe
+              src={JOBS_EMBED_URL}
+              title="Current Job Vacancies — Pathway Group"
+              loading="lazy"
+              className="w-full border-0"
+              style={{ minHeight: "700px", height: "800px" }}
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+            />
+          </div>
+          <p className="text-xs text-muted-foreground mt-3 text-center">
+            Vacancies are managed via{" "}
+            <a
+              href={JOBS_EMBED_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="content-link"
+            >
+              job.pathwaygroup.co.uk
+            </a>
+          </p>
+        </div>
+      </section>
       <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-2xl">
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-4">Speculative Applications</h2>
         <p className="text-muted-foreground text-center mb-10">Don't see a suitable role? We're always interested in hearing from talented individuals.</p>

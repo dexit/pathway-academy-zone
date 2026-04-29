@@ -75,6 +75,11 @@ export default function Header() {
             src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
             alt="Pathway Academy Zone Logo"
             className="h-14 w-auto"
+            width="180"
+            height="56"
+            fetchPriority="high"
+            decoding="async"
+            loading="eager"
           />
         </Link>
 
@@ -213,9 +218,18 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-card border-b border-border overflow-hidden"
+            className="lg:hidden bg-card border-b border-border"
+            style={{ overflow: "hidden" }}
+            onAnimationComplete={() => {
+              // Allow the inner nav to scroll once the open animation finishes
+              const el = document.getElementById("mobile-nav");
+              if (el) el.style.overflow = mobileOpen ? "auto" : "hidden";
+            }}
           >
-            <nav className="flex flex-col p-4 gap-1">
+            <nav
+              id="mobile-nav"
+              className="flex flex-col p-4 gap-1 max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain"
+            >
               {navLinks.map((link) =>
                 link.children ? (
                   <div key={link.label}>

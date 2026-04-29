@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Search, BookMarked } from "lucide-react";
+import { ArrowRight, Search, BookMarked, Phone } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo";
-import { ContentSidebar } from "@/components/ContentSidebar";
 import { buildDefinedTermSetJsonLd } from "@/lib/json-ld";
 
 const terms: { term: string; slug: string; definition: string }[] = [
@@ -32,6 +31,7 @@ const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function Glossary() {
   const [query, setQuery] = useState("");
+  const [activeLetter, setActiveLetter] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -43,7 +43,6 @@ export default function Glossary() {
     );
   }, [query]);
 
-  // Group by first letter for the A–Z view.
   const grouped = useMemo(() => {
     const map = new Map<string, typeof terms>();
     filtered.forEach((t) => {
@@ -58,6 +57,27 @@ export default function Glossary() {
     () => new Set(grouped.map(([l]) => l)),
     [grouped]
   );
+
+  // Displayed terms: filter by activeLetter if set
+  const displayedGroups = useMemo(() => {
+    if (!activeLetter) return grouped;
+    return grouped.filter(([l]) => l === activeLetter);
+  }, [grouped, activeLetter]);
+
+  function handleLetterClick(letter: string) {
+    if (!availableLetters.has(letter)) return;
+    if (activeLetter === letter) {
+      // Second click deactivates filter, scroll to section
+      setActiveLetter(null);
+      document
+        .getElementById(`letter-${letter}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      setActiveLetter(letter);
+      // Scroll to top of glossary content after filter
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
 
   const url = `${SITE_URL}/knowledge-hub/glossary`;
   const jsonLd = buildDefinedTermSetJsonLd("Alternative Provision Glossary", url, terms);
@@ -96,70 +116,55 @@ export default function Glossary() {
       </header>
 
       <div className="container mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
-          <div className="min-w-0 space-y-8">
-            {/* Search + A–Z */}
-            <div className="rounded-2xl border border-border bg-card p-5 md:p-6 space-y-5 sticky top-20 z-10 shadow-sm">
-              <label className="block">
-                <span className="sr-only">Search glossary</span>
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="search"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search terms or definitions…"
-                    className="w-full rounded-full border border-input bg-background pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
-                  />
-                </div>
-              </label>
-              <div className="flex flex-wrap gap-1.5" role="navigation" aria-label="Glossary A to Z">
-                {ALPHABET.map((letter) => {
-                  const enabled = availableLetters.has(letter);
-                  return (
-                    <a
-                      key={letter}
-                      href={enabled ? `#letter-${letter}` : undefined}
-                      onClick={(e) => {
-                        if (!enabled) {
-                          e.preventDefault();
-                          return;
-                        }
-                        e.preventDefault();
-                        document
-                          .getElementById(`letter-${letter}`)
-                          ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                      }}
-                      aria-disabled={!enabled}
-                      className={
-                        "w-8 h-8 inline-flex items-center justify-center rounded-md text-xs font-semibold transition-colors " +
-                        (enabled
-                          ? "bg-secondary hover:bg-primary hover:text-primary-foreground text-foreground cursor-pointer"
-                          : "bg-muted/40 text-muted-foreground/40 cursor-not-allowed")
-                      }
-                    >
-                      {letter}
-                    </a>
-                  );
-                })}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                {filtered.length} of {terms.length} terms
-              </p>
+        {/* Search bar — not sticky */}
+        <div className="mb-8">
+          <label className="block">
+            <span className="sr-only">Search glossary</span>
+            <div className="relative max-w-xl">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setActiveLetter(null);
+                }}
+                placeholder="Search terms or definitions…"
+                className="w-full rounded-full border border-input bg-background pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
+              />
             </div>
+          </label>
+          <p className="text-xs text-muted-foreground mt-2 ml-1">
+            {filtered.length} of {terms.length} terms
+            {activeLetter && (
+              <span className="ml-2">
+                · Showing letter <strong className="text-primary">{activeLetter}</strong>
+                <button
+                  onClick={() => setActiveLetter(null)}
+                  className="ml-2 text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+                >
+                  Show all
+                </button>
+              </span>
+            )}
+          </p>
+        </div>
 
-            {grouped.length === 0 ? (
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-14 items-start">
+          {/* Main content */}
+          <div className="min-w-0 space-y-8">
+            {displayedGroups.length === 0 ? (
               <div className="rounded-xl border border-dashed border-border p-10 text-center">
                 <p className="text-muted-foreground">
                   No terms match <strong className="text-foreground">{query}</strong>.
                 </p>
-                <Button variant="outline" className="mt-4" onClick={() => setQuery("")}>
+                <Button variant="outline" className="mt-4" onClick={() => { setQuery(""); setActiveLetter(null); }}>
                   Clear search
                 </Button>
               </div>
             ) : (
-              grouped.map(([letter, items]) => (
-                <section key={letter} id={`letter-${letter}`} className="scroll-mt-32">
+              displayedGroups.map(([letter, items]) => (
+                <section key={letter} id={`letter-${letter}`} className="scroll-mt-28">
                   <div className="flex items-baseline gap-3 mb-4">
                     <h2 className="font-display text-3xl font-bold text-primary">{letter}</h2>
                     <span className="text-xs text-muted-foreground uppercase tracking-widest">
@@ -171,7 +176,7 @@ export default function Glossary() {
                       <article
                         key={item.slug}
                         id={item.slug}
-                        className="p-5 bg-card rounded-xl border border-border scroll-mt-32 hover:border-primary/40 transition-colors"
+                        className="p-5 bg-card rounded-xl border border-border scroll-mt-28 hover:border-primary/40 transition-colors"
                       >
                         <h3 className="text-base font-bold text-foreground mb-1.5">{item.term}</h3>
                         <p className="text-sm text-muted-foreground leading-relaxed">
@@ -204,26 +209,96 @@ export default function Glossary() {
             </section>
           </div>
 
-          <ContentSidebar
-            toc={grouped.map(([l]) => ({ id: `letter-${l}`, label: l, level: 2 }))}
-            ctas={[
-              {
-                label: "Make a Referral",
-                description: "Refer a young person in 4 steps",
-                href: "/referral",
-                tone: "primary",
-              },
-              {
-                label: "Browse Knowledge Hub",
-                description: "All categories and resources",
-                href: "/knowledge-hub",
-              },
-            ]}
-            quickContact={{
-              phone: "01782 365365",
-              email: "info@pathwayacademyzone.co.uk",
-            }}
-          />
+          {/* Sidebar with A-Z navigation */}
+          <aside aria-label="Glossary navigation" className="lg:sticky lg:top-24 space-y-6 self-start">
+            {/* A-Z letter navigator */}
+            <nav
+              aria-label="Glossary A to Z"
+              className="rounded-2xl border border-border bg-card p-5"
+            >
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+                Browse A–Z
+              </p>
+              <div className="grid grid-cols-6 gap-1.5">
+                {ALPHABET.map((letter) => {
+                  const enabled = availableLetters.has(letter);
+                  const isActive = activeLetter === letter;
+                  return (
+                    <button
+                      key={letter}
+                      type="button"
+                      onClick={() => handleLetterClick(letter)}
+                      disabled={!enabled}
+                      aria-pressed={isActive}
+                      aria-label={`Filter by ${letter}${!enabled ? " (no terms)" : ""}`}
+                      className={
+                        "w-8 h-8 inline-flex items-center justify-center rounded-md text-xs font-semibold transition-all duration-200 " +
+                        (isActive
+                          ? "bg-primary text-primary-foreground shadow-sm ring-2 ring-primary/40"
+                          : enabled
+                          ? "bg-secondary hover:bg-primary hover:text-primary-foreground text-foreground cursor-pointer hover:scale-105"
+                          : "bg-muted/40 text-muted-foreground/40 cursor-not-allowed")
+                      }
+                    >
+                      {letter}
+                    </button>
+                  );
+                })}
+              </div>
+              {activeLetter && (
+                <button
+                  onClick={() => setActiveLetter(null)}
+                  className="mt-3 w-full text-xs text-center text-muted-foreground hover:text-primary transition-colors underline underline-offset-2"
+                >
+                  Clear filter · show all
+                </button>
+              )}
+            </nav>
+
+            {/* CTAs */}
+            <div className="space-y-3">
+              <Link
+                to="/referral"
+                className="group block rounded-2xl p-5 transition-all bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                <p className="font-display font-semibold">Make a Referral</p>
+                <p className="text-sm mt-1 text-primary-foreground/80">Refer a young person in 4 steps</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium">
+                  Learn more <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+              <Link
+                to="/knowledge-hub"
+                className="group block rounded-2xl p-5 transition-all border border-border bg-card hover:border-primary/40"
+              >
+                <p className="font-display font-semibold">Browse Knowledge Hub</p>
+                <p className="text-sm mt-1 text-muted-foreground">All categories and resources</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium">
+                  Learn more <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+            </div>
+
+            {/* Quick contact */}
+            <div className="rounded-2xl border border-border bg-muted/50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                Need to speak to us?
+              </p>
+              <a
+                href="tel:01782365365"
+                className="flex items-center gap-2 text-foreground font-medium hover:text-primary transition-colors content-link"
+              >
+                <Phone className="h-4 w-4 text-primary" />
+                01782 365365
+              </a>
+              <a
+                href="mailto:info@pathwayacademyzone.co.uk"
+                className="block text-sm text-muted-foreground hover:text-primary transition-colors mt-1 content-link"
+              >
+                info@pathwayacademyzone.co.uk
+              </a>
+            </div>
+          </aside>
         </div>
       </div>
     </Layout>

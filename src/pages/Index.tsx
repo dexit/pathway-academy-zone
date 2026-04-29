@@ -47,18 +47,27 @@ const faqs = [
 ];
 
 export default function HomePage() {
+  const BASE = "https://pathwayacademyzone.co.uk";
+  const ORG_ID = `${BASE}/#organization`;
+
   const orgJsonLd = {
     "@context": "https://schema.org",
-    "@type": ["EducationalOrganization", "Organization"],
-    "@id": "https://pathwayacademyzone.co.uk/#organization",
+    "@type": ["EducationalOrganization", "LocalBusiness"],
+    "@id": ORG_ID,
     name: "Pathway Academy Zone",
     alternateName: "PAZ",
-    url: "https://pathwayacademyzone.co.uk",
-    logo: "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png",
-    description:
-      "Alternative Provision in Stoke-on-Trent for ages 11–16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities.",
+    url: BASE,
+    logo: {
+      "@type": "ImageObject",
+      url: `${BASE}/assets/PAZlogo-BYea4nq1.png`,
+      width: 512,
+      height: 512,
+    },
+    image: `${BASE}/assets/hero-classroom.jpg`,
+    description: "Alternative Provision in Stoke-on-Trent for ages 11–16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities.",
     telephone: "+44-1782-365365",
     email: "info@pathwayacademyzone.co.uk",
+    priceRange: "Free for referred learners",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Duncalf Street, Burslem",
@@ -67,9 +76,35 @@ export default function HomePage() {
       addressRegion: "Staffordshire",
       addressCountry: "GB",
     },
-    areaServed: { "@type": "AdministrativeArea", name: "Staffordshire" },
+    geo: { "@type": "GeoCoordinates", latitude: 53.044, longitude: -2.181 },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        opens: "08:30",
+        closes: "16:00",
+      },
+    ],
+    areaServed: [
+      { "@type": "City", name: "Stoke-on-Trent" },
+      { "@type": "AdministrativeArea", name: "Staffordshire" },
+      { "@type": "City", name: "Stafford" },
+      { "@type": "City", name: "Newcastle-under-Lyme" },
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Alternative Provision Programmes",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "SEMH Support Programme", description: "Specialist support for Social, Emotional and Mental Health needs" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Re-engagement Programme", description: "Helping disengaged learners reconnect with education" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Vocational Pathways", description: "Practical skills-based learning for career readiness" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Pastoral & Mentoring Support", description: "1:1 mentoring and pastoral care for young people" } },
+      ],
+    },
     sameAs: [
+      "https://www.facebook.com/PathwayAcademyZone",
       "https://www.linkedin.com/company/pathway-academy-zone",
+      "https://twitter.com/PathwayAcademyZ",
     ],
   };
 
@@ -83,7 +118,43 @@ export default function HomePage() {
     })),
   };
 
-  const homeJsonLd = [orgJsonLd, faqJsonLd];
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE },
+    ],
+  };
+
+  const servicesJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Pathway Academy Zone Services",
+    description: "Alternative Provision programmes and support services",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "SEMH Programmes", url: `${BASE}/programmes` },
+      { "@type": "ListItem", position: 2, name: "Make a Referral", url: `${BASE}/referral` },
+      { "@type": "ListItem", position: 3, name: "Safeguarding", url: `${BASE}/safeguarding` },
+      { "@type": "ListItem", position: 4, name: "Knowledge Hub", url: `${BASE}/knowledge-hub` },
+      { "@type": "ListItem", position: 5, name: "Outcomes & Impact", url: `${BASE}/outcomes` },
+    ],
+  };
+
+  const coursesJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: "Alternative Provision Programme",
+    description: "Specialist education for young people aged 11-16 who have been excluded or are at risk of exclusion from mainstream schools in Staffordshire.",
+    provider: { "@id": ORG_ID },
+    educationalLevel: "Key Stage 3, Key Stage 4",
+    teaches: ["SEMH support", "Vocational skills", "Academic reintegration", "Pastoral development"],
+    availableLanguage: "English",
+    inLanguage: "en-GB",
+    coursePrerequisites: "Referral from school, local authority, or social worker",
+    url: `${BASE}/programmes`,
+  };
+
+  const homeJsonLd = [orgJsonLd, faqJsonLd, breadcrumbJsonLd, servicesJsonLd, coursesJsonLd];
 
   return (
     <Layout>
@@ -103,7 +174,8 @@ export default function HomePage() {
             width="1920"
             height="1080"
             fetchPriority="high"
-            decoding="async"
+            decoding="sync"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-foreground/60" />
         </div>
@@ -161,9 +233,9 @@ export default function HomePage() {
               </Button>
             </motion.div>
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-2 gap-4">
-              <img src={classroomImg} alt="Students at careers fair" className="rounded-2xl shadow-lg w-full h-64 object-cover" loading="lazy" />
-              <img src={vocationalImg} alt="Young people exploring apprenticeships" className="rounded-2xl shadow-lg w-full h-64 object-cover mt-8" loading="lazy" />
-              <img src={mentoringImg} alt="Young people at careers stand" className="rounded-2xl shadow-lg w-full h-64 object-cover col-span-2" loading="lazy" />
+              <img src={classroomImg} alt="Students engaged in learning at Pathway Academy Zone classroom" width="600" height="256" className="rounded-2xl shadow-lg w-full h-64 object-cover" loading="lazy" decoding="async" />
+              <img src={vocationalImg} alt="Young people exploring vocational and apprenticeship pathways" width="600" height="256" className="rounded-2xl shadow-lg w-full h-64 object-cover mt-8" loading="lazy" decoding="async" />
+              <img src={mentoringImg} alt="One-to-one mentoring session supporting young people's development" width="1200" height="256" className="rounded-2xl shadow-lg w-full h-64 object-cover col-span-2" loading="lazy" decoding="async" />
             </motion.div>
           </div>
         </div>
