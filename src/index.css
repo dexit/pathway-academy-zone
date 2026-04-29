@@ -133,6 +133,8 @@
 
   html {
     scroll-behavior: smooth;
+    /* Prevent horizontal scroll caused by any overflowing child */
+    overflow-x: hidden;
   }
 
   body {
@@ -141,6 +143,10 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Belt-and-braces horizontal-scroll guard */
+    overflow-x: hidden;
+    /* Minimum comfortable touch target line-height */
+    -webkit-text-size-adjust: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -171,5 +177,52 @@
   .text-gradient-primary {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--teal-dark)));
+  }
+}
+
+@layer components {
+  /* Animated underline for inline content links */
+  .content-link {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+  }
+  .content-link:hover,
+  .content-link:focus-visible {
+    text-decoration-color: hsl(var(--primary));
+  }
+  .content-link:active {
+    text-decoration-color: hsl(var(--teal-dark));
+    color: hsl(var(--teal-dark));
+  }
+  .dark .content-link {
+    color: hsl(var(--primary));
+  }
+  .dark .content-link:hover,
+  .dark .content-link:focus-visible {
+    text-decoration-color: hsl(var(--primary));
+  }
+
+  /* Apply to bare <a> tags inside prose-like content containers */
+  .prose-content a:not([class]) {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    font-weight: 500;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+  }
+  .prose-content a:not([class]):hover,
+  .prose-content a:not([class]):focus-visible {
+    text-decoration-color: hsl(var(--primary));
+  }
+  .prose-content a:not([class]):active {
+    color: hsl(var(--teal-dark));
+    text-decoration-color: hsl(var(--teal-dark));
   }
 }

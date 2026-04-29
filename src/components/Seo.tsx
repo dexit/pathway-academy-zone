@@ -126,7 +126,10 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
                 {c.label}
               </span>
             ) : (
-              <Link to={c.to} className="hover:text-foreground transition-colors">
+              <Link
+                to={c.to}
+                className="hover:text-foreground transition-colors underline decoration-transparent hover:decoration-current underline-offset-2 decoration-[1.5px] duration-200"
+              >
                 {c.label}
               </Link>
             )}

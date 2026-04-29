@@ -86,7 +86,10 @@ Pathway Academy Zone is an Alternative Provision specialist in Staffordshire foc
               <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.path}>
-                    <Link to={link.path} className="text-sm hover:text-primary transition-colors">
+                    <Link
+                      to={link.path}
+                      className="text-sm text-background/70 dark:text-foreground/70 hover:text-primary dark:hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200"
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -114,9 +117,9 @@ Pathway Academy Zone is an Alternative Provision specialist in Staffordshire foc
         <div className="border-t dark:border-foreground/10 border-background/10 mt-8 pt-6 flex flex-col md:flex-row gap-3 items-center justify-between text-sm text-background/40 dark:text-foreground/40">
           <p>© {new Date().getFullYear()} Pathway AcademyZone. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <Link to="/policies" className="hover:text-primary transition-colors">Policies</Link>
-            <Link to="/safeguarding" className="hover:text-primary transition-colors">Safeguarding</Link>
-            <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
+            <Link to="/policies" className="hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200">Policies</Link>
+            <Link to="/safeguarding" className="hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200">Safeguarding</Link>
+            <Link to="/contact" className="hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200">Contact</Link>
           </div>
         </div>
       </div>
