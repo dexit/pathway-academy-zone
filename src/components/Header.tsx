@@ -1,75 +1,243 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Menu, X, Phone, ChevronDown, Search as SearchIcon } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useRef, useCallback } from "react";
+import {
+  Menu, X, Phone, ChevronDown, Search as SearchIcon,
+  Building2, Users, MapPin, Handshake, Briefcase,
+  GraduationCap, BarChart3, BookOpen, FileText, Star,
+  BookMarked, ClipboardList, Shield, HelpCircle, ArrowRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import SearchBar from "@/components/SearchBar";
 import ThemeToggle from "@/components/ThemeToggle";
 
-const navLinks = [
+// ─── Types ────────────────────────────────────────────────────────────────────
+interface NavChild {
+  label: string;
+  path: string;
+  description?: string;
+  icon?: React.ElementType;
+  highlight?: boolean;
+}
+
+interface NavItem {
+  label: string;
+  path?: string;
+  children?: NavChild[];
+  /** "wide" renders a 2-col grid; "xl" renders a 3-col grid */
+  megaSize?: "wide" | "xl";
+  /** Promo panel shown on the right side of wide/xl dropdowns */
+  promo?: { heading: string; body: string; cta: string; ctaPath: string };
+}
+
+// ─── Nav data ─────────────────────────────────────────────────────────────────
+const navLinks: NavItem[] = [
   { label: "Home", path: "/" },
   {
     label: "About Us",
-   // path: "/about",
+    megaSize: "wide",
+    promo: {
+      heading: "Discover Pathway Academy Zone",
+      body:    "A Staffordshire Alternative Provision specialist committed to safeguarding and positive outcomes.",
+      cta:     "Read our story",
+      ctaPath: "/about",
+    },
     children: [
-      //{ label: "About Us", path: "/about" },
-      //{ label: "Our Team", path: "/team" },
-      //{ label: "Our Centres", path: "/centres" },
-      //{ label: "Outcomes & Impact", path: "/outcomes" },
-            { label: "About Us", path: "/about" },
-      { label: "Our Team", path: "/team" },
-        { label: "Partners", path: "/partners" },
-    
-      // label: "Outcomes & Impact", path: "/outcomes" },
-  
-      { label: "Centres", path: "/centres" },
-          { label: "Careers", path: "/careers" },
+      { label: "About Us",       path: "/about",    description: "Our story, values and approach",     icon: Building2 },
+      { label: "Our Team",       path: "/team",     description: "Meet the people behind PAZ",          icon: Users },
+      { label: "Our Centres",    path: "/centres",  description: "View our provision sites",            icon: MapPin },
+      { label: "Partners",       path: "/partners", description: "Schools and agencies we work with",   icon: Handshake },
+      { label: "Careers",        path: "/careers",  description: "Join our growing team",               icon: Briefcase },
     ],
   },
-  { label: "Programmes",
+  {
+    label: "Programmes",
+    megaSize: "wide",
+    promo: {
+      heading: "Ready to refer a young person?",
+      body:    "Our admissions team can guide you through the full process — no obligation.",
+      cta:     "Start a referral",
+      ctaPath: "/referral",
+    },
     children: [
-    { label: "Programmes", path: "/programmes" },
-    { label: "Outcomes", path: "/outcomes" },
+      { label: "Our Programmes",   path: "/programmes", description: "Full overview of all AP programmes",       icon: GraduationCap, highlight: true },
+      { label: "Outcomes & Impact", path: "/outcomes",  description: "Pupil progress data and success stories",  icon: BarChart3 },
     ],
   },
   {
     label: "Knowledge Hub",
+    megaSize: "xl",
+    promo: {
+      heading: "Complete Guide to AP",
+      body:    "Our 15-minute definitive guide covering every step from referral triggers to progression routes.",
+      cta:     "Read the guide",
+      ctaPath: "/knowledge-hub/complete-guide",
+    },
     children: [
-      { label: "Knowledge Hub", path: "/knowledge-hub" },
-      { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
-      
-      { label: "Best Practice", path: "/knowledge-hub/best-practice" }, // Best Practice
-       { label: "Glossary", path: "/knowledge-hub/glossary" },
-     // { label: "Blog", path: "/blog" },
-      //{ label: "News", path: "/news" },
-     
+      { label: "Knowledge Hub",    path: "/knowledge-hub",              description: "Browse all AP resources",          icon: BookOpen, highlight: true },
+      { label: "Complete Guide",   path: "/knowledge-hub/complete-guide", description: "The full AP journey in one place", icon: FileText },
+      { label: "Best Practice",    path: "/knowledge-hub/best-practice",  description: "Evidence-based AP guidance",       icon: Star },
+      { label: "Glossary",         path: "/knowledge-hub/glossary",        description: "A–Z of AP & SEMH terminology",    icon: BookMarked },
+      { label: "FAQs",             path: "/faqs",                          description: "Quick answers to common questions", icon: HelpCircle },
     ],
   },
   {
     label: "Support",
+    megaSize: "wide",
+    promo: {
+      heading: "Need guidance?",
+      body:    "Call our team on 01782 365365 — Mon–Fri 8 am–5 pm. We are happy to help.",
+      cta:     "Contact us",
+      ctaPath: "/contact",
+    },
     children: [
-        { label: "Referral Process", path: "/referral" },
-      { label: "Safeguarding", path: "/safeguarding" },
-       { label: "FAQs", path: "/faqs" },
-
-    //  { label: "Partners", path: "/partners" },
-     // { label: "Policies", path: "/policies" },
+      { label: "Referral Process", path: "/referral",     description: "How to refer a young person",      icon: ClipboardList, highlight: true },
+      { label: "Safeguarding",     path: "/safeguarding", description: "Our commitment to pupil safety",   icon: Shield },
+      { label: "FAQs",             path: "/faqs",         description: "Quick answers to common questions", icon: HelpCircle },
     ],
   },
-  //{ label: "Careers", path: "/careers" },
   { label: "Contact", path: "/contact" },
 ];
 
-export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [searchOpen, setSearchOpen] = useState(false);
+// ─── Dropdown animation variants ──────────────────────────────────────────────
+const dropdownVariants = {
+  hidden: { opacity: 0, y: 6, scale: 0.98 },
+  show:   { opacity: 1, y: 0, scale: 1,   transition: { duration: 0.18, ease: [0.16, 1, 0.3, 1] } },
+  exit:   { opacity: 0, y: 4, scale: 0.98, transition: { duration: 0.12, ease: "easeIn" } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -6 },
+  show:   (i: number) => ({ opacity: 1, x: 0, transition: { duration: 0.18, delay: i * 0.035 } }),
+};
+
+// ─── Mega dropdown ────────────────────────────────────────────────────────────
+function MegaDropdown({ item, active }: { item: NavItem; active: boolean }) {
   const location = useLocation();
-  const navigate = useNavigate();
+  const isXl   = item.megaSize === "xl";
+  const isWide = item.megaSize === "wide" || isXl;
+
+  return (
+    <AnimatePresence>
+      {active && (
+        /*
+         * The wrapper starts at top-full with zero gap so the mouse never
+         * leaves the parent container as it travels from the trigger button
+         * down to the card. The visual breathing room comes from pt-2 inside.
+         */
+        <motion.div
+          variants={dropdownVariants}
+          initial="hidden"
+          animate="show"
+          exit="exit"
+          className={`absolute top-full left-0 pt-2 z-50 ${
+            isXl ? "w-[600px]" : isWide ? "w-[480px]" : "w-56"
+          }`}
+          role="region"
+          aria-label={`${item.label} menu`}
+        >
+          <div className="rounded-2xl bg-card border border-border shadow-xl shadow-black/10 overflow-hidden">
+            <div className={`p-4 ${isWide ? "flex gap-0" : ""}`}>
+
+              {/* Links column(s) */}
+              <ul
+                className={`flex-1 grid gap-1 ${
+                  isXl ? "grid-cols-2" : "grid-cols-1"
+                }`}
+              >
+                {item.children!.map((child, i) => {
+                  const Icon    = child.icon;
+                  const current = location.pathname === child.path;
+                  return (
+                    <motion.li key={child.path} custom={i} variants={itemVariants} initial="hidden" animate="show">
+                      <Link
+                        to={child.path}
+                        aria-current={current ? "page" : undefined}
+                        className={`group flex items-start gap-3 rounded-xl px-3 py-2.5 transition-colors ${
+                          current
+                            ? "bg-primary/10 text-primary"
+                            : "hover:bg-muted text-foreground"
+                        }`}
+                      >
+                        {Icon && (
+                          <span className={`mt-0.5 flex-shrink-0 rounded-lg p-1.5 transition-colors ${
+                            current
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
+                          }`}>
+                            <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                          </span>
+                        )}
+                        <span className="min-w-0">
+                          <span className={`block text-sm font-semibold leading-snug ${
+                            current ? "text-primary" : "text-foreground group-hover:text-primary"
+                          } transition-colors`}>
+                            {child.label}
+                          </span>
+                          {child.description && (
+                            <span className="block text-xs text-muted-foreground mt-0.5 leading-snug">
+                              {child.description}
+                            </span>
+                          )}
+                        </span>
+                      </Link>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+
+              {/* Promo panel */}
+              {isWide && item.promo && (
+                <div className="w-[170px] flex-shrink-0 ml-3 pl-3 border-l border-border flex flex-col justify-between">
+                  <div>
+                    <p className="text-xs font-bold text-foreground leading-snug mb-1.5">
+                      {item.promo.heading}
+                    </p>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed">
+                      {item.promo.body}
+                    </p>
+                  </div>
+                  <Link
+                    to={item.promo.ctaPath}
+                    className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+                  >
+                    {item.promo.cta}
+                    <ArrowRight className="h-3 w-3" aria-hidden="true" />
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+export default function Header() {
+  const [mobileOpen,   setMobileOpen]   = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [searchOpen,   setSearchOpen]   = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const location   = useLocation();
+
+  const open  = useCallback((label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenDropdown(label);
+  }, []);
+
+  const close = useCallback(() => {
+    // Small delay allows the mouse to travel from trigger into the dropdown
+    // without the dropdown collapsing (belt-and-suspenders with the pt-2 trick).
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 80);
+  }, []);
 
   return (
     <header className="fixed top-0 w-full z-50 bg-background border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-20 px-4 gap-4">
+
+        {/* Logo */}
         <Link to="/" className="flex items-center shrink-0">
           <img
             src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
@@ -83,55 +251,33 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1">
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
           {navLinks.map((link) =>
             link.children ? (
               <div
                 key={link.label}
                 className="relative"
-                onMouseEnter={() => setOpenDropdown(link.label)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                onMouseEnter={() => open(link.label)}
+                onMouseLeave={close}
               >
                 <button
-                  className="px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 text-muted-foreground hover:text-foreground hover:bg-muted"
+                  aria-haspopup="true"
+                  aria-expanded={openDropdown === link.label}
+                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 ${
+                    openDropdown === link.label
+                      ? "text-foreground bg-muted"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
                 >
                   {link.label}
-                  <ChevronDown className="h-3.5 w-3.5" />
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                      openDropdown === link.label ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
-                <AnimatePresence>
-                  {openDropdown === link.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 mt-1 w-52 bg-card rounded-xl shadow-lg border border-border py-2"
-                    >
-                      {link.children.map((child, idx) => (
-                        <motion.div
-                          key={child.path}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.2, delay: idx * 0.04 }}
-                        >
-                          <Link
-                            to={child.path}
-                            title={child.label}
-                            rel="next"
-                            aria-current={location.pathname === child.path ? "page" : undefined}
-                            className={`block px-4 py-2.5 mx-2 my-1 rounded-xl text-sm transition-colors ${
-                              location.pathname === child.path
-                                ? "text-primary bg-secondary"
-                                : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                            }`}
-                          >
-                            {child.label}
-                          </Link>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <MegaDropdown item={link} active={openDropdown === link.label} />
               </div>
             ) : (
               <Link
@@ -140,7 +286,7 @@ export default function Header() {
                 title={link.label}
                 rel={link.path === "/" ? "home" : undefined}
                 aria-current={location.pathname === link.path ? "page" : undefined}
-                className={`px-3 py-2 mx-2 text-sm font-medium rounded-xl transition-colors ${
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                   location.pathname === link.path
                     ? "text-primary bg-secondary"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -152,6 +298,7 @@ export default function Header() {
           )}
         </nav>
 
+        {/* Desktop actions */}
         <div className="hidden lg:flex items-center gap-3 shrink-0">
           <button
             onClick={() => setSearchOpen((s) => !s)}
@@ -177,6 +324,7 @@ export default function Header() {
           </Button>
         </div>
 
+        {/* Mobile actions */}
         <div className="lg:hidden flex items-center gap-0.5">
           <button
             onClick={() => setSearchOpen((s) => !s)}
@@ -199,6 +347,7 @@ export default function Header() {
         </div>
       </div>
 
+      {/* Search bar */}
       <AnimatePresence>
         {searchOpen && (
           <motion.div
@@ -215,6 +364,7 @@ export default function Header() {
         )}
       </AnimatePresence>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -223,9 +373,6 @@ export default function Header() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="lg:hidden bg-card border-b border-border"
-            // No overflow:hidden here — Framer Motion handles clipping during the
-            // height animation internally. After animation the outer wrapper must
-            // be overflow-visible so the inner nav's overflow-y-auto can scroll.
           >
             <nav
               id="mobile-nav"
@@ -247,12 +394,13 @@ export default function Header() {
                         title={child.label}
                         rel="next"
                         aria-current={location.pathname === child.path ? "page" : undefined}
-                        className={`block px-6 py-3 mx-2 rounded-xl text-sm font-medium transition-colors min-h-[44px] flex items-center ${
+                        className={`flex items-center gap-3 px-6 py-3 mx-2 rounded-xl text-sm font-medium transition-colors min-h-[44px] ${
                           location.pathname === child.path
                             ? "text-primary bg-secondary"
                             : "text-muted-foreground hover:text-foreground hover:bg-muted"
                         }`}
                       >
+                        {child.icon && <child.icon className="h-4 w-4 shrink-0" aria-hidden="true" />}
                         {child.label}
                       </Link>
                     ))}
