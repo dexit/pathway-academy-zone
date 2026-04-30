@@ -1,13 +1,42 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
+import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
 import classroomImg from "@/assets/classroom-learning.jpg";
 import mentoringImg from "@/assets/mentoring-session.jpg";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
-// about ld+json schema needed
+
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: `About ${SITE_NAME}`,
+  url: `${SITE_URL}/about`,
+  description: "Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.",
+  mainEntity: {
+    "@type": "EducationalOrganization",
+    "@id": `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    foundingDate: "2018",
+    areaServed: [
+      { "@type": "City", name: "Stoke-on-Trent" },
+      { "@type": "City", name: "Newcastle-under-Lyme" },
+      { "@type": "City", name: "Stafford" },
+      { "@type": "AdministrativeArea", name: "Staffordshire" },
+    ],
+  },
+};
+
+const areaLinks = [
+  { name: "Stoke-on-Trent",      slug: "stoke-on-trent" },
+  { name: "Newcastle-under-Lyme",slug: "newcastle-under-lyme" },
+  { name: "Stafford",            slug: "stafford" },
+  { name: "Cannock",             slug: "cannock" },
+  { name: "Lichfield",           slug: "lichfield" },
+  { name: "Tamworth",            slug: "tamworth" },
+];
 
 
 
@@ -22,9 +51,18 @@ const values = [
 export default function About() {
   return (
     <Layout>
+      <Seo
+        title="About Us"
+        description="Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people aged 11–16 across Staffordshire."
+        jsonLd={aboutJsonLd}
+      />
       <section className="relative py-32">
         <div className="absolute inset-0"><img src={classroomImg} alt="Students learning" className="w-full h-full object-cover" /><div className="absolute inset-0 bg-foreground/60" /></div>
         <div className="container mx-auto px-4 text-center relative z-10">
+          <Breadcrumbs
+            items={[{ label: "About Us" }]}
+            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+          />
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">About Us</span>
           <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Who We Are</h1>
           <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.</p>
@@ -116,14 +154,32 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">Want to Learn More?</h2>
-          <p className="text-muted-foreground mb-8">Meet our dedicated team or explore our programmes to see how we can support your young person.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild><Link to="/team">Meet the Team <ArrowRight className="ml-1 h-4 w-4" /></Link></Button>
-            <Button asChild variant="outline"><Link to="/programmes">Our Programmes</Link></Button>
-          </div>
+      {/* Areas we serve */}
+      <section className="py-14 bg-muted/40 border-t border-border">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <h2 className="font-display text-xl font-bold text-foreground mb-2">Serving Schools Across the Region</h2>
+            <p className="text-muted-foreground text-sm mb-5">
+              We accept referrals from schools and local authorities across Staffordshire
+              and the wider West Midlands — reaching young people wherever they are.
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center mb-8">
+              {areaLinks.map((a) => (
+                <Link
+                  key={a.slug}
+                  to={`/alternative-provision/${a.slug}`}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+                >
+                  <MapPin className="h-3.5 w-3.5" />{a.name}
+                </Link>
+              ))}
+            </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Button asChild><Link to="/team">Meet the Team <ArrowRight className="ml-1 h-4 w-4" /></Link></Button>
+              <Button asChild variant="outline"><Link to="/programmes">Our Programmes</Link></Button>
+              <Button asChild variant="outline"><Link to="/referral">Make a Referral</Link></Button>
+            </div>
+          </motion.div>
         </div>
       </section>
     </Layout>

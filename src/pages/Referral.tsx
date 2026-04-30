@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -248,6 +249,36 @@ export default function Referral() {
               )}
             </form>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Areas we accept referrals from */}
+      <section className="py-12 bg-muted/40 border-t border-border">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <h2 className="font-display text-base font-semibold text-foreground mb-2">Accepting Referrals From Across the Region</h2>
+          <p className="text-muted-foreground text-sm mb-5">
+            Schools, local authorities, virtual schools and social workers from across Staffordshire
+            and the wider West Midlands are welcome to refer.
+          </p>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {[
+              { name: "Stoke-on-Trent",       slug: "stoke-on-trent" },
+              { name: "Newcastle-under-Lyme",  slug: "newcastle-under-lyme" },
+              { name: "Stafford",              slug: "stafford" },
+              { name: "Cannock",               slug: "cannock" },
+              { name: "Lichfield",             slug: "lichfield" },
+              { name: "Tamworth",              slug: "tamworth" },
+              { name: "Wolverhampton",         slug: "wolverhampton" },
+            ].map((a) => (
+              <Link
+                key={a.slug}
+                to={`/alternative-provision/${a.slug}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-1.5 text-xs text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+              >
+                <MapPin className="h-3 w-3" />{a.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </Layout>
