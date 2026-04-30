@@ -1,80 +1,106 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Linkedin, Twitter, ArrowUp } from "lucide-react";
 
-const footerLinks = {
-  provision: [
-    { label: "Our Programmes", path: "/programmes" },
-    { label: "Outcomes & Impact", path: "/outcomes" },
-    { label: "Safeguarding", path: "/safeguarding" },
-    { label: "Make a Referral", path: "/referral" },
-  ],
-  resources: [
-    { label: "Knowledge Hub", path: "/knowledge-hub" },
-    { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
-    { label: "Glossary", path: "/knowledge-hub/glossary" },
-    { label: "FAQs", path: "/faqs" },
-  ],
-  about: [
-    { label: "Who We Are", path: "/about" },
-    { label: "Our Team", path: "/team" },
-    { label: "Our Centres", path: "/centres" },
-    { label: "Partners", path: "/partners" },
-  ],
-  information: [
-    { label: "Careers", path: "/careers" },
-    { label: "Policies", path: "/policies" },
-    { label: "Contact Us", path: "/contact" },
-    { label: "Search", path: "/search" },
-  ],
-};
+// ─── Data ─────────────────────────────────────────────────────────────────────
+const footerCols = [
+  {
+    title: "Our Provision",
+    links: [
+      { label: "Our Programmes",   path: "/programmes" },
+      { label: "Outcomes & Impact", path: "/outcomes" },
+      { label: "Safeguarding",     path: "/safeguarding" },
+      { label: "Make a Referral",  path: "/referral" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Knowledge Hub",  path: "/knowledge-hub" },
+      { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
+      { label: "Glossary",       path: "/knowledge-hub/glossary" },
+      { label: "FAQs",           path: "/faqs" },
+    ],
+  },
+  {
+    title: "About Us",
+    links: [
+      { label: "Who We Are",  path: "/about" },
+      { label: "Our Team",    path: "/team" },
+      { label: "Our Centres", path: "/centres" },
+      { label: "Partners",    path: "/partners" },
+    ],
+  },
+  {
+    title: "Information",
+    links: [
+      { label: "Careers",    path: "/careers" },
+      { label: "Policies",   path: "/policies" },
+      { label: "Contact Us", path: "/contact" },
+      { label: "Search",     path: "/search" },
+    ],
+  },
+];
 
 const AREAS = [
-  { name: "Stoke-on-Trent",        slug: "stoke-on-trent" },
-  { name: "Newcastle-under-Lyme",  slug: "newcastle-under-lyme" },
-  { name: "Stafford",              slug: "stafford" },
-  { name: "Cannock",               slug: "cannock" },
-  { name: "Lichfield",             slug: "lichfield" },
-  { name: "Tamworth",              slug: "tamworth" },
-  { name: "Wolverhampton",         slug: "wolverhampton" },
-  { name: "Leek",                  slug: "leek" },
+  { name: "Stoke-on-Trent",       slug: "stoke-on-trent" },
+  { name: "Newcastle-under-Lyme", slug: "newcastle-under-lyme" },
+  { name: "Stafford",             slug: "stafford" },
+  { name: "Cannock",              slug: "cannock" },
+  { name: "Lichfield",            slug: "lichfield" },
+  { name: "Tamworth",             slug: "tamworth" },
+  { name: "Wolverhampton",        slug: "wolverhampton" },
+  { name: "Leek",                 slug: "leek" },
 ];
 
 const socials = [
-  { label: "Facebook",   icon: Facebook, href: "https://www.facebook.com/PathwayAcademyZone" },
-  { label: "LinkedIn",   icon: Linkedin, href: "https://www.linkedin.com/company/pathway-academy-zone" },
-  { label: "Twitter / X", icon: Twitter, href: "https://twitter.com/PathwayAcademyZ" },
+  { label: "Facebook",    icon: Facebook, href: "https://www.facebook.com/PathwayAcademyZone" },
+  { label: "LinkedIn",    icon: Linkedin, href: "https://www.linkedin.com/company/pathway-academy-zone" },
+  { label: "Twitter / X", icon: Twitter,  href: "https://twitter.com/PathwayAcademyZ" },
 ];
 
-const linkClass =
-  "text-sm text-background/70 dark:text-foreground/70 hover:text-primary dark:hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200";
+// ─── Shared token aliases (footer is always dark) ────────────────────────────
+// White with various opacity levels, accent (primary green) for interactive elements.
+const col  = "text-white/55 hover:text-primary transition-colors duration-200";
+const head = "text-xs font-semibold uppercase tracking-widest text-primary mb-4";
 
+// ─── Footer ──────────────────────────────────────────────────────────────────
 export default function Footer() {
   return (
-    <footer className="bg-foreground text-background/80 dark:bg-background dark:text-foreground/80">
-      <div className="container mx-auto px-4 py-16 space-y-12">
+    <footer className="relative bg-[hsl(160,22%,9%)] text-white/70">
 
-        {/* ── Main columns ─────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
+      {/* Top accent gradient bar */}
+      <div
+        aria-hidden="true"
+        className="h-[3px] w-full bg-gradient-to-r from-transparent via-primary to-transparent opacity-60"
+      />
+
+      <div className="container mx-auto px-4 pt-14 pb-10 space-y-12">
+
+        {/* ── Brand + nav columns ───────────────────────────────────────── */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-10">
+
           {/* Brand */}
-          <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center mb-6" aria-label="Pathway Academy Zone home">
+          <div className="col-span-2 md:col-span-3 lg:col-span-2">
+            <Link to="/" aria-label="Pathway Academy Zone home" className="inline-block mb-5">
               <img
                 src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
                 alt="Pathway Academy Zone"
-                title="Pathway Academy Zone"
-                className="h-16 w-auto brightness-0 invert"
+                className="h-14 w-auto brightness-0 invert opacity-90"
                 width="160"
-                height="64"
+                height="56"
                 loading="lazy"
                 decoding="async"
               />
             </Link>
-            <p className="text-sm leading-relaxed mb-6 text-background/60 dark:text-foreground/60 max-w-xs">
-              Pathway Academy Zone is an Alternative Provision specialist in Staffordshire focused on
-              safeguarding, engagement, and positive outcomes for young people who cannot thrive in
-              mainstream education.
+
+            <p className="text-sm leading-relaxed text-white/45 max-w-[17rem] mb-6">
+              Alternative Provision specialist in Staffordshire — safeguarding,
+              engagement, and positive outcomes for young people outside mainstream
+              education.
             </p>
-            <div className="flex items-center gap-2">
+
+            {/* Socials */}
+            <div className="flex items-center gap-2 mb-6">
               {socials.map((s) => (
                 <a
                   key={s.label}
@@ -83,29 +109,46 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={`${s.label} (opens in new tab)`}
                   title={s.label}
-                  className="h-9 w-9 inline-flex items-center justify-center rounded-full border dark:border-foreground/20 dark:hover:border-primary dark:hover:text-primary border-background/20 hover:border-primary hover:text-primary transition-colors"
+                  className="h-9 w-9 inline-flex items-center justify-center rounded-full border border-white/10 text-white/40 hover:border-primary hover:text-primary transition-colors duration-200"
                 >
                   <s.icon className="h-4 w-4" aria-hidden="true" />
                 </a>
               ))}
             </div>
+
+            {/* Quick contact */}
+            <div className="space-y-2">
+              <a
+                href="tel:+441782365365"
+                className="flex items-center gap-2 text-sm text-white/55 hover:text-primary transition-colors"
+              >
+                <Phone className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
+                01782 365365
+              </a>
+              <a
+                href="mailto:info@pathwayacademyzone.co.uk"
+                className="flex items-center gap-2 text-sm text-white/55 hover:text-primary transition-colors"
+              >
+                <Mail className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
+                info@pathwayacademyzone.co.uk
+              </a>
+              <div className="flex items-start gap-2 text-sm text-white/45">
+                <MapPin className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+                <address className="not-italic leading-snug">
+                  Duncalf St, Burslem<br />Stoke-on-Trent ST6 3LJ
+                </address>
+              </div>
+            </div>
           </div>
 
-          {/* Link columns */}
-          {[
-            { title: "Our Provision",  links: footerLinks.provision },
-            { title: "Resources",      links: footerLinks.resources },
-            { title: "About Us",       links: footerLinks.about },
-            { title: "Information",    links: footerLinks.information },
-          ].map((col) => (
-            <div key={col.title}>
-              <h4 className="font-display text-base font-semibold text-background dark:text-primary mb-4">
-                {col.title}
-              </h4>
-              <ul className="space-y-3">
-                {col.links.map((link) => (
+          {/* Nav columns */}
+          {footerCols.map((col_) => (
+            <div key={col_.title}>
+              <h4 className={head}>{col_.title}</h4>
+              <ul className="space-y-2.5">
+                {col_.links.map((link) => (
                   <li key={link.path}>
-                    <Link to={link.path} className={linkClass}>
+                    <Link to={link.path} className={`text-sm ${col}`}>
                       {link.label}
                     </Link>
                   </li>
@@ -115,63 +158,52 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* ── Areas We Serve ───────────────────────────────────────── */}
-        <div className="border-t border-background/10 dark:border-foreground/10 pt-10">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-            <div className="shrink-0">
-              <p className="text-xs font-semibold uppercase tracking-widest text-background/40 dark:text-foreground/40 mb-1">
-                Areas We Serve
-              </p>
-              <p className="text-[11px] text-background/30 dark:text-foreground/30 max-w-[11rem]">
-                Staffordshire &amp; West Midlands
-              </p>
-            </div>
-            <nav aria-label="Areas we serve" className="flex flex-wrap gap-2">
-              {AREAS.map((area) => (
-                <Link
-                  key={area.slug}
-                  to={`/alternative-provision/${area.slug}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-background/15 dark:border-foreground/15 text-background/60 dark:text-foreground/60 hover:border-primary hover:text-primary dark:hover:text-primary transition-colors duration-200"
-                >
-                  <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
-                  {area.name}
-                </Link>
-              ))}
-            </nav>
-          </div>
+        {/* ── Areas We Serve ────────────────────────────────────────────── */}
+        <div className="border-t border-white/8 pt-10">
+          <p className={head}>Areas We Serve</p>
+          <nav aria-label="Areas we serve" className="flex flex-wrap gap-2">
+            {AREAS.map((area) => (
+              <Link
+                key={area.slug}
+                to={`/alternative-provision/${area.slug}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-white/10 text-white/50 hover:border-primary/60 hover:text-primary hover:bg-primary/5 transition-all duration-200"
+              >
+                <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
+                {area.name}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        {/* ── Contact bar ──────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm border-t border-background/10 dark:border-foreground/10 pt-8 justify-between">
-          <div className="flex items-start gap-3 justify-start">
-            <MapPin className="h-4 w-4 mt-0.5 text-primary shrink-0" aria-hidden="true" />
-            <address className="not-italic text-background/70 dark:text-foreground/70">
-              Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ
-            </address>
-          </div>
-          <a
-            href="tel:+441782365365"
-            className="flex items-center gap-3 text-background/70 dark:text-foreground/70 dark:hover:text-primary hover:text-primary transition-colors justify-center"
-          >
-            <Phone className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
-            01782 365365
-          </a>
-          <a
-            href="mailto:info@pathwayacademyzone.co.uk"
-            className="flex items-center gap-3 text-background/70 dark:text-foreground/70 dark:hover:text-primary hover:text-primary transition-colors justify-end"
-          >
-            <Mail className="h-4 w-4 text-primary shrink-0" aria-hidden="true" />
-            info@pathwayacademyzone.co.uk
-          </a>
-        </div>
-
-        {/* ── Legal bar ────────────────────────────────────────────── */}
-        <div className="border-t dark:border-foreground/10 border-background/10 pt-6 flex flex-col md:flex-row gap-3 items-center justify-between text-sm text-background/40 dark:text-foreground/40">
+        {/* ── Legal bar ─────────────────────────────────────────────────── */}
+        <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/30">
           <p>© {new Date().getFullYear()} Pathway Academy Zone. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <Link to="/policies"     className="hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200">Policies</Link>
-            <Link to="/safeguarding" className="hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200">Safeguarding</Link>
-            <Link to="/contact"      className="hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200">Contact</Link>
+
+          <div className="flex items-center gap-5">
+            {[
+              { label: "Policies",     path: "/policies" },
+              { label: "Safeguarding", path: "/safeguarding" },
+              { label: "Contact",      path: "/contact" },
+            ].map((l) => (
+              <Link
+                key={l.path}
+                to={l.path}
+                className="hover:text-primary transition-colors duration-200"
+              >
+                {l.label}
+              </Link>
+            ))}
+
+            {/* Back to top (inline, footer-scoped) */}
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              aria-label="Back to top"
+              title="Back to top"
+              className="ml-2 inline-flex items-center gap-1 hover:text-primary transition-colors duration-200"
+            >
+              <ArrowUp className="h-3 w-3" aria-hidden="true" />
+              Top
+            </button>
           </div>
         </div>
 
