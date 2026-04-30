@@ -548,6 +548,41 @@ export default function Programmes() {
           </motion.div>
         </div>
       </section>
+
+      {/* Knowledge & Glossary cross-links */}
+      <section className="py-12 bg-muted/40 border-t border-border">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link
+              to="/knowledge-hub/guides/academic-vs-vocational"
+              className="group bg-card rounded-xl border border-border/60 p-5 hover:border-primary/40 hover:shadow-md transition-all"
+            >
+              <BookOpen className="h-5 w-5 text-primary mb-2" />
+              <p className="font-semibold text-foreground text-sm mb-1 group-hover:text-primary transition-colors">Academic vs Vocational</p>
+              <p className="text-xs text-muted-foreground">Which pathway suits your young person best?</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-xs text-primary font-medium">Read guide <ArrowRight className="h-3 w-3" /></span>
+            </Link>
+            <Link
+              to="/knowledge-hub/guides/when-to-refer"
+              className="group bg-card rounded-xl border border-border/60 p-5 hover:border-primary/40 hover:shadow-md transition-all"
+            >
+              <BookOpen className="h-5 w-5 text-primary mb-2" />
+              <p className="font-semibold text-foreground text-sm mb-1 group-hover:text-primary transition-colors">When to Refer</p>
+              <p className="text-xs text-muted-foreground">Signs that a student may benefit from AP.</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-xs text-primary font-medium">Read guide <ArrowRight className="h-3 w-3" /></span>
+            </Link>
+            <Link
+              to="/knowledge-hub/glossary"
+              className="group bg-card rounded-xl border border-border/60 p-5 hover:border-primary/40 hover:shadow-md transition-all"
+            >
+              <BookOpen className="h-5 w-5 text-primary mb-2" />
+              <p className="font-semibold text-foreground text-sm mb-1 group-hover:text-primary transition-colors">AP Glossary</p>
+              <p className="text-xs text-muted-foreground">SEMH, EHCP, PRU — key terms explained.</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-xs text-primary font-medium">Browse terms <ArrowRight className="h-3 w-3" /></span>
+            </Link>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 }

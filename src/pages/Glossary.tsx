@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Search, BookMarked, Phone } from "lucide-react";
+import { ArrowRight, Search, BookMarked, Phone, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo";
@@ -277,6 +277,31 @@ export default function Glossary() {
                   Learn more <ArrowRight className="h-3.5 w-3.5" />
                 </span>
               </Link>
+            </div>
+
+            {/* Areas we serve */}
+            <div className="rounded-2xl border border-border bg-card p-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">Areas We Serve</p>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  { name: "Stoke-on-Trent", slug: "stoke-on-trent" },
+                  { name: "Newcastle-under-Lyme", slug: "newcastle-under-lyme" },
+                  { name: "Stafford", slug: "stafford" },
+                  { name: "Cannock", slug: "cannock" },
+                  { name: "Lichfield", slug: "lichfield" },
+                  { name: "Tamworth", slug: "tamworth" },
+                  { name: "Wolverhampton", slug: "wolverhampton" },
+                  { name: "Leek", slug: "leek" },
+                ].map((a) => (
+                  <Link
+                    key={a.slug}
+                    to={`/alternative-provision/${a.slug}`}
+                    className="inline-flex items-center gap-1 text-xs text-muted-foreground border border-border rounded-full px-2.5 py-1 hover:text-primary hover:border-primary/40 transition-colors"
+                  >
+                    <MapPin className="h-2.5 w-2.5" />{a.name}
+                  </Link>
+                ))}
+              </div>
             </div>
 
             {/* Quick contact */}

@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom"
 import { ReactNode } from "react"
-import { ArrowRight, Phone } from "lucide-react"
+import { ArrowRight, Phone, MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+const AREA_LINKS = [
+  { name: "Stoke-on-Trent", slug: "stoke-on-trent" },
+  { name: "Newcastle-under-Lyme", slug: "newcastle-under-lyme" },
+  { name: "Stafford", slug: "stafford" },
+  { name: "Cannock", slug: "cannock" },
+  { name: "Lichfield", slug: "lichfield" },
+  { name: "Tamworth", slug: "tamworth" },
+  { name: "Wolverhampton", slug: "wolverhampton" },
+  { name: "Leek", slug: "leek" },
+]
 
 interface TocItem {
   id: string
@@ -122,6 +133,24 @@ export function ContentSidebar({
       )}
 
       {children}
+
+      {/* Areas we serve — helps search engines and users connect KB content to local pages */}
+      <div className="rounded-2xl border border-border bg-card p-5">
+        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+          Areas We Serve
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {AREA_LINKS.map((a) => (
+            <Link
+              key={a.slug}
+              to={`/alternative-provision/${a.slug}`}
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground border border-border rounded-full px-2.5 py-1 hover:text-primary hover:border-primary/40 transition-colors"
+            >
+              <MapPin className="h-2.5 w-2.5" />{a.name}
+            </Link>
+          ))}
+        </div>
+      </div>
     </aside>
   )
 }

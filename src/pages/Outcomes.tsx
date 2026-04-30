@@ -254,12 +254,12 @@ export default function Outcomes() {
             </motion.div>
 
             {/* Radial bar chart — key metrics */}
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-6 shadow-sm flex flex-col items-center">
-              <h3 className="text-base font-semibold text-foreground mb-1 self-start">Exit Outcomes</h3>
-              <p className="text-xs text-muted-foreground mb-4 self-start">% of leavers meeting target</p>
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-6 shadow-sm flex flex-col">
+              <h3 className="text-base font-semibold text-foreground mb-1">Exit Outcomes</h3>
+              <p className="text-xs text-muted-foreground mb-4">% of leavers meeting their target at end of placement</p>
               <ResponsiveContainer width="100%" height={200}>
                 <RadialBarChart
-                  innerRadius="30%"
+                  innerRadius="25%"
                   outerRadius="90%"
                   data={radialData}
                   startAngle={90}
@@ -270,19 +270,39 @@ export default function Outcomes() {
                       <Cell key={idx} fill={entry.fill} />
                     ))}
                   </RadialBar>
-                  <Tooltip formatter={(v: number) => [`${v}%`]} contentStyle={{ borderRadius: "0.75rem", border: "1px solid hsl(var(--border))", background: "hsl(var(--card))", fontSize: 12 }} />
+                  <Tooltip
+                    formatter={(v: number, _name: string, props: { payload?: { name: string } }) => [
+                      `${v}% achieved target`,
+                      props.payload?.name ?? "",
+                    ]}
+                    contentStyle={{ borderRadius: "0.75rem", border: "1px solid hsl(var(--border))", background: "hsl(var(--card))", fontSize: 12 }}
+                  />
                 </RadialBarChart>
               </ResponsiveContainer>
-              <div className="space-y-2 w-full mt-2">
+
+              {/* Enhanced legend with mini progress bars */}
+              <div className="space-y-3 w-full mt-3 border-t border-border pt-4">
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Legend</p>
                 {radialData.map((d) => (
-                  <div key={d.name} className="flex items-center justify-between text-xs">
-                    <span className="flex items-center gap-1.5 text-muted-foreground">
-                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: d.fill }} />
-                      {d.name}
-                    </span>
-                    <span className="font-semibold text-foreground">{d.value}%</span>
+                  <div key={d.name} className="space-y-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-2 text-foreground font-medium">
+                        <span className="w-3 h-3 rounded-full shrink-0 ring-2 ring-background shadow-sm" style={{ background: d.fill }} />
+                        {d.name}
+                      </span>
+                      <span className="font-bold tabular-nums" style={{ color: d.fill }}>{d.value}%</span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-1000"
+                        style={{ width: `${d.value}%`, background: d.fill }}
+                      />
+                    </div>
                   </div>
                 ))}
+                <p className="text-[10px] text-muted-foreground pt-1">
+                  Based on cohort data 2023–24. Figures represent average across all placements.
+                </p>
               </div>
             </motion.div>
           </div>
