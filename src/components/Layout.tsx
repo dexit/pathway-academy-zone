@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import BackToTop from "@/components/BackToTop"
 import Analytics from "@/components/Analytics"
 import VerificationMeta from "@/components/VerificationMeta"
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from "@/components/Seo"
@@ -108,6 +109,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <Footer />
+      <BackToTop />
     </div>
   )
 }
