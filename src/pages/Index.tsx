@@ -5,6 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig, MapPin, ClipboardList, Sparkles, GraduationCap, ShieldCheck, PhoneCall } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo } from "@/components/Seo";
+import {
+  ORG_SCHEMA, WEBSITE_SCHEMA, AREAS_SERVED, CONTACT_POINTS,
+  buildServiceSchema, buildCourseCarouselSchema,
+} from "@/lib/json-ld";
 import WhyItMattersScroller from "@/components/WhyItMattersScroller";
 //import heroImg from "@/assets/hero-classroom.jpg";
 //import classroomImg from "@/assets/classroom-learning.jpg";
@@ -46,68 +50,17 @@ const faqs = [
   { q: "How do you keep learners safe?", a: "Safeguarding is our top priority. All staff are DBS checked and trained, we have a dedicated safeguarding lead, clear reporting procedures, and work closely with local safeguarding partners." },
 ];
 
+// Programme stubs for homepage Service + CourseCarousel schemas
+const HOME_PROGRAMMES = [
+  { slug: "academic-re-engagement", title: "Academic Re-engagement",  desc: "Structured academic curriculum for young people aged 11–16.",    features: [], schedule: "Full-time or part-time", time: "Mon–Fri 9:30am–2:30pm", whoFor: "Post-exclusion students",      outcomes: ["Improved attendance", "GCSE / functional skills"] },
+  { slug: "vocational-learning",    title: "Vocational Learning",      desc: "Hands-on practical skills in construction, catering and more.",  features: [], schedule: "1–2 days per week",     time: "Varies",              whoFor: "Practical learners",          outcomes: ["Industry certificates", "Apprenticeship pathways"] },
+  { slug: "semh-support",           title: "SEMH Support",             desc: "Therapeutic 1:1 and group support for social and emotional needs.", features: [], schedule: "Ongoing",             time: "2–3 sessions/week",   whoFor: "SEMH-identified students",    outcomes: ["Emotional regulation", "Reduced anxiety"] },
+  { slug: "personal-development",   title: "Personal Development",     desc: "Resilience, communication, and life-skills enrichment.",         features: [], schedule: "Integrated",           time: "2 hrs/week",          whoFor: "All students",                outcomes: ["Resilience", "Self-esteem"] },
+  { slug: "life-skills",            title: "Life Skills Programme",    desc: "Independent living, digital literacy, and health education.",    features: [], schedule: "Integrated",           time: "Weekly",              whoFor: "CLA and EHCP students",       outcomes: ["Independent living skills"] },
+  { slug: "employability-skills",   title: "Employability Skills",     desc: "CV writing, interview practice, and work experience.",           features: [], schedule: "Year 10 & 11",         time: "Weekly + placements", whoFor: "Year 10 and 11",              outcomes: ["Employment-ready", "Positive destinations"] },
+];
+
 export default function HomePage() {
-  const BASE = "https://pathwayacademyzone.co.uk";
-  const ORG_ID = `${BASE}/#organization`;
-
-  const orgJsonLd = {
-    "@context": "https://schema.org",
-    "@type": ["EducationalOrganization", "LocalBusiness"],
-    "@id": ORG_ID,
-    name: "Pathway Academy Zone",
-    alternateName: "PAZ",
-    url: BASE,
-    logo: {
-      "@type": "ImageObject",
-      url: `${BASE}/assets/PAZlogo-BYea4nq1.png`,
-      width: 512,
-      height: 512,
-    },
-    image: `${BASE}/assets/hero-classroom.jpg`,
-    description: "Alternative Provision in Stoke-on-Trent for ages 11–16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities.",
-    telephone: "+44-1782-365365",
-    email: "info@pathwayacademyzone.co.uk",
-    priceRange: "Free for referred learners",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Duncalf Street, Burslem",
-      addressLocality: "Stoke-on-Trent",
-      postalCode: "ST6 3LJ",
-      addressRegion: "Staffordshire",
-      addressCountry: "GB",
-    },
-    geo: { "@type": "GeoCoordinates", latitude: 53.044, longitude: -2.181 },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-        opens: "08:30",
-        closes: "16:00",
-      },
-    ],
-    areaServed: [
-      { "@type": "City", name: "Stoke-on-Trent" },
-      { "@type": "AdministrativeArea", name: "Staffordshire" },
-      { "@type": "City", name: "Stafford" },
-      { "@type": "City", name: "Newcastle-under-Lyme" },
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Alternative Provision Programmes",
-      itemListElement: [
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "SEMH Support Programme", description: "Specialist support for Social, Emotional and Mental Health needs" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Re-engagement Programme", description: "Helping disengaged learners reconnect with education" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Vocational Pathways", description: "Practical skills-based learning for career readiness" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Pastoral & Mentoring Support", description: "1:1 mentoring and pastoral care for young people" } },
-      ],
-    },
-    sameAs: [
-      "https://www.facebook.com/PathwayAcademyZone",
-      "https://www.linkedin.com/company/pathway-academy-zone",
-      "https://twitter.com/PathwayAcademyZ",
-    ],
-  };
-
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -121,40 +74,17 @@ export default function HomePage() {
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: BASE },
-    ],
+    itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "https://pathwayacademyzone.co.uk" }],
   };
 
-  const servicesJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Pathway Academy Zone Services",
-    description: "Alternative Provision programmes and support services",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "SEMH Programmes", url: `${BASE}/programmes` },
-      { "@type": "ListItem", position: 2, name: "Make a Referral", url: `${BASE}/referral` },
-      { "@type": "ListItem", position: 3, name: "Safeguarding", url: `${BASE}/safeguarding` },
-      { "@type": "ListItem", position: 4, name: "Knowledge Hub", url: `${BASE}/knowledge-hub` },
-      { "@type": "ListItem", position: 5, name: "Outcomes & Impact", url: `${BASE}/outcomes` },
-    ],
-  };
-
-  const coursesJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: "Alternative Provision Programme",
-    description: "Specialist education for young people aged 11-16 who have been excluded or are at risk of exclusion from mainstream schools in Staffordshire.",
-    provider: { "@id": ORG_ID },
-    educationalLevel: "Key Stage 3, Key Stage 4",
-    teaches: ["SEMH support", "Vocational skills", "Academic reintegration", "Pastoral development"],
-    availableLanguage: "English",
-    inLanguage: "en-GB",
-    coursePrerequisites: "Referral from school, local authority, or social worker",
-    url: `${BASE}/programmes`,
-  };
-
-  const homeJsonLd = [orgJsonLd, faqJsonLd, breadcrumbJsonLd, servicesJsonLd, coursesJsonLd];
+  const homeJsonLd = [
+    ORG_SCHEMA,
+    WEBSITE_SCHEMA,
+    faqJsonLd,
+    breadcrumbJsonLd,
+    buildServiceSchema(HOME_PROGRAMMES),
+    buildCourseCarouselSchema(HOME_PROGRAMMES),
+  ];
 
   return (
     <Layout>

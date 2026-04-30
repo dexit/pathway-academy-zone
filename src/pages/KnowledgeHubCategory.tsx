@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowRight, BookOpen, FileText } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo";
+import { ORG_REF, AREAS_SERVED, WEBSITE_SCHEMA } from "@/lib/json-ld";
 import { ContentSidebar } from "@/components/ContentSidebar";
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data";
 import { buildItemListJsonLd } from "@/lib/json-ld";
@@ -31,20 +32,27 @@ export default function KnowledgeHubCategory() {
 
   const url = `${SITE_URL}/knowledge-hub/${section.id}`;
   const collectionJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: section.title,
+    "@context":  "https://schema.org",
+    "@type":     "CollectionPage",
+    "@id":       url,
+    name:        section.title,
     description: section.description,
     url,
+    inLanguage:  "en-GB",
+    about:       ORG_REF,
+    publisher:   ORG_REF,
+    spatialCoverage: AREAS_SERVED,
     isPartOf: {
-      "@type": "WebSite",
+      "@id": `${SITE_URL}/knowledge-hub`,
+      "@type": "CollectionPage",
       name: "Pathway Academy Zone Knowledge Hub",
-      url: `${SITE_URL}/knowledge-hub`,
+      url:  `${SITE_URL}/knowledge-hub`,
     },
     hasPart: section.resources.map((r) => ({
       "@type": "Article",
-      name: r.title,
-      url: `${SITE_URL}${r.href}`,
+      name:    r.title,
+      url:     `${SITE_URL}${r.href}`,
+      about:   ORG_REF,
     })),
   };
   const itemListJsonLd = buildItemListJsonLd(section.resources, section.title);
@@ -55,7 +63,7 @@ export default function KnowledgeHubCategory() {
       <Seo
         title={section.title}
         description={section.description}
-        jsonLd={[collectionJsonLd, itemListJsonLd]}
+        jsonLd={[WEBSITE_SCHEMA, collectionJsonLd, itemListJsonLd]}
       />
 
       <header className="bg-primary text-primary-foreground">

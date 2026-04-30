@@ -4,14 +4,30 @@ import { ArrowRight, BookOpen, Phone } from "lucide-react"
 import { HubSectionCard } from "@/components/knowledge-hub/hub-section-card"
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
 import Layout from "@/components/Layout"
-import { Seo, Breadcrumbs } from "@/components/Seo"
+import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo"
+import { buildKnowledgeHubSchema, buildItemListJsonLd, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld"
 
 export default function KnowledgeHub() {
+  const hubJsonLd = [
+    ORG_SCHEMA,
+    WEBSITE_SCHEMA,
+    buildKnowledgeHubSchema(
+      HUB_SECTIONS.map((s) => ({ title: s.title, id: s.id, description: s.description }))
+    ),
+    buildItemListJsonLd(
+      HUB_SECTIONS.flatMap((s) =>
+        s.resources.map((r) => ({ title: r.title, href: `${SITE_URL}${r.href}` }))
+      ),
+      "Alternative Provision Knowledge Hub — All Resources"
+    ),
+  ];
+
   return (
     <Layout>
       <Seo
         title="Knowledge Hub"
         description="Your comprehensive resource for Alternative Provision. Expert guides, practical comparisons, and evidence-based best practices for educators, parents, and professionals."
+        jsonLd={hubJsonLd}
       />
       <main className="min-h-screen bg-background">
         {/* Page Header */}

@@ -9,6 +9,10 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
+import {
+  buildCourseSchema, buildServiceSchema,
+  buildCourseCarouselSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
+} from "@/lib/json-ld";
 import classroomImg  from "@/assets/classroom-learning.jpg";
 import vocationalImg from "@/assets/vocational-training.jpg";
 import mentoringImg  from "@/assets/mentoring-session.jpg";
@@ -130,48 +134,15 @@ const areaLinks = [
 ];
 
 /* ─── schema ─────────────────────────────────────────────────────────────── */
+// Service → OfferCatalog → [Offer(itemOffered: Course+Product)] × 6
+// + CourseCarousel ItemList for Google Rich Results
+// + individual Course+Product schemas for deep indexing
 const programmesSchema = [
-  ...programmes.map((p) => ({
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: p.title,
-    description: p.desc,
-    url: `${SITE_URL}/programmes#${p.slug}`,
-    provider: { "@type": "EducationalOrganization", name: SITE_NAME, sameAs: SITE_URL },
-    educationalLevel: "Key Stage 3 / Key Stage 4",
-    inLanguage: "en-GB",
-    audience: { "@type": "EducationalAudience", educationalRole: "student", audienceType: "Ages 11–16" },
-    hasCourseInstance: {
-      "@type": "CourseInstance",
-      courseMode: "Onsite",
-      location: {
-        "@type": "Place",
-        name: `${SITE_NAME} — Burslem Learning Centre`,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Duncalf Street, Burslem",
-          addressLocality: "Stoke-on-Trent",
-          postalCode: "ST6 3LJ",
-          addressCountry: "GB",
-        },
-      },
-      courseSchedule: { "@type": "Schedule", description: `${p.schedule} — ${p.time}` },
-    },
-    offers: { "@type": "Offer", category: "Alternative Provision", availability: "https://schema.org/InStock" },
-  })),
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Pathway Academy Zone Programmes",
-    itemListOrder: "https://schema.org/ItemListOrderAscending",
-    numberOfItems: programmes.length,
-    itemListElement: programmes.map((p, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      url: `${SITE_URL}/programmes#${p.slug}`,
-      name: p.title,
-    })),
-  },
+  ORG_SCHEMA,
+  WEBSITE_SCHEMA,
+  buildServiceSchema(programmes),
+  buildCourseCarouselSchema(programmes),
+  ...programmes.map((p) => buildCourseSchema(p)),
 ];
 
 const fadeUp = { hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } };

@@ -8,6 +8,11 @@ import {
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
+import {
+  ORG_SCHEMA, WEBSITE_SCHEMA, AREAS_SERVED, ORG_REF,
+  ORG_ADDRESS, ORG_GEO, ORG_HOURS, CONTACT_POINTS,
+  buildOfferCatalogSchema, buildOfferSchema,
+} from "@/lib/json-ld";
 
 interface AreaData {
   slug: string;
@@ -173,65 +178,91 @@ export default function AreaPage() {
     },
   ];
 
+  const areaCity = { "@type": "City", name: area.name } as const;
+
+  // Programme stubs for per-area OfferCatalog
+  const AREA_PROGRAMME_STUBS = [
+    { slug: "academic-re-engagement", title: "Academic Re-engagement",  desc: "Structured academic curriculum for young people aged 11–16.",    features: [], schedule: "Full-time or part-time", time: "Mon–Fri 9:30am–2:30pm", whoFor: "", outcomes: ["Improved attendance", "GCSE / functional skills"] },
+    { slug: "vocational-learning",    title: "Vocational Learning",      desc: "Hands-on practical vocational skills.",                           features: [], schedule: "1–2 days per week",     time: "Varies",              whoFor: "", outcomes: ["Industry certificates"] },
+    { slug: "semh-support",           title: "SEMH Support",             desc: "Therapeutic support for SEMH needs.",                            features: [], schedule: "Ongoing",             time: "2–3 sessions/week",   whoFor: "", outcomes: ["Emotional regulation"] },
+    { slug: "personal-development",   title: "Personal Development",     desc: "Resilience and life-skills enrichment.",                         features: [], schedule: "Integrated",           time: "2 hrs/week",          whoFor: "", outcomes: ["Resilience"] },
+    { slug: "life-skills",            title: "Life Skills Programme",    desc: "Independent living and digital literacy.",                       features: [], schedule: "Integrated",           time: "Weekly",              whoFor: "", outcomes: ["Independent living skills"] },
+    { slug: "employability-skills",   title: "Employability Skills",     desc: "CV writing, interview practice, and work experience.",           features: [], schedule: "Year 10 & 11",         time: "Weekly + placements", whoFor: "", outcomes: ["Employment-ready"] },
+  ];
+
   const jsonLd = [
+    WEBSITE_SCHEMA,
+    // LocalBusiness — primary area emphasis + full areaServed
     {
+      ...ORG_SCHEMA,
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": `${SITE_URL}/#organization`,
-      name: SITE_NAME,
-      description: `Specialist Alternative Provision for young people aged 11–16 across ${area.county}.`,
-      url: SITE_URL,
-      telephone: "+44-1782-365365",
-      email: "info@pathwayacademyzone.co.uk",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Duncalf Street, Burslem",
-        addressLocality: "Stoke-on-Trent",
-        postalCode: "ST6 3LJ",
-        addressRegion: "Staffordshire",
-        addressCountry: "GB",
-      },
-      openingHoursSpecification: [
-        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "08:30", closes: "16:00" },
-      ],
-      priceRange: "££",
-      areaServed: { "@type": "City", name: area.name },
-      aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "47", bestRating: "5" },
+      description: `Specialist Alternative Provision for young people aged 11–16 in ${area.name} and across ${area.county}.`,
+      areaServed: [areaCity, ...AREAS_SERVED],
     },
+    // EducationalOrganization — area-specific teaching emphasis
     {
       "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
+      "@type": ["EducationalOrganization"],
       "@id": `${SITE_URL}/#educational-org`,
       name: SITE_NAME,
       url: SITE_URL,
       educationalLevel: "Secondary",
-      teaches: ["Alternative Provision", "SEMH Support", "Vocational Learning", "Academic Re-engagement"],
-      areaServed: { "@type": "City", name: area.name },
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Duncalf Street, Burslem",
-        addressLocality: "Stoke-on-Trent",
-        postalCode: "ST6 3LJ",
-        addressRegion: "Staffordshire",
-        addressCountry: "GB",
-      },
+      teaches: ["Alternative Provision", "SEMH Support", "Vocational Learning", "Academic Re-engagement", "Life Skills", "Employability Skills"],
+      areaServed: [areaCity, ...AREAS_SERVED],
+      address: ORG_ADDRESS,
+      geo: ORG_GEO,
+      contactPoint: CONTACT_POINTS,
+      openingHoursSpecification: ORG_HOURS,
     },
+    // Service — area-specific service page with full OfferCatalog
     {
       "@context": "https://schema.org",
       "@type": "Service",
+      "@id": `${SITE_URL}/#service-${area.slug}`,
       name: `Alternative Provision in ${area.name}`,
       description: area.description,
-      provider: { "@id": `${SITE_URL}/#organization` },
-      areaServed: { "@type": "City", name: area.name },
       serviceType: "Alternative Provision Education",
       url: pageUrl,
-      offers: {
-        "@type": "Offer",
-        availability: "https://schema.org/InStock",
-        priceCurrency: "GBP",
-        seller: { "@id": `${SITE_URL}/#organization` },
+      provider: ORG_REF,
+      areaServed: [areaCity, ...AREAS_SERVED],
+      audience: {
+        "@type": "Audience",
+        audienceType: "Schools, Local Authorities, Social Workers in " + area.name,
+      },
+      offers: buildOfferSchema({ name: `Alternative Provision Placement — ${area.name}`, slug: area.slug, singleArea: areaCity }),
+      hasOfferCatalog: {
+        ...buildOfferCatalogSchema(AREA_PROGRAMME_STUBS),
+        name: `Alternative Provision Programmes available in ${area.name}`,
+      },
+      availableChannel: {
+        "@type": "ServiceChannel",
+        serviceUrl: `${SITE_URL}/referral`,
+        servicePhone: {
+          "@type": "ContactPoint",
+          telephone: "+44-1782-365365",
+          contactType: "referrals",
+          areaServed: [areaCity, ...AREAS_SERVED],
+        },
       },
     },
+    // Product — the placement itself as a product (used by LLMs for comparison queries)
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": `${SITE_URL}/#product-ap-${area.slug}`,
+      name: `Alternative Provision Placement — ${area.name}`,
+      description: area.description,
+      brand: ORG_REF,
+      offers: buildOfferSchema({ name: `AP Placement — ${area.name}`, slug: area.slug, singleArea: areaCity }),
+      areaServed: [areaCity, ...AREAS_SERVED],
+      category: "Educational Service",
+      audience: {
+        "@type": "EducationalAudience",
+        educationalRole: "student",
+        audienceType: "Young people aged 11–16",
+      },
+    },
+    // FAQPage
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -241,13 +272,14 @@ export default function AreaPage() {
         acceptedAnswer: { "@type": "Answer", text: f.a },
       })),
     },
+    // BreadcrumbList
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 1, name: "Home",           item: SITE_URL },
         { "@type": "ListItem", position: 2, name: "Areas We Serve", item: `${SITE_URL}/contact` },
-        { "@type": "ListItem", position: 3, name: area.name, item: pageUrl },
+        { "@type": "ListItem", position: 3, name: area.name,        item: pageUrl },
       ],
     },
   ];
