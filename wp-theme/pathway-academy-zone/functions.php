@@ -137,10 +137,17 @@ add_action( 'init', function () {
 // ---------------------------------------------------------------------------
 // Optional: load additional theme inc files if they exist.
 // ---------------------------------------------------------------------------
-foreach ( array( 'cpts', 'taxonomies', 'blocks', 'patterns', 'sidebars', 'compat', 'demo-importer', 'schema' ) as $_paz_inc ) {
+foreach ( array( 'cpts', 'taxonomies', 'blocks', 'patterns', 'sidebars', 'compat', 'demo-importer', 'schema', 'relationships', 'rest-api' ) as $_paz_inc ) {
 	$_paz_file = PAZ_THEME_DIR . 'inc/' . $_paz_inc . '.php';
 	if ( file_exists( $_paz_file ) ) {
 		require_once $_paz_file;
 	}
 }
 unset( $_paz_inc, $_paz_file );
+
+// Admin-only metaboxes loaded separately (not needed on front end).
+if ( is_admin() ) {
+	$_paz_mb = PAZ_THEME_DIR . 'inc/admin/metaboxes.php';
+	if ( file_exists( $_paz_mb ) ) require_once $_paz_mb;
+	unset( $_paz_mb );
+}

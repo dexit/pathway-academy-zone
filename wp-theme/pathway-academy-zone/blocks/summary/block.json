@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/summary",
+	"title": "Summary",
+	"category": "paz",
+	"icon": "list-view",
+	"description": "Key points summary card with accent border and icon bullet list.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"heading":      { "type": "string", "default": "Key Points" },
+		"icon":         { "type": "string", "default": "✓" },
+		"accentColour": { "type": "string", "default": "primary" },
+		"points": {
+			"type": "array",
+			"default": [
+				"Tailored alternative provision for young people aged 5–16.",
+				"Multi-agency approach with education, health, and social care partners.",
+				"Transparent reporting and regular review meetings with placing schools."
+			]
+		}
+	},
+	"render": "file:./render.php"
+}

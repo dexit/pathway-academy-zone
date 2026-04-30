@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/timeline",
+	"title": "Timeline",
+	"category": "paz",
+	"icon": "editor-ol",
+	"description": "Numbered step timeline with vertical or horizontal orientation.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"heading":     { "type": "string", "default": "" },
+		"orientation": { "type": "string", "default": "vertical" },
+		"steps": {
+			"type": "array",
+			"default": [
+				{ "number": 1, "title": "Initial Referral",     "body": "School or local authority submits a referral with the young person's details and support needs." },
+				{ "number": 2, "title": "Needs Assessment",     "body": "Our team conducts a comprehensive assessment to understand the learner's strengths and challenges." },
+				{ "number": 3, "title": "Placement Matched",    "body": "We identify the most appropriate provision and agree a personalised programme." },
+				{ "number": 4, "title": "Ongoing Review",       "body": "Regular progress reviews ensure the placement remains effective and goals are being met." }
+			]
+		}
+	},
+	"render": "file:./render.php"
+}

@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/area-hero",
+	"title": "Area Hero",
+	"category": "paz",
+	"icon": "location-alt",
+	"description": "Full-width hero for paz_area CPT pages with dynamic heading, CTA buttons, programme pills, stats, and inline Service + FAQPage JSON-LD.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"areaSlug":            { "type": "string",  "default": "" },
+		"showProgrammes":      { "type": "boolean", "default": true },
+		"showStats":           { "type": "boolean", "default": true },
+		"ctaLabel":            { "type": "string",  "default": "Make a Referral" },
+		"ctaUrl":              { "type": "string",  "default": "/referral" },
+		"secondaryCtaLabel":   { "type": "string",  "default": "View Programmes" },
+		"secondaryCtaUrl":     { "type": "string",  "default": "/programmes" }
+	},
+	"render": "file:./render.php"
+}
