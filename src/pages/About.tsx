@@ -4,30 +4,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { buildAboutPageSchema, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
 import classroomImg from "@/assets/classroom-learning.jpg";
 import mentoringImg from "@/assets/mentoring-session.jpg";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
-const aboutJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  name: `About ${SITE_NAME}`,
-  url: `${SITE_URL}/about`,
-  description: "Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.",
-  mainEntity: {
-    "@type": "EducationalOrganization",
-    "@id": `${SITE_URL}/#organization`,
-    name: SITE_NAME,
-    foundingDate: "2018",
-    areaServed: [
-      { "@type": "City", name: "Stoke-on-Trent" },
-      { "@type": "City", name: "Newcastle-under-Lyme" },
-      { "@type": "City", name: "Stafford" },
-      { "@type": "AdministrativeArea", name: "Staffordshire" },
-    ],
-  },
-};
+const aboutJsonLd = [ORG_SCHEMA, WEBSITE_SCHEMA, buildAboutPageSchema()];
 
 const areaLinks = [
   { name: "Stoke-on-Trent",      slug: "stoke-on-trent" },

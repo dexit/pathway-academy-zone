@@ -11,6 +11,9 @@ import {
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
+import {
+  buildContactPageSchema, buildServiceSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
+} from "@/lib/json-ld";
 import { useFormSubmit } from "@/hooks/use-form-submit";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
@@ -27,29 +30,22 @@ const contactInfo = [
 
 const CONTACT_WEBHOOK = import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined;
 
-const contactSchema = {
-  "@context": "https://schema.org",
-  "@type": ["EducationalOrganization", "LocalBusiness"],
-  name: SITE_NAME,
-  url: SITE_URL,
-  telephone: "+44 1782 365365",
-  email: "info@pathwayacademyzone.co.uk",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Duncalf Street, Burslem",
-    addressLocality: "Stoke-on-Trent",
-    postalCode: "ST6 3LJ",
-    addressCountry: "GB",
-  },
-  geo: { "@type": "GeoCoordinates", latitude: 53.043, longitude: -2.191 },
-  openingHoursSpecification: [
-    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:30", closes: "16:00" },
-  ],
-  contactPoint: [
-    { "@type": "ContactPoint", contactType: "customer service", telephone: "+44-1782-365365", email: "info@pathwayacademyzone.co.uk", areaServed: "GB", availableLanguage: ["English"] },
-    { "@type": "ContactPoint", contactType: "referrals", telephone: "+44-1782-365365", email: "info@pathwayacademyzone.co.uk" },
-  ],
-};
+// Minimal programme stubs — Service schema needs the catalogue structure
+const PROGRAMME_STUBS = [
+  { slug: "academic-re-engagement", title: "Academic Re-engagement", desc: "Structured academic curriculum for young people aged 11–16.", features: [], schedule: "Full-time or part-time", time: "Mon–Fri 9:30am–2:30pm", whoFor: "Students post-exclusion or at risk", outcomes: ["Improved attendance", "GCSE / functional skills"] },
+  { slug: "vocational-learning",    title: "Vocational Learning",    desc: "Hands-on vocational skills programmes.", features: [], schedule: "1–2 days per week", time: "Varies", whoFor: "Practical learners", outcomes: ["Industry certificates", "Apprenticeship pathways"] },
+  { slug: "semh-support",          title: "SEMH Support",           desc: "Therapeutic support for SEMH needs.", features: [], schedule: "Ongoing", time: "2–3 sessions per week", whoFor: "Students with SEMH barriers", outcomes: ["Emotional regulation", "Reduced anxiety"] },
+  { slug: "personal-development",  title: "Personal Development",   desc: "Resilience and life-skills enrichment.", features: [], schedule: "Integrated", time: "2 hours per week", whoFor: "All students", outcomes: ["Resilience", "Self-esteem"] },
+  { slug: "life-skills",           title: "Life Skills Programme",  desc: "Independent living and digital skills.", features: [], schedule: "Integrated", time: "Weekly", whoFor: "CLA and EHCP students", outcomes: ["Independent living skills"] },
+  { slug: "employability-skills",  title: "Employability Skills",   desc: "Work-readiness for Year 10 & 11.", features: [], schedule: "Year 10 & 11", time: "Weekly", whoFor: "Year 10 and 11", outcomes: ["Employment-ready", "Positive destinations"] },
+];
+
+const contactSchema = [
+  ORG_SCHEMA,
+  WEBSITE_SCHEMA,
+  buildContactPageSchema(),
+  buildServiceSchema(PROGRAMME_STUBS),
+];
 
 const quickLinks = [
   { title: "Make a Referral", desc: "Start the referral process for a young person", path: "/referral" },

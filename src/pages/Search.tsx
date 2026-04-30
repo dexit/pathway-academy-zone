@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Search as SearchIcon, ArrowRight } from "lucide-react";
 import { Seo } from "@/components/Seo";
+import { buildSearchPageSchema, WEBSITE_SCHEMA } from "@/lib/json-ld";
 import { searchAll, type SearchItem } from "@/lib/search-index";
 import { Button } from "@/components/ui/button";
 import { ArchiveLayout } from "@/components/ArchiveLayout";
@@ -64,6 +65,7 @@ export default function SearchPage() {
             : "Search the Pathway Academy Zone website for guides, blog articles, policies, and more."
         }
         noIndex
+        jsonLd={[WEBSITE_SCHEMA, buildSearchPageSchema(q)]}
       />
       <ArchiveLayout
         crumbs={[{ label: "Search" }]}
