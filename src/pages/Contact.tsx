@@ -18,7 +18,7 @@ import { useFormSubmit } from "@/hooks/use-form-submit";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
 import { email, ukPhone, personName, shortText, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
-import buildingImg from "@/assets/building-exterior.jpg";
+import buildingImg from "@/assets/building-exterior.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const contactInfo = [
@@ -113,7 +113,7 @@ export default function Contact() {
       />
       <section className="relative py-32">
         <div className="absolute inset-0">
-          <img src={buildingImg} alt="Pathway Academy Zone building" className="w-full h-full object-cover" />
+          <img src={buildingImg} alt="Pathway Academy Zone building" className="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-foreground/60" />
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">

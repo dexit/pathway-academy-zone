@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+/* Google Fonts loaded via <link> in index.html with display=optional to avoid CLS */
 
 @tailwind base;
 @tailwind components;
@@ -29,7 +29,7 @@
     --secondary-foreground: 160 10% 15%;
 
     --muted: 150 15% 94%;
-    --muted-foreground: 160 10% 45%;
+    --muted-foreground: 160 10% 40%;  /* 40% gives ~5.0:1 on white — passes WCAG AA */
 
     --accent: 152 35% 90%;
     --accent-foreground: 152 45% 25%;

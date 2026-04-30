@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Monitor, BookOpen, Coffee, Bus, ArrowRight, Wrench, Brain, Heart, Briefcase, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
-import buildingImg from "@/assets/building-exterior.jpg";
-import classroomImg from "@/assets/classroom-learning.jpg";
-import mentoringImg from "@/assets/mentoring-session.jpg";
-import vocationalImg from "@/assets/vocational-training.jpg";
+import buildingImg from "@/assets/building-exterior.webp";
+import classroomImg from "@/assets/classroom-learning.webp";
+import mentoringImg from "@/assets/mentoring-session.webp";
+import vocationalImg from "@/assets/vocational-training.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const facilities = [
@@ -107,8 +107,8 @@ export default function Centres() {
           <div className="grid grid-cols-2 gap-4">{facilities.map((f) => (<div key={f.title} className="bg-muted/50 rounded-xl p-4 border border-border/50"><f.icon className="h-5 w-5 text-primary mb-2" /><h3 className="font-display font-bold text-foreground text-sm mb-1">{f.title}</h3><p className="text-muted-foreground text-xs">{f.desc}</p></div>))}</div>
         </motion.div>
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4">
-          <img src={buildingImg} alt="Pathway Academy Zone building" className="rounded-2xl shadow-lg w-full" loading="lazy" />
-          <div className="grid grid-cols-2 gap-4"><img src={classroomImg} alt="Classroom" className="rounded-xl w-full h-40 object-cover" loading="lazy" /><img src={mentoringImg} alt="Support room" className="rounded-xl w-full h-40 object-cover" loading="lazy" /></div>
+          <img src={buildingImg} alt="Pathway Academy Zone building" className="rounded-2xl shadow-lg w-full" loading="lazy" width="800" height="600" />
+          <div className="grid grid-cols-2 gap-4"><img src={classroomImg} alt="Classroom" className="rounded-xl w-full h-40 object-cover" loading="lazy" width="400" height="160" /><img src={mentoringImg} alt="Support room" className="rounded-xl w-full h-40 object-cover" loading="lazy" width="400" height="160" /></div>
         </motion.div>
       </div></div></section>
       <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-3xl"><motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>

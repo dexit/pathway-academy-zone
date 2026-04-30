@@ -8,7 +8,7 @@ import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const team = [
   { name: "Martin Chandler", role: "Head of Community and Engagement (Safeguarding)", img: "https://pathwayacademyzone.co.uk/assets/martin-chandler-DvF3rkDn.png" },
-  { name: "Liam Farrall", role: "Head of Alternative Provision", img: "https://pathwayacademyzone.co.uk/assets/liam-farrall-DwXnuzxA.jpg" },
+  { name: "Liam Farrall", role: "Head of Alternative Provision", img: "https://pathwayacademyzone.co.uk/assets/liam-farrall-DwXnuzxA.webp" },
   { name: "Gemma Mason, QTLS", role: "SENCO Lead", img: "https://pathwayacademyzone.co.uk/assets/gemma-mason-Dplhj7uo.jpeg" },
   { name: "Ahsan Hussain", role: "Head of Partnerships and Impact", img: "https://pathwayacademyzone.co.uk/assets/ahsan-hussain-OIFhfXvg.png" },
   { name: "Zulekha Ali", role: "HR and Executive Support", img: "https://pathwayacademyzone.co.uk/assets/zulekha-ali-Dfoelgdx.png" },
@@ -81,7 +81,7 @@ export default function Team() {
                 className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-md transition-shadow scroll-mt-24"
               >
                 <div className="aspect-[3/4] overflow-hidden bg-muted">
-                  <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover" loading="lazy" />
+                  <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover" loading="lazy" width="400" height="533" decoding="async" />
                 </div>
                 <div className="p-6 text-center">
                   <h3 itemProp="name" className="font-display text-lg font-bold text-foreground">{m.name}</h3>
@@ -111,7 +111,7 @@ export default function Team() {
                 className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-md transition-shadow scroll-mt-24"
               >
                 <div className="aspect-[3/4] overflow-hidden bg-muted">
-                  <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover" loading="lazy" />
+                  <img src={m.img} alt={`${m.name} — ${m.role}`} title={m.name} itemProp="image" className="w-full h-full object-cover" loading="lazy" width="400" height="533" decoding="async" />
                 </div>
                 <div className="p-6 text-center">
                   <h3 itemProp="name" className="font-display text-lg font-bold text-foreground">{m.name}</h3>
