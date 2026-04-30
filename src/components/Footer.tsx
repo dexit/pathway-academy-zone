@@ -93,7 +93,7 @@ export default function Footer() {
               />
             </Link>
 
-            <p className="text-sm leading-relaxed text-white/45 max-w-[17rem] mb-6">
+            <p className="text-sm leading-relaxed text-white/60 max-w-[17rem] mb-6">
               Alternative Provision specialist in Staffordshire — safeguarding,
               engagement, and positive outcomes for young people outside mainstream
               education.
@@ -132,7 +132,7 @@ export default function Footer() {
                 <Mail className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
                 info@pathwayacademyzone.co.uk
               </a>
-              <div className="flex items-start gap-2 text-sm text-white/45">
+              <div className="flex items-start gap-2 text-sm text-white/60">
                 <MapPin className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
                 <address className="not-italic leading-snug">
                   Duncalf St, Burslem<br />Stoke-on-Trent ST6 3LJ
@@ -176,7 +176,7 @@ export default function Footer() {
         </div>
 
         {/* ── Legal bar ─────────────────────────────────────────────────── */}
-        <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/30">
+        <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
           <p>© {new Date().getFullYear()} Pathway Academy Zone. All rights reserved.</p>
 
           <div className="flex items-center gap-5">

@@ -104,7 +104,7 @@ export default function Centres() {
             <div className="flex items-start gap-3"><Clock className="h-5 w-5 text-primary mt-0.5 shrink-0" /><div><p className="font-medium text-foreground">Opening Hours</p><p className="text-muted-foreground text-sm">Monday - Friday, 8:30am - 4:00pm</p></div></div>
           </div>
           <p className="text-muted-foreground leading-relaxed mb-8">Our purpose-built centre in Burslem provides a welcoming environment for learning. With small classrooms, dedicated breakout spaces, and specialist areas for vocational learning, we create the conditions for every young person to thrive.</p>
-          <div className="grid grid-cols-2 gap-4">{facilities.map((f) => (<div key={f.title} className="bg-muted/50 rounded-xl p-4 border border-border/50"><f.icon className="h-5 w-5 text-primary mb-2" /><h4 className="font-display font-bold text-foreground text-sm mb-1">{f.title}</h4><p className="text-muted-foreground text-xs">{f.desc}</p></div>))}</div>
+          <div className="grid grid-cols-2 gap-4">{facilities.map((f) => (<div key={f.title} className="bg-muted/50 rounded-xl p-4 border border-border/50"><f.icon className="h-5 w-5 text-primary mb-2" /><h3 className="font-display font-bold text-foreground text-sm mb-1">{f.title}</h3><p className="text-muted-foreground text-xs">{f.desc}</p></div>))}</div>
         </motion.div>
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4">
           <img src={buildingImg} alt="Pathway Academy Zone building" className="rounded-2xl shadow-lg w-full" loading="lazy" />

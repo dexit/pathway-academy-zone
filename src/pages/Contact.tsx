@@ -264,16 +264,18 @@ export default function Contact() {
                   ) : ("Send Message")}
                 </Button>
 
-                {success && (
-                  <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
-                    <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Message sent — we&apos;ll reply within 24 hours.
-                  </p>
-                )}
-                {error && (
-                  <p className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
-                    <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
-                  </p>
-                )}
+                <div aria-live="polite" aria-atomic="true">
+                  {success && (
+                    <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
+                      <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Message sent — we&apos;ll reply within 24 hours.
+                    </p>
+                  )}
+                  {error && (
+                    <p role="alert" className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
+                      <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
+                    </p>
+                  )}
+                </div>
                 <p className="text-xs text-muted-foreground text-center">By submitting this form, you agree to our privacy policy.</p>
               </form>
             </motion.div>

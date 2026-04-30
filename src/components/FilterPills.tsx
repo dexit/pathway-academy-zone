@@ -21,7 +21,7 @@ export function FilterPills({
   counts,
 }: FilterPillsProps) {
   return (
-    <nav aria-label={ariaLabel}>
+    <div role="group" aria-label={ariaLabel}>
       <ul className="flex flex-wrap gap-2">
         {options.map((opt) => {
           const isActive = active === opt;
@@ -30,7 +30,7 @@ export function FilterPills({
               <button
                 type="button"
                 onClick={() => onChange(opt)}
-                aria-current={isActive ? "true" : undefined}
+                aria-pressed={isActive}
                 className={cn(
                   "px-4 py-1.5 rounded-full text-sm font-medium transition-colors border inline-flex items-center gap-1.5",
                   isActive
@@ -54,6 +54,6 @@ export function FilterPills({
           );
         })}
       </ul>
-    </nav>
+    </div>
   );
 }

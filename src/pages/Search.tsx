@@ -117,12 +117,14 @@ export default function SearchPage() {
 
         {q ? (
           <>
-            <p className="text-sm text-muted-foreground">
-              {results.length} {results.length === 1 ? "result" : "results"} for{" "}
-              <span className="text-foreground font-semibold">
-                &quot;{q}&quot;
-              </span>
-            </p>
+            <div aria-live="polite" aria-atomic="true">
+              <p className="text-sm text-muted-foreground">
+                {results.length} {results.length === 1 ? "result" : "results"} for{" "}
+                <span className="text-foreground font-semibold">
+                  &quot;{q}&quot;
+                </span>
+              </p>
+            </div>
 
             {results.length > 0 && (
               <FilterPills
