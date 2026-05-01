@@ -32,8 +32,14 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    // Output directory for static build
+    outDir: 'dist',
+    // Clear output directory before build
+    emptyOutDir: true,
     // Chunk size warning limit (500KB is reasonable for modern SPAs)
     chunkSizeWarningLimit: 500,
+    // Source maps for production debugging
+    sourcemap: false,
     // Ensure all routes fallback to index.html for SPA
     rollupOptions: {
       output: {
@@ -74,3 +80,4 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
 }));
+
