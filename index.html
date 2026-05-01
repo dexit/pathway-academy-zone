@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-GB" class="bg-background">
+<html lang="en-GB" dir="ltr" class="bg-background">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -17,13 +17,40 @@
       media="(prefers-color-scheme: dark)"
     />
     <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Pathway Academy Zone" />
+    <meta name="application-name" content="Pathway Academy Zone" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://pathwayacademyzone.co.uk" />
 
+    <!-- Non-render-blocking font load (replaces CSS @import) -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
+
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/PAZlogo-BYea4nq1.png" />
+    <link rel="apple-touch-icon" href="/assets/PAZlogo-BYea4nq1.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <title>Pathway Academy Zone | Alternative Provision Stoke</title>
     <meta
@@ -31,6 +58,12 @@
       content="Pathway Academy Zone provides Alternative Provision in Stoke-on-Trent and Staffordshire for ages 11-16. SEMH support, behaviour and reintegration programmes."
     />
     <meta name="author" content="Pathway Academy Zone" />
+    <meta name="publisher" content="Pathway Academy Zone" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+    <meta name="geo.region" content="GB-STE" />
+    <meta name="geo.placename" content="Stoke-on-Trent" />
+    <meta name="geo.position" content="53.044;-2.181" />
+    <meta name="ICBM" content="53.044, -2.181" />
     <link rel="canonical" href="https://pathwayacademyzone.co.uk/" />
 
     <script>
