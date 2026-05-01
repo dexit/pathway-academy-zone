@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { sitemapPlugin } from "./plugins/sitemap";
+import { wpCopyPlugin } from "./plugins/wp-copy";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -19,6 +20,7 @@ export default defineConfig(({ mode }) => ({
     // Generates /sitemap.xml from route config at build time.
     // Also refreshes public/sitemap.xml so the dev-server is current.
     sitemapPlugin(__dirname),
+    wpCopyPlugin(__dirname),
     mode === "development" && componentTagger(),
   ].filter(Boolean),
   resolve: {

@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import { logVitals } from "./lib/vitals.ts";
+import { initIframeEmbed } from "./lib/iframe-embed.ts";
 import "./index.css";
 
 if ("serviceWorker" in navigator) {
@@ -13,6 +14,7 @@ if ("serviceWorker" in navigator) {
 }
 
 logVitals()
+initIframeEmbed()
 
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider>

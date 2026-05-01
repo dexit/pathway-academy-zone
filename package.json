@@ -12,7 +12,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "email:compile": "mjml src/email-templates/src/*.mjml -o src/email-templates/dist/",
-    "email:watch": "mjml --watch src/email-templates/src/*.mjml -o src/email-templates/dist/"
+    "email:watch": "mjml --watch src/email-templates/src/*.mjml -o src/email-templates/dist/",
+    "build:wp": "COPY_TO_WP=1 vite build",
+    "deploy:wp-plugin": "cp -r wp-plugin/paz-spa-embed wpsys/wp-content/plugins/"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
