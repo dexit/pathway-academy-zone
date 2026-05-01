@@ -4,7 +4,6 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { sitemapPlugin } from "./plugins/sitemap";
 import { wpCopyPlugin } from "./plugins/wp-copy";
-import { spaFallbackPlugin } from "./plugins/spa-fallback";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -15,11 +14,11 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    // Proper SPA fallback for dev server — Vite's native approach
+    middlewareMode: false,
   },
   plugins: [
     react(),
-    // SPA fallback middleware for dev server
-    spaFallbackPlugin(__dirname),
     // Generates /sitemap.xml from route config at build time.
     // Also refreshes public/sitemap.xml so the dev-server is current.
     sitemapPlugin(__dirname),
