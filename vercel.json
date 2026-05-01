@@ -1,6 +1,8 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": "vite",
   "redirects": [
     {
       "source": "/:path*",
@@ -18,7 +20,7 @@
       ]
     },
     {
-      "source": "/:path*.:ext(webp|png|jpg|jpeg|svg|gif|ico|woff2|woff)",
+      "source": "/:path*.:ext(webp|png|jpg|jpeg|svg|gif|ico|woff2|woff|ttf|otf|eot)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" },
         { "key": "X-Content-Type-Options", "value": "nosniff" }
@@ -52,11 +54,12 @@
     { "source": "/sw.js", "destination": "/sw.js" },
     { "source": "/favicon.ico", "destination": "/favicon.ico" },
     { "source": "/placeholder.svg", "destination": "/placeholder.svg" },
-    { "source": "/assets/:file*", "destination": "/assets/:file*" },
     { "source": "/site.webmanifest", "destination": "/site.webmanifest" },
+    { "source": "/assets/:file*", "destination": "/assets/:file*" },
     { "source": "/:path*", "destination": "/index.html" }
   ]
 }
+
 
 
 
