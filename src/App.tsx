@@ -31,6 +31,7 @@ import AreaPage from "./pages/AreaPage.tsx";
 import ProgrammeDetail from "./pages/ProgrammeDetail.tsx";
 import Testimonials from "./pages/Testimonials.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import AiAssistant from "./components/AiAssistant.tsx";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +71,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <AiAssistant />
     </TooltipProvider>
   </QueryClientProvider>
 );
