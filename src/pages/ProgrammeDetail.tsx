@@ -189,7 +189,7 @@ export default function ProgrammeDetail() {
         title={prog.title}
         description={prog.seoDesc}
         jsonLd={schema}
-        ogImage={prog.img}
+        image={prog.img}
       />
 
       {/* Hero */}
@@ -219,7 +219,7 @@ export default function ProgrammeDetail() {
       {/* Breadcrumbs */}
       <section className="py-6 bg-muted/40 border-b border-border/50">
         <div className="container mx-auto px-4">
-          <Breadcrumbs items={[{ label: "Programmes", href: "/programmes" }, { label: prog.title }]} />
+          <Breadcrumbs items={[{ label: "Programmes", to: "/programmes" }, { label: prog.title }]} />
         </div>
       </section>
 
