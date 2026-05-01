@@ -1,7 +1,7 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { Calendar, Clock, ArrowLeft, ArrowRight, User } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs } from "@/components/Seo";
+import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo";
 import { ContentSidebar } from "@/components/ContentSidebar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,6 @@ export default function BlogDetail() {
     return <Navigate to="/blog" replace />;
   }
 
-  // Build a simple TOC from the post body sections so the sidebar feels alive.
   const toc = [
     { id: "introduction", label: "Introduction", level: 2 as const },
     { id: "key-points", label: "Key points", level: 2 as const },
@@ -37,9 +36,14 @@ export default function BlogDetail() {
     author: { "@type": "Organization", name: post.author },
     articleSection: post.category,
     image: post.image,
+    url: `${SITE_URL}/blog/${post.slug}`,
     publisher: {
       "@type": "Organization",
       name: "Pathway Academy Zone",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
+      }
     },
   };
 
@@ -67,7 +71,7 @@ export default function BlogDetail() {
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
               {post.title}
             </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6">
+            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6 text-balance">
               {post.excerpt}
             </p>
             <div className="flex flex-wrap items-center gap-5 text-primary-foreground/70 text-sm">
@@ -87,7 +91,6 @@ export default function BlogDetail() {
 
       <div className="container mx-auto px-4 py-10 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
-          {/* Article body */}
           <article className="min-w-0 prose prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-strong:text-foreground">
             <img
               src={post.image}
@@ -166,7 +169,6 @@ export default function BlogDetail() {
             )}
           </article>
 
-          {/* Sidebar */}
           <ContentSidebar
             toc={toc}
             ctas={[

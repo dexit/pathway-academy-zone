@@ -11,37 +11,31 @@ const navLinks = [
   {
     label: "About Us",
     children: [
-      { label: "About Us", path: "/about" },
+      { label: "Who We Are", path: "/about" },
       { label: "Our Team", path: "/team" },
-      { label: "Partners", path: "/partners" },
-      { label: "Centres", path: "/centres" },
-      { label: "Careers", path: "/careers" },
+      { label: "Our Centres", path: "/centres" },
+      { label: "Outcomes & Impact", path: "/outcomes" },
     ],
   },
+  { label: "Programmes", path: "/programmes" },
   {
-    label: "Programmes",
-    children: [
-      { label: "Programmes", path: "/programmes" },
-      { label: "Outcomes", path: "/outcomes" },
-    ],
-  },
-  {
-    label: "Knowledge Hub",
+    label: "Resources",
     children: [
       { label: "Knowledge Hub", path: "/knowledge-hub" },
-      { label: "Complete Guide", path: "/knowledge-hub/complete-guide" },
-      { label: "Best Practice", path: "/knowledge-hub/best-practice" },
-      { label: "Glossary", path: "/knowledge-hub/glossary" },
+      { label: "Blog", path: "/blog" },
+      { label: "News", path: "/news" },
+      { label: "FAQs", path: "/faqs" },
     ],
   },
   {
     label: "Support",
     children: [
-      { label: "Referral Process", path: "/referral" },
       { label: "Safeguarding", path: "/safeguarding" },
-      { label: "FAQs", path: "/faqs" },
+      { label: "Partners", path: "/partners" },
+      { label: "Policies", path: "/policies" },
     ],
   },
+  { label: "Careers", path: "/careers" },
   { label: "Contact", path: "/contact" },
 ];
 

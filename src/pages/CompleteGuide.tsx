@@ -1,317 +1,295 @@
-import { useRef } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, BookOpen, Info, CheckCircle2, LayoutDashboard, Search, FileText, UserPlus, GraduationCap, ShieldAlert } from "lucide-react"
+import { ArrowRight, BookOpen, Clock, ShieldCheck, Scale, ClipboardList, Lightbulb, Users, GraduationCap } from "lucide-react"
 import Layout from "@/components/Layout"
+import { ContentSidebar } from "@/components/ContentSidebar"
 import { Button } from "@/components/ui/button"
 import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo"
-import { ContentSidebar } from "@/components/ContentSidebar"
-import { ReadingTime } from "@/components/SeoBlocks"
-import { useAutoToc } from "@/hooks/use-auto-toc"
-import { buildArticleJsonLd } from "@/lib/json-ld"
 
-const toc = [
-  { id: "what-is-ap", label: "What is AP?", level: 2 },
-  { id: "who-is-it-for", label: "Who is it for?", level: 2 },
-  { id: "referral-process", label: "The Referral Process", level: 2 },
-  { id: "models-of-ap", label: "Models of AP", level: 2 },
-  { id: "safeguarding", label: "Safeguarding", level: 2 },
-  { id: "progression", label: "Progression Routes", level: 2 },
+const anchors = [
+  { id: "definition", label: "Definition", level: 2 as const },
+  { id: "legal-framework", label: "Legal Framework", level: 2 as const },
+  { id: "referral-reasons", label: "Referral Reasons", level: 2 as const },
+  { id: "models", label: "Models of AP", level: 2 as const },
+  { id: "safeguarding", label: "Safeguarding", level: 2 as const },
+  { id: "progression", label: "Progression Routes", level: 2 as const },
 ]
 
 export default function CompleteGuide() {
-  const articleRef = useRef<HTMLDivElement>(null)
-  const toc = useAutoToc(articleRef, [])
-
-  const jsonLd = buildArticleJsonLd({
-    title: "The Complete Guide to Alternative Provision",
-    description:
-      "A definitive guide covering the full Alternative Provision journey from referral triggers to progression routes, written for educators, parents, and professionals.",
-    url: `${SITE_URL}/knowledge-hub/complete-guide`,
-    section: "Featured Resource",
-    minutesToRead: 15,
-    wordCount: 3450,
-  })
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Complete Guide to Alternative Provision",
+    "description": "A definitive guide covering the full Alternative Provision journey from referral triggers to progression routes, written for educators, parents, and professionals.",
+    "author": { "@type": "Organization", "name": "Pathway Academy Zone" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pathway Academy Zone",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/knowledge-hub/complete-guide`
+    },
+    "articleSection": "Alternative Provision",
+    "datePublished": "2024-12-10",
+    "timeRequired": "PT15M"
+  };
 
   return (
     <Layout>
       <Seo
         title="The Complete Guide to Alternative Provision"
-        description="Our comprehensive guide to Alternative Provision: understanding the legal basis, who it's for, and how to achieve the best outcomes for learners."
+        description="Comprehensive guide to Alternative Provision in England, with a focus on Staffordshire. Covers definitions, legal duties, referral triggers, programme models, safeguarding, and progression routes."
+        jsonLd={jsonLd}
       />
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background text-balance">
         <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-3xl">
+          <div className="container mx-auto px-4 py-14 md:py-24">
+            <div className="max-w-4xl">
               <Breadcrumbs
                 items={[
                   { label: "Knowledge Hub", to: "/knowledge-hub" },
                   { label: "The Complete Guide" },
                 ]}
-                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+                className="text-primary-foreground/70 mb-8 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
               />
-              <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-4 py-1.5 text-xs font-semibold tracking-widest uppercase mb-5">
-                <BookOpen className="w-3.5 h-3.5" />
-                Source of Truth
+              <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-4 py-2 text-xs font-bold tracking-[0.2em] uppercase mb-8 backdrop-blur-sm border border-accent/20">
+                <BookOpen className="w-4 h-4" />
+                Definitive Resource
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-5 text-balance">
-                The Complete Guide to Alternative Provision
+              <h1 className="text-4xl md:text-7xl font-bold leading-[1.1] mb-8 tracking-tight">
+                The Complete Guide to <span className="text-accent">Alternative Provision</span>
               </h1>
-              <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6">
+              <p className="text-primary-foreground/80 text-lg md:text-2xl leading-relaxed mb-10 max-w-3xl">
                 Alternative Provision (AP) is education arranged for pupils who cannot attend mainstream school
-                due to exclusion, illness, or other reasons. This comprehensive guide covers everything
-                professionals, parents, and educators need to know about AP in England, with specific focus on
-                Staffordshire provision.
+                due to exclusion, illness, or other reasons. This guide covers everything you need to know about AP in England.
               </p>
-              <p className="text-primary-foreground/60 text-sm mb-6 inline-flex items-center gap-3"><ReadingTime minutes={15} className="text-primary-foreground/70" /> · For educators, parents &amp; professionals</p>
-              <nav aria-label="On this page" className="flex flex-wrap gap-2">
-                {anchors.map((a) => (
-                  <a
-                    key={a.id}
-                    href={`#${a.id}`}
-                    className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-                  >
-                    {a.label}
-                  </a>
-                ))}
-              </nav>
+              <div className="flex flex-wrap items-center gap-6 text-primary-foreground/60 text-sm font-bold uppercase tracking-widest">
+                <span className="flex items-center gap-2"><Clock className="w-4 h-4" /> 15 min read</span>
+                <span className="flex items-center gap-2"><Users className="w-4 h-4" /> For Professionals & Families</span>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-        <div className="container mx-auto px-4 py-10 md:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
-            <div ref={articleRef} className="min-w-0 space-y-14">
-            <section id="what-is-ap" className="scroll-mt-24 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                <Info className="w-3.5 h-3.5" />
-                Definition
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">What is Alternative Provision?</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                Alternative Provision (AP) is education arranged for pupils who, because of exclusion,
-                illness or other reasons, would not otherwise receive suitable education. It is a vital
-                part of the education system designed to support young people who may find mainstream
-                environments challenging.
-              </p>
-              <div className="grid md:grid-cols-2 gap-6 pt-4">
-                <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
-                  <h3 className="font-bold text-foreground mb-2">The Legal Basis</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Local authorities have a statutory duty under section 19 of the Education Act 1996
-                    to provide suitable education for children of compulsory school age who cannot
-                    attend school.
-                  </p>
+        <div className="container mx-auto px-4 py-10 md:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-20">
+            <div className="space-y-20">
+              <section id="definition" className="scroll-mt-24 space-y-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <ClipboardList className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">What is Alternative Provision?</h2>
                 </div>
-                <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
-                  <h3 className="font-bold text-foreground mb-2">Who Provides It?</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    AP can be provided by Pupil Referral Units (PRUs), academy APs, free school APs,
-                    and independent providers like Pathway Academy Zone.
-                  </p>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Alternative Provision refers to education arranged for pupils who, because of exclusion,
+                  illness, or other reasons, would not otherwise receive suitable education. It operates outside
+                  mainstream and special school settings, providing tailored support for young people facing
+                  significant barriers to learning.
+                </p>
+                <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                  <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                    <Users className="w-5 h-5 text-primary" /> AP typically serves learners who:
+                  </h3>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[
+                      "Have been permanently excluded",
+                      "Are at risk of permanent exclusion",
+                      "Have medical or mental health needs",
+                      "Require a managed move",
+                      "Are Children Looked After (CLA)",
+                      "Are disengaged from mainstream",
+                    ].map((item) => (
+                      <li key={item} className="flex items-center gap-3 text-muted-foreground text-sm font-medium">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-              <Link to="/knowledge-hub/guides/what-is-alternative-provision" className="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
-                Read more about AP fundamentals <ArrowRight className="w-4 h-4" />
-              </Link>
-            </section>
+              </section>
 
-            <section id="who-is-it-for" className="scroll-mt-24 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                Learner Profiles
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Who is Alternative Provision for?</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                AP supports a wide range of learners, each with their own unique needs and challenges.
-                Common reasons for referral include:
-              </p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  "Social, Emotional & Mental Health (SEMH) needs",
-                  "Risk of permanent exclusion",
-                  "Chronic school refusal or anxiety",
-                  "Medical or health-related barriers",
-                  "Complex trauma or attachment history",
-                  "Need for vocational or practical learning",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 p-3 rounded-xl bg-muted/30 border border-border/50 text-sm font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link to="/knowledge-hub/glossary" className="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
-                Explore our glossary of terms <ArrowRight className="w-4 h-4" />
-              </Link>
-            </section>
+              <section id="legal-framework" className="scroll-mt-24 space-y-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <Scale className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">The Legal Framework</h2>
+                </div>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  The statutory guidance "Alternative Provision: Statutory guidance for local authorities"
+                  sets out the expectations for LAs, schools, and providers. Key legal duties include:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    { title: "Duty to Provide", desc: "LAs must arrange suitable full-time education for permanently excluded pupils from the sixth day." },
+                    { title: "Suitability", desc: "Education must be suitable to the child's age, ability, and any special educational needs they may have." },
+                    { title: "Quality Standards", desc: "LAs should have a process for commissioning and monitoring the quality of AP providers." },
+                    { title: "Personalisation", desc: "AP should be tailored to the individual learner, with regular reviews of progress and outcomes." },
+                  ].map((item) => (
+                    <div key={item.title} className="p-6 rounded-2xl bg-muted/30 border border-border/50">
+                      <h4 className="font-bold text-foreground mb-2">{item.title}</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
-            <section id="referral-process" className="scroll-mt-24 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                <UserPlus className="w-3.5 h-3.5" />
-                Next Steps
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">The Referral Process</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                A high-quality referral is the foundation of a successful AP placement. It requires
-                collaboration between the school, the provider, the family, and the young person.
-              </p>
-              <div className="space-y-4">
-                {[
-                  { step: "1. Identification", desc: "Recognising that mainstream interventions are not yielding the required progress." },
-                  { step: "2. Consultation", desc: "Speaking with providers to check capacity and suitability for the learner." },
-                  { step: "3. Formal Referral", desc: "Providing comprehensive data including EHCP, safeguarding, and academic history." },
-                  { step: "4. Induction", desc: "A planned transition with visits and a phased start to ensure early success." },
-                ].map((item) => (
-                  <div key={item.step} className="flex gap-4 p-5 rounded-2xl bg-card border border-border shadow-sm">
-                    <div className="font-bold text-primary shrink-0">{item.step.split(".")[0]}</div>
-                    <div>
-                      <h4 className="font-bold text-foreground">{item.step.split(".")[1].trim()}</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              <section id="referral-reasons" className="scroll-mt-24 space-y-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <Lightbulb className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">Referral Triggers</h2>
+                </div>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Recognising when a young person requires Alternative Provision is key to early intervention and successful outcomes.
+                </p>
+                <div className="space-y-4">
+                  {[
+                    { title: "Sustained Low Attendance", desc: "Attendance falling below 50% despite school-level interventions." },
+                    { title: "Escalating Behavioural Incidents", desc: "Increase in fixed-term suspensions or serious internal incidents." },
+                    { title: "Social & Emotional Decline", desc: "Severe anxiety, school refusal, or significant mental health barriers." },
+                    { title: "Academic Stagnation", desc: "Inability to access the mainstream curriculum despite support." }
+                  ].map((item) => (
+                    <div key={item.title} className="flex items-start gap-4 p-6 rounded-2xl bg-card border border-border shadow-sm hover:border-primary/30 transition-colors">
+                      <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center shrink-0">
+                        <ArrowRight className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-foreground mb-1">{item.title}</h4>
+                        <p className="text-muted-foreground text-sm">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section id="models" className="scroll-mt-24 space-y-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <GraduationCap className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">Models of AP</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                    <h3 className="text-xl font-bold text-foreground mb-4">Academic Re-engagement</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-6">Focuses on core GCSEs and Functional Skills in small group settings to rebuild learner confidence and ensure qualifications are achieved.</p>
+                    <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest">
+                       <Link to="/programmes" className="hover:underline">Learn More →</Link>
                     </div>
                   </div>
-                ))}
-              </div>
-              <Link to="/referral" className="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
-                Begin a referral <ArrowRight className="w-4 h-4" />
-              </Link>
-            </section>
-
-            <section id="models-of-ap" className="scroll-mt-24 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                <LayoutDashboard className="w-3.5 h-3.5" />
-                Variety
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Different Models of AP</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                AP is not one-size-fits-all. Different models serve different purposes based on
-                the young person&apos;s goals.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                {[
-                  { title: "Academic Re-engagement", body: "Focuses on rebuilding confidence in core subjects and achieving GCSEs/Functional Skills in a smaller setting.", link: "/knowledge-hub/guides/academic-vs-vocational", linkLabel: "Academic vs Vocational Guide" },
-                  { title: "Vocational Pathways", body: "Hands-on learning in industry-standard facilities like construction, catering, or motor vehicle trades.", link: "/knowledge-hub/best-practice/vocational-routes", linkLabel: "Vocational Routes Guide" },
-                  { title: "Therapeutic / SEMH", body: "Prioritises emotional regulation and mental health support alongside education using trauma-informed approaches.", link: "/knowledge-hub/best-practice/semh-pathways", linkLabel: "SEMH Pathways Guide" },
-                  { title: "Early Intervention", body: "Short-term placements aimed at assessment and stabilisation before returning to mainstream.", link: "/knowledge-hub/comparisons/short-vs-long-term", linkLabel: "Short vs Long Term Guide" },
-                ].map((p) => (
-                  <div key={p.title} className="flex flex-col p-6 rounded-2xl bg-card border border-border shadow-sm">
-                    <h4 className="font-bold text-foreground mb-2">{p.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-grow">{p.body}</p>
-                    <Link to={p.link} className="text-xs font-bold text-primary hover:underline uppercase tracking-wider">
-                      {p.linkLabel} →
-                    </Link>
+                  <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                    <h3 className="text-xl font-bold text-foreground mb-4">Vocational Learning</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-6">Practical, skills-based learning in trades like construction, motor mechanics, or catering, designed to spark interest and path to employment.</p>
+                    <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest">
+                       <Link to="/programmes" className="hover:underline">Learn More →</Link>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </section>
-
-            <section id="safeguarding" className="scroll-mt-24 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                <ShieldAlert className="w-3.5 h-3.5" />
-                Priority
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Safeguarding in AP</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                Robust safeguarding is non-negotiable. Young people in AP often have complex
-                backgrounds including trauma, exploitation risk, and vulnerability.
-              </p>
-              <div className="p-6 rounded-2xl bg-muted border border-border">
-                <h3 className="font-bold text-foreground mb-4">Essential Requirements:</h3>
-                <ul className="space-y-3">
-                  {[
-                    "Dedicated DSL available at all times",
-                    "Comprehensive staff training in trauma-informed practice",
-                    "Individualised risk assessments for every learner",
-                    "Strong multi-agency collaboration (CAMHS, Social Care, Police)",
-                  ].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-sm text-muted-foreground font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Link to="/safeguarding" className="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
-                Our Safeguarding Approach <ArrowRight className="w-4 h-4" />
-              </Link>
-            </section>
-
-            <section id="progression" className="scroll-mt-24 space-y-5">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                <GraduationCap className="w-3.5 h-3.5" />
-                Futures
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Progression Routes</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                Effective AP always plans for next steps. Whether returning to mainstream or moving
-                to post-16 study, the transition is carefully managed.
-              </p>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <h4 className="font-bold text-foreground text-sm uppercase tracking-wider">During KS3/KS4</h4>
-                  <ul className="space-y-2">
-                    {["Reintegration to mainstream", "Managed move", "Continuation in AP with qualifications", "Specialist SEND placement"].map(i => (
-                      <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                        {i}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
-                <div className="space-y-4">
-                  <h4 className="font-bold text-foreground text-sm uppercase tracking-wider">Post-16 Options</h4>
-                  <ul className="space-y-2">
-                    {["College (Academic/Vocational)", "Apprenticeships", "Supported Employment", "Specialist Post-16 Provision"].map(i => (
-                      <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                        {i}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <Link to="/knowledge-hub/best-practice/post-16-progression" className="inline-flex items-center gap-2 text-primary font-semibold hover:underline">
-                Best Post-16 Progression Pathways <ArrowRight className="w-4 h-4" />
-              </Link>
-            </section>
+              </section>
 
-            <section className="rounded-3xl bg-primary text-primary-foreground p-8 md:p-12 text-center shadow-xl shadow-primary/20">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">Ready to Make a Referral?</h2>
-              <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">
-                If you believe a young person could benefit from Alternative Provision, we&apos;re here to
-                help you through the process.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold px-8">
-                  <Link to="/referral">
-                    Start a Referral
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-bold px-8"
-                >
-                  <Link to="/contact">Speak to Our Team</Link>
-                </Button>
-              </div>
-            </section>
+              <section id="safeguarding" className="scroll-mt-24 space-y-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <ShieldCheck className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">Safeguarding Excellence</h2>
+                </div>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Robust safeguarding is non-negotiable in AP settings. Young people often have complex backgrounds including trauma and vulnerability.
+                </p>
+                <div className="bg-primary/5 rounded-[2.5rem] p-8 md:p-12 border border-primary/10">
+                   <h3 className="text-2xl font-bold text-foreground mb-8 text-center">Statutory Requirements</h3>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {[
+                        { title: "Trained DSL", desc: "A Designated Safeguarding Lead must be available at all times during provision hours." },
+                        { title: "Staff Training", desc: "All staff must receive regular safeguarding training, including KCSIE updates." },
+                        { title: "Risk Management", desc: "Individual risk assessments for every learner, reviewed regularly with partners." },
+                        { title: "Multi-Agency", desc: "Strong communication channels with social care, police, and mental health services." }
+                      ].map((item) => (
+                        <div key={item.title} className="space-y-2">
+                           <h4 className="font-bold text-primary flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-primary" /> {item.title}</h4>
+                           <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                        </div>
+                      ))}
+                   </div>
+                </div>
+              </section>
+
+              <section id="progression" className="scroll-mt-24 space-y-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <ArrowRight className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">Progression Routes</h2>
+                </div>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  Effective AP always plans for the next step, ensuring young people have a clear destination when their placement ends.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                   <div className="p-8 rounded-3xl bg-muted/30 border border-border/50">
+                      <h4 className="font-bold text-foreground mb-4 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-primary" /> KS3/KS4 Options</h4>
+                      <ul className="space-y-3 text-sm text-muted-foreground font-medium">
+                        <li>• Reintegration to mainstream</li>
+                        <li>• Managed move to alternative mainstream</li>
+                        <li>• Sustained AP placement for GCSEs</li>
+                        <li>• Specialist SEND placement</li>
+                      </ul>
+                   </div>
+                   <div className="p-8 rounded-3xl bg-muted/30 border border-border/50">
+                      <h4 className="font-bold text-foreground mb-4 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-primary" /> Post-16 Options</h4>
+                      <ul className="space-y-3 text-sm text-muted-foreground font-medium">
+                        <li>• FE College (Academic/Vocational)</li>
+                        <li>• Apprenticeships & Traineeships</li>
+                        <li>• Supported Employment</li>
+                        <li>• Specialist Post-16 Provision</li>
+                      </ul>
+                   </div>
+                </div>
+              </section>
+
+              <section className="rounded-[3rem] bg-primary text-primary-foreground p-10 md:p-16 text-center relative overflow-hidden shadow-2xl shadow-primary/20">
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32" />
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Ready to Discuss a Placement?</h2>
+                <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto mb-10 text-balance leading-relaxed">
+                  Whether you're a school, local authority, or parent, our team is here to help you find the right pathway.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                  <Button asChild size="xl" className="bg-white text-primary hover:bg-white/90 font-bold px-10 h-16 text-lg rounded-full">
+                    <Link to="/referral">
+                      Start a Referral <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="xl"
+                    className="border-2 border-white/40 text-white hover:bg-white/10 font-bold px-10 h-16 text-lg rounded-full"
+                  >
+                    <Link to="/contact">Speak to Our Team</Link>
+                  </Button>
+                </div>
+              </section>
             </div>
 
             <ContentSidebar
-              toc={toc.length ? toc : anchors.map((a) => ({ id: a.id, label: a.label, level: 2 as const }))}
+              toc={anchors}
               ctas={[
                 {
                   label: "Make a Referral",
-                  description: "Refer a young person in 4 steps",
+                  description: "Start the process for a new placement",
                   href: "/referral",
                   tone: "primary",
                 },
                 {
-                  label: "Browse Knowledge Hub",
-                  description: "All guides and references",
+                  label: "Knowledge Hub",
+                  description: "Browse more resources and guides",
                   href: "/knowledge-hub",
                 },
               ]}
@@ -321,28 +299,8 @@ export default function CompleteGuide() {
               }}
             />
           </div>
-
-          <ContentSidebar
-            toc={toc}
-            ctas={[
-              {
-                label: "Download Policies",
-                description: "Safeguarding & pastoral docs",
-                href: "/policies",
-              },
-              {
-                label: "Our Programmes",
-                description: "Academic & vocational paths",
-                href: "/programmes",
-              },
-            ]}
-            quickContact={{
-              phone: "01782 365365",
-              email: "info@pathwayacademyzone.co.uk",
-            }}
-          />
         </div>
-      </div>
+      </main>
     </Layout>
   )
 }

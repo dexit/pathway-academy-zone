@@ -1,9 +1,0 @@
-{
-  "apiVersion": 3,
-  "name": "pazone/quote-card",
-  "title": "Quote Card",
-  "category": "pazone",
-  "icon": "format-quote",
-  "description": "A stylish testimonial or quote card.",
-  "textdomain": "pathway-academy-zone"
-}

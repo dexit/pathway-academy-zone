@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Search as SearchIcon, ArrowRight } from "lucide-react";
-import { Seo } from "@/components/Seo";
+import { Seo, SITE_URL } from "@/components/Seo";
 import { searchAll, type SearchItem } from "@/lib/search-index";
 import { Button } from "@/components/ui/button";
 import { ArchiveLayout } from "@/components/ArchiveLayout";
@@ -54,6 +54,14 @@ export default function SearchPage() {
     setPage(1);
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SearchResultsPage",
+    "name": q ? `Search Results for "${q}"` : "Search",
+    "description": `Search results for query "${q}" on Pathway Academy Zone.`,
+    "url": `${SITE_URL}/search${q ? `?q=${encodeURIComponent(q)}` : ""}`
+  };
+
   return (
     <>
       <Seo
@@ -64,6 +72,7 @@ export default function SearchPage() {
             : "Search the Pathway Academy Zone website for guides, blog articles, policies, and more."
         }
         noIndex
+        jsonLd={jsonLd}
       />
       <ArchiveLayout
         crumbs={[{ label: "Search" }]}
@@ -94,8 +103,8 @@ export default function SearchPage() {
           },
         }}
       >
-        <form onSubmit={submit} className="relative">
-          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
+        <form onSubmit={submit} className="relative mb-10">
+          <SearchIcon className="absolute left-5 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground pointer-events-none" />
           <input
             type="search"
             autoFocus
@@ -103,24 +112,27 @@ export default function SearchPage() {
             onChange={(e) => setDraft(e.target.value)}
             placeholder="Search guides, blog, policies..."
             aria-label="Search query"
-            className="w-full h-14 pl-12 pr-32 rounded-full bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50"
+            className="w-full h-16 pl-14 pr-36 rounded-full bg-card border border-border text-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all"
           />
           <Button
             type="submit"
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+            size="lg"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full h-12 px-8 font-bold"
           >
             Search
           </Button>
         </form>
 
         {q ? (
-          <>
-            <p className="text-sm text-muted-foreground">
-              {results.length} {results.length === 1 ? "result" : "results"} for{" "}
-              <span className="text-foreground font-semibold">
-                &quot;{q}&quot;
-              </span>
-            </p>
+          <div className="space-y-8">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-muted-foreground">
+                Found <span className="text-foreground font-bold">{results.length}</span> {results.length === 1 ? "result" : "results"} for{" "}
+                <span className="text-primary font-bold">
+                  &quot;{q}&quot;
+                </span>
+              </p>
+            </div>
 
             {results.length > 0 && (
               <FilterPills
@@ -140,26 +152,26 @@ export default function SearchPage() {
                 {paginated.map((r) => (
                   <li
                     key={`${r.type}-${r.url}-${r.title}`}
-                    className="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow"
+                    className="bg-card border border-border/50 rounded-2xl p-6 hover:shadow-xl hover:border-primary/30 transition-all group"
                   >
                     <Link
                       to={r.url}
                       title={r.title}
-                      className="group block"
+                      className="block"
                     >
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-primary">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-widest bg-primary/10 text-primary">
                           {r.type}
                         </span>
-                        <span className="text-xs text-muted-foreground truncate">
+                        <span className="text-[10px] font-medium text-muted-foreground truncate uppercase tracking-widest">
                           {r.url}
                         </span>
                       </div>
-                      <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
+                      <h2 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
                         {r.title}
-                        <ArrowRight className="h-4 w-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                        <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                       </h2>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                         {r.description}
                       </p>
                     </Link>
@@ -167,15 +179,16 @@ export default function SearchPage() {
                 ))}
               </ul>
             ) : (
-              <div className="text-center py-16 max-w-lg mx-auto">
-                <h2 className="text-xl font-bold text-foreground mb-2">
+              <div className="text-center py-24 bg-card rounded-[3rem] border border-dashed border-border/50">
+                <SearchIcon className="h-12 w-12 text-muted-foreground mx-auto mb-6 opacity-20" />
+                <h2 className="text-2xl font-bold text-foreground mb-4">
                   No results found
                 </h2>
-                <p className="text-muted-foreground mb-6">
+                <p className="text-muted-foreground mb-10 max-w-sm mx-auto">
                   Try different keywords, check for typos, or browse the
                   Knowledge Hub for related guides.
                 </p>
-                <Button asChild>
+                <Button asChild size="xl" className="rounded-full font-bold px-10">
                   <Link to="/knowledge-hub">Browse Knowledge Hub</Link>
                 </Button>
               </div>
@@ -186,11 +199,10 @@ export default function SearchPage() {
               totalPages={totalPages}
               onChange={setPage}
             />
-          </>
+          </div>
         ) : (
-          <div className="text-muted-foreground">
-            Type a query above to search across all guides, blog articles,
-            policies, and pages.
+          <div className="text-center py-20 text-muted-foreground italic">
+            Enter a search term above to begin exploring our resources.
           </div>
         )}
       </ArchiveLayout>
