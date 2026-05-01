@@ -229,6 +229,7 @@ function ChapterIllustration({
           src={chapter.image}
           alt={chapter.imageAlt}
           loading="lazy"
+          decoding="async"
           width={896}
           height={896}
           className="w-full h-full object-cover"
