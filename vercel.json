@@ -16,7 +16,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(webp|png|jpg|jpeg|svg|gif|ico|woff2|woff))",
+      "source": "/:path*.:ext(webp|png|jpg|jpeg|svg|gif|ico|woff2|woff)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" },
         { "key": "X-Content-Type-Options", "value": "nosniff" }
