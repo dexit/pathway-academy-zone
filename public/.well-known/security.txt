@@ -1,0 +1,5 @@
+Contact: mailto:info@pathwayacademyzone.co.uk
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://pathwayacademyzone.co.uk/.well-known/security.txt
+Policy: https://pathwayacademyzone.co.uk/policies

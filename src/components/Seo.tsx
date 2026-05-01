@@ -71,12 +71,19 @@ export function Seo({ title, description, canonical, image, jsonLd, noIndex }: S
     upsertMeta("property", "og:site_name", SITE_NAME);
     upsertMeta("property", "og:locale", "en_GB");
     upsertMeta("property", "og:image", ogImage);
+    upsertMeta("property", "og:image:secure_url", ogImage);
+    upsertMeta("property", "og:image:type", "image/png");
+    upsertMeta("property", "og:image:width", "512");
+    upsertMeta("property", "og:image:height", "512");
     upsertMeta("property", "og:image:alt", `${SITE_NAME} logo`);
 
     upsertMeta("name", "twitter:card", "summary_large_image");
+    upsertMeta("name", "twitter:site", "@PathwayAcademyZ");
+    upsertMeta("name", "twitter:creator", "@PathwayAcademyZ");
     upsertMeta("name", "twitter:title", fullTitle);
     if (description) upsertMeta("name", "twitter:description", description);
     upsertMeta("name", "twitter:image", ogImage);
+    upsertMeta("name", "twitter:image:alt", `${SITE_NAME} logo`);
 
     if (jsonLd) injectJsonLd("page", jsonLd);
     return () => {
