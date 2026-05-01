@@ -1,0 +1,33 @@
+{
+  "name": "Pathway Academy Zone",
+  "short_name": "PAZ",
+  "description": "Alternative Provision in Stoke-on-Trent and Staffordshire for ages 11-16.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#2e8158",
+  "lang": "en-GB",
+  "dir": "ltr",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "/assets/PAZlogo-BYea4nq1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/PAZlogo-BYea4nq1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

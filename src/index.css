@@ -1,4 +1,5 @@
 /* Google Fonts loaded via <link> in index.html with display=optional to avoid CLS */
+/* Fonts loaded non-blocking via <link> in index.html for better LCP/FCP. */
 
 @tailwind base;
 @tailwind components;
