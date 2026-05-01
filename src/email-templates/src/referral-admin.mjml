@@ -1,0 +1,146 @@
+<mjml>
+  <mj-head>
+    <mj-title>New Referral — Pathway Academy Zone</mj-title>
+    <mj-preview>Referral received for {{ypName}} ({{yearGroup}}) from {{referrerOrg}}</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="'Plus Jakarta Sans', Arial, Helvetica, sans-serif" />
+      <mj-text font-size="14px" line-height="1.65" color="#1a2c24" padding="0 0 10px 0" />
+      <mj-section padding="0" />
+    </mj-attributes>
+    <mj-style>
+      .label { color: #677e77; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+      .value { color: #1a2c24; font-size: 13px; font-weight: 600; }
+      .pill-red { display:inline-block; background:#fef2f2; color:#dc2626; border-radius:9999px; padding:3px 10px; font-size:11px; font-weight:700; }
+      .pill-green { display:inline-block; background:#e8f4ee; color:#2e8158; border-radius:9999px; padding:3px 10px; font-size:11px; font-weight:700; }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#f0f5f2">
+
+    <!-- ── Urgent banner (conditional) ─────────────────────── -->
+    <mj-section background-color="#dc2626" padding="10px 32px" css-class="urgent-banner">
+      <mj-column>
+        <mj-text color="#ffffff" font-size="13px" font-weight="700" padding="0">
+          ⚡ REFERRAL — ACTION REQUIRED WITHIN 1 WORKING DAY
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Header ─────────────────────────────────────────────── -->
+    <mj-section background-color="#2e8158" padding="28px 32px 24px">
+      <mj-column>
+        <mj-image src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
+                  width="140px" alt="Pathway Academy Zone" align="left" />
+        <mj-text color="#ffffff" font-size="20px" font-weight="800" padding="16px 0 4px">
+          New Referral Received
+        </mj-text>
+        <mj-text color="rgba(255,255,255,0.75)" font-size="12px" padding="0">
+          {{timestamp}} · pathwayacademyzone.co.uk/referral
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#1d6645" padding="4px 0" />
+
+    <!-- ── Young Person ──────────────────────────────────────── -->
+    <mj-section background-color="#ffffff" padding="28px 32px 8px">
+      <mj-column>
+        <mj-text font-size="15px" font-weight="800" padding="0 0 16px">
+          Young Person Details
+        </mj-text>
+        <mj-table cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td style="padding:8px 16px 8px 0;width:40%;border-bottom:1px solid #e8f0eb;vertical-align:top"><span class="label">Name</span></td>
+            <td style="padding:8px 0;border-bottom:1px solid #e8f0eb"><span class="value">{{ypName}}</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 16px 8px 0;border-bottom:1px solid #e8f0eb;vertical-align:top"><span class="label">Date of Birth</span></td>
+            <td style="padding:8px 0;border-bottom:1px solid #e8f0eb"><span class="value">{{dob}}</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 16px 8px 0;border-bottom:1px solid #e8f0eb;vertical-align:top"><span class="label">Year Group</span></td>
+            <td style="padding:8px 0;border-bottom:1px solid #e8f0eb"><span class="pill-green">{{yearGroup}}</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 16px 8px 0;border-bottom:1px solid #e8f0eb;vertical-align:top"><span class="label">Current School</span></td>
+            <td style="padding:8px 0;border-bottom:1px solid #e8f0eb"><span class="value">{{currentSchool}}</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 16px 8px 0;vertical-align:top"><span class="label">Programme Interest</span></td>
+            <td style="padding:8px 0"><span class="pill-green">{{programme}}</span></td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Referrer ──────────────────────────────────────────── -->
+    <mj-section background-color="#f5f7f5" padding="24px 32px 8px">
+      <mj-column>
+        <mj-text font-size="15px" font-weight="800" padding="0 0 16px">
+          Referrer Details
+        </mj-text>
+        <mj-table cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td style="padding:8px 16px 8px 0;width:40%;border-bottom:1px solid #dde8e2;vertical-align:top"><span class="label">Name</span></td>
+            <td style="padding:8px 0;border-bottom:1px solid #dde8e2"><span class="value">{{referrerName}}</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 16px 8px 0;border-bottom:1px solid #dde8e2;vertical-align:top"><span class="label">Role</span></td>
+            <td style="padding:8px 0;border-bottom:1px solid #dde8e2"><span class="value">{{role}}</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 16px 8px 0;border-bottom:1px solid #dde8e2;vertical-align:top"><span class="label">Organisation</span></td>
+            <td style="padding:8px 0;border-bottom:1px solid #dde8e2"><span class="value">{{referrerOrg}}</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 16px 8px 0;border-bottom:1px solid #dde8e2;vertical-align:top"><span class="label">Email</span></td>
+            <td style="padding:8px 0;border-bottom:1px solid #dde8e2"><a href="mailto:{{referrerEmail}}" style="color:#2e8158;font-weight:600;">{{referrerEmail}}</a></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 16px 8px 0;vertical-align:top"><span class="label">Phone</span></td>
+            <td style="padding:8px 0"><a href="tel:{{referrerPhone}}" style="color:#2e8158;font-weight:600;">{{referrerPhone}}</a></td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Additional info ──────────────────────────────────── -->
+    <mj-section background-color="#ffffff" padding="24px 32px">
+      <mj-column>
+        <mj-text font-size="13px" font-weight="700" color="#677e77" padding="0 0 8px">ADDITIONAL INFORMATION</mj-text>
+        <mj-text background-color="#f5f7f5" padding="14px" border-radius="8px"
+                 font-size="13px" line-height="1.7" color="#3a5047">
+          {{additionalInfo}}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── CTA ──────────────────────────────────────────────── -->
+    <mj-section background-color="#e8f4ee" padding="20px 32px">
+      <mj-column>
+        <mj-button href="mailto:{{referrerEmail}}?subject=Re%3A+Referral+for+{{ypName}}"
+                   background-color="#2e8158" border-radius="8px"
+                   font-size="13px" font-weight="700" padding="13px 24px" align="left">
+          Contact Referrer →
+        </mj-button>
+      </mj-column>
+      <mj-column>
+        <mj-text font-size="11px" color="#677e77">
+          Postcode: <strong>{{postcode}}</strong><br />
+          Submitted: {{timestamp}}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Footer ───────────────────────────────────────────── -->
+    <mj-section background-color="#1a2c24" padding="24px 32px">
+      <mj-column>
+        <mj-text color="rgba(255,255,255,0.55)" font-size="11px" line-height="1.7">
+          Pathway Academy Zone · Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ<br />
+          01782 365365 · info@pathwayacademyzone.co.uk ·
+          <a href="https://pathwayacademyzone.co.uk" style="color:rgba(255,255,255,0.55)">pathwayacademyzone.co.uk</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>
