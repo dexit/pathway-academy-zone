@@ -1,21 +1,4 @@
-/* Self-hosted optimized fonts with @font-face for zero-latency loading */
-/* Font files are minified and optimized — no blocking CDN requests */
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  src: url('/fonts/plus-jakarta-sans-400.woff2') format('woff2-variations');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  src: url('/fonts/plus-jakarta-sans-italic-400.woff2') format('woff2-variations');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
+/* Google Fonts loaded via <link> in index.html with display=swap for optimal LCP/CLS */
 
 @tailwind base;
 @tailwind components;

@@ -47,32 +47,31 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: '[name].js',
         chunkFileNames: '[name]-[hash].js',
         assetFileNames: '[name]-[hash][extname]',
-        // Optimized code splitting that respects dependency chains
-        manualChunks: {
-          // Keep React core and JSX runtime together
-          'vendor-react': ['react', 'react-dom', 'react/jsx-runtime'],
-          // Route handling together
-          'vendor-router': ['react-router-dom'],
-          // UI components library
-          'vendor-ui': [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-slot',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-navigation-menu',
-            '@radix-ui/react-popover',
-            '@radix-ui/react-select',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-tooltip',
-          ].filter(pkg => {
-            try {
-              require.resolve(pkg);
-              return true;
-            } catch {
-              return false;
+        // Smart code splitting for better caching and parallelization
+        manualChunks(id) {
+          // Vendor chunks for better caching
+          if (id.includes('node_modules')) {
+            // React ecosystem
+            if (id.includes('react') || id.includes('@react')) {
+              return 'vendor-react';
             }
-          }),
+            // Router and state management
+            if (id.includes('react-router') || id.includes('zustand') || id.includes('jotai')) {
+              return 'vendor-routing';
+            }
+            // UI framework
+            if (id.includes('@radix-ui') || id.includes('lucide') || id.includes('clsx')) {
+              return 'vendor-ui';
+            }
+            // Utils and other dependencies
+            return 'vendor-other';
+          }
         },
       },
+    },
+    // Optimize module preload
+    modulePreload: {
+      polyfill: false,
     },
   },
   // Preview mode (local production testing) should also handle SPA routing
