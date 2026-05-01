@@ -1,5 +1,55 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "header", "key": "x-forwarded-proto", "value": "http" }],
+      "destination": "https://academy.pathwayl.ink/:path*",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/(.*\\.(webp|png|jpg|jpeg|svg|gif|ico|woff2|woff))",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Service-Worker-Allowed", "value": "/" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
+      ]
+    }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/oembed",          "destination": "/oembed.json" },
+    { "source": "/oembed.json",     "destination": "/oembed.json" },
+    { "source": "/sitemap.xml",     "destination": "/sitemap.xml" },
+    { "source": "/robots.txt",      "destination": "/robots.txt" },
+    { "source": "/llms.txt",        "destination": "/llms.txt" },
+    { "source": "/sw.js",           "destination": "/sw.js" },
+    { "source": "/favicon.ico",     "destination": "/favicon.ico" },
+    { "source": "/placeholder.svg", "destination": "/placeholder.svg" },
+    { "source": "/assets/:file*",   "destination": "/assets/:file*" },
+    { "source": "/(.*)",            "destination": "/index.html" }
   ]
 }

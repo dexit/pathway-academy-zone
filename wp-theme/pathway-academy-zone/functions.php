@@ -137,7 +137,7 @@ add_action( 'init', function () {
 // ---------------------------------------------------------------------------
 // Optional: load additional theme inc files if they exist.
 // ---------------------------------------------------------------------------
-foreach ( array( 'cpts', 'taxonomies', 'blocks', 'patterns', 'sidebars', 'compat', 'demo-importer', 'schema', 'relationships', 'rest-api', 'smtp', 'email-templates' ) as $_paz_inc ) {
+foreach ( array( 'cpts', 'taxonomies', 'blocks', 'patterns', 'sidebars', 'compat', 'demo-importer', 'schema', 'relationships', 'rest-api', 'smtp', 'email-templates', 'cors' ) as $_paz_inc ) {
 	$_paz_file = PAZ_THEME_DIR . 'inc/' . $_paz_inc . '.php';
 	if ( file_exists( $_paz_file ) ) {
 		require_once $_paz_file;

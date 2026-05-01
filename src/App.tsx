@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Eager: home is the first paint route — keep it in the main bundle for fastest TTI.
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import AiAssistant from "./components/AiAssistant.tsx";
 
 // Lazy: every other route is loaded on demand to slim the initial bundle.
 const About             = lazy(() => import("./pages/About.tsx"));
@@ -91,6 +92,7 @@ const App = () => (
           </Routes>
         </Suspense>
       </BrowserRouter>
+      <AiAssistant />
     </TooltipProvider>
   </QueryClientProvider>
 );
