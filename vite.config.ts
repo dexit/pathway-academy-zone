@@ -32,14 +32,40 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    // Chunk size warning limit (500KB is reasonable for modern SPAs)
+    chunkSizeWarningLimit: 500,
     // Ensure all routes fallback to index.html for SPA
     rollupOptions: {
       output: {
         // Ensures build is optimized for SPA deployment
         entryFileNames: '[name].js',
-        chunkFileNames: '[name].js',
-        assetFileNames: '[name][extname]',
+        chunkFileNames: '[name]-[hash].js',
+        assetFileNames: '[name]-[hash][extname]',
+        // Smart code splitting for better caching and parallelization
+        manualChunks(id) {
+          // Vendor chunks for better caching
+          if (id.includes('node_modules')) {
+            // React ecosystem
+            if (id.includes('react') || id.includes('@react')) {
+              return 'vendor-react';
+            }
+            // Router and state management
+            if (id.includes('react-router') || id.includes('zustand') || id.includes('jotai')) {
+              return 'vendor-routing';
+            }
+            // UI framework
+            if (id.includes('@radix-ui') || id.includes('lucide') || id.includes('clsx')) {
+              return 'vendor-ui';
+            }
+            // Utils and other dependencies
+            return 'vendor-other';
+          }
+        },
       },
+    },
+    // Optimize module preload
+    modulePreload: {
+      polyfill: false,
     },
   },
   // Preview mode (local production testing) should also handle SPA routing
