@@ -22,7 +22,7 @@ if ( ! defined( 'PAZ_THEME_URI' ) ) {
 /**
  * Theme supports, nav menus, and image sizes.
  */
-function paz_theme_setup() {
+add_action( 'after_setup_theme', function () {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
@@ -39,63 +39,115 @@ function paz_theme_setup() {
 	) );
 
 	register_nav_menus( array(
-		'primary'   => __( 'Primary Menu', 'pathway-academy-zone' ),
-		'footer'    => __( 'Footer Menu', 'pathway-academy-zone' ),
-		'resources' => __( 'Resources Dropdown', 'pathway-academy-zone' ),
+		'primary'          => __( 'Primary Navigation', 'pathway-academy-zone' ),
+		'footer-provision' => __( 'Footer: Our Provision', 'pathway-academy-zone' ),
+		'footer-resources' => __( 'Footer: Resources', 'pathway-academy-zone' ),
+		'footer-about'     => __( 'Footer: About Us', 'pathway-academy-zone' ),
+		'footer-info'      => __( 'Footer: Information', 'pathway-academy-zone' ),
 	) );
 
 	add_image_size( 'paz-card',  800, 600, true );
 	add_image_size( 'paz-hero', 1920, 1080, true );
 
 	load_theme_textdomain( 'pathway-academy-zone', PAZ_THEME_DIR . 'languages' );
-}
-add_action( 'after_setup_theme', 'paz_theme_setup' );
+} );
 
 /**
- * Enqueue Plus Jakarta Sans + theme stylesheet.
+ * Enqueue theme stylesheet (and optionally web fonts).
  */
-function paz_theme_assets() {
+add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style(
-		'paz-fonts',
-		'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap',
-		array(),
-		null
-	);
-	wp_enqueue_style(
-		'paz-style',
+		'paz-theme',
 		get_stylesheet_uri(),
-		array( 'paz-fonts' ),
-		PAZ_THEME_VERSION
-	);
-}
-add_action( 'wp_enqueue_scripts', 'paz_theme_assets' );
-
-/**
- * Editor assets match front-end assets so FSE previews are accurate.
- */
-function paz_editor_assets() {
-	wp_enqueue_style(
-		'paz-fonts-editor',
-		'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap',
 		array(),
-		null
+		wp_get_theme()->get( 'Version' )
 	);
-}
-add_action( 'enqueue_block_editor_assets', 'paz_editor_assets' );
-
-require_once PAZ_THEME_DIR . 'inc/cpts.php';
-require_once PAZ_THEME_DIR . 'inc/taxonomies.php';
-require_once PAZ_THEME_DIR . 'inc/blocks.php';
-require_once PAZ_THEME_DIR . 'inc/patterns.php';
-require_once PAZ_THEME_DIR . 'inc/sidebars.php';
-require_once PAZ_THEME_DIR . 'inc/compat.php';
-require_once PAZ_THEME_DIR . 'inc/demo-importer.php';
-require_once PAZ_THEME_DIR . 'inc/schema.php';
+} );
 
 /**
- * Convenience: give block patterns their own category.
+ * Editor assets — keep editor preview consistent with front-end.
  */
-function paz_register_pattern_categories() {
+add_action( 'enqueue_block_editor_assets', function () {
+	// Intentionally empty — theme.json handles design tokens in the editor.
+} );
+
+/**
+ * Register a custom block pattern category.
+ */
+add_action( 'init', function () {
 	register_block_pattern_category( 'paz', array( 'label' => __( 'Pathway Academy Zone', 'pathway-academy-zone' ) ) );
+} );
+
+/**
+ * Register block styles.
+ *
+ * pill-button  — rounded pill shape for navigation/area links
+ * card-hover   — card with lift effect on hover
+ * highlight    — paragraph with left accent border
+ */
+add_action( 'init', function () {
+	// Pill button style.
+	register_block_style(
+		'core/button',
+		array(
+			'name'         => 'pill',
+			'label'        => __( 'Pill', 'pathway-academy-zone' ),
+			'inline_style' => '.is-style-pill .wp-block-button__link { border-radius: 9999px; }',
+		)
+	);
+
+	// Card hover style.
+	register_block_style(
+		'core/group',
+		array(
+			'name'         => 'card-hover',
+			'label'        => __( 'Card (hover lift)', 'pathway-academy-zone' ),
+			'inline_style' => '
+				.is-style-card-hover {
+					border-radius: 0.75rem;
+					box-shadow: 0 1px 3px rgba(0,0,0,.08);
+					transition: box-shadow .2s ease, transform .2s ease;
+				}
+				.is-style-card-hover:hover {
+					box-shadow: 0 8px 24px rgba(0,0,0,.12);
+					transform: translateY(-3px);
+				}
+			',
+		)
+	);
+
+	// Highlight paragraph style.
+	register_block_style(
+		'core/paragraph',
+		array(
+			'name'         => 'highlight',
+			'label'        => __( 'Highlight (left border)', 'pathway-academy-zone' ),
+			'inline_style' => '
+				.is-style-highlight {
+					border-left: 4px solid var(--wp--preset--color--primary);
+					padding-left: 1rem;
+					background-color: var(--wp--preset--color--accent);
+					border-radius: 0 0.375rem 0.375rem 0;
+				}
+			',
+		)
+	);
+} );
+
+// ---------------------------------------------------------------------------
+// Optional: load additional theme inc files if they exist.
+// ---------------------------------------------------------------------------
+foreach ( array( 'cpts', 'taxonomies', 'blocks', 'patterns', 'sidebars', 'compat', 'demo-importer', 'schema', 'relationships', 'rest-api', 'smtp', 'email-templates' ) as $_paz_inc ) {
+	$_paz_file = PAZ_THEME_DIR . 'inc/' . $_paz_inc . '.php';
+	if ( file_exists( $_paz_file ) ) {
+		require_once $_paz_file;
+	}
 }
-add_action( 'init', 'paz_register_pattern_categories' );
+unset( $_paz_inc, $_paz_file );
+
+// Admin-only metaboxes loaded separately (not needed on front end).
+if ( is_admin() ) {
+	$_paz_mb = PAZ_THEME_DIR . 'inc/admin/metaboxes.php';
+	if ( file_exists( $_paz_mb ) ) require_once $_paz_mb;
+	unset( $_paz_mb );
+}

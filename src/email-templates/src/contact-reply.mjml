@@ -1,0 +1,110 @@
+<mjml>
+  <mj-head>
+    <mj-title>Thank you for contacting Pathway Academy Zone</mj-title>
+    <mj-preview>We've received your enquiry and will be in touch within 1 working day</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="'Plus Jakarta Sans', Arial, Helvetica, sans-serif" />
+      <mj-text font-size="14px" line-height="1.65" color="#1a2c24" padding="0 0 12px 0" />
+      <mj-section padding="0" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="#f0f5f2">
+
+    <!-- ── Header ─────────────────────────────────────────────── -->
+    <mj-section background-color="#2e8158" padding="32px 32px 28px">
+      <mj-column>
+        <mj-image src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
+                  width="152px" alt="Pathway Academy Zone" align="left" />
+        <mj-text color="#ffffff" font-size="22px" font-weight="800" padding="18px 0 4px">
+          Thank you, {{firstName}}
+        </mj-text>
+        <mj-text color="rgba(255,255,255,0.8)" font-size="14px" padding="0">
+          We've received your enquiry and will be in touch within 1 working day.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#1d6645" padding="4px 0" />
+
+    <!-- ── Body ─────────────────────────────────────────────── -->
+    <mj-section background-color="#ffffff" padding="36px 32px 28px">
+      <mj-column>
+        <mj-text font-size="15px" line-height="1.7">
+          Hello {{firstName}},
+        </mj-text>
+        <mj-text font-size="14px" line-height="1.7" color="#3a5047">
+          Thank you for getting in touch with Pathway Academy Zone. A member of our team will review your enquiry and respond within <strong>1 working day</strong>.
+        </mj-text>
+        <mj-text font-size="14px" line-height="1.7" color="#3a5047">
+          If your enquiry is urgent — for example, if you need to discuss an emergency placement — please call us directly on <a href="tel:+441782365365" style="color:#2e8158; font-weight:700;">01782 365365</a>.
+        </mj-text>
+
+        <!-- What happens next -->
+        <mj-divider border-color="#e8f0eb" border-width="1px" padding="12px 0" />
+        <mj-text font-size="13px" font-weight="700" color="#2e8158" padding="0 0 12px">
+          WHAT HAPPENS NEXT
+        </mj-text>
+
+        <mj-table cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td style="width:36px; padding:8px 12px 8px 0; vertical-align:top">
+              <div style="width:28px;height:28px;border-radius:50%;background:#2e8158;color:#fff;font-weight:800;font-size:12px;text-align:center;line-height:28px;">1</div>
+            </td>
+            <td style="padding:8px 0; font-size:13px; color:#3a5047; border-bottom:1px solid #e8f0eb">
+              <strong>Review</strong> — We read every enquiry carefully before responding.
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px 8px 0; vertical-align:top">
+              <div style="width:28px;height:28px;border-radius:50%;background:#2e8158;color:#fff;font-weight:800;font-size:12px;text-align:center;line-height:28px;">2</div>
+            </td>
+            <td style="padding:8px 0; font-size:13px; color:#3a5047; border-bottom:1px solid #e8f0eb">
+              <strong>Contact</strong> — A team member will respond by email or phone within 1 working day.
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px 8px 0; vertical-align:top">
+              <div style="width:28px;height:28px;border-radius:50%;background:#2e8158;color:#fff;font-weight:800;font-size:12px;text-align:center;line-height:28px;">3</div>
+            </td>
+            <td style="padding:8px 0; font-size:13px; color:#3a5047">
+              <strong>Support</strong> — We'll discuss how we can best help and, if appropriate, next steps.
+            </td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Resources ─────────────────────────────────────────── -->
+    <mj-section background-color="#e8f4ee" padding="24px 32px">
+      <mj-column>
+        <mj-text font-size="13px" font-weight="700" color="#2e8158" padding="0 0 12px">
+          USEFUL RESOURCES WHILE YOU WAIT
+        </mj-text>
+        <mj-text font-size="13px" line-height="1.8" color="#3a5047">
+          · <a href="https://pathwayacademyzone.co.uk/programmes" style="color:#2e8158">Our Programmes</a> — See our full range of AP provision<br />
+          · <a href="https://pathwayacademyzone.co.uk/knowledge-hub/complete-guide" style="color:#2e8158">The Complete Guide to AP</a> — Everything you need to know<br />
+          · <a href="https://pathwayacademyzone.co.uk/referral" style="color:#2e8158">Make a Referral</a> — Start the formal referral process
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Footer ───────────────────────────────────────────── -->
+    <mj-section background-color="#1a2c24" padding="28px 32px">
+      <mj-column>
+        <mj-text color="rgba(255,255,255,0.7)" font-size="13px" font-weight="600" padding="0 0 6px">
+          Pathway Academy Zone
+        </mj-text>
+        <mj-text color="rgba(255,255,255,0.5)" font-size="11px" line-height="1.8">
+          Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ<br />
+          <a href="tel:+441782365365" style="color:rgba(255,255,255,0.5)">01782 365365</a> ·
+          <a href="mailto:info@pathwayacademyzone.co.uk" style="color:rgba(255,255,255,0.5)">info@pathwayacademyzone.co.uk</a>
+        </mj-text>
+        <mj-text color="rgba(255,255,255,0.35)" font-size="10px" padding="12px 0 0">
+          You received this email because you submitted a contact form at pathwayacademyzone.co.uk.
+          If this was not you, please disregard this email.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>

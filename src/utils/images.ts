@@ -1,11 +1,11 @@
-export const getHeroImg = () => "/assets/hero-classroom.jpg";
-export const getClassroomImg = () => "/assets/classroom-learning.jpg";
-export const getVocationalImg = () => "/assets/vocational-training.jpg";
-export const getMentoringImg = () => "/assets/mentoring-session.jpg";
-export const getCareersImg = () => "/assets/careers.jpg";
-export const getContactImg = () => "/assets/contact.jpg";
-export const getAboutImg = () => "/assets/about.jpg";
-export const getTeamImg = () => "/assets/team.jpg";
-export const getProgrammesImg = () => "/assets/programmes.jpg";
-export const getReferralImg = () => "/assets/referral.jpg";
+export const getHeroImg = () => "/assets/hero-classroom.webp";
+export const getClassroomImg = () => "/assets/classroom-learning.webp";
+export const getVocationalImg = () => "/assets/vocational-training.webp";
+export const getMentoringImg = () => "/assets/mentoring-session.webp";
+export const getCareersImg = () => "/assets/careers.webp";
+export const getContactImg = () => "/assets/contact.webp";
+export const getAboutImg = () => "/assets/about.webp";
+export const getTeamImg = () => "/assets/team.webp";
+export const getProgrammesImg = () => "/assets/programmes.webp";
+export const getReferralImg = () => "/assets/referral.webp";
 

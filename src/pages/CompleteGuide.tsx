@@ -117,7 +117,7 @@ export default function CompleteGuide() {
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-5 rounded-xl bg-card border border-border">
-                  <h4 className="font-semibold text-foreground mb-2">Local Authority Duties</h4>
+                  <h3 className="font-semibold text-foreground mb-2">Local Authority Duties</h3>
                   <ul className="space-y-1.5 text-sm text-muted-foreground list-disc list-inside">
                     <li>Arrange suitable education for permanently excluded pupils from day 6</li>
                     <li>Ensure provision for children unable to attend school due to illness</li>
@@ -126,7 +126,7 @@ export default function CompleteGuide() {
                   </ul>
                 </div>
                 <div className="p-5 rounded-xl bg-card border border-border">
-                  <h4 className="font-semibold text-foreground mb-2">School Responsibilities</h4>
+                  <h3 className="font-semibold text-foreground mb-2">School Responsibilities</h3>
                   <ul className="space-y-1.5 text-sm text-muted-foreground list-disc list-inside">
                     <li>Arrange education for fixed-term exclusions from day 6</li>
                     <li>Continue responsibility for pupil outcomes when using AP</li>
@@ -136,7 +136,7 @@ export default function CompleteGuide() {
                 </div>
               </div>
               <div className="p-5 rounded-xl bg-secondary border border-border">
-                <h4 className="font-bold text-foreground mb-1">Key Legal Consideration</h4>
+                <h3 className="font-bold text-foreground mb-1">Key Legal Consideration</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">
                   Schools remain accountable for the educational outcomes of pupils in Alternative Provision.
                   This includes monitoring attendance, progress, and ensuring safeguarding standards are met
@@ -158,7 +158,7 @@ export default function CompleteGuide() {
                   { title: "SEMH and Wellbeing", items: ["Significant mental health difficulties", "Trauma affecting school functioning", "Self-harm or suicide risk", "Diagnosed SEMH requiring specialist support"] },
                 ].map((card) => (
                   <div key={card.title} className="p-5 rounded-xl bg-card border border-border">
-                    <h4 className="font-semibold text-foreground mb-2">{card.title}</h4>
+                    <h3 className="font-semibold text-foreground mb-2">{card.title}</h3>
                     <ul className="space-y-1.5 text-sm text-muted-foreground list-disc list-inside">
                       {card.items.map((i) => (
                         <li key={i}>{i}</li>
@@ -191,7 +191,7 @@ export default function CompleteGuide() {
                   { title: "Therapeutic and SEMH Focused", body: "Prioritises emotional regulation, trauma recovery, and mental health support alongside education. Uses therapeutic approaches integrated throughout the curriculum.", link: "/knowledge-hub/best-practice/semh-pathways", linkLabel: "Best AP Pathways for SEMH Learners" },
                 ].map((p) => (
                   <div key={p.title} className="p-5 rounded-xl bg-card border border-border">
-                    <h4 className="font-semibold text-foreground mb-2">{p.title}</h4>
+                    <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
                     <p className="text-muted-foreground leading-relaxed text-sm mb-3">{p.body}</p>
                     <Link to={p.link} className="text-accent font-semibold text-sm hover:underline">
                       {p.linkLabel} →
@@ -264,7 +264,7 @@ export default function CompleteGuide() {
                   { title: "Therapeutic", items: ["Counsellors", "Art/play therapists", "Pastoral leads"] },
                 ].map((c) => (
                   <div key={c.title} className="p-5 rounded-xl bg-card border border-border">
-                    <h4 className="font-semibold text-foreground mb-2">{c.title}</h4>
+                    <h3 className="font-semibold text-foreground mb-2">{c.title}</h3>
                     <ul className="space-y-1.5 text-sm text-muted-foreground list-disc list-inside">
                       {c.items.map((i) => (
                         <li key={i}>{i}</li>
@@ -285,7 +285,7 @@ export default function CompleteGuide() {
                   { title: "Neglecting Family Engagement", body: "Failing to involve parents and carers as partners in the young person's education and progress." },
                 ].map((c) => (
                   <div key={c.title} className="p-5 rounded-xl bg-card border border-border">
-                    <h4 className="font-semibold text-foreground mb-1">{c.title}</h4>
+                    <h3 className="font-semibold text-foreground mb-1">{c.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">{c.body}</p>
                   </div>
                 ))}
@@ -300,7 +300,7 @@ export default function CompleteGuide() {
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-5 rounded-xl bg-card border border-border">
-                  <h4 className="font-semibold text-foreground mb-2">During KS3/KS4</h4>
+                  <h3 className="font-semibold text-foreground mb-2">During KS3/KS4</h3>
                   <ul className="space-y-1.5 text-sm text-muted-foreground list-disc list-inside">
                     <li>Reintegration to mainstream school</li>
                     <li>Managed move to alternative mainstream</li>
@@ -309,7 +309,7 @@ export default function CompleteGuide() {
                   </ul>
                 </div>
                 <div className="p-5 rounded-xl bg-card border border-border">
-                  <h4 className="font-semibold text-foreground mb-2">Post-16 Options</h4>
+                  <h3 className="font-semibold text-foreground mb-2">Post-16 Options</h3>
                   <ul className="space-y-1.5 text-sm text-muted-foreground list-disc list-inside">
                     <li>College (academic or vocational)</li>
                     <li>Apprenticeships and traineeships</li>

@@ -1,30 +1,54 @@
-<!-- wp:group {"tagName":"header","layout":{"type":"flex","justifyContent":"space-between"},"style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem","left":"2rem","right":"2rem"}},"border":{"bottom":{"color":"var:preset|color|muted","width":"1px"}}},"backgroundColor":"background"} -->
-<header class="wp-block-group has-background-background-color has-background" style="border-bottom-color:var(--wp--preset--color--muted);border-bottom-width:1px;padding-top:1.25rem;padding-bottom:1.25rem;padding-left:2rem;padding-right:2rem">
-    <!-- wp:group {"layout":{"type":"flex","gap":"0.5rem"}} -->
+<!-- wp:group {"tagName":"header","className":"is-sticky","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"},"style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem","left":"2rem","right":"2rem"}},"border":{"bottom":{"color":"var:preset|color|border","width":"1px"}}},"backgroundColor":"background"} -->
+<header class="wp-block-group is-sticky has-background-background-color has-background" style="border-bottom-color:var(--wp--preset--color--border);border-bottom-width:1px;padding-top:1.25rem;padding-bottom:1.25rem;padding-left:2rem;padding-right:2rem">
+
+    <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"0.75rem"}}} -->
     <div class="wp-block-group">
-        <!-- wp:html -->
-        <a href="/" style="display:flex;align-items:center;">
-            <img src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" alt="Pathway Academy Zone Logo" style="height:56px;width:auto;" />
-        </a>
-        <!-- /wp:html -->
+        <!-- wp:site-logo {"width":160,"shouldSyncIcon":false} /-->
     </div>
     <!-- /wp:group -->
 
-    <!-- wp:navigation {"layout":{"type":"flex","setIndistinguishableColors":false}} /-->
+    <!-- wp:navigation {"overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"center","flexWrap":"nowrap"},"style":{"typography":{"fontSize":"0.9375rem","fontWeight":"500"}},"textColor":"foreground"} -->
+        <!-- wp:navigation-link {"label":"Home","url":"/"} /-->
+        <!-- wp:navigation-submenu {"label":"About Us","url":"/about"} -->
+            <!-- wp:navigation-link {"label":"About","url":"/about"} /-->
+            <!-- wp:navigation-link {"label":"Team","url":"/team"} /-->
+            <!-- wp:navigation-link {"label":"Centres","url":"/centres"} /-->
+            <!-- wp:navigation-link {"label":"Partners","url":"/partners"} /-->
+            <!-- wp:navigation-link {"label":"Careers","url":"/careers"} /-->
+        <!-- /wp:navigation-submenu -->
+        <!-- wp:navigation-submenu {"label":"Programmes","url":"/programmes"} -->
+            <!-- wp:navigation-link {"label":"Programmes","url":"/programmes"} /-->
+            <!-- wp:navigation-link {"label":"Outcomes","url":"/outcomes"} /-->
+        <!-- /wp:navigation-submenu -->
+        <!-- wp:navigation-submenu {"label":"Knowledge Hub","url":"/knowledge-hub"} -->
+            <!-- wp:navigation-link {"label":"Knowledge Hub","url":"/knowledge-hub"} /-->
+            <!-- wp:navigation-link {"label":"Complete Guide","url":"/knowledge-hub/complete-guide"} /-->
+            <!-- wp:navigation-link {"label":"Best Practice","url":"/knowledge-hub/best-practice"} /-->
+            <!-- wp:navigation-link {"label":"Glossary","url":"/knowledge-hub/glossary"} /-->
+            <!-- wp:navigation-link {"label":"FAQs","url":"/knowledge-hub/faqs"} /-->
+        <!-- /wp:navigation-submenu -->
+        <!-- wp:navigation-submenu {"label":"Support","url":"/referral"} -->
+            <!-- wp:navigation-link {"label":"Referral","url":"/referral"} /-->
+            <!-- wp:navigation-link {"label":"Safeguarding","url":"/safeguarding"} /-->
+            <!-- wp:navigation-link {"label":"FAQs","url":"/faqs"} /-->
+        <!-- /wp:navigation-submenu -->
+        <!-- wp:navigation-link {"label":"Contact","url":"/contact"} /-->
+    <!-- /wp:navigation -->
 
-    <!-- wp:group {"layout":{"type":"flex","gap":"1rem"}} -->
+    <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"1rem"}}} -->
     <div class="wp-block-group">
         <!-- wp:html -->
-        <a href="tel:01782365365" style="font-size:0.875rem;color:var(--wp--preset--color--foreground);text-decoration:none;">01782 365365</a>
+        <a href="tel:01782365365" style="font-size:0.875rem;font-weight:500;color:var(--wp--preset--color--foreground);text-decoration:none;white-space:nowrap;">01782 365365</a>
         <!-- /wp:html -->
         <!-- wp:buttons -->
         <div class="wp-block-buttons">
-            <!-- wp:button {"className":"is-style-fill"} -->
-            <div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/referral">Make a Referral</a></div>
+            <!-- wp:button {"className":"is-style-fill","style":{"border":{"radius":"0.75rem"}}} -->
+            <div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/referral" style="border-radius:0.75rem">Make a Referral</a></div>
             <!-- /wp:button -->
         </div>
         <!-- /wp:buttons -->
     </div>
     <!-- /wp:group -->
+
 </header>
 <!-- /wp:group -->

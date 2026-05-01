@@ -10,18 +10,18 @@ import {
   buildServiceSchema, buildCourseCarouselSchema,
 } from "@/lib/json-ld";
 import WhyItMattersScroller from "@/components/WhyItMattersScroller";
-//import heroImg from "@/assets/hero-classroom.jpg";
-//import classroomImg from "@/assets/classroom-learning.jpg";
-//import vocationalImg from "@/assets/vocational-training.jpg";
-//import mentoringImg from "@/assets/mentoring-session.jpg";
+//import heroImg from "@/assets/hero-classroom.webp";
+//import classroomImg from "@/assets/classroom-learning.webp";
+//import vocationalImg from "@/assets/vocational-training.webp";
+//import mentoringImg from "@/assets/mentoring-session.webp";
 
 // ✅ Use the functions or direct strings instead
 import { getVocationalImg, getMentoringImg, getClassroomImg, getHeroImg, getCareersImg } from "@/utils/images";
 
-const heroImg = "/assets/hero-classroom.jpg";
-const classroomImg = "/assets/classroom-learning.jpg";
-const vocationalImg = "/assets/vocational-training.jpg";
-const mentoringImg = "/assets/mentoring-session.jpg";
+const heroImg = "/assets/hero-classroom.webp";
+const classroomImg = "/assets/classroom-learning.webp";
+const vocationalImg = "/assets/vocational-training.webp";
+const mentoringImg = "/assets/mentoring-session.webp";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

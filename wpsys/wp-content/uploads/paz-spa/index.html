@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-GB" class="bg-background">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="theme-color"
+      content="#2e8158"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0d1914"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- LCP: preload above-the-fold hero image before any render -->
+    <link rel="preload" as="image" href="/assets/hero-classroom.webp" type="image/webp" fetchpriority="high" />
+
+    <!-- Fonts: preconnect then load with display=optional to eliminate CLS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=optional"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" />
+    </noscript>
+    <link rel="dns-prefetch" href="https://pathwayacademyzone.co.uk" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+
+    <title>Pathway Academy Zone | Alternative Provision Stoke</title>
+    <meta
+      name="description"
+      content="Pathway Academy Zone provides Alternative Provision in Stoke-on-Trent and Staffordshire for ages 11-16. SEMH support, behaviour and reintegration programmes."
+    />
+    <meta name="author" content="Pathway Academy Zone" />
+    <link rel="canonical" href="https://pathwayacademyzone.co.uk/" />
+
+    <script>
+      // Apply saved theme before paint to prevent flash
+      try {
+        var t = localStorage.getItem("paz-theme");
+        var d =
+          t === "dark" ||
+          (!t && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (d) document.documentElement.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/assets/index-HqnFf8n-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BYqgROkD.css">
+  </head>
+
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded focus:bg-foreground focus:text-background focus:px-3 focus:py-2"
+      >Skip to content</a
+    >
+    <div id="root"></div>
+  </body>
+</html>

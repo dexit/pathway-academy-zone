@@ -10,12 +10,12 @@ import {
   PhoneCall,
   type LucideIcon,
 } from "lucide-react";
-import why1 from "@/assets/why-1-local-picture.jpg";
-import why2 from "@/assets/why-2-who-we-are.jpg";
-import why3 from "@/assets/why-3-every-story.jpg";
-import why4 from "@/assets/why-4-curriculum.jpg";
-import why5 from "@/assets/why-5-safeguarding.jpg";
-import why6 from "@/assets/why-6-start-conversation.jpg";
+import why1 from "@/assets/why-1-local-picture.webp";
+import why2 from "@/assets/why-2-who-we-are.webp";
+import why3 from "@/assets/why-3-every-story.webp";
+import why4 from "@/assets/why-4-curriculum.webp";
+import why5 from "@/assets/why-5-safeguarding.webp";
+import why6 from "@/assets/why-6-start-conversation.webp";
 
 type Chapter = {
   id: string;

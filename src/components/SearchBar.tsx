@@ -103,7 +103,7 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
             </form>
 
             {resultsOpen && query && (
-              <div className="mt-2 bg-card rounded-xl border border-border overflow-hidden">
+              <div className="mt-2 bg-card rounded-xl border border-border overflow-hidden" aria-live="polite" aria-atomic="true">
                 {results.length > 0 ? (
                   <ul className="max-h-[360px] overflow-auto py-1">
                     {results.map((r) => (

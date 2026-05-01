@@ -1,27 +1,42 @@
 import { useCallback, useState } from "react"
+import { gqlFetch } from "@/lib/form-endpoints"
 
 export type SubmitMethod = "POST" | "GET" | "PUT" | "PATCH"
-export type SubmitFormat = "json" | "form" | "query"
+export type SubmitFormat = "json" | "form" | "query" | "graphql"
 
 export interface FormSubmitConfig<T extends Record<string, unknown>> {
   /**
-   * Target URL (typically an external webhook or REST endpoint). Leave empty
-   * to run the hook in "dry" mode — the payload will resolve locally and the
-   * onSuccess callback fires immediately. Useful for demo/preview builds.
+   * Target URL. Leave empty for dry-run mode (fires onSuccess locally).
+   * For GraphQL: the GraphQL endpoint.
+   * For SMTP relay: the serverless relay endpoint.
    */
   url?: string
   method?: SubmitMethod
   /**
-   * Wire format: JSON body, application/x-www-form-urlencoded, or URL query
-   * parameters (for GET/POST pass-through integrations). Defaults to "json".
+   * Wire format:
+   *   "json"     — application/json POST body
+   *   "form"     — application/x-www-form-urlencoded
+   *   "query"    — URL query parameters
+   *   "graphql"  — GraphQL mutation via POST
    */
   format?: SubmitFormat
+  /** GraphQL mutation string — required when format="graphql". */
+  gqlMutation?: string
+  /** GraphQL variable wrapper key — variables sent as { [gqlVariablesKey]: payload }. */
+  gqlVariablesKey?: string
   /** Additional static headers (e.g. Authorization tokens). */
   headers?: Record<string, string>
-  /** Extra fields merged into every payload (e.g. site id, source tag). */
+  /** Extra fields merged into every payload. */
   extra?: Record<string, unknown>
   /** Optional payload transformer before it hits the wire. */
   transform?: (values: T) => Record<string, unknown>
+  /**
+   * Retry on network failure / 5xx.
+   * Exponential backoff: delay = baseDelayMs * 2^attempt
+   * Default: 3 retries, 400 ms base.
+   */
+  retries?: number
+  baseDelayMs?: number
   onSuccess?: (response: unknown, values: T) => void
   onError?: (error: unknown, values: T) => void
 }
@@ -32,12 +47,6 @@ export interface FormSubmitState {
   success: boolean
 }
 
-/**
- * Flexible form-submit hook supporting multiple wire formats and external
- * webhook endpoints. Designed so the same Contact/Referral/Careers/Vacancy
- * forms can be pointed at Zapier, Make, n8n, HubSpot, Slack, a WP REST
- * route, or a raw webhook without rewriting the component.
- */
 export function useFormSubmit<T extends Record<string, unknown>>(
   config: FormSubmitConfig<T> = {}
 ) {
@@ -45,9 +54,13 @@ export function useFormSubmit<T extends Record<string, unknown>>(
     url,
     method = "POST",
     format = "json",
+    gqlMutation,
+    gqlVariablesKey = "input",
     headers = {},
     extra = {},
     transform,
+    retries = 3,
+    baseDelayMs = 400,
     onSuccess,
     onError,
   } = config
@@ -67,47 +80,39 @@ export function useFormSubmit<T extends Record<string, unknown>>(
       }
 
       try {
-        // Dry mode — no URL configured, resolve locally so previews/demos work.
+        // Dry mode
         if (!url) {
-          await new Promise((r) => setTimeout(r, 600))
+          await delay(600)
           setState({ loading: false, error: null, success: true })
           onSuccess?.({ dryRun: true, payload }, values)
           return { ok: true, dryRun: true, payload }
         }
 
-        const encoded = encodePayload(payload, format)
-        const target =
-          format === "query" || method === "GET"
-            ? appendQuery(url, encoded.query ?? "")
-            : url
+        let lastError: unknown = null
 
-        const init: RequestInit = {
-          method,
-          headers: {
-            Accept: "application/json",
-            ...(encoded.contentType ? { "Content-Type": encoded.contentType } : {}),
-            ...headers,
-          },
-          ...(encoded.body !== undefined ? { body: encoded.body } : {}),
+        for (let attempt = 0; attempt <= retries; attempt++) {
+          if (attempt > 0) await delay(baseDelayMs * Math.pow(2, attempt - 1))
+          try {
+            const result = await doFetch({
+              url,
+              method,
+              format,
+              gqlMutation,
+              gqlVariablesKey,
+              headers,
+              payload,
+            })
+            setState({ loading: false, error: null, success: true })
+            onSuccess?.(result, values)
+            return { ok: true, body: result }
+          } catch (err) {
+            lastError = err
+            // Only retry on network errors or 5xx; not 4xx client errors
+            if (err instanceof HttpError && err.status < 500) break
+          }
         }
 
-        const res = await fetch(target, init)
-        const contentType = res.headers.get("content-type") ?? ""
-        const body = contentType.includes("application/json")
-          ? await res.json().catch(() => null)
-          : await res.text().catch(() => "")
-
-        if (!res.ok) {
-          throw new Error(
-            typeof body === "string"
-              ? body || `Request failed (${res.status})`
-              : `Request failed (${res.status})`
-          )
-        }
-
-        setState({ loading: false, error: null, success: true })
-        onSuccess?.(body, values)
-        return { ok: true, body }
+        throw lastError
       } catch (err) {
         const message = err instanceof Error ? err.message : "Unknown error"
         setState({ loading: false, error: message, success: false })
@@ -115,7 +120,8 @@ export function useFormSubmit<T extends Record<string, unknown>>(
         return { ok: false, error: message }
       }
     },
-    [url, method, format, headers, extra, transform, onSuccess, onError]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [url, method, format, gqlMutation, gqlVariablesKey, JSON.stringify(headers), JSON.stringify(extra), transform, retries, baseDelayMs, onSuccess, onError]
   )
 
   const reset = useCallback(() => {
@@ -125,32 +131,89 @@ export function useFormSubmit<T extends Record<string, unknown>>(
   return { ...state, submit, reset }
 }
 
+/* ── Internal helpers ───────────────────────────────────────────────── */
+
+class HttpError extends Error {
+  constructor(public status: number, message: string) {
+    super(message)
+    this.name = "HttpError"
+  }
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, ms))
+}
+
+async function doFetch({
+  url,
+  method,
+  format,
+  gqlMutation,
+  gqlVariablesKey,
+  headers,
+  payload,
+}: {
+  url: string
+  method: SubmitMethod
+  format: SubmitFormat
+  gqlMutation?: string
+  gqlVariablesKey: string
+  headers: Record<string, string>
+  payload: Record<string, unknown>
+}): Promise<unknown> {
+  if (format === "graphql") {
+    if (!gqlMutation) throw new Error("gqlMutation required for graphql format")
+    return gqlFetch(url, gqlMutation, { [gqlVariablesKey]: payload }, headers)
+  }
+
+  const encoded = encodePayload(payload, format)
+  const target =
+    format === "query" || method === "GET"
+      ? appendQuery(url, encoded.query ?? "")
+      : url
+
+  const init: RequestInit = {
+    method,
+    headers: {
+      Accept: "application/json",
+      ...(encoded.contentType ? { "Content-Type": encoded.contentType } : {}),
+      ...headers,
+    },
+    ...(encoded.body !== undefined ? { body: encoded.body } : {}),
+  }
+
+  const res = await fetch(target, init)
+  const contentType = res.headers.get("content-type") ?? ""
+  const body = contentType.includes("application/json")
+    ? await res.json().catch(() => null)
+    : await res.text().catch(() => "")
+
+  if (!res.ok) {
+    throw new HttpError(
+      res.status,
+      typeof body === "string"
+        ? body || `Request failed (${res.status})`
+        : `Request failed (${res.status})`
+    )
+  }
+
+  return body
+}
+
 function encodePayload(
   payload: Record<string, unknown>,
   format: SubmitFormat
 ): { body?: BodyInit; contentType?: string; query?: string } {
   if (format === "json") {
-    return {
-      body: JSON.stringify(payload),
-      contentType: "application/json",
-    }
+    return { body: JSON.stringify(payload), contentType: "application/json" }
   }
-  if (format === "form") {
-    const params = new URLSearchParams()
-    for (const [k, v] of Object.entries(payload)) {
-      if (v === undefined || v === null) continue
-      params.append(k, typeof v === "string" ? v : JSON.stringify(v))
-    }
-    return {
-      body: params.toString(),
-      contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-    }
-  }
-  // "query" — payload serialised onto URL, no body.
   const params = new URLSearchParams()
   for (const [k, v] of Object.entries(payload)) {
     if (v === undefined || v === null) continue
     params.append(k, typeof v === "string" ? v : JSON.stringify(v))
+  }
+  if (format === "form") {
+    return { body: params.toString(), contentType: "application/x-www-form-urlencoded;charset=UTF-8" }
   }
   return { query: params.toString() }
 }

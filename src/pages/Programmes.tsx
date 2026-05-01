@@ -13,12 +13,12 @@ import {
   buildCourseSchema, buildServiceSchema,
   buildCourseCarouselSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
 } from "@/lib/json-ld";
-import classroomImg  from "@/assets/classroom-learning.jpg";
-import vocationalImg from "@/assets/vocational-training.jpg";
-import mentoringImg  from "@/assets/mentoring-session.jpg";
-import heroImg       from "@/assets/hero-classroom.jpg";
-import careersImg    from "@/assets/careers-event.jpg";
-import buildingImg   from "@/assets/building-exterior.jpg";
+import classroomImg  from "@/assets/classroom-learning.webp";
+import vocationalImg from "@/assets/vocational-training.webp";
+import mentoringImg  from "@/assets/mentoring-session.webp";
+import heroImg       from "@/assets/hero-classroom.webp";
+import careersImg    from "@/assets/careers-event.webp";
+import buildingImg   from "@/assets/building-exterior.webp";
 
 /* ─── data ─────────────────────────────────────────────────────────────── */
 const programmes = [

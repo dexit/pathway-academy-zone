@@ -237,16 +237,18 @@ export default function Referral() {
                 ) : ("Submit Referral")}
               </Button>
 
-              {success && (
-                <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
-                  <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Thanks — we&apos;ll be in touch within 2 working days.
-                </p>
-              )}
-              {error && (
-                <p className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
-                  <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
-                </p>
-              )}
+              <div aria-live="polite" aria-atomic="true">
+                {success && (
+                  <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
+                    <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Thanks — we&apos;ll be in touch within 2 working days.
+                  </p>
+                )}
+                {error && (
+                  <p role="alert" className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
+                    <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
+                  </p>
+                )}
+              </div>
             </form>
           </motion.div>
         </div>

@@ -35,6 +35,9 @@ function paz_register_blocks() {
 		'related-content',
 		'webhook-form',
 		'skeleton-loader',
+		// CPT-driven blocks
+		'programme-card',
+		'area-hero',
 	);
 	foreach ( $blocks as $block ) {
 		$dir = PAZ_THEME_DIR . 'blocks/' . $block;

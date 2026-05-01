@@ -1,3 +1,4 @@
+/* Google Fonts loaded via <link> in index.html with display=optional to avoid CLS */
 /* Fonts loaded non-blocking via <link> in index.html for better LCP/FCP. */
 
 @tailwind base;
@@ -29,7 +30,7 @@
     --secondary-foreground: 160 10% 15%;
 
     --muted: 150 15% 94%;
-    --muted-foreground: 160 10% 45%;
+    --muted-foreground: 160 10% 40%;  /* 40% gives ~5.0:1 on white — passes WCAG AA */
 
     --accent: 152 35% 90%;
     --accent-foreground: 152 45% 25%;

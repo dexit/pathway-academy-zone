@@ -1,0 +1,124 @@
+/* Pathway Academy Zone — shared block stylesheet
+   Loaded on both front-end and in the block editor via inc/blocks.php */
+
+/* ── Skeleton shimmer ──────────────────────────────────────────────────────── */
+@keyframes paz-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+
+.paz-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--wp--preset--color--muted, #f0f0f0) 25%,
+    var(--wp--preset--color--border, #e0e0e0) 50%,
+    var(--wp--preset--color--muted, #f0f0f0) 75%
+  );
+  background-size: 1200px 100%;
+  animation: paz-shimmer 1.6s ease-in-out infinite;
+  border-radius: 0.375rem;
+}
+
+/* ── Reading time pill ─────────────────────────────────────────────────────── */
+.paz-reading-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--wp--preset--color--muted-foreground);
+  background: var(--wp--preset--color--muted);
+  padding: 0.25rem 0.7rem;
+  border-radius: 9999px;
+  margin: 0;
+}
+
+/* ── Accordion FAQ ─────────────────────────────────────────────────────────── */
+.paz-accordion-faq details {
+  transition: box-shadow 0.15s;
+}
+
+.paz-accordion-faq details[open] {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+
+.paz-accordion-faq summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.paz-accordion-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.paz-accordion-faq details[open] summary span:last-child {
+  transform: rotate(45deg);
+}
+
+/* ── Timeline ──────────────────────────────────────────────────────────────── */
+.paz-timeline ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Programme card hover lift ─────────────────────────────────────────────── */
+.paz-programme-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paz-programme-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* ── Area hero ─────────────────────────────────────────────────────────────── */
+.paz-area-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.paz-area-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 75% 50%, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* ── Shared section padding ────────────────────────────────────────────────── */
+.paz-block-section {
+  padding-block: 5rem;
+}
+
+/* ── Breadcrumb link hover ─────────────────────────────────────────────────── */
+.paz-crumb-link:hover {
+  color: var(--wp--preset--color--primary);
+  text-decoration: underline;
+}
+
+/* ── Webhook form input focus ──────────────────────────────────────────────── */
+.paz-webhook-form input:focus,
+.paz-webhook-form textarea:focus,
+.paz-webhook-form select:focus {
+  outline: 2px solid var(--wp--preset--color--primary);
+  outline-offset: 1px;
+  border-color: var(--wp--preset--color--primary);
+}
+
+/* ── Quote card decorative quote mark ─────────────────────────────────────── */
+.paz-quote-card blockquote {
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Icon grid card hover ──────────────────────────────────────────────────── */
+.paz-icon-grid > div > div {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.paz-icon-grid > div > div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+}

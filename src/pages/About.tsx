@@ -5,8 +5,8 @@ import { ArrowRight, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { buildAboutPageSchema, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
-import classroomImg from "@/assets/classroom-learning.jpg";
-import mentoringImg from "@/assets/mentoring-session.jpg";
+import classroomImg from "@/assets/classroom-learning.webp";
+import mentoringImg from "@/assets/mentoring-session.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
@@ -40,7 +40,7 @@ export default function About() {
         jsonLd={aboutJsonLd}
       />
       <section className="relative py-32">
-        <div className="absolute inset-0"><img src={classroomImg} alt="Students learning" className="w-full h-full object-cover" /><div className="absolute inset-0 bg-foreground/60" /></div>
+        <div className="absolute inset-0"><img src={classroomImg} alt="Students learning" className="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchPriority="high" /><div className="absolute inset-0 bg-foreground/60" /></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <Breadcrumbs
             items={[{ label: "About Us" }]}
@@ -61,7 +61,7 @@ export default function About() {
               <p className="text-muted-foreground leading-relaxed mb-4">Founded with a deep understanding of the challenges facing young people in the AP sector, Pathway Academy Zone combines academic rigour with therapeutic support, vocational opportunities, and strong pastoral care.</p>
               <p className="text-muted-foreground leading-relaxed">We work closely with mainstream schools, local authorities, virtual schools, and families to ensure every young person receives the support they need to thrive.</p>
             </motion.div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}><img src={mentoringImg} alt="Young people attending a careers presentation" className="rounded-2xl shadow-lg w-full" loading="lazy" /></motion.div>
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}><img src={mentoringImg} alt="Young people attending a careers presentation" className="rounded-2xl shadow-lg w-full" loading="lazy" width="800" height="600" /></motion.div>
           </div>
         </div>
       </section>
