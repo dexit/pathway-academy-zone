@@ -15,6 +15,7 @@ import {
   buildContactPageSchema, buildServiceSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
 } from "@/lib/json-ld";
 import { useFormSubmit } from "@/hooks/use-form-submit";
+import { fireConversion } from "@/components/Analytics";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
 import { email, ukPhone, personName, shortText, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
@@ -90,6 +91,7 @@ export default function Contact() {
     format: "json",
     extra: { source: "contact-form", site: SITE_URL },
     onSuccess: () => {
+      fireConversion("contact_submit");
       toast({ title: "Message sent", description: "Thank you. We'll be in touch within 24 hours." });
       resetForm();
     },

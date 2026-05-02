@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pathway Academy Zone Blog</title>
+    <link>https://pathwayacademyzone.co.uk</link>
+    <description>Insights, guides, and updates on Alternative Provision, SEMH support, and best practice for educators and families in the UK.</description>
+    <language>en-gb</language>
+    <lastBuildDate>Fri, 01 May 2026 15:16:29 GMT</lastBuildDate>
+    <managingEditor>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</managingEditor>
+    <webMaster>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</webMaster>
+    <atom:link href="https://pathwayacademyzone.co.uk/feed.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png</url>
+      <title>Pathway Academy Zone Blog</title>
+      <link>https://pathwayacademyzone.co.uk</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
+    <item>
+      <title>What Is Alternative Provision? A Complete Overview for 2024</title>
+      <link>https://pathwayacademyzone.co.uk/blog/what-is-alternative-provision</link>
+      <guid isPermaLink="true">https://pathwayacademyzone.co.uk/blog/what-is-alternative-provision</guid>
+      <description>Alternative Provision covers education for pupils who cannot attend mainstream school. Learn what it involves, who qualifies, and how it supports young people back into learning.</description>
+      <pubDate>Tue, 12 Nov 2024 00:00:00 GMT</pubDate>
+      <author>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</author>
+      <category>Alternative Provision</category>
+      <media:content url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" medium="image" width="1200" height="630">
+        <media:title>What Is Alternative Provision? A Complete Overview for 2024</media:title>
+      </media:content>
+      <enclosure url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" type="image/png" length="0" />
+    </item>
+    <item>
+      <title>Understanding SEMH Needs in Alternative Provision Settings</title>
+      <link>https://pathwayacademyzone.co.uk/blog/semh-needs-in-ap</link>
+      <guid isPermaLink="true">https://pathwayacademyzone.co.uk/blog/semh-needs-in-ap</guid>
+      <description>Social, Emotional and Mental Health difficulties are among the most common reasons for AP referrals. Discover effective strategies for support and intervention.</description>
+      <pubDate>Mon, 04 Nov 2024 00:00:00 GMT</pubDate>
+      <author>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</author>
+      <category>SEMH</category>
+      <media:content url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" medium="image" width="1200" height="630">
+        <media:title>Understanding SEMH Needs in Alternative Provision Settings</media:title>
+      </media:content>
+      <enclosure url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" type="image/png" length="0" />
+    </item>
+    <item>
+      <title>When Should You Refer a Learner to Alternative Provision?</title>
+      <link>https://pathwayacademyzone.co.uk/blog/when-to-refer-a-learner</link>
+      <guid isPermaLink="true">https://pathwayacademyzone.co.uk/blog/when-to-refer-a-learner</guid>
+      <description>Knowing the right time to refer can make all the difference. This guide walks through the key indicators and formal criteria.</description>
+      <pubDate>Mon, 28 Oct 2024 00:00:00 GMT</pubDate>
+      <author>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</author>
+      <category>Referrals</category>
+      <media:content url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" medium="image" width="1200" height="630">
+        <media:title>When Should You Refer a Learner to Alternative Provision?</media:title>
+      </media:content>
+      <enclosure url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" type="image/png" length="0" />
+    </item>
+    <item>
+      <title>A Parent's Guide to Alternative Provision</title>
+      <link>https://pathwayacademyzone.co.uk/blog/parents-guide-to-ap</link>
+      <guid isPermaLink="true">https://pathwayacademyzone.co.uk/blog/parents-guide-to-ap</guid>
+      <description>If your child has been referred to Alternative Provision, this guide explains what to expect, what your rights are, and how you can stay involved.</description>
+      <pubDate>Mon, 21 Oct 2024 00:00:00 GMT</pubDate>
+      <author>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</author>
+      <category>Parents &amp; Families</category>
+      <media:content url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" medium="image" width="1200" height="630">
+        <media:title>A Parent's Guide to Alternative Provision</media:title>
+      </media:content>
+      <enclosure url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" type="image/png" length="0" />
+    </item>
+    <item>
+      <title>Key Policy Changes Affecting Alternative Provision in 2024</title>
+      <link>https://pathwayacademyzone.co.uk/blog/ap-policy-changes-2024</link>
+      <guid isPermaLink="true">https://pathwayacademyzone.co.uk/blog/ap-policy-changes-2024</guid>
+      <description>Recent DfE guidance has brought significant updates to how schools commission and monitor AP placements.</description>
+      <pubDate>Mon, 14 Oct 2024 00:00:00 GMT</pubDate>
+      <author>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</author>
+      <category>Policy &amp; Legislation</category>
+      <media:content url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" medium="image" width="1200" height="630">
+        <media:title>Key Policy Changes Affecting Alternative Provision in 2024</media:title>
+      </media:content>
+      <enclosure url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" type="image/png" length="0" />
+    </item>
+    <item>
+      <title>Best Practice for Reintegrating Pupils from AP into Mainstream</title>
+      <link>https://pathwayacademyzone.co.uk/blog/reintegration-best-practice</link>
+      <guid isPermaLink="true">https://pathwayacademyzone.co.uk/blog/reintegration-best-practice</guid>
+      <description>Successful reintegration requires careful planning, strong relationships, and clear review processes.</description>
+      <pubDate>Mon, 07 Oct 2024 00:00:00 GMT</pubDate>
+      <author>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</author>
+      <category>Best Practice</category>
+      <media:content url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" medium="image" width="1200" height="630">
+        <media:title>Best Practice for Reintegrating Pupils from AP into Mainstream</media:title>
+      </media:content>
+      <enclosure url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" type="image/png" length="0" />
+    </item>
+    <item>
+      <title>Improving Attendance in Alternative Provision: Practical Strategies</title>
+      <link>https://pathwayacademyzone.co.uk/blog/attendance-strategies-ap</link>
+      <guid isPermaLink="true">https://pathwayacademyzone.co.uk/blog/attendance-strategies-ap</guid>
+      <description>Persistent absence is a challenge across all AP settings. Learn how to build trust and remove barriers.</description>
+      <pubDate>Mon, 30 Sep 2024 00:00:00 GMT</pubDate>
+      <author>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</author>
+      <category>Best Practice</category>
+      <media:content url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" medium="image" width="1200" height="630">
+        <media:title>Improving Attendance in Alternative Provision: Practical Strategies</media:title>
+      </media:content>
+      <enclosure url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" type="image/png" length="0" />
+    </item>
+    <item>
+      <title>Vocational Routes in AP: Building Pathways to Employment</title>
+      <link>https://pathwayacademyzone.co.uk/blog/vocational-routes-in-ap</link>
+      <guid isPermaLink="true">https://pathwayacademyzone.co.uk/blog/vocational-routes-in-ap</guid>
+      <description>Vocational qualifications can transform outcomes for AP learners. Discover the options available.</description>
+      <pubDate>Mon, 23 Sep 2024 00:00:00 GMT</pubDate>
+      <author>info@pathwayacademyzone.co.uk (Pathway Academy Zone)</author>
+      <category>Alternative Provision</category>
+      <media:content url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" medium="image" width="1200" height="630">
+        <media:title>Vocational Routes in AP: Building Pathways to Employment</media:title>
+      </media:content>
+      <enclosure url="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png" type="image/png" length="0" />
+    </item>
+  </channel>
+</rss>

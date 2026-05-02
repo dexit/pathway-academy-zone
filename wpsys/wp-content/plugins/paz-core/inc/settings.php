@@ -9,6 +9,8 @@ function paz_register_settings() {
     register_setting( 'paz_settings', 'paz_contact_email' );
     register_setting( 'paz_settings', 'paz_announcement_text' );
     register_setting( 'paz_settings', 'paz_announcement_link' );
+    // IndexNow
+    register_setting( 'paz_settings', 'paz_indexnow_key' );
     // AI settings
     register_setting( 'paz_settings', 'paz_openrouter_api_key' );
     register_setting( 'paz_settings', 'paz_local_ai_url' );
@@ -75,6 +77,18 @@ function paz_settings_page() {
                     <td>
                         <input type="url" name="paz_spa_base_url" value="<?php echo esc_attr( get_option( 'paz_spa_base_url' ) ); ?>" class="regular-text" placeholder="https://academy.pathwayl.ink" />
                         <p class="description">URL where the React SPA is hosted, used by the iframe embed block. Can also be set via <code>PAZ_SPA_BASE_URL</code> constant.</p>
+                    </td>
+                </tr>
+            </table>
+
+            <h2>IndexNow</h2>
+            <p class="description">IndexNow automatically notifies Bing, Yandex and other engines when content changes. The key file must be accessible at <code>/{key}.txt</code> on this domain.</p>
+            <table class="form-table">
+                <tr>
+                    <th scope="row">IndexNow Key</th>
+                    <td>
+                        <input type="text" name="paz_indexnow_key" value="<?php echo esc_attr( paz_indexnow_key() ); ?>" class="regular-text" placeholder="0a91f3c8e29d4d6b9c6f4e5b3a8d7c2f" />
+                        <p class="description">The hex key string. Can also be set via <code>PAZ_INDEXNOW_KEY</code> constant or env var. Current key file: <code><?php echo esc_html( paz_indexnow_key() ?: '(not set)' ); ?>.txt</code></p>
                     </td>
                 </tr>
             </table>

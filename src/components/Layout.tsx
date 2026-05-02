@@ -7,6 +7,10 @@ import Analytics from "@/components/Analytics"
 import VerificationMeta from "@/components/VerificationMeta"
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from "@/components/Seo"
 
+const APPLE_MAPS_LAT  = 53.044
+const APPLE_MAPS_LON  = -2.181
+const APPLE_MAPS_NAME = "Pathway Academy Zone"
+
 const SOCIAL_LINKS = [
   "https://www.facebook.com/PathwayAcademyZone",
   "https://www.linkedin.com/company/pathway-academy-zone",
@@ -93,6 +97,43 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     script.setAttribute("data-seo", id)
     script.text = JSON.stringify(ORGANIZATION_LD)
     document.head.appendChild(script)
+  }, [])
+
+  // Inject RSS autodiscovery + Apple Maps business meta once.
+  useEffect(() => {
+    // RSS feed autodiscovery link
+    if (!document.head.querySelector('link[rel="alternate"][type="application/rss+xml"]')) {
+      const rss = document.createElement("link")
+      rss.rel = "alternate"
+      rss.type = "application/rss+xml"
+      rss.title = `${SITE_NAME} Blog`
+      rss.href = `${SITE_URL}/feed.xml`
+      document.head.appendChild(rss)
+    }
+    // Apple Maps: geo meta for business listing enrichment
+    // (complements the schema.org geo already in ORGANIZATION_LD)
+    const geoMetas: [string, string][] = [
+      ["geo.region",    "GB-STE"],
+      ["geo.placename", "Stoke-on-Trent, Staffordshire"],
+      ["geo.position",  `${APPLE_MAPS_LAT};${APPLE_MAPS_LON}`],
+      ["ICBM",          `${APPLE_MAPS_LAT}, ${APPLE_MAPS_LON}`],
+    ]
+    for (const [name, content] of geoMetas) {
+      if (!document.head.querySelector(`meta[name="${name}"]`)) {
+        const m = document.createElement("meta")
+        m.name = name; m.content = content
+        document.head.appendChild(m)
+      }
+    }
+    // Apple Maps deep-link (opens the business in Apple Maps on iOS/macOS)
+    if (!document.head.querySelector('meta[name="apple-maps-record"]')) {
+      const apm = document.createElement("meta")
+      apm.name = "apple-maps-record"
+      apm.content = encodeURIComponent(
+        `maps://?ll=${APPLE_MAPS_LAT},${APPLE_MAPS_LON}&q=${encodeURIComponent(APPLE_MAPS_NAME)}`
+      )
+      document.head.appendChild(apm)
+    }
   }, [])
 
   // Restore scroll on route change.

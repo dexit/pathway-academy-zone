@@ -12,6 +12,7 @@ import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
+import { fireConversion } from "@/components/Analytics";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
 import { email, ukPhone, personName, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
@@ -74,6 +75,7 @@ export default function Careers() {
     format: "json",
     extra: { source: "careers-speculative" },
     onSuccess: () => {
+      fireConversion("careers_submit");
       toast({ title: "Application submitted", description: "We'll be in touch soon." });
       resetForm();
     },
