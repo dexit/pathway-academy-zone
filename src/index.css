@@ -68,6 +68,10 @@
     --chart-4: 120 35% 45%;
     --chart-5: 180 50% 40%;
 
+    /* Hero / image overlay scrim — always dark in BOTH themes so light hero
+       text stays legible against any background image. Do not invert. */
+    --scrim: 160 30% 8%;
+
     --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
       BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
@@ -123,6 +127,9 @@
     --chart-3: 160 45% 55%;
     --chart-4: 120 40% 50%;
     --chart-5: 180 55% 45%;
+
+    /* Scrim stays dark in dark mode too (do not invert). */
+    --scrim: 160 30% 4%;
   }
 }
 
