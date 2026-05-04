@@ -50,7 +50,7 @@ export function ContentSidebar({
     <aside
       aria-label="Sidebar"
       className={cn(
-        "lg:sticky lg:top-24 space-y-6 self-start lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2",
+        "lg:sticky lg:top-24 space-y-6 self-start lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2 scrollbar-hide",
         className
       )}
     >
