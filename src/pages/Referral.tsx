@@ -11,6 +11,7 @@ import {
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { useFormSubmit } from "@/hooks/use-form-submit";
+import { fireConversion } from "@/components/Analytics";
 import { Seo, SITE_URL, Breadcrumbs } from "@/components/Seo";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
@@ -82,6 +83,7 @@ export default function Referral() {
     format: "json",
     extra: { source: "referral-form", site: SITE_URL },
     onSuccess: () => {
+      fireConversion("referral_submit");
       toast({ title: "Referral submitted", description: "Our team will contact you within 2 working days." });
       resetForm();
     },

@@ -18,17 +18,24 @@
       ]
     },
     {
-      "source": "/:path*.:ext(webp|png|jpg|jpeg|svg|gif|ico|woff2|woff)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
-      ]
-    },
-    {
       "source": "/sw.js",
       "headers": [
         { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
         { "key": "Service-Worker-Allowed", "value": "/" }
+      ]
+    },
+    {
+      "source": "/feed.xml",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" },
+        { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" },
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" }
       ]
     },
     {
@@ -44,6 +51,23 @@
     }
   ],
   "rewrites": [
+    { "source": "/feed.xml",           "destination": "/feed.xml" },
+    { "source": "/feed",               "destination": "/feed.xml" },
+    { "source": "/rss.xml",            "destination": "/feed.xml" },
+    { "source": "/rss",                "destination": "/feed.xml" },
+    { "source": "/oembed",             "destination": "/oembed.json" },
+    { "source": "/oembed.json",        "destination": "/oembed.json" },
+    { "source": "/sitemap.xml",        "destination": "/sitemap.xml" },
+    { "source": "/robots.txt",         "destination": "/robots.txt" },
+    { "source": "/llms.txt",           "destination": "/llms.txt" },
+    { "source": "/sw.js",             "destination": "/sw.js" },
+    { "source": "/favicon.ico",        "destination": "/favicon.ico" },
+    { "source": "/placeholder.svg",    "destination": "/placeholder.svg" },
+    { "source": "/site.webmanifest",   "destination": "/site.webmanifest" },
+    { "source": "/humans.txt",         "destination": "/humans.txt" },
+    { "source": "/:key.txt",           "destination": "/:key.txt" },
+    { "source": "/assets/:file*",      "destination": "/assets/:file*" },
+    { "source": "/:path*",             "destination": "/index.html" }
     { "source": "/oembed", "destination": "/oembed.json" },
     { "source": "/oembed.json", "destination": "/oembed.json" },
     { "source": "/sitemap.xml", "destination": "/sitemap.xml" },

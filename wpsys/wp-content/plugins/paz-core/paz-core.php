@@ -12,3 +12,4 @@ require_once plugin_dir_path( __FILE__ ) . 'inc/settings.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/mcp.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/forms.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/ai.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/indexnow.php';
