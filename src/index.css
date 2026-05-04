@@ -93,7 +93,7 @@
     --secondary-foreground: 150 15% 95%;
 
     --muted: 160 15% 18%;
-    --muted-foreground: 150 10% 70%;
+    --muted-foreground: 150 12% 78%;  /* ~9:1 on dark bg — strong WCAG AA */
 
     --accent: 152 30% 20%;
     --accent-foreground: 152 50% 80%;
