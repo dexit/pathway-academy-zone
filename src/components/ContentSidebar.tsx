@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { ReactNode } from "react"
 import { ArrowRight, Phone, MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useActiveHeading } from "@/hooks/use-auto-toc"
 
 const AREA_LINKS = [
   { name: "Stoke-on-Trent", slug: "stoke-on-trent" },
