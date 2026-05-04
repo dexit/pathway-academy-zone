@@ -6,16 +6,23 @@ import Layout from "@/components/Layout.tsx";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+import martinChandler from "@/assets/martin-chandler-DvF3rkDn.webp";
+import gemmaMason from "@/assets/gemma-mason-Dplhj7uo.webp";
+import ahsanHussain from "@/assets/ahsan-hussain-OIFhfXvg.webp";
+import zulekhAli from "@/assets/zulekha-ali-Dfoelgdx.webp";
+import safarazAli from "@/assets/safaraz-ali-R0JVDMEt.webp";
+import waheedAzam from "@/assets/waheed-azam-DQhc8GBT.webp";
+
 const team = [
-  { name: "Martin Chandler", role: "Head of Community and Engagement (Safeguarding)", img: "https://pathwayacademyzone.co.uk/assets/martin-chandler-DvF3rkDn.png" },
+  { name: "Martin Chandler", role: "Head of Community and Engagement (Safeguarding)", img: martinChandler },
   { name: "Liam Farrall", role: "Head of Alternative Provision", img: "https://pathwayacademyzone.co.uk/assets/liam-farrall-DwXnuzxA.webp" },
-  { name: "Gemma Mason, QTLS", role: "SENCO Lead", img: "https://pathwayacademyzone.co.uk/assets/gemma-mason-Dplhj7uo.jpeg" },
-  { name: "Ahsan Hussain", role: "Head of Partnerships and Impact", img: "https://pathwayacademyzone.co.uk/assets/ahsan-hussain-OIFhfXvg.png" },
-  { name: "Zulekha Ali", role: "HR and Executive Support", img: "https://pathwayacademyzone.co.uk/assets/zulekha-ali-Dfoelgdx.png" },
+  { name: "Gemma Mason, QTLS", role: "SENCO Lead", img: gemmaMason },
+  { name: "Ahsan Hussain", role: "Head of Partnerships and Impact", img: ahsanHussain },
+  { name: "Zulekha Ali", role: "HR and Executive Support", img: zulekhAli },
 ];
 const execs = [
-  { name: "Safaraz Ali", role: "Founder & CEO", img: "https://pathwayacademyzone.co.uk/assets/safaraz-ali-R0JVDMEt.png" },
-  { name: "Waheed Azam", role: "Executive Director", img: "https://pathwayacademyzone.co.uk/assets/waheed-azam-DQhc8GBT.jpeg" },
+  { name: "Safaraz Ali", role: "Founder & CEO", img: safarazAli },
+  { name: "Waheed Azam", role: "Executive Director", img: waheedAzam },
 ];
 
 const slugify = (s: string) =>

@@ -5,6 +5,7 @@ import { FileText, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
+import martinChandler from "@/assets/martin-chandler-DvF3rkDn.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
@@ -17,7 +18,7 @@ const dslPerson = {
   url: `${SITE_URL}/team#martin-chandler`,
   worksFor: { "@id": `${SITE_URL}/#organization` },
   affiliation: { "@type": "EducationalOrganization", name: SITE_NAME, sameAs: SITE_URL },
-  image: "https://pathwayacademyzone.co.uk/assets/martin-chandler-DvF3rkDn.png",
+  image: martinChandler,
 };
 
 const safeguardingSchema = [ORG_SCHEMA, WEBSITE_SCHEMA, dslPerson];
@@ -46,7 +47,7 @@ export default function Safeguarding() {
       <section className="py-4 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Safeguarding" }]} /></div></section>
       <section className="py-24 bg-background"><div className="container mx-auto px-4 max-w-4xl">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 items-start">
-          <div className="mx-auto md:mx-0"><img src="https://pathwayacademyzone.co.uk/assets/martin-chandler-DvF3rkDn.png" alt="Martin Chandler — Designated Safeguarding Lead" className="w-48 h-48 rounded-2xl object-cover shadow-lg" width="192" height="192" loading="lazy" decoding="async" /></div>
+          <div className="mx-auto md:mx-0"><img src={martinChandler} alt="Martin Chandler — Designated Safeguarding Lead" className="w-48 h-48 rounded-2xl object-cover shadow-lg" width="192" height="192" loading="lazy" decoding="async" /></div>
           <div>
             <h2 className="font-display text-lg text-muted-foreground mb-1">Our Designated Safeguarding Lead</h2>
             <h3 className="font-display text-2xl font-bold text-foreground mb-1">Martin Chandler</h3>
