@@ -48,6 +48,12 @@ export default function BlogDetail() {
       <Seo
         title={post.title}
         description={post.excerpt}
+        image={post.image}
+        imageAlt={post.title}
+        type="article"
+        publishedTime={post.date}
+        author={post.author}
+        section={post.category}
         jsonLd={jsonLd}
       />
 
