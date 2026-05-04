@@ -107,20 +107,20 @@ export default function HomePage() {
             decoding="sync"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-scrim/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-scrim/80 via-scrim/65 to-scrim/40" />
         </div>
         <div className="container mx-auto px-4 py-20 relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-2xl">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-white/15 text-white text-sm font-medium mb-6 backdrop-blur-sm border border-white/25">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold mb-6 shadow-md">
               Alternative Provision in Staffordshire
             </span>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 drop-shadow-md">
               Every Young Person Deserves a Pathway To Success
             </h1>
-            <p className="text-white/90 text-lg md:text-xl mb-4 max-w-xl">
+            <p className="text-white text-lg md:text-xl mb-4 max-w-xl drop-shadow">
               We provide specialist education for young people who need a different approach.
             </p>
-            <p className="text-white/75 text-base md:text-lg mb-10 max-w-xl">
+            <p className="text-white/90 text-base md:text-lg mb-10 max-w-xl drop-shadow">
               Through structure, care and high expectations, we help young people re-engage, rebuild confidence and move forward in education, employment or training.
             </p>
             <div className="flex flex-col sm:flex-row items-start gap-4">
