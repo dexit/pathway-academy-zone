@@ -55,25 +55,6 @@ export function ContentSidebar({
       )}
     >
       {toc && toc.length > 0 && <TocNav toc={toc} />}
-      {toc && toc.length > 0 && (
-        <nav aria-label="On this page" className="rounded-2xl border border-border bg-card p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
-            On this page
-          </p>
-          <ol className="space-y-1.5 text-sm">
-            {toc.map((item) => (
-              <li key={item.id} className={item.level === 3 ? "pl-4" : ""}>
-                <a
-                  href={`#${item.id}`}
-                  className="text-muted-foreground hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )}
 
       {ctas && ctas.length > 0 && (
         <div className="space-y-3">
