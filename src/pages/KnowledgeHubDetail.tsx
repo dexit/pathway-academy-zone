@@ -84,7 +84,13 @@ export default function KnowledgeHubDetail() {
 
   return (
     <Layout>
-      <Seo title={content.title} description={content.summary} jsonLd={jsonLd} />
+      <Seo
+        title={content.title}
+        description={content.summary}
+        type="article"
+        section={content.categoryLabel}
+        jsonLd={jsonLd}
+      />
       <main className="min-h-screen bg-background">
         <header className="bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 py-14 md:py-20">
