@@ -50,10 +50,11 @@ export function ContentSidebar({
     <aside
       aria-label="Sidebar"
       className={cn(
-        "lg:sticky lg:top-24 space-y-6 self-start",
+        "lg:sticky lg:top-24 space-y-6 self-start lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2",
         className
       )}
     >
+      {toc && toc.length > 0 && <TocNav toc={toc} />}
       {toc && toc.length > 0 && (
         <nav aria-label="On this page" className="rounded-2xl border border-border bg-card p-5">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
