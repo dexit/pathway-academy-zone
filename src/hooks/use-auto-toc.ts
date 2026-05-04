@@ -53,3 +53,37 @@ export function useAutoToc(
 
   return items;
 }
+
+/**
+ * Scrollspy: returns the id of the heading currently in view. Tracks the
+ * topmost heading whose top has crossed the offset threshold.
+ */
+export function useActiveHeading(ids: string[], offset = 120): string | null {
+  const [active, setActive] = useState<string | null>(ids[0] ?? null);
+
+  useEffect(() => {
+    if (!ids.length) return;
+
+    const onScroll = () => {
+      let current: string | null = ids[0] ?? null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top - offset <= 0) current = id;
+        else break;
+      }
+      setActive(current);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [ids.join("|"), offset]);
+
+  return active;
+}
