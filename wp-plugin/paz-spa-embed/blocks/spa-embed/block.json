@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/spa-embed",
+	"title": "SPA Embed",
+	"category": "paz",
+	"icon": "embed-generic",
+	"description": "Embeds a route from the Pathway Academy Zone React SPA in a full-width responsive iframe that auto-resizes to its content.",
+	"keywords": ["spa", "iframe", "embed", "react", "team"],
+	"textdomain": "paz-spa-embed",
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"attributes": {
+		"route": {
+			"type": "string",
+			"default": "/"
+		},
+		"minHeight": {
+			"type": "number",
+			"default": 600
+		},
+		"loading": {
+			"type": "string",
+			"default": "lazy",
+			"enum": ["lazy", "eager"]
+		},
+		"iframeTitle": {
+			"type": "string",
+			"default": "Pathway Academy Zone"
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
+	},
+	"render": "file:./render.php",
+	"editorScript": "file:./editor.js",
+	"style": "file:./style.css"
+}

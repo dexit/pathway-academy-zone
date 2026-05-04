@@ -5,6 +5,7 @@ import { HubSectionCard } from "@/components/knowledge-hub/hub-section-card"
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
 import Layout from "@/components/Layout"
 import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo"
+<<<<<<< HEAD
 
 export default function KnowledgeHub() {
   const jsonLd = {
@@ -19,13 +20,36 @@ export default function KnowledgeHub() {
       "url": `${SITE_URL}/knowledge-hub/${s.id}`
     }))
   };
+=======
+import { buildKnowledgeHubSchema, buildItemListJsonLd, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld"
+
+export default function KnowledgeHub() {
+  const hubJsonLd = [
+    ORG_SCHEMA,
+    WEBSITE_SCHEMA,
+    buildKnowledgeHubSchema(
+      HUB_SECTIONS.map((s) => ({ title: s.title, id: s.id, description: s.description }))
+    ),
+    buildItemListJsonLd(
+      HUB_SECTIONS.flatMap((s) =>
+        s.resources.map((r) => ({ title: r.title, href: `${SITE_URL}${r.href}` }))
+      ),
+      "Alternative Provision Knowledge Hub — All Resources"
+    ),
+  ];
+>>>>>>> origin/main
 
   return (
     <Layout>
       <Seo
         title="Knowledge Hub"
+<<<<<<< HEAD
         description="Your comprehensive resource for Alternative Provision. Expert guides, practical comparisons, and evidence-based best practices."
         jsonLd={jsonLd}
+=======
+        description="Your comprehensive resource for Alternative Provision. Expert guides, practical comparisons, and evidence-based best practices for educators, parents, and professionals."
+        jsonLd={hubJsonLd}
+>>>>>>> origin/main
       />
       <main className="min-h-screen bg-background">
         <header className="bg-primary text-primary-foreground">

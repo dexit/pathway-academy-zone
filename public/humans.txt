@@ -1,0 +1,10 @@
+/* TEAM */
+Organisation: Pathway Academy Zone
+Site: https://pathwayacademyzone.co.uk
+Contact: info@pathwayacademyzone.co.uk
+Location: Stoke-on-Trent, Staffordshire, UK
+
+/* SITE */
+Language: English (en-GB)
+Standards: HTML5, CSS3, ES2022
+Components: React, Vite, Tailwind CSS

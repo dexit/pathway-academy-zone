@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-GB" class="bg-background">
+<html lang="en-GB" dir="ltr" class="bg-background">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -17,21 +17,73 @@
       media="(prefers-color-scheme: dark)"
     />
     <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Pathway Academy Zone" />
+    <meta name="application-name" content="Pathway Academy Zone" />
 
+    <!-- LCP: preload above-the-fold hero image before any render -->
+    <link rel="preload" as="image" href="/assets/hero-classroom.webp" type="image/webp" fetchpriority="high" />
+
+    <!-- Fonts: preconnect then load non-blocking with font-display=swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
     <link rel="dns-prefetch" href="https://pathwayacademyzone.co.uk" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/PAZlogo-BYea4nq1.png" />
+    <link rel="apple-touch-icon" href="/assets/PAZlogo-BYea4nq1.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <title>Pathway Academy Zone | Alternative Provision Stoke</title>
+    <title>Pathway Academy Zone | Alternative Provision in Staffordshire</title>
     <meta
       name="description"
       content="Pathway Academy Zone provides Alternative Provision in Stoke-on-Trent and Staffordshire for ages 11-16. SEMH support, behaviour and reintegration programmes."
     />
     <meta name="author" content="Pathway Academy Zone" />
+    <meta name="publisher" content="Pathway Academy Zone" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+    <meta name="geo.region" content="GB-STE" />
+    <meta name="geo.placename" content="Stoke-on-Trent" />
+    <meta name="geo.position" content="53.044;-2.181" />
+    <meta name="ICBM" content="53.044, -2.181" />
     <link rel="canonical" href="https://pathwayacademyzone.co.uk/" />
+
+    <!-- Open Graph defaults (overridden per-page by Seo.tsx) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pathway Academy Zone" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content="Pathway Academy Zone | Alternative Provision in Staffordshire" />
+    <meta property="og:description" content="Alternative Provision in Stoke-on-Trent for ages 11–16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities." />
+    <meta property="og:url" content="https://pathwayacademyzone.co.uk/" />
+    <meta property="og:image" content="https://pathwayacademyzone.co.uk/assets/og-default.jpg" />
+    <meta property="og:image:secure_url" content="https://pathwayacademyzone.co.uk/assets/og-default.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pathway Academy Zone — Alternative Provision in Stoke-on-Trent" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@PathwayAcademyZ" />
+    <meta name="twitter:creator" content="@PathwayAcademyZ" />
+    <meta name="twitter:title" content="Pathway Academy Zone | Alternative Provision in Staffordshire" />
+    <meta name="twitter:description" content="Alternative Provision in Stoke-on-Trent for ages 11–16. SEMH support, behaviour and reintegration programmes." />
+    <meta name="twitter:image" content="https://pathwayacademyzone.co.uk/assets/og-default.jpg" />
+    <meta name="twitter:image:alt" content="Pathway Academy Zone — Alternative Provision in Stoke-on-Trent" />
+    <meta name="twitter:domain" content="pathwayacademyzone.co.uk" />
+
+    <!-- Pinterest rich pin opt-in -->
+    <meta name="pinterest-rich-pin" content="true" />
+
+    <!-- oEmbed discovery (Facebook, Discord, Slack, WordPress, etc.) -->
+    <link rel="alternate" type="application/json+oembed" href="https://pathwayacademyzone.co.uk/oembed.json" title="Pathway Academy Zone oEmbed" />
 
     <script>
       // Apply saved theme before paint to prevent flash

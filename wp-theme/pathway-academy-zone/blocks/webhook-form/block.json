@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/webhook-form",
+	"title": "Webhook Form",
+	"category": "paz",
+	"icon": "email",
+	"description": "AJAX contact form that POSTs data to any external webhook (Make, Zapier, HubSpot, n8n, etc.).",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"heading":        { "type": "string",  "default": "Get in Touch" },
+		"body":           { "type": "string",  "default": "" },
+		"webhookUrl":     { "type": "string",  "default": "" },
+		"method":         { "type": "string",  "default": "POST" },
+		"encoding":       { "type": "string",  "default": "json" },
+		"submitLabel":    { "type": "string",  "default": "Send Message" },
+		"successMessage": { "type": "string",  "default": "Thank you — we'll be in touch shortly." },
+		"fields": {
+			"type": "array",
+			"default": [
+				{ "name": "name",    "label": "Full Name",     "type": "text",     "required": true },
+				{ "name": "email",   "label": "Email Address", "type": "email",    "required": true },
+				{ "name": "message", "label": "Message",       "type": "textarea", "required": true }
+			]
+		}
+	},
+	"render": "file:./render.php"
+}

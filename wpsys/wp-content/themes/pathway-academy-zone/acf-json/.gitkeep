@@ -1,0 +1,5 @@
+# ACF Local JSON directory
+#
+# ACF Pro will auto-save field groups to this folder as JSON when the theme
+# is active, letting you version-control custom fields alongside the theme.
+# See inc/compat.php (paz_acf_json_save / paz_acf_json_load).

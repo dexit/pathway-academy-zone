@@ -1,0 +1,13 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/webhook-form",
+  "title": "Webhook Form",
+  "category": "pazone",
+  "icon": "email",
+  "description": "Form that submits data to a webhook.",
+  "textdomain": "pathway-academy-zone",
+  "attributes": {
+    "target": { "type": "string", "default": "" },
+    "method": { "type": "string", "default": "POST" }
+  }
+}

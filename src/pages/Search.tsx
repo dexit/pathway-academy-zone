@@ -1,7 +1,12 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Search as SearchIcon, ArrowRight } from "lucide-react";
+<<<<<<< HEAD
 import { Seo, SITE_URL } from "@/components/Seo";
+=======
+import { Seo } from "@/components/Seo";
+import { buildSearchPageSchema, WEBSITE_SCHEMA } from "@/lib/json-ld";
+>>>>>>> origin/main
 import { searchAll, type SearchItem } from "@/lib/search-index";
 import { Button } from "@/components/ui/button";
 import { ArchiveLayout } from "@/components/ArchiveLayout";
@@ -72,7 +77,11 @@ export default function SearchPage() {
             : "Search the Pathway Academy Zone website for guides, blog articles, policies, and more."
         }
         noIndex
+<<<<<<< HEAD
         jsonLd={jsonLd}
+=======
+        jsonLd={[WEBSITE_SCHEMA, buildSearchPageSchema(q)]}
+>>>>>>> origin/main
       />
       <ArchiveLayout
         crumbs={[{ label: "Search" }]}
@@ -124,11 +133,19 @@ export default function SearchPage() {
         </form>
 
         {q ? (
+<<<<<<< HEAD
           <div className="space-y-8">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 Found <span className="text-foreground font-bold">{results.length}</span> {results.length === 1 ? "result" : "results"} for{" "}
                 <span className="text-primary font-bold">
+=======
+          <>
+            <div aria-live="polite" aria-atomic="true">
+              <p className="text-sm text-muted-foreground">
+                {results.length} {results.length === 1 ? "result" : "results"} for{" "}
+                <span className="text-foreground font-semibold">
+>>>>>>> origin/main
                   &quot;{q}&quot;
                 </span>
               </p>

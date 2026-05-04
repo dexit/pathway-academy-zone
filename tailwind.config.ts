@@ -75,6 +75,7 @@ export default {
         "teal-dark": "hsl(var(--teal-dark))",
         "teal-light": "hsl(var(--teal-light))",
         "warm-gray": "hsl(var(--warm-gray))",
+        scrim: "hsl(var(--scrim))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background, 0 0% 98%))",
           foreground: "hsl(var(--sidebar-foreground, 240 5.3% 26.1%))",

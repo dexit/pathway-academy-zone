@@ -33,7 +33,7 @@ export function ArchivePagination({
   };
 
   return (
-    <Pagination>
+    <Pagination aria-label="Pagination">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -66,6 +66,7 @@ export function ArchivePagination({
               <PaginationLink
                 href="#"
                 isActive={pageNum === page}
+                aria-current={pageNum === page ? "page" : undefined}
                 onClick={(e) => {
                   e.preventDefault();
                   goTo(pageNum);

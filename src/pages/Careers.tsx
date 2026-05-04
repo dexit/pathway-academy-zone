@@ -1,10 +1,16 @@
+<<<<<<< HEAD
 import { useEffect, useState, useMemo } from "react";
+=======
+import { useState } from "react";
+import { motion } from "framer-motion";
+>>>>>>> origin/main
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
+<<<<<<< HEAD
   Heart,
   Users,
   GraduationCap,
@@ -23,19 +29,28 @@ import {
   ClipboardList,
   Sparkles,
   ArrowRight
+=======
+  Heart, Users, GraduationCap, Clock, CheckCircle,
+  Loader2, CheckCircle2, AlertCircle, BookOpen, HandHeart, ClipboardList, Sparkles, ExternalLink,
+>>>>>>> origin/main
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
+<<<<<<< HEAD
 import { JobListSkeleton } from "@/components/SkeletonPlaceholders";
 import { fetchAllJobs, type Job } from "@/lib/jobs-api";
 import { FilterPills } from "@/components/FilterPills";
+=======
+import { fireConversion } from "@/components/Analytics";
+>>>>>>> origin/main
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
 import { email, ukPhone, personName, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
 
 const CAREERS_WEBHOOK = import.meta.env.VITE_CAREERS_WEBHOOK as string | undefined;
+const JOBS_EMBED_URL = "https://job.pathwaygroup.co.uk/";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -48,6 +63,7 @@ const perks = [
   { icon: GraduationCap, title: "Professional Development", desc: "Regular training and opportunities for growth" },
   { icon: Clock, title: "Work-Life Balance", desc: "Term-time working options and flexible arrangements" },
 ];
+<<<<<<< HEAD
 
 const LOCAL_VACANCIES: Job[] = [
   {
@@ -73,8 +89,22 @@ const LOCAL_VACANCIES: Job[] = [
     source: "Local",
     postedDate: "2024-12-22",
     description: "Youth Mentor at Pathway Academy Zone. Full-time, Fixed Term, based in Stafford.",
+=======
+const qualities = ["Believe in every young person's potential","Are resilient and patient, even when things are challenging","Build strong, trusting relationships with young people","Collaborate effectively with colleagues and partners","Are committed to continuous learning and improvement"];
+
+const careersSchema = {
+  "@context": "https://schema.org",
+  "@type": "EmployerAggregateRating",
+  itemReviewed: {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    sameAs: SITE_URL,
+>>>>>>> origin/main
   },
-];
+  description: "Pathway Academy Zone careers and vacancies — join our team supporting young people in Staffordshire.",
+  url: `${SITE_URL}/careers`,
+};
 
 const SOURCES = ["All", "Local", "Reed", "Adzuna", "CV-Library"];
 
@@ -87,7 +117,8 @@ const interestOptions: IllustratedOption[] = [
 ];
 
 const formSchema = z.object({
-  name: personName({ required: true }),
+  firstName: personName({ required: true }),
+  lastName: personName({ required: true }),
   email: email({ required: true }),
   phone: ukPhone(),
   interest: z.enum(["teaching", "youth-work", "support", "admin", "other"], { required_error: "Please choose an area of interest" }),
@@ -140,6 +171,7 @@ export default function Careers() {
   const [externalJobs, setExternalJobs] = useState<Job[]>([]);
   const [listLoading, setListLoading] = useState(false);
   const { toast } = useToast();
+<<<<<<< HEAD
 
   useEffect(() => {
     let active = true;
@@ -157,6 +189,8 @@ export default function Careers() {
     load();
     return () => { active = false; };
   }, []);
+=======
+>>>>>>> origin/main
 
   const allVisibleJobs = useMemo(() => {
     const combined = [...LOCAL_VACANCIES, ...externalJobs];
@@ -178,17 +212,27 @@ export default function Careers() {
 
   const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+<<<<<<< HEAD
     defaultValues: { name: "", email: "", phone: "", interest: undefined, about: "" },
     mode: "onTouched",
+=======
+    mode: "onTouched",
+    defaultValues: { firstName: "", lastName: "", email: "", phone: "", interest: undefined, about: "" },
+>>>>>>> origin/main
   });
 
-  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string }>({
+  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string; name?: string }>({
     url: CAREERS_WEBHOOK,
     method: "POST",
     format: "json",
     extra: { source: "careers-form", site: SITE_URL },
     onSuccess: () => {
+<<<<<<< HEAD
       toast({ title: "Application sent", description: "Thanks — we'll be in touch soon." });
+=======
+      fireConversion("careers_submit");
+      toast({ title: "Application submitted", description: "We'll be in touch soon." });
+>>>>>>> origin/main
       resetForm();
     },
     onError: (err) =>
@@ -197,7 +241,11 @@ export default function Careers() {
 
   const onSubmit = handleSubmit(async (values) => {
     if (success || error) resetStatus();
-    await submit({ ...values, phone_e164: normaliseUkPhone(values.phone || "") });
+    await submit({
+      ...values,
+      name: `${values.firstName} ${values.lastName}`.trim(),
+      phone_e164: normaliseUkPhone(values.phone || ""),
+    });
   });
 
   const phone = watch("phone");
@@ -205,6 +253,7 @@ export default function Careers() {
   return (
     <Layout>
       <Seo
+<<<<<<< HEAD
         title="Careers & Opportunities"
         description="Join our team of dedicated Alternative Provision specialists. View current vacancies in Stoke-on-Trent and Staffordshire."
         jsonLd={jsonLd}
@@ -224,6 +273,114 @@ export default function Careers() {
           </div>
         </div>
       </header>
+=======
+        title="Careers"
+        description="Current vacancies and speculative applications at Pathway Academy Zone. Join a team making a real difference for young people in Staffordshire."
+        jsonLd={careersSchema}
+      />
+      <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
+        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Careers</span>
+        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Join Our Team</h1>
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives.</p>
+      </div></section>
+      <section className="py-8 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Careers" }]} /></div></section>
+      <section className="py-24 bg-background"><div className="container mx-auto px-4">
+        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Why Work at Pathway Academy Zone?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          {perks.map((p, i) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-6 text-center shadow-sm border border-border/50"><div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4"><p.icon className="h-6 w-6 text-primary" /></div><h3 className="font-display font-bold text-foreground mb-1">{p.title}</h3><p className="text-muted-foreground text-sm">{p.desc}</p></motion.div>))}
+        </div>
+      </div></section>
+      <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-3xl">
+        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-4">What We Look For</h2>
+        <p className="text-muted-foreground text-center mb-10">We value attitude and commitment as much as qualifications. Our ideal team members:</p>
+        <div className="space-y-3">{qualities.map((q) => (<div key={q} className="flex items-center gap-3 bg-card rounded-xl px-6 py-4 border border-border/50"><CheckCircle className="h-5 w-5 text-primary shrink-0" /><span className="text-foreground">{q}</span></div>))}</div>
+      </div></section>
+      <section className="py-24 bg-background" id="vacancies">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <h2 className="font-display text-2xl font-bold text-foreground">Current Vacancies</h2>
+            <a
+              href={JOBS_EMBED_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium content-link"
+            >
+              Open in new tab <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
+          <div className="rounded-2xl border border-border overflow-hidden shadow-sm bg-card">
+            <iframe
+              src={JOBS_EMBED_URL}
+              title="Current Job Vacancies — Pathway Group"
+              loading="lazy"
+              className="w-full border-0"
+              style={{ minHeight: "700px", height: "800px" }}
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+            />
+          </div>
+          <p className="text-xs text-muted-foreground mt-3 text-center">
+            Vacancies are managed via{" "}
+            <a
+              href={JOBS_EMBED_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="content-link"
+            >
+              job.pathwaygroup.co.uk
+            </a>
+          </p>
+        </div>
+      </section>
+      <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-2xl">
+        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-4">Speculative Applications</h2>
+        <p className="text-muted-foreground text-center mb-10">Don't see a suitable role? We're always interested in hearing from talented individuals.</p>
+        <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              id="careers-firstname"
+              label="First Name"
+              required
+              autoComplete="given-name"
+              placeholder="First name"
+              error={errors.firstName?.message}
+              {...register("firstName")}
+            />
+            <FormField
+              id="careers-lastname"
+              label="Last Name"
+              required
+              autoComplete="family-name"
+              placeholder="Last name"
+              error={errors.lastName?.message}
+              {...register("lastName")}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              id="careers-email"
+              label="Email Address"
+              required
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              placeholder="your@email.com"
+              error={errors.email?.message}
+              {...register("email")}
+            />
+            <FormField
+              id="careers-phone"
+              label="Phone Number"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              placeholder="07123 456789"
+              hint="UK landline or mobile"
+              value={phone || ""}
+              onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
+              error={errors.phone?.message}
+            />
+          </div>
+>>>>>>> origin/main
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">

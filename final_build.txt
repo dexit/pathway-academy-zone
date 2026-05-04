@@ -1,0 +1,39 @@
+
+> vite_react_shadcn_ts@0.0.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+
+/assets/grid-white.svg referenced in /assets/grid-white.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 10 modules transformed.
+sitemap plugin: could not load site-routes.ts via jiti — using inline fallback
+✓ sitemap.xml written to dist/ (44 URLs)
+✓ sitemap.xml refreshed in public/
+rss plugin: could not load blog-data.ts via jiti — using inline fallback
+✓ feed.xml written to dist/ (8 items)
+✓ feed.xml refreshed in public/
+x Build failed in 3.31s
+error during build:
+[vite:esbuild] Transform failed with 1 error:
+/app/src/pages/Index.tsx:5:0: ERROR: Unexpected "<<"
+file: /app/src/pages/Index.tsx:5:0
+
+Unexpected "<<"
+3  |  import { useState, useRef } from "react";
+4  |  import { Button } from "@/components/ui/button";
+5  |  <<<<<<< HEAD
+   |  ^
+6  |  import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, Briefcase, UserCheck, Target, ChevronDown, School } from "lucide-react";
+7  |  import Layout from "@/components/Layout";
+
+    at failureErrorWithLog (/app/node_modules/vite/node_modules/esbuild/lib/main.js:1472:15)
+    at /app/node_modules/vite/node_modules/esbuild/lib/main.js:755:50
+    at responseCallbacks.<computed> (/app/node_modules/vite/node_modules/esbuild/lib/main.js:622:9)
+    at handleIncomingPacket (/app/node_modules/vite/node_modules/esbuild/lib/main.js:677:12)
+    at Socket.readFromStdout (/app/node_modules/vite/node_modules/esbuild/lib/main.js:600:7)
+    at Socket.emit (node:events:519:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)

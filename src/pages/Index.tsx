@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
+<<<<<<< HEAD
 import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, Briefcase, UserCheck, Target, ChevronDown, School } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
@@ -9,11 +10,28 @@ import { LogoTicker } from "@/components/LogoTicker";
 import { TestimonialSlider } from "@/components/TestimonialSlider";
 import { partners } from "@/data/partners-data";
 import { reviews } from "@/data/reviews-data";
+=======
+import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig, MapPin, ClipboardList, Sparkles, GraduationCap, ShieldCheck, PhoneCall } from "lucide-react";
+import Layout from "@/components/Layout";
+import { Seo } from "@/components/Seo";
+import {
+  ORG_SCHEMA, WEBSITE_SCHEMA, AREAS_SERVED, CONTACT_POINTS,
+  buildServiceSchema, buildCourseCarouselSchema,
+} from "@/lib/json-ld";
+import WhyItMattersScroller from "@/components/WhyItMattersScroller";
+//import heroImg from "@/assets/hero-classroom.webp";
+//import classroomImg from "@/assets/classroom-learning.webp";
+//import vocationalImg from "@/assets/vocational-training.webp";
+//import mentoringImg from "@/assets/mentoring-session.webp";
 
-const heroImg = "/assets/hero-classroom.jpg";
-const classroomImg = "/assets/classroom-learning.jpg";
-const vocationalImg = "/assets/vocational-training.jpg";
-const mentoringImg = "/assets/mentoring-session.jpg";
+// ✅ Use the functions or direct strings instead
+import { getVocationalImg, getMentoringImg, getClassroomImg, getHeroImg, getCareersImg } from "@/utils/images";
+>>>>>>> origin/main
+
+const heroImg = "/assets/hero-classroom.webp";
+const classroomImg = "/assets/classroom-learning.webp";
+const vocationalImg = "/assets/vocational-training.webp";
+const mentoringImg = "/assets/mentoring-session.webp";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -42,6 +60,7 @@ const faqs = [
   { q: "How do you keep learners safe?", a: "Safeguarding is our top priority. All staff are DBS checked and trained, we have a dedicated safeguarding lead, clear reporting procedures, and work closely with local safeguarding partners." },
 ];
 
+<<<<<<< HEAD
 export default function HomePage() {
   const orgJsonLd = {
     "@context": "https://schema.org",
@@ -68,7 +87,19 @@ export default function HomePage() {
       "https://www.linkedin.com/company/pathway-academy-zone",
     ],
   };
+=======
+// Programme stubs for homepage Service + CourseCarousel schemas
+const HOME_PROGRAMMES = [
+  { slug: "academic-re-engagement", title: "Academic Re-engagement",  desc: "Structured academic curriculum for young people aged 11–16.",    features: [], schedule: "Full-time or part-time", time: "Mon–Fri 9:30am–2:30pm", whoFor: "Post-exclusion students",      outcomes: ["Improved attendance", "GCSE / functional skills"] },
+  { slug: "vocational-learning",    title: "Vocational Learning",      desc: "Hands-on practical skills in construction, catering and more.",  features: [], schedule: "1–2 days per week",     time: "Varies",              whoFor: "Practical learners",          outcomes: ["Industry certificates", "Apprenticeship pathways"] },
+  { slug: "semh-support",           title: "SEMH Support",             desc: "Therapeutic 1:1 and group support for social and emotional needs.", features: [], schedule: "Ongoing",             time: "2–3 sessions/week",   whoFor: "SEMH-identified students",    outcomes: ["Emotional regulation", "Reduced anxiety"] },
+  { slug: "personal-development",   title: "Personal Development",     desc: "Resilience, communication, and life-skills enrichment.",         features: [], schedule: "Integrated",           time: "2 hrs/week",          whoFor: "All students",                outcomes: ["Resilience", "Self-esteem"] },
+  { slug: "life-skills",            title: "Life Skills Programme",    desc: "Independent living, digital literacy, and health education.",    features: [], schedule: "Integrated",           time: "Weekly",              whoFor: "CLA and EHCP students",       outcomes: ["Independent living skills"] },
+  { slug: "employability-skills",   title: "Employability Skills",     desc: "CV writing, interview practice, and work experience.",           features: [], schedule: "Year 10 & 11",         time: "Weekly + placements", whoFor: "Year 10 and 11",              outcomes: ["Employment-ready", "Positive destinations"] },
+];
+>>>>>>> origin/main
 
+export default function HomePage() {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -82,6 +113,7 @@ export default function HomePage() {
     }))
   };
 
+<<<<<<< HEAD
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -95,6 +127,22 @@ export default function HomePage() {
   };
 
   const homeJsonLd = [orgJsonLd, faqJsonLd, websiteJsonLd];
+=======
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "https://pathwayacademyzone.co.uk" }],
+  };
+
+  const homeJsonLd = [
+    ORG_SCHEMA,
+    WEBSITE_SCHEMA,
+    faqJsonLd,
+    breadcrumbJsonLd,
+    buildServiceSchema(HOME_PROGRAMMES),
+    buildCourseCarouselSchema(HOME_PROGRAMMES),
+  ];
+>>>>>>> origin/main
 
   return (
     <Layout>
@@ -110,6 +158,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-transparent z-10" />
           <img
             src={heroImg}
+<<<<<<< HEAD
             alt="Students in a supportive learning environment"
             className="w-full h-full object-cover object-center"
           />
@@ -138,6 +187,36 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="xl" className="rounded-full shadow-lg shadow-primary/20 text-lg px-8">
                 <Link to="/referral">Make a Referral <ArrowRight className="ml-2 h-5 w-5" /></Link>
+=======
+            alt="Students collaborating around a laptop in a supportive Alternative Provision classroom in Stoke-on-Trent"
+            title="Pathway Academy Zone classroom"
+            className="w-full h-full object-cover"
+            width="1920"
+            height="1080"
+            fetchPriority="high"
+            decoding="sync"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-scrim/80 via-scrim/65 to-scrim/40" />
+        </div>
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-2xl">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold mb-6 shadow-md">
+              Alternative Provision in Staffordshire
+            </span>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 drop-shadow-md">
+              Every Young Person Deserves a Pathway To Success
+            </h1>
+            <p className="text-white text-lg md:text-xl mb-4 max-w-xl drop-shadow">
+              We provide specialist education for young people who need a different approach.
+            </p>
+            <p className="text-white/90 text-base md:text-lg mb-10 max-w-xl drop-shadow">
+              Through structure, care and high expectations, we help young people re-engage, rebuild confidence and move forward in education, employment or training.
+            </p>
+            <div className="flex flex-col sm:flex-row items-start gap-4">
+              <Button asChild size="xl" className="rounded-full shadow-lg px-8">
+                <Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-5 w-5" /></Link>
+>>>>>>> origin/main
               </Button>
               <Button asChild variant="outline" size="xl" className="rounded-full bg-background/50 backdrop-blur-sm text-lg px-8">
                 <Link to="/programmes">Our Programmes</Link>
@@ -181,6 +260,7 @@ export default function HomePage() {
                 ))}
               </div>
             </motion.div>
+<<<<<<< HEAD
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -207,6 +287,12 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
+=======
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-2 gap-4">
+              <img src={classroomImg} alt="Students engaged in learning at Pathway Academy Zone classroom" width="600" height="256" className="rounded-2xl shadow-lg w-full h-64 object-cover" loading="lazy" decoding="async" />
+              <img src={vocationalImg} alt="Young people exploring vocational and apprenticeship pathways" width="600" height="256" className="rounded-2xl shadow-lg w-full h-64 object-cover mt-8" loading="lazy" decoding="async" />
+              <img src={mentoringImg} alt="One-to-one mentoring session supporting young people's development" width="1200" height="256" className="rounded-2xl shadow-lg w-full h-64 object-cover col-span-2" loading="lazy" decoding="async" />
+>>>>>>> origin/main
             </motion.div>
           </div>
         </div>
@@ -255,6 +341,12 @@ export default function HomePage() {
         </div>
       </section>
 
+<<<<<<< HEAD
+=======
+      {/* Why Alternative Provision Matters - interactive scrolling visualization */}
+      <WhyItMattersScroller />
+
+>>>>>>> origin/main
       {/* Stats */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
@@ -275,6 +367,7 @@ export default function HomePage() {
 
       <TestimonialSlider reviews={reviews} title="Trusted by Parents & Schools" />
 
+<<<<<<< HEAD
       {/* Blog & News */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
@@ -310,6 +403,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+=======
+      {/* Latest Blog Posts — temporarily hidden */}
+>>>>>>> origin/main
 
       {/* FAQ */}
       <section className="py-24 bg-muted/30">

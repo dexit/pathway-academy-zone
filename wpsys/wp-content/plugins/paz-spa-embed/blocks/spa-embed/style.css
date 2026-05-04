@@ -1,0 +1,46 @@
+/* pazone/spa-embed — front-end and editor styles */
+
+.paz-spa-wrapper {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	/* Prevent CLS by providing a background while the iframe loads */
+	background-color: var(--wp--preset--color--muted, #f0f5f2);
+}
+
+.paz-spa-iframe {
+	display: block;
+	width: 100%;
+	border: 0;
+	overflow: hidden;
+	/* Smooth height transitions when the SPA reports a new height */
+	transition: height 0.25s ease;
+}
+
+/* Wide & full alignment — break out of the content column */
+.alignwide .paz-spa-wrapper,
+.alignfull .paz-spa-wrapper {
+	width: 100%;
+	max-width: none;
+}
+
+/* Loading skeleton shimmer */
+.paz-spa-wrapper[data-loading="true"]::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0) 0%,
+		rgba(255, 255, 255, 0.4) 50%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	background-size: 200% 100%;
+	animation: paz-shimmer 1.5s infinite;
+	pointer-events: none;
+}
+
+@keyframes paz-shimmer {
+	0%   { background-position: -200% 0; }
+	100% { background-position:  200% 0; }
+}

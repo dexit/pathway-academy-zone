@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/reading-time",
+	"title": "Reading Time",
+	"category": "paz",
+	"icon": "clock",
+	"description": "Calculates and displays estimated reading time for the current post.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false },
+	"attributes": {
+		"prefix":         { "type": "string", "default": "Estimated read:" },
+		"suffix":         { "type": "string", "default": "min read" },
+		"wordsPerMinute": { "type": "number", "default": 200 }
+	},
+	"render": "file:./render.php"
+}

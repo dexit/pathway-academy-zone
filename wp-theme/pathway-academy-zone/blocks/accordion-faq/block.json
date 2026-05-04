@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/accordion-faq",
+	"title": "Accordion FAQ",
+	"category": "paz",
+	"icon": "editor-help",
+	"description": "Collapsible FAQ accordion pulled from the paz_faq CPT with optional FAQPage JSON-LD schema.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"heading":       { "type": "string",  "default": "Frequently Asked Questions" },
+		"area":          { "type": "string",  "default": "" },
+		"programme_id":  { "type": "number",  "default": 0 },
+		"limit":         { "type": "number",  "default": 10 },
+		"showSchema":    { "type": "boolean", "default": true },
+		"category":      { "type": "string",  "default": "" }
+	},
+	"render": "file:./render.php"
+}

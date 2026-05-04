@@ -1,0 +1,145 @@
+<mjml>
+  <mj-head>
+    <mj-title>New Contact Enquiry — Pathway Academy Zone</mj-title>
+    <mj-preview>New contact form submission from {{name}} — reply required</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="'Plus Jakarta Sans', Arial, Helvetica, sans-serif" />
+      <mj-text font-size="14px" line-height="1.65" color="#1a2c24" padding="0 0 12px 0" />
+      <mj-section padding="0" />
+    </mj-attributes>
+    <mj-style>
+      .label { color: #677e77; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+      .value { color: #1a2c24; font-size: 14px; font-weight: 600; }
+      .pill  { display: inline-block; background: #e8f4ee; color: #2e8158; border-radius: 9999px; padding: 3px 10px; font-size: 11px; font-weight: 700; }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#f0f5f2">
+
+    <!-- ── Header ─────────────────────────────────────────────── -->
+    <mj-section background-color="#2e8158" padding="32px 32px 28px">
+      <mj-column>
+        <mj-image src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
+                  width="152px" alt="Pathway Academy Zone" align="left"
+                  css-class="logo" />
+        <mj-text color="#ffffff" font-size="22px" font-weight="800" padding="18px 0 4px">
+          New Contact Enquiry
+        </mj-text>
+        <mj-text color="rgba(255,255,255,0.75)" font-size="13px" padding="0">
+          Received {{timestamp}} · pathwayacademyzone.co.uk/contact
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Accent bar ─────────────────────────────────────────── -->
+    <mj-section background-color="#1d6645" padding="4px 0" />
+
+    <!-- ── Sender details ────────────────────────────────────── -->
+    <mj-section background-color="#ffffff" padding="32px 32px 8px">
+      <mj-column>
+        <mj-text font-size="16px" font-weight="800" padding="0 0 20px">
+          Enquiry Details
+        </mj-text>
+
+        <mj-table cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td style="padding:10px 16px 10px 0; width:38%; vertical-align:top; border-bottom:1px solid #e8f0eb">
+              <span class="label">Name</span>
+            </td>
+            <td style="padding:10px 0; border-bottom:1px solid #e8f0eb">
+              <span class="value">{{name}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:10px 16px 10px 0; vertical-align:top; border-bottom:1px solid #e8f0eb">
+              <span class="label">Email</span>
+            </td>
+            <td style="padding:10px 0; border-bottom:1px solid #e8f0eb">
+              <span class="value"><a href="mailto:{{email}}" style="color:#2e8158;">{{email}}</a></span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:10px 16px 10px 0; vertical-align:top; border-bottom:1px solid #e8f0eb">
+              <span class="label">Phone</span>
+            </td>
+            <td style="padding:10px 0; border-bottom:1px solid #e8f0eb">
+              <span class="value"><a href="tel:{{phone}}" style="color:#2e8158;">{{phone}}</a></span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:10px 16px 10px 0; vertical-align:top; border-bottom:1px solid #e8f0eb">
+              <span class="label">Organisation</span>
+            </td>
+            <td style="padding:10px 0; border-bottom:1px solid #e8f0eb">
+              <span class="value">{{organisation}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:10px 16px 10px 0; vertical-align:top; border-bottom:1px solid #e8f0eb">
+              <span class="label">Role</span>
+            </td>
+            <td style="padding:10px 0; border-bottom:1px solid #e8f0eb">
+              <span class="value">{{role}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:10px 16px 10px 0; vertical-align:top">
+              <span class="label">Enquiry Type</span>
+            </td>
+            <td style="padding:10px 0">
+              <span class="pill">{{enquiryType}}</span>
+            </td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Message ───────────────────────────────────────────── -->
+    <mj-section background-color="#ffffff" padding="0 32px 32px">
+      <mj-column>
+        <mj-divider border-color="#e8f0eb" border-width="1px" padding="0 0 20px" />
+        <mj-text css-class="label" padding="0 0 8px">Message</mj-text>
+        <mj-text background-color="#f5f7f5"
+                 padding="16px"
+                 border-radius="8px"
+                 font-size="14px"
+                 line-height="1.7"
+                 color="#1a2c24">
+          {{message}}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── CTA ───────────────────────────────────────────────── -->
+    <mj-section background-color="#e8f4ee" padding="24px 32px">
+      <mj-column>
+        <mj-button href="mailto:{{email}}?subject=Re%3A+Your+enquiry+to+Pathway+Academy+Zone"
+                   background-color="#2e8158"
+                   border-radius="8px"
+                   font-size="14px"
+                   font-weight="700"
+                   padding="14px 28px"
+                   align="left">
+          Reply to {{name}} →
+        </mj-button>
+      </mj-column>
+      <mj-column>
+        <mj-text font-size="12px" color="#677e77" padding="4px 0">
+          Source: <strong>{{source}}</strong><br />
+          IP: {{ip}} · Submitted: {{timestamp}}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- ── Footer ───────────────────────────────────────────── -->
+    <mj-section background-color="#1a2c24" padding="24px 32px">
+      <mj-column>
+        <mj-text color="rgba(255,255,255,0.55)" font-size="11px" line-height="1.6">
+          This is an automated admin notification from Pathway Academy Zone.<br />
+          Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ · 01782 365365<br />
+          <a href="https://pathwayacademyzone.co.uk" style="color: rgba(255,255,255,0.55)">pathwayacademyzone.co.uk</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>

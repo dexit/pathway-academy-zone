@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/key-policies",
+	"title": "Key Policies",
+	"category": "paz",
+	"icon": "shield-alt",
+	"description": "Two-column grid of the 6 highest-priority policies with a link to the full policies archive.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"], "color": { "background": true, "text": true } },
+	"attributes": {
+		"heading":     { "type": "string",  "default": "Key Policies" },
+		"description": { "type": "string",  "default": "Our safeguarding and pastoral policies are available for review. For full documents, please visit our Policies page." },
+		"ctaLabel":    { "type": "string",  "default": "View All Policies" },
+		"ctaUrl":      { "type": "string",  "default": "/policies" },
+		"count":       { "type": "number",  "default": 6 },
+		"showCta":     { "type": "boolean", "default": true }
+	},
+	"render": "file:./render.php"
+}

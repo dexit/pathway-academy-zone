@@ -46,6 +46,7 @@ export const FormField = React.forwardRef<
         <textarea
           ref={ref as React.Ref<HTMLTextAreaElement>}
           id={id}
+          aria-required={required || undefined}
           aria-invalid={Boolean(error) || undefined}
           aria-describedby={describedBy}
           className={baseClass}
@@ -55,6 +56,7 @@ export const FormField = React.forwardRef<
         <select
           ref={ref as React.Ref<HTMLSelectElement>}
           id={id}
+          aria-required={required || undefined}
           aria-invalid={Boolean(error) || undefined}
           aria-describedby={describedBy}
           className={baseClass}
@@ -66,6 +68,7 @@ export const FormField = React.forwardRef<
         <input
           ref={ref as React.Ref<HTMLInputElement>}
           id={id}
+          aria-required={required || undefined}
           aria-invalid={Boolean(error) || undefined}
           aria-describedby={describedBy}
           className={baseClass}

@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/values-timeline",
+	"title": "CARES Values Timeline",
+	"category": "paz",
+	"icon": "awards",
+	"description": "Horizontal 5-step CARES timeline (Change, Ambition, Reputation, Empathy, Skills).",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"render": "file:./render.php"
+}

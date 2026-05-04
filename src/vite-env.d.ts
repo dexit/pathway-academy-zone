@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
+  // ── Page analytics ─────────────────────────────────────────────────
   /** Google Tag Manager container ID, e.g. "GTM-XXXXXXX" */
   readonly VITE_GTM_ID?: string
   /** Google Analytics 4 Measurement ID, e.g. "G-XXXXXXXXXX" */
@@ -12,29 +13,30 @@ interface ImportMetaEnv {
   /** Plausible Analytics domain (legacy; cookie-less) */
   readonly VITE_PLAUSIBLE_DOMAIN?: string
 
-  /**
-   * HubSpot portal ID used for the tracking beacon (page views + form captures).
-   * Set this to enable HubSpot analytics without the chat widget.
-   */
+  // ── Ads / conversion tracking ──────────────────────────────────────
+  /** Google Ads conversion ID, e.g. "AW-123456789" */
+  readonly VITE_GOOGLE_ADS_ID?: string
+  /** Google Ads conversion label for lead/referral events */
+  readonly VITE_GOOGLE_ADS_CONVERSION_LABEL?: string
+  /** Bing / Microsoft Ads Universal Event Tracking tag ID */
+  readonly VITE_BING_UET_ID?: string
+  /** Meta (Facebook) Pixel ID */
+  readonly VITE_META_PIXEL_ID?: string
+  /** LinkedIn Insight Tag partner ID */
+  readonly VITE_LINKEDIN_PARTNER_ID?: string
+  /** TikTok Pixel ID */
+  readonly VITE_TIKTOK_PIXEL_ID?: string
+
+  // ── HubSpot CRM ────────────────────────────────────────────────────
   readonly VITE_HUBSPOT_PORTAL_ID?: string
-  /**
-   * HubSpot region for the script host. Leave blank for the US tracker
-   * ("js.hs-scripts.com"); use "eu1" for EU-hosted portals.
-   */
   readonly VITE_HUBSPOT_REGION?: string
-  /**
-   * Set to "true" to enable the HubSpot live chat / conversations widget.
-   * Requires VITE_HUBSPOT_PORTAL_ID (or VITE_HUBSPOT_CHAT_PORTAL_ID for a
-   * separate chat-only portal). When unset, the chat widget stays hidden
-   * even if the tracker is loaded.
-   */
   readonly VITE_HUBSPOT_CHAT?: string
-  /** Optional override: a different portal for the chat widget. */
   readonly VITE_HUBSPOT_CHAT_PORTAL_ID?: string
 
-  /** Google Search Console verification token */
+  // ── Search engine verification ─────────────────────────────────────
+  /** Google Search Console HTML-tag verification token */
   readonly VITE_GOOGLE_SITE_VERIFICATION?: string
-  /** Bing Webmaster Tools verification (msvalidate.01) */
+  /** Bing Webmaster Tools (msvalidate.01) */
   readonly VITE_BING_SITE_VERIFICATION?: string
   /** Yandex Webmaster verification */
   readonly VITE_YANDEX_VERIFICATION?: string
@@ -42,6 +44,18 @@ interface ImportMetaEnv {
   readonly VITE_FACEBOOK_DOMAIN?: string
   /** Pinterest domain verification token */
   readonly VITE_PINTEREST_VERIFICATION?: string
+  /** Apple Maps MapKit JS token (for embedded map widget) */
+  readonly VITE_APPLE_MAPS_TOKEN?: string
+
+  // ── IndexNow ───────────────────────────────────────────────────────
+  /** IndexNow key — must match the /{key}.txt file in public/ */
+  readonly VITE_INDEXNOW_KEY?: string
+
+  // ── WordPress / AI ─────────────────────────────────────────────────
+  readonly VITE_WP_API_URL?: string
+  readonly VITE_OPENROUTER_API_KEY?: string
+  readonly VITE_LOCAL_AI_URL?: string
+  readonly VITE_VITALS_ENDPOINT?: string
 }
 
 interface ImportMeta {
