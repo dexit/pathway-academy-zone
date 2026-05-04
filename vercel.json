@@ -1,4 +1,6 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "redirects": [
     {
       "source": "/:path*",
@@ -43,7 +45,8 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" }
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; object-src 'none';" }
       ]
     }
   ],
@@ -65,5 +68,19 @@
     { "source": "/:key.txt",           "destination": "/:key.txt" },
     { "source": "/assets/:file*",      "destination": "/assets/:file*" },
     { "source": "/:path*",             "destination": "/index.html" }
+    { "source": "/oembed", "destination": "/oembed.json" },
+    { "source": "/oembed.json", "destination": "/oembed.json" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/llms.txt", "destination": "/llms.txt" },
+    { "source": "/sw.js", "destination": "/sw.js" },
+    { "source": "/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/placeholder.svg", "destination": "/placeholder.svg" },
+    { "source": "/assets/:file*", "destination": "/assets/:file*" },
+    { "source": "/site.webmanifest", "destination": "/site.webmanifest" },
+    { "source": "/:path*", "destination": "/index.html" }
   ]
 }
+
+
+

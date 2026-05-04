@@ -4,6 +4,8 @@
  */
 import type { Plugin } from "vite";
 import type { ViteDevServer } from "vite";
+import { createReadStream } from "fs";
+import { resolve } from "path";
 
 export function spaFallbackPlugin(rootDir: string): Plugin {
   let server: ViteDevServer;
@@ -13,27 +15,24 @@ export function spaFallbackPlugin(rootDir: string): Plugin {
     apply: "serve",
     configureServer(devServer) {
       server = devServer;
-      // Return middleware that runs BEFORE other middlewares
       return () => {
+        // Return middleware AFTER all other middlewares
         devServer.middlewares.use((req, res, next) => {
-          // Allow all static assets, API routes, and special paths to pass through
+          // Skip if request is for static assets or API routes
           if (
             !req.url ||
             req.url.startsWith("/api") ||
             req.url.startsWith("/@") ||
             req.url.startsWith("/__") ||
+            req.url.includes(".") ||
             req.url === "/favicon.ico" ||
             req.url === "/robots.txt" ||
-            req.url === "/sitemap.xml" ||
-            // Allow manifest and other common manifest files
-            req.url === "/manifest.json" ||
-            // Allow requests with file extensions (assets)
-            /\.[a-zA-Z0-9]+$/.test(req.url)
+            req.url === "/sitemap.xml"
           ) {
             return next();
           }
 
-          // For all other requests (routes without extensions), serve index.html
+          // For all other requests, serve index.html
           // This allows React Router to handle the routing on the client
           req.url = "/index.html";
           next();
@@ -42,4 +41,3 @@ export function spaFallbackPlugin(rootDir: string): Plugin {
     },
   };
 }
-

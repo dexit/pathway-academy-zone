@@ -5,12 +5,12 @@ import { logVitals } from "./lib/vitals.ts";
 import { initIframeEmbed } from "./lib/iframe-embed.ts";
 import "./index.css";
 
+// Service worker disabled — was caching stale HTML pointing at old hashed
+// assets, causing blank pages after deploys. Unregister any existing SW.
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js", { scope: "/" })
-      .catch(() => { /* SW registration failure is non-fatal */ })
-  })
+  navigator.serviceWorker.getRegistrations?.().then((regs) => {
+    regs.forEach((r) => r.unregister());
+  }).catch(() => { /* non-fatal */ });
 }
 
 logVitals()

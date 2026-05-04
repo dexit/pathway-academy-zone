@@ -255,30 +255,39 @@ export default function Header() {
         <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
           {navLinks.map((link) =>
             link.children ? (
-              <div
-                key={link.label}
-                className="relative"
-                onMouseEnter={() => open(link.label)}
-                onMouseLeave={close}
-              >
-                <button
-                  aria-haspopup="true"
-                  aria-expanded={openDropdown === link.label}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 ${
-                    openDropdown === link.label
-                      ? "text-foreground bg-muted"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`}
-                >
-                  {link.label}
-                  <ChevronDown
-                    className={`h-3.5 w-3.5 transition-transform duration-200 ${
-                      openDropdown === link.label ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                <MegaDropdown item={link} active={openDropdown === link.label} />
-              </div>
+              (() => {
+                const childActive = link.children.some((c) => c.path === location.pathname);
+                const isOpen = openDropdown === link.label;
+                return (
+                  <div
+                    key={link.label}
+                    className="relative"
+                    onMouseEnter={() => open(link.label)}
+                    onMouseLeave={close}
+                  >
+                    <button
+                      aria-haspopup="true"
+                      aria-expanded={isOpen}
+                      aria-current={childActive ? "page" : undefined}
+                      className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 ${
+                        childActive
+                          ? "text-primary bg-secondary"
+                          : isOpen
+                          ? "text-foreground bg-muted"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      }`}
+                    >
+                      {link.label}
+                      <ChevronDown
+                        className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    <MegaDropdown item={link} active={isOpen} />
+                  </div>
+                );
+              })()
             ) : (
               <Link
                 key={link.path}

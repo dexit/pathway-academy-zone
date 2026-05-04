@@ -116,7 +116,7 @@ export default function Contact() {
       <section className="relative py-32">
         <div className="absolute inset-0">
           <img src={buildingImg} alt="Pathway Academy Zone building" className="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-foreground/60" />
+          <div className="absolute inset-0 bg-scrim/60" />
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">Contact Us</span>

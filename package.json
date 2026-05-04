@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run setup:fonts && vite build",
+    "build": "vite build",
     "build:dev": "vite build --mode development",
-    "setup:fonts": "bash scripts/setup-fonts.sh",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
