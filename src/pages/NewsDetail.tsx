@@ -30,7 +30,14 @@ export default function NewsDetail() {
 
   return (
     <Layout>
-      <Seo title={item.title} description={item.summary} jsonLd={jsonLd} />
+      <Seo
+        title={item.title}
+        description={item.summary}
+        type="article"
+        publishedTime={item.iso}
+        section={item.tag}
+        jsonLd={jsonLd}
+      />
 
       <header className="bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 py-14 md:py-20">
