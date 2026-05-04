@@ -137,3 +137,39 @@ export function ContentSidebar({
     </aside>
   )
 }
+
+function TocNav({ toc }: { toc: TocItem[] }) {
+  const ids = toc.map((t) => t.id)
+  const active = useActiveHeading(ids)
+  return (
+    <nav aria-label="On this page" className="rounded-2xl border border-border bg-card p-5">
+      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+        On this page
+      </p>
+      <ol className="space-y-1.5 text-sm border-l border-border">
+        {toc.map((item) => {
+          const isActive = active === item.id
+          return (
+            <li key={item.id} className={cn("relative", item.level === 3 ? "pl-6" : "pl-3")}>
+              {isActive && (
+                <span aria-hidden="true" className="absolute left-[-1px] top-1 bottom-1 w-[2px] bg-primary rounded" />
+              )}
+              <a
+                href={`#${item.id}`}
+                aria-current={isActive ? "location" : undefined}
+                className={cn(
+                  "block py-1 transition-colors duration-200",
+                  isActive
+                    ? "text-primary font-medium"
+                    : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                {item.label}
+              </a>
+            </li>
+          )
+        })}
+      </ol>
+    </nav>
+  )
+}
