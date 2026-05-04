@@ -1,0 +1,26 @@
+
+> vite_react_shadcn_ts@0.0.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+
+/assets/grid-white.svg referenced in /assets/grid-white.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 2155 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                 2.02 kB │ gzip:   0.88 kB
+dist/assets/classroom-learning-DFJzaeZd.jpg   119.22 kB
+dist/assets/careers-event-ClgIx-a-.jpg        127.44 kB
+dist/assets/mentoring-session-B8BZtgcS.jpg    128.68 kB
+dist/assets/vocational-training-pDSBcdIo.jpg  146.94 kB
+dist/assets/building-exterior-BYeghncO.jpg    158.15 kB
+dist/assets/hero-classroom-dvULSLpe.jpg       171.92 kB
+dist/assets/index-hFx4ZwNe.css                 88.88 kB │ gzip:  14.82 kB
+dist/assets/index-CNu4l9Dc.js                 898.85 kB │ gzip: 263.11 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 11.25s
