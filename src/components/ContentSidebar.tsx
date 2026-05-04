@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { ReactNode } from "react"
 import { ArrowRight, Phone, MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useActiveHeading } from "@/hooks/use-auto-toc"
 
 const AREA_LINKS = [
   { name: "Stoke-on-Trent", slug: "stoke-on-trent" },
@@ -49,29 +50,11 @@ export function ContentSidebar({
     <aside
       aria-label="Sidebar"
       className={cn(
-        "lg:sticky lg:top-24 space-y-6 self-start",
+        "lg:sticky lg:top-24 space-y-6 self-start lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2",
         className
       )}
     >
-      {toc && toc.length > 0 && (
-        <nav aria-label="On this page" className="rounded-2xl border border-border bg-card p-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
-            On this page
-          </p>
-          <ol className="space-y-1.5 text-sm">
-            {toc.map((item) => (
-              <li key={item.id} className={item.level === 3 ? "pl-4" : ""}>
-                <a
-                  href={`#${item.id}`}
-                  className="text-muted-foreground hover:text-primary transition-colors underline decoration-transparent hover:decoration-primary underline-offset-2 decoration-[1.5px] duration-200"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )}
+      {toc && toc.length > 0 && <TocNav toc={toc} />}
 
       {ctas && ctas.length > 0 && (
         <div className="space-y-3">
@@ -152,5 +135,41 @@ export function ContentSidebar({
         </div>
       </div>
     </aside>
+  )
+}
+
+function TocNav({ toc }: { toc: TocItem[] }) {
+  const ids = toc.map((t) => t.id)
+  const active = useActiveHeading(ids)
+  return (
+    <nav aria-label="On this page" className="rounded-2xl border border-border bg-card p-5">
+      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+        On this page
+      </p>
+      <ol className="space-y-1.5 text-sm border-l border-border">
+        {toc.map((item) => {
+          const isActive = active === item.id
+          return (
+            <li key={item.id} className={cn("relative", item.level === 3 ? "pl-6" : "pl-3")}>
+              {isActive && (
+                <span aria-hidden="true" className="absolute left-[-1px] top-1 bottom-1 w-[2px] bg-primary rounded" />
+              )}
+              <a
+                href={`#${item.id}`}
+                aria-current={isActive ? "location" : undefined}
+                className={cn(
+                  "block py-1 transition-colors duration-200",
+                  isActive
+                    ? "text-primary font-medium"
+                    : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                {item.label}
+              </a>
+            </li>
+          )
+        })}
+      </ol>
+    </nav>
   )
 }
