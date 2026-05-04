@@ -66,7 +66,7 @@ const head = "text-xs font-semibold uppercase tracking-widest text-white mb-4";
 // ─── Footer ──────────────────────────────────────────────────────────────────
 export default function Footer() {
   return (
-    <footer className="relative bg-[hsl(160,22%,9%)] text-white/70">
+    <footer className="relative bg-[hsl(160,22%,9%)] text-white/85">
 
       {/* Top accent gradient bar */}
       <div
@@ -93,7 +93,7 @@ export default function Footer() {
               />
             </Link>
 
-            <p className="text-sm leading-relaxed text-white/70 max-w-[17rem] mb-6">
+            <p className="text-sm leading-relaxed text-white/85 max-w-[17rem] mb-6">
               Alternative Provision specialist in Staffordshire — safeguarding,
               engagement, and positive outcomes for young people outside mainstream
               education.
@@ -109,7 +109,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={`${s.label} (opens in new tab)`}
                   title={s.label}
-                  className="h-9 w-9 inline-flex items-center justify-center rounded-full border border-white/20 text-white/60 hover:border-primary hover:text-primary transition-colors duration-200"
+                  className="h-9 w-9 inline-flex items-center justify-center rounded-full border border-white/20 text-white/80 hover:border-primary hover:text-primary transition-colors duration-200"
                 >
                   <s.icon className="h-4 w-4" aria-hidden="true" />
                 </a>
@@ -120,19 +120,19 @@ export default function Footer() {
             <div className="space-y-2">
               <a
                 href="tel:+441782365365"
-                className="flex items-center gap-2 text-sm text-white/70 hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-sm text-white/85 hover:text-primary transition-colors"
               >
                 <Phone className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
                 01782 365365
               </a>
               <a
                 href="mailto:info@pathwayacademyzone.co.uk"
-                className="flex items-center gap-2 text-sm text-white/70 hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-sm text-white/85 hover:text-primary transition-colors"
               >
                 <Mail className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
                 info@pathwayacademyzone.co.uk
               </a>
-              <div className="flex items-start gap-2 text-sm text-white/60">
+              <div className="flex items-start gap-2 text-sm text-white/80">
                 <MapPin className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
                 <address className="not-italic leading-snug">
                   Duncalf St, Burslem<br />Stoke-on-Trent ST6 3LJ
@@ -166,7 +166,7 @@ export default function Footer() {
               <Link
                 key={area.slug}
                 to={`/alternative-provision/${area.slug}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-white/20 text-white/65 hover:border-primary/60 hover:text-primary hover:bg-primary/5 transition-all duration-200"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-white/20 text-white/85 hover:border-primary/60 hover:text-primary hover:bg-primary/5 transition-all duration-200"
               >
                 <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
                 {area.name}
@@ -176,7 +176,7 @@ export default function Footer() {
         </div>
 
         {/* ── Legal bar ─────────────────────────────────────────────────── */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/65">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/85">
           <p>© {new Date().getFullYear()} Pathway Academy Zone. All rights reserved.</p>
 
           <div className="flex items-center gap-5">
