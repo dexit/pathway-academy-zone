@@ -241,7 +241,7 @@ export default function Header() {
         {/* Logo */}
         <Link to="/" className="flex items-center shrink-0">
           <img
-            src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
+            src={pazLogo}
             alt="Pathway Academy Zone Logo"
             className="h-14 w-auto"
             width="180"
