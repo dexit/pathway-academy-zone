@@ -66,6 +66,7 @@ export default function Safeguarding() {
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
           <span className="text-primary font-medium text-sm tracking-wider uppercase">Pastoral Care</span>
           <h2 className="font-display text-3xl font-bold text-foreground mt-2">How We Support Young People</h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">Our pastoral approach is built on strong relationships, consistent support, and understanding individual needs.</p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{pastoral.map((p, i) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 border border-border/50 shadow-sm"><h3 className="font-display text-lg font-bold text-foreground mb-2">{p.title}</h3><p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p></motion.div>))}</div>
       </div></section>
