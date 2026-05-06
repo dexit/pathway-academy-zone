@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import SearchBar from "@/components/SearchBar";
 import ThemeToggle from "@/components/ThemeToggle";
+import pazLogo from "@/assets/paz-logo.webp";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface NavChild {
