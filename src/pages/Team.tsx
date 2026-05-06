@@ -12,10 +12,11 @@ import ahsanHussain from "@/assets/ahsan-hussain-OIFhfXvg.webp";
 import zulekhAli from "@/assets/zulekha-ali-Dfoelgdx.webp";
 import safarazAli from "@/assets/safaraz-ali-R0JVDMEt.webp";
 import waheedAzam from "@/assets/waheed-azam-DQhc8GBT.webp";
+import liamFarrall from "@/assets/liam-farrall-DwXnuzxA.webp";
 
 const team = [
   { name: "Martin Chandler", role: "Head of Community and Engagement (Safeguarding)", img: martinChandler },
-  { name: "Liam Farrall", role: "Head of Alternative Provision", img: "https://pathwayacademyzone.co.uk/assets/liam-farrall-DwXnuzxA.webp" },
+  { name: "Liam Farrall", role: "Head of Alternative Provision", img: liamFarrall },
   { name: "Gemma Mason, QTLS", role: "SENCO Lead", img: gemmaMason },
   { name: "Ahsan Hussain", role: "Head of Partnerships and Impact", img: ahsanHussain },
   { name: "Zulekha Ali", role: "HR and Executive Support", img: zulekhAli },

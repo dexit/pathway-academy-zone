@@ -53,7 +53,7 @@ export default function Safeguarding() {
             <h3 className="font-display text-2xl font-bold text-foreground mb-1">Martin Chandler</h3>
             <p className="text-primary font-medium text-sm mb-4">Designated Safeguarding Lead</p>
             <p className="text-muted-foreground leading-relaxed mb-6">Martin leads our safeguarding practice and is the first point of contact for any safeguarding concerns. He works closely with external agencies and ensures all staff receive regular safeguarding training.</p>
-            <div className="bg-destructive/10 rounded-xl p-4 border border-destructive/20"><p className="text-sm font-medium text-foreground"><strong>Urgent Safeguarding Concerns</strong></p><p className="text-sm text-muted-foreground">Contact Martin directly by email on <strong>martin.chandler@pathwayacademyzone.co.uk</strong></p></div>
+            <div className="bg-destructive/10 rounded-xl p-4 border border-destructive/20"><p className="text-sm font-medium text-foreground mb-1"><strong>Urgent Safeguarding Concerns</strong></p><p className="text-sm text-muted-foreground">If you have an urgent safeguarding concern about a young person, contact Martin directly by email on <strong>martin.chandler@pathwaygroup.co.uk</strong>.</p></div>
           </div>
         </motion.div>
       </div></section>
@@ -66,6 +66,7 @@ export default function Safeguarding() {
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
           <span className="text-primary font-medium text-sm tracking-wider uppercase">Pastoral Care</span>
           <h2 className="font-display text-3xl font-bold text-foreground mt-2">How We Support Young People</h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">Our pastoral approach is built on strong relationships, consistent support, and understanding individual needs.</p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{pastoral.map((p, i) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-8 border border-border/50 shadow-sm"><h3 className="font-display text-lg font-bold text-foreground mb-2">{p.title}</h3><p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p></motion.div>))}</div>
       </div></section>
