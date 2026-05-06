@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Linkedin, Twitter, ArrowUp } from "lucide-react";
+import pazLogo from "@/assets/paz-logo.webp";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const footerCols = [
