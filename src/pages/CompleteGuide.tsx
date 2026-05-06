@@ -102,7 +102,7 @@ export default function CompleteGuide() {
                 Related:{" "}
                 <Link
                   to="/knowledge-hub/guides/what-is-alternative-provision"
-                  className="text-accent font-semibold hover:underline"
+                  className="text-primary font-semibold hover:underline"
                 >
                   What is Alternative Provision (In-Depth Guide) →
                 </Link>
@@ -171,7 +171,7 @@ export default function CompleteGuide() {
                 Related:{" "}
                 <Link
                   to="/knowledge-hub/guides/when-to-refer"
-                  className="text-accent font-semibold hover:underline"
+                  className="text-primary font-semibold hover:underline"
                 >
                   When a Learner Should Be Referred to AP →
                 </Link>
@@ -193,7 +193,7 @@ export default function CompleteGuide() {
                   <div key={p.title} className="p-5 rounded-xl bg-card border border-border">
                     <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
                     <p className="text-muted-foreground leading-relaxed text-sm mb-3">{p.body}</p>
-                    <Link to={p.link} className="text-accent font-semibold text-sm hover:underline">
+                    <Link to={p.link} className="text-primary font-semibold text-sm hover:underline">
                       {p.linkLabel} →
                     </Link>
                   </div>
@@ -241,12 +241,12 @@ export default function CompleteGuide() {
                 Related:{" "}
                 <Link
                   to="/knowledge-hub/guides/high-quality-ap-provider"
-                  className="text-accent font-semibold hover:underline"
+                  className="text-primary font-semibold hover:underline"
                 >
                   What Makes a High Quality AP Provider →
                 </Link>{" "}
                 |{" "}
-                <Link to="/safeguarding" className="text-accent font-semibold hover:underline">
+                <Link to="/safeguarding" className="text-primary font-semibold hover:underline">
                   Our Safeguarding Approach →
                 </Link>
               </p>
@@ -322,7 +322,7 @@ export default function CompleteGuide() {
                 Related:{" "}
                 <Link
                   to="/knowledge-hub/best-practice/post-16-progression"
-                  className="text-accent font-semibold hover:underline"
+                  className="text-primary font-semibold hover:underline"
                 >
                   Best Post-16 Progression Pathways →
                 </Link>
