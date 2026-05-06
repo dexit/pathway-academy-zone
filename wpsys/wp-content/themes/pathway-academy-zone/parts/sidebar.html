@@ -1,0 +1,32 @@
+<!-- wp:group {"tagName":"aside","className":"paz-sidebar","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"},"style":{"spacing":{"padding":{"top":"1rem","bottom":"1rem","left":"1rem","right":"1rem"},"blockGap":"1.5rem"}}} -->
+<aside class="wp-block-group paz-sidebar" style="padding-top:1rem;padding-right:1rem;padding-bottom:1rem;padding-left:1rem">
+    <!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search the site","buttonText":"Search","buttonUseIcon":true} /-->
+
+    <!-- wp:heading {"level":3} -->
+    <h3 class="wp-block-heading">Recent News</h3>
+    <!-- /wp:heading -->
+
+    <!-- wp:query {"queryId":10,"query":{"perPage":5,"postType":"paz_news","order":"desc","orderBy":"date"}} -->
+    <div class="wp-block-query">
+        <!-- wp:post-template -->
+            <!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"1rem"}}} /-->
+            <!-- wp:post-date {"format":"F j, Y","style":{"typography":{"fontSize":"0.8125rem"}},"textColor":"muted-foreground"} /-->
+        <!-- /wp:post-template -->
+    </div>
+    <!-- /wp:query -->
+
+    <!-- wp:heading {"level":3} -->
+    <h3 class="wp-block-heading">Categories</h3>
+    <!-- /wp:heading -->
+    <!-- wp:categories {"showPostCounts":true} /-->
+
+    <!-- wp:heading {"level":3} -->
+    <h3 class="wp-block-heading">Tags</h3>
+    <!-- /wp:heading -->
+    <!-- wp:tag-cloud {"numberOfTags":15,"showTagCounts":false} /-->
+
+    <!-- wp:html -->
+    <?php if ( is_active_sidebar( 'paz-sidebar-main' ) ) { dynamic_sidebar( 'paz-sidebar-main' ); } ?>
+    <!-- /wp:html -->
+</aside>
+<!-- /wp:group -->

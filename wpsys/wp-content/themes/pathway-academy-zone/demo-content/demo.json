@@ -1,0 +1,12 @@
+{
+	"pages": [
+		{ "slug": "home", "title": "Home", "content": "<!-- wp:pattern {\"slug\":\"pathway-academy-zone/hero\"} /-->\n<!-- wp:pattern {\"slug\":\"pathway-academy-zone/stats\"} /-->" },
+		{ "slug": "referral", "title": "Referral", "content": "<!-- wp:pazone/webhook-form {\"target\":\"https://hook.make.com/referral\"} /-->" }
+	],
+	"paz_news": [
+		{ "slug": "news-1", "title": "Staffordshire AP Directory Status", "content": "Pathway Academy Zone awarded status." }
+	],
+	"paz_programme": [
+		{ "slug": "ks3-bridge", "title": "KS3 Bridge", "meta": { "paz_price": "250.00", "paz_duration": "12 weeks" } }
+	]
+}

@@ -1,0 +1,26 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="padding-top:4rem;padding-bottom:4rem">
+        <!-- wp:heading {"level":1,"textAlign":"center"} -->
+        <h1 class="has-text-align-center">Our Partners</h1>
+        <!-- /wp:heading -->
+        <!-- wp:paragraph {"align":"center"} -->
+        <p class="has-text-align-center">We work with a wide range of schools and local authorities.</p>
+        <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:query {"queryId":5,"query":{"postType":"partner"}} -->
+    <div class="wp-block-query">
+        <!-- wp:post-template {"layout":{"type":"grid","columnCount":4}} -->
+            <!-- wp:post-featured-image /-->
+        <!-- /wp:post-template -->
+    </div>
+    <!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
