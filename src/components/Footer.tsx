@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Linkedin, Twitter, ArrowUp } from "lucide-react";
+import pazLogo from "@/assets/paz-logo.webp";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const footerCols = [
@@ -83,7 +84,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link to="/" aria-label="Pathway Academy Zone home" className="inline-block mb-5">
               <img
-                src="https://pathwayacademyzone.co.uk/assets/PAZlogo-BYea4nq1.png"
+                src={pazLogo}
                 alt="Pathway Academy Zone"
                 className="h-14 w-auto brightness-0 invert opacity-90"
                 width="160"
