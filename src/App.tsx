@@ -1,4 +1,5 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { Toaster as Sonner } from "@/components/ui/sonner.tsx";
 import { TooltipProvider } from "@/components/ui/tooltip.tsx";
@@ -57,50 +58,68 @@ function RouteFallback() {
   );
 }
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Suspense fallback={<RouteFallback />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/programmes" element={<Programmes />} />
-            <Route path="/referral" element={<Referral />} />
-            <Route path="/safeguarding" element={<Safeguarding />} />
-            <Route path="/outcomes" element={<Outcomes />} />
-            <Route path="/partners" element={<Partners />} />
-            <Route path="/centres" element={<Centres />} />
-            <Route path="/policies" element={<Policies />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogDetail />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/news/:slug" element={<NewsDetail />} />
-            <Route path="/faqs" element={<FAQs />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/knowledge-hub" element={<KnowledgeHub />} />
-            <Route path="/knowledge-hub/glossary" element={<Glossary />} />
-            <Route path="/knowledge-hub/complete-guide" element={<CompleteGuide />} />
-            <Route path="/knowledge-hub/:categoryId" element={<KnowledgeHubCategory />} />
-            <Route path="/knowledge-hub/:category/:slug" element={<KnowledgeHubDetail />} />
-            <Route path="/programmes/:slug" element={<ProgrammeDetail />} />
-            <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/alternative-provision/:areaSlug" element={<AreaPage />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/cookie-policy" element={<CookiePolicy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-      <AiAssistant />
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+/**
+ * Route logger component to trace navigation
+ */
+function RouteLogger() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    console.log("[v0] Route changed to:", location.pathname);
+  }, [location.pathname]);
+  
+  return null;
+}
+
+const App = () => {
+  console.log("[v0] App component rendering...");
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <RouteLogger />
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/programmes" element={<Programmes />} />
+              <Route path="/referral" element={<Referral />} />
+              <Route path="/safeguarding" element={<Safeguarding />} />
+              <Route path="/outcomes" element={<Outcomes />} />
+              <Route path="/partners" element={<Partners />} />
+              <Route path="/centres" element={<Centres />} />
+              <Route path="/policies" element={<Policies />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogDetail />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/news/:slug" element={<NewsDetail />} />
+              <Route path="/faqs" element={<FAQs />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/knowledge-hub" element={<KnowledgeHub />} />
+              <Route path="/knowledge-hub/glossary" element={<Glossary />} />
+              <Route path="/knowledge-hub/complete-guide" element={<CompleteGuide />} />
+              <Route path="/knowledge-hub/:categoryId" element={<KnowledgeHubCategory />} />
+              <Route path="/knowledge-hub/:category/:slug" element={<KnowledgeHubDetail />} />
+              <Route path="/programmes/:slug" element={<ProgrammeDetail />} />
+              <Route path="/testimonials" element={<Testimonials />} />
+              <Route path="/alternative-provision/:areaSlug" element={<AreaPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/cookie-policy" element={<CookiePolicy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+        <AiAssistant />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
