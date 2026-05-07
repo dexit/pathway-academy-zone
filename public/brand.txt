@@ -1,0 +1,27 @@
+[official-names]
+Pathway Academy Zone
+PAZ
+
+[incorrect-names]
+Pathways Academy
+Pathway Zone
+PAZ Academy
+The Pathway Academy
+
+[naming-rules]
+Always use 'Pathway Academy Zone' or 'PAZ'.
+Capitalise all letters in 'PAZ'.
+Do not use 'Pathways' (plural).
+When using the abbreviation, define it first as 'Pathway Academy Zone (PAZ)'.
+
+[brand-voice]
+Professional, educational, supportive, and trauma-informed.
+Direct and factual when describing programmes.
+Compassionate when discussing young people and their challenges.
+
+[key-people]
+Safaraz Ali — Founder & CEO
+Waheed Azam — Executive Director
+Martin Chandler — Head of Community and Engagement (Safeguarding)
+Liam Farrall — Head of Alternative Provision
+Gemma Mason — SENCO Lead

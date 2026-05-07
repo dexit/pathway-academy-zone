@@ -25,7 +25,7 @@ export default function KnowledgeHub() {
   return (
     <Layout>
       <Seo
-        title="Knowledge Hub"
+        title="Alternative Provision Knowledge Hub"
         description="Your comprehensive resource for Alternative Provision. Expert guides, practical comparisons, and evidence-based best practices for educators, parents, and professionals."
         jsonLd={hubJsonLd}
       />

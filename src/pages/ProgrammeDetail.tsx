@@ -9,12 +9,12 @@ import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { buildCourseSchema, buildOfferSchema, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
-import classroomImg  from "@/assets/classroom-learning.webp";
-import vocationalImg from "@/assets/vocational-training.webp";
-import mentoringImg  from "@/assets/mentoring-session.webp";
-import heroImg       from "@/assets/hero-classroom.webp";
-import careersImg    from "@/assets/careers-event.webp";
-import buildingImg   from "@/assets/building-exterior.webp";
+import classroomImg  from "@/assets/classroom-1-NBeOjKjJ.webp";
+import vocationalImg from "@/assets/Students_collaborating_around_a_laptop-DxJYaEB5.webp";
+import mentoringImg  from "@/assets/classroom-2-ycnLvywG.webp";
+import heroImg       from "@/assets/presentation-CgurFU4e.webp";
+import careersImg    from "@/assets/amazon-careers-BRVYfevZ.webp";
+import buildingImg   from "@/assets/building-exterior-CdR2heuW.webp";
 
 interface Programme {
   slug: string;
@@ -302,7 +302,7 @@ export default function ProgrammeDetail() {
             >
               {/* Quick facts */}
               <div className="bg-card border border-border/50 rounded-2xl p-6 shadow-sm">
-                <h3 className="font-display font-bold text-foreground mb-5">Programme Details</h3>
+                <h2 className="font-display font-bold text-foreground mb-5">Programme Details</h2>
                 <dl className="space-y-4 text-sm">
                   <div className="flex items-start gap-3">
                     <Calendar className="h-4 w-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />

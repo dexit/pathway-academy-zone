@@ -7,8 +7,8 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
-import careersImg from "@/assets/careers-event.webp";
-import mentoringImg from "@/assets/mentoring-session.webp";
+import careersImg from "@/assets/amazon-careers-BRVYfevZ.webp";
+import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
 
 /* ─── animation variant ───────────────────────────────────────────────────── */
 const fadeUp = {
@@ -109,7 +109,7 @@ export default function Partners() {
   return (
     <Layout>
       <Seo
-        title="Partners"
+        title="Our Educational & Strategic Partners"
         description="Pathway Academy Zone partners with Staffordshire schools, local authorities, employers and specialist services to deliver outstanding Alternative Provision."
         jsonLd={jsonLd}
       />

@@ -20,12 +20,11 @@ function isEmbedded(): boolean {
 
 function reportHeight(): void {
   if (!isEmbedded()) return
-  const height = Math.max(
-    document.body.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.scrollHeight,
-    document.documentElement.offsetHeight
-  )
+
+  // Use scrollHeight for the most accurate content measurement.
+  // document.documentElement.scrollHeight is usually the most reliable for SPAs.
+  const height = document.documentElement.scrollHeight;
+
   window.parent.postMessage(
     { type: PAZ_MSG_TYPE, height, route: window.location.pathname + window.location.search },
     "*"
@@ -35,7 +34,8 @@ function reportHeight(): void {
 let _rafId: number | null = null
 
 function scheduleReport(): void {
-  if (_rafId !== null) cancelAnimationFrame(_rafId)
+  if (_rafId !== null) return; // Already scheduled
+
   _rafId = requestAnimationFrame(() => {
     reportHeight()
     _rafId = null
@@ -47,10 +47,10 @@ export function initIframeEmbed(): void {
   if (!isEmbedded()) return
 
   // Report on first paint
-  reportHeight()
+  scheduleReport()
 
   // Report after fonts + images settle
-  window.addEventListener("load", reportHeight)
+  window.addEventListener("load", scheduleReport)
 
   // MutationObserver watches DOM changes (route transitions, content loads)
   const mo = new MutationObserver(scheduleReport)
@@ -62,7 +62,7 @@ export function initIframeEmbed(): void {
 
   // Also handle explicit resize messages from parent (e.g. on sidebar toggle)
   window.addEventListener("message", (e) => {
-    if (e.data?.type === "paz-resize-request") reportHeight()
+    if (e.data?.type === "paz-resize-request") scheduleReport()
   })
 }
 

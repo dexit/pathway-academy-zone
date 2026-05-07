@@ -57,7 +57,7 @@ export const CONTACT_POINTS = [
   {
     "@type":         "ContactPoint",
     contactType:     "customer service",
-    telephone:       "+44-1782-365365",
+    telephone:       "+44 1782 365365",
     email:           "info@pathwayacademyzone.co.uk",
     areaServed:      AREAS_SERVED,
     availableLanguage: ["English"],
@@ -71,7 +71,7 @@ export const CONTACT_POINTS = [
   {
     "@type":     "ContactPoint",
     contactType: "referrals",
-    telephone:   "+44-1782-365365",
+    telephone:   "+44 1782 365365",
     email:       "info@pathwayacademyzone.co.uk",
     areaServed:  AREAS_SERVED,
     availableLanguage: ["English"],
@@ -79,7 +79,7 @@ export const CONTACT_POINTS = [
   {
     "@type":     "ContactPoint",
     contactType: "admissions",
-    telephone:   "+44-1782-365365",
+    telephone:   "+44 1782 365365",
     email:       "info@pathwayacademyzone.co.uk",
     areaServed:  AREAS_SERVED,
     availableLanguage: ["English"],
@@ -101,7 +101,7 @@ export const ORG_SCHEMA = {
     height: 512,
   },
   image:       `${SITE_URL}/assets/hero-classroom.jpg`,
-  telephone:   "+44-1782-365365",
+  telephone:   "+44 1782 365365",
   email:       "info@pathwayacademyzone.co.uk",
   address:     ORG_ADDRESS,
   geo:         ORG_GEO,
@@ -265,10 +265,10 @@ export function buildServiceSchema(programmes: ProgrammeInput[]) {
     availableChannel: {
       "@type":        "ServiceChannel",
       serviceUrl:     `${SITE_URL}/referral`,
-      serviceSmsNumber: "+44-1782-365365",
+      serviceSmsNumber: "+44 1782 365365",
       servicePhone: {
         "@type":     "ContactPoint",
-        telephone:   "+44-1782-365365",
+        telephone:   "+44 1782 365365",
         contactType: "referrals",
         areaServed:  AREAS_SERVED,
       },
@@ -351,7 +351,7 @@ export function buildContactPageSchema() {
       "@id":        ORG_ID,
       "@type":      ["EducationalOrganization", "LocalBusiness"],
       name:         SITE_NAME,
-      telephone:    "+44-1782-365365",
+      telephone:    "+44 1782 365365",
       email:        "info@pathwayacademyzone.co.uk",
       address:      ORG_ADDRESS,
       geo:          ORG_GEO,

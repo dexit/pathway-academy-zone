@@ -35,7 +35,7 @@ export default function Safeguarding() {
   return (
     <Layout>
       <Seo
-        title="Safeguarding"
+        title="Safeguarding & Student Welfare"
         description="Safeguarding is at the heart of everything we do at Pathway Academy Zone. Learn about our Designated Safeguarding Lead, policies, and trauma-informed approach to keeping young people safe."
         jsonLd={safeguardingSchema}
       />

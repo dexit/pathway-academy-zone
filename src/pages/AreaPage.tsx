@@ -239,7 +239,7 @@ export default function AreaPage() {
         serviceUrl: `${SITE_URL}/referral`,
         servicePhone: {
           "@type": "ContactPoint",
-          telephone: "+44-1782-365365",
+          telephone: "+44 1782 365365",
           contactType: "referrals",
           areaServed: [areaCity, ...AREAS_SERVED],
         },

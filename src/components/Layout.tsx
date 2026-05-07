@@ -29,7 +29,7 @@ const ORGANIZATION_LD = {
       sameAs: SOCIAL_LINKS,
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+44-1782-365365",
+        telephone: "+44 1782 365365",
         contactType: "customer service",
         email: "info@pathwayacademyzone.co.uk",
         areaServed: "GB",
@@ -42,7 +42,7 @@ const ORGANIZATION_LD = {
       name: SITE_NAME,
       url: SITE_URL,
       image: DEFAULT_OG_IMAGE,
-      telephone: "+44-1782-365365",
+      telephone: "+44 1782 365365",
       email: "info@pathwayacademyzone.co.uk",
       priceRange: "Free for referred learners",
       address: {

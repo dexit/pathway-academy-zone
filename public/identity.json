@@ -1,0 +1,32 @@
+{
+    "$schema": "https://www.ai-visibility.org.uk/specifications/identity-json/identity-json.schema.json",
+    "name": "Pathway Academy Zone",
+    "type": "EducationalOrganization",
+    "url": "https://pathwayacademyzone.co.uk",
+    "description": "Pathway Academy Zone (PAZ) is a specialist Alternative Provision (AP) academy based in Stoke-on-Trent, dedicated to supporting young people aged 11–16 who require a more personalised, therapeutic, and vocational approach to education than mainstream settings can provide.",
+    "alternateNames": ["PAZ", "Pathway Academy"],
+    "foundingDate": "2023-01-01",
+    "locations": [
+        {
+            "type": "headquarters",
+            "name": "Stoke-on-Trent Centre",
+            "address": {
+                "streetAddress": "Duncalf St, Burslem",
+                "addressLocality": "Stoke-on-Trent",
+                "postalCode": "ST6 3LJ",
+                "addressCountry": "GB"
+            },
+            "telephone": "+44 1782 365365"
+        }
+    ],
+    "contactPoints": [
+        {
+            "type": "General Enquiries",
+            "email": "info@pathwayacademyzone.co.uk",
+            "telephone": "+44 1782 365365"
+        }
+    ],
+    "areaServed": ["GB-STS", "GB-STA"],
+    "industry": "Education",
+    "logo": "https://pathwayacademyzone.co.uk/assets/paz-logo.webp"
+}
