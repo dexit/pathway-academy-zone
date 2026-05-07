@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "fuser -k 8080/tcp 2>/dev/null; fuser -k 8080/tcp6 2>/dev/null; exit 0",
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",

@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => ({
   assetsInclude: ['**/*.jpeg', '**/*.jpg', '**/*.png', '**/*.svg', '**/*.gif', '**/*.webp', '**/*.ico'],
   server: {
     host: "::",
-    port: 8080,
+    port: Number(process.env.PORT) || 8080,
     strictPort: false,
     hmr: {
       overlay: false,
