@@ -182,6 +182,9 @@ export default function Footer() {
 
           <div className="flex items-center gap-5">
             {[
+              { label: "Privacy",      path: "/privacy-policy" },
+              { label: "Cookies",      path: "/cookie-policy" },
+              { label: "Terms",        path: "/terms" },
               { label: "Policies",     path: "/policies" },
               { label: "Safeguarding", path: "/safeguarding" },
               { label: "Contact",      path: "/contact" },

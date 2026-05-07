@@ -1,0 +1,31 @@
+{
+  "spec": "https://ai-domain-data.org/spec/v0.1",
+  "name": "Pathway Academy Zone",
+  "description": "Alternative Provision in Stoke-on-Trent and Staffordshire for young people aged 11-16, delivering academic, vocational, therapeutic and life-skills programmes for schools, Multi-Academy Trusts and Local Authorities.",
+  "website": "https://pathwayacademyzone.co.uk",
+  "logo": "https://pathwayacademyzone.co.uk/assets/paz-logo.png",
+  "contact": "info@pathwayacademyzone.co.uk",
+  "entity_type": "Organization",
+  "jsonld": {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Pathway Academy Zone",
+    "url": "https://pathwayacademyzone.co.uk",
+    "logo": "https://pathwayacademyzone.co.uk/assets/paz-logo.png",
+    "telephone": "+44-1782-365365",
+    "email": "info@pathwayacademyzone.co.uk",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Duncalf Street, Burslem",
+      "addressLocality": "Stoke-on-Trent",
+      "postalCode": "ST6 3LJ",
+      "addressCountry": "GB"
+    },
+    "areaServed": "Staffordshire, United Kingdom",
+    "sameAs": [
+      "https://www.facebook.com/PathwayAcademyZone",
+      "https://www.linkedin.com/company/pathway-academy-zone",
+      "https://twitter.com/PathwayAcademyZ"
+    ]
+  }
+}

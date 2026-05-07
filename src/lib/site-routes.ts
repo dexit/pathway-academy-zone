@@ -41,6 +41,9 @@ export const STATIC_ROUTES: SiteRoute[] = [
   { path: "/knowledge-hub/core-guides",               changefreq: "monthly", priority: 0.8 },
   { path: "/knowledge-hub/comparisons",               changefreq: "monthly", priority: 0.8 },
   { path: "/knowledge-hub/best-practice",             changefreq: "monthly", priority: 0.8 },
+  { path: "/privacy-policy",                          changefreq: "yearly",  priority: 0.4 },
+  { path: "/cookie-policy",                           changefreq: "yearly",  priority: 0.3 },
+  { path: "/terms",                                   changefreq: "yearly",  priority: 0.3 },
 ];
 
 // ─── Knowledge Hub guides (resolved dynamic routes) ───────────────────────────
