@@ -10,7 +10,7 @@ import { wpCopyPlugin } from "./plugins/wp-copy";
 export default defineConfig(({ mode }) => ({
   assetsInclude: ['**/*.jpeg', '**/*.jpg', '**/*.png', '**/*.svg', '**/*.gif', '**/*.webp', '**/*.ico'],
   server: {
-    host: "0.0.0.0",
+    host: "127.0.0.1",
     port: 8080,
     strictPort: false,
     hmr: {
@@ -53,7 +53,7 @@ export default defineConfig(({ mode }) => ({
   },
   // Preview mode (local production testing) should also handle SPA routing
   preview: {
-    host: "0.0.0.0",
+    host: "127.0.0.1",
     port: 8080,
   },
 }));
