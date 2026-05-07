@@ -7,7 +7,7 @@ export default function CookiePolicy() {
       <Seo
         title="Cookie Policy"
         description="What cookies and similar technologies Pathway Academy Zone uses on this website, and how to control them."
-        path="/cookie-policy"
+        canonical="https://pathwayacademyzone.co.uk/cookie-policy"
       />
       <article className="container mx-auto px-4 py-16 max-w-3xl">
         <Breadcrumbs items={[{ label: "Cookie Policy" }]} className="mb-6" />

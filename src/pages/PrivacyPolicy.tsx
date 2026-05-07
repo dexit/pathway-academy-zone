@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
       <Seo
         title="Privacy Policy"
         description="How Pathway Academy Zone collects, uses, stores, and protects personal data in line with UK GDPR and the Data Protection Act 2018."
-        path="/privacy-policy"
+        canonical="https://pathwayacademyzone.co.uk/privacy-policy"
       />
       <article className="container mx-auto px-4 py-16 max-w-3xl">
         <Breadcrumbs items={[{ label: "Privacy Policy" }]} className="mb-6" />

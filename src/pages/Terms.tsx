@@ -7,7 +7,7 @@ export default function Terms() {
       <Seo
         title="Terms & Conditions"
         description="The terms and conditions for using the Pathway Academy Zone website and services."
-        path="/terms"
+        canonical="https://pathwayacademyzone.co.uk/terms"
       />
       <article className="container mx-auto px-4 py-16 max-w-3xl">
         <Breadcrumbs items={[{ label: "Terms & Conditions" }]} className="mb-6" />
