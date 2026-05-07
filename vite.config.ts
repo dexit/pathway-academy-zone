@@ -10,13 +10,19 @@ import { wpCopyPlugin } from "./plugins/wp-copy";
 export default defineConfig(({ mode }) => ({
   assetsInclude: ['**/*.jpeg', '**/*.jpg', '**/*.png', '**/*.svg', '**/*.gif', '**/*.webp', '**/*.ico'],
   server: {
-    host: "::",
+    host: "0.0.0.0",
     port: 8080,
     hmr: {
       overlay: false,
+      protocol: "ws",
+      host: "localhost",
+      port: 8080,
     },
     // Proper SPA fallback for dev server — Vite's native approach
     middlewareMode: false,
+    fs: {
+      strict: false,
+    },
   },
   plugins: [
     react(),
@@ -51,7 +57,7 @@ export default defineConfig(({ mode }) => ({
   },
   // Preview mode (local production testing) should also handle SPA routing
   preview: {
-    host: "::",
+    host: "0.0.0.0",
     port: 8080,
   },
 }));
