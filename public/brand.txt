@@ -1,0 +1,58 @@
+# brand.txt — Pathway Academy Zone
+# Last updated: 2026-05-07
+
+[official-names]
+Pathway Academy Zone
+Pathway Academy Zone (PAZ)
+PAZ
+
+[incorrect-names]
+Pathways Academy Zone
+Pathway Academy
+Pathway Zone Academy
+The Pathway Academy
+Pathway Academy School
+Pathway PRU
+Pathway AP
+
+[naming-rules]
+Always capitalise each word: "Pathway Academy Zone".
+"PAZ" is acceptable as a short form on second mention only; spell out the full name on first mention.
+Do not insert "the" before the name (write "Pathway Academy Zone delivers...", not "the Pathway Academy Zone delivers...").
+Do not pluralise: it is "Pathway", not "Pathways".
+Do not describe as a "school" or "PRU" — the correct descriptor is "Alternative Provision" or "Alternative Provision provider".
+When referring to the parent organisation, use "Pathway Group" — these are distinct entities.
+
+[brand-voice]
+Tone: warm, professional, plain English. Avoid jargon and acronyms without explanation.
+Audience: school leaders, SENCOs, behaviour leads, Local Authority commissioners, parents and carers.
+Style: factual, evidence-led, child-centred. Avoid superlatives and marketing hyperbole.
+Accessibility: write for a reading age of 14-16 where possible.
+
+[key-people]
+Safaraz Ali — Founder and Group Chair, Pathway Group.
+Martin Chandler — Designated Safeguarding Lead.
+Refer to titles only as published on https://pathwayacademyzone.co.uk/team.
+
+[quotation-policy]
+Only attribute statements that are published on pathwayacademyzone.co.uk or in officially issued press releases.
+Do not invent quotes or paraphrase as a quote.
+
+[terminology]
+Preferred: Alternative Provision, AP, learner, young person, placement, commissioner, Designated Safeguarding Lead (DSL).
+Avoided: pupil referral, exclusion unit, naughty kids, problem children, dropout.
+
+[taglines]
+Pathways to Success.
+
+[social-handles]
+Facebook: https://www.facebook.com/PathwayAcademyZone
+LinkedIn: https://www.linkedin.com/company/pathway-academy-zone
+X (Twitter): https://twitter.com/PathwayAcademyZ
+
+[boilerplate]
+Pathway Academy Zone is an Alternative Provision based in Stoke-on-Trent, supporting young people aged 11-16 across Staffordshire who need a different pathway to succeed. Working with schools, Multi-Academy Trusts and Local Authorities, Pathway Academy Zone delivers academic, vocational, therapeutic and life-skills programmes that improve behaviour, attendance and outcomes.
+
+[metadata]
+version=1.0
+updated=2026-05-07
