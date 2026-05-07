@@ -31,8 +31,13 @@ if (!rootElement) {
   console.error("[v0] Available elements:", document.body.innerHTML);
 }
 
-console.log("[v0] Calling logVitals()...");
-logVitals();
+// Skip vitals in v0 preview — CSP blocks external telemetry endpoints
+if (!window.location.origin.includes("v0.")) {
+  console.log("[v0] Calling logVitals()...");
+  logVitals();
+} else {
+  console.log("[v0] Skipping logVitals() in v0 preview environment");
+}
 
 console.log("[v0] Calling initIframeEmbed()...");
 initIframeEmbed();
