@@ -7,8 +7,8 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
-import careersImg from "@/assets/careers-event.webp";
-import mentoringImg from "@/assets/mentoring-session.webp";
+import careersImg from "@/assets/programmes/national-trust-Cs1V-Y3q.webp";
+import mentoringImg from "@/assets/programmes/amazon-careers-BRVYfevZ.webp";
 
 /* ─── animation variant ───────────────────────────────────────────────────── */
 const fadeUp = {

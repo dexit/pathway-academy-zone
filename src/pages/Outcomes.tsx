@@ -12,8 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
-import mentoringImg from "@/assets/mentoring-session.webp";
-import careersImg from "@/assets/careers-event.webp";
+import mentoringImg from "@/assets/programmes/pastoral-support-DgJkB7ng.webp";
+import careersImg from "@/assets/programmes/amazon-careers-BRVYfevZ.webp";
 
 /* ─── data ─────────────────────────────────────────────────────────────── */
 const stats = [

@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Monitor, BookOpen, Coffee, Bus, ArrowRight, Wrench, Brain, Heart, Briefcase, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
-import buildingImg from "@/assets/building-exterior.webp";
-import classroomImg from "@/assets/classroom-learning.webp";
-import mentoringImg from "@/assets/mentoring-session.webp";
-import vocationalImg from "@/assets/vocational-training.webp";
+import buildingImg from "@/assets/programmes/building-exterior-CdR2heuW.webp";
+import classroomImg from "@/assets/programmes/classroom-1-NBeOjKjJ.webp";
+import mentoringImg from "@/assets/programmes/reception-area-CTi6XeEj.webp";
+import vocationalImg from "@/assets/programmes/classroom-2-ycnLvywG.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const facilities = [

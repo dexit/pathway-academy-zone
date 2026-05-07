@@ -18,10 +18,10 @@ import WhyItMattersScroller from "@/components/WhyItMattersScroller";
 // ✅ Use the functions or direct strings instead
 import { getVocationalImg, getMentoringImg, getClassroomImg, getHeroImg, getCareersImg } from "@/utils/images";
 
-const heroImg = "/assets/hero-classroom.webp";
-const classroomImg = "/assets/classroom-learning.webp";
-const vocationalImg = "/assets/vocational-training.webp";
-const mentoringImg = "/assets/mentoring-session.webp";
+import heroImg from "@/assets/programmes/hero-learning-Ydp8GY_6.webp";
+import classroomImg from "@/assets/programmes/police-careers-CtjI0dXj.webp";
+import vocationalImg from "@/assets/programmes/creative-alliance-CB9Zjwj1.webp";
+import mentoringImg from "@/assets/programmes/national-trust-Cs1V-Y3q.webp";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

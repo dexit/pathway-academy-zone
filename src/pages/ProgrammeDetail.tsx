@@ -9,12 +9,12 @@ import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { buildCourseSchema, buildOfferSchema, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
-import classroomImg  from "@/assets/classroom-learning.webp";
-import vocationalImg from "@/assets/vocational-training.webp";
-import mentoringImg  from "@/assets/mentoring-session.webp";
-import heroImg       from "@/assets/hero-classroom.webp";
-import careersImg    from "@/assets/careers-event.webp";
-import buildingImg   from "@/assets/building-exterior.webp";
+import classroomImg  from "@/assets/programmes/classroom-1-NBeOjKjJ.webp";
+import vocationalImg from "@/assets/programmes/vocational-learning-rLmCkg73.webp";
+import mentoringImg  from "@/assets/programmes/pastoral-support-DgJkB7ng.webp";
+import heroImg       from "@/assets/programmes/hero-learning-Ydp8GY_6.webp";
+import careersImg    from "@/assets/programmes/amazon-careers-BRVYfevZ.webp";
+import buildingImg   from "@/assets/programmes/building-exterior-CdR2heuW.webp";
 
 interface Programme {
   slug: string;

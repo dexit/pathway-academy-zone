@@ -19,7 +19,7 @@ import { fireConversion } from "@/components/Analytics";
 import { FormField } from "@/components/forms/FormField";
 import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
 import { email, ukPhone, personName, shortText, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
-import buildingImg from "@/assets/building-exterior.webp";
+import buildingImg from "@/assets/programmes/building-exterior-CdR2heuW.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const contactInfo = [

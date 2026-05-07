@@ -5,8 +5,8 @@ import { ArrowRight, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { buildAboutPageSchema, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
-import classroomImg from "@/assets/classroom-learning.webp";
-import mentoringImg from "@/assets/mentoring-session.webp";
+import classroomImg from "@/assets/programmes/classroom-2-ycnLvywG.webp";
+import mentoringImg from "@/assets/programmes/presentation-CgurFU4e.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
