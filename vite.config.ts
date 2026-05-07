@@ -12,14 +12,10 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "0.0.0.0",
     port: 8080,
+    strictPort: false,
     hmr: {
       overlay: false,
-      protocol: "ws",
-      host: "localhost",
-      port: 8080,
     },
-    // Proper SPA fallback for dev server — Vite's native approach
-    middlewareMode: false,
     fs: {
       strict: false,
     },
