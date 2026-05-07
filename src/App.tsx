@@ -36,6 +36,9 @@ const Search            = lazy(() => import("./pages/Search.tsx"));
 const AreaPage          = lazy(() => import("./pages/AreaPage.tsx"));
 const ProgrammeDetail   = lazy(() => import("./pages/ProgrammeDetail.tsx"));
 const Testimonials      = lazy(() => import("./pages/Testimonials.tsx"));
+const PrivacyPolicy     = lazy(() => import("./pages/PrivacyPolicy.tsx"));
+const CookiePolicy      = lazy(() => import("./pages/CookiePolicy.tsx"));
+const Terms             = lazy(() => import("./pages/Terms.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -88,6 +91,9 @@ const App = () => (
             <Route path="/programmes/:slug" element={<ProgrammeDetail />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/alternative-provision/:areaSlug" element={<AreaPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

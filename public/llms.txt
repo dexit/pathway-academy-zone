@@ -4,31 +4,67 @@
 Pathway Academy Zone (PAZ) provides structured learning environments for students who have become disengaged from mainstream education. Our approach combines academic rigour with therapeutic support and vocational opportunities.
 
 ## Contact
-- [Contact Page](https://pathwayacademyzone.co.uk/contact): General enquiries and location details.
+
 - Email: info@pathwayacademyzone.co.uk
 - Phone: +44 1782 365365
-- Address: Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ
+- Address: Duncalf Street, Burslem, Stoke-on-Trent ST6 3LJ, United Kingdom
+- [Make a Referral](https://pathwayacademyzone.co.uk/referral): Referral form for schools, Local Authorities, social workers, and parents.
+- Data Protection: dpo@pathwayacademyzone.co.uk
 
 ## Services
-- [Academic Re-engagement](https://pathwayacademyzone.co.uk/programmes/academic-re-engagement): Core subjects including English, Maths, and Science.
-- [Vocational Learning](https://pathwayacademyzone.co.uk/programmes/vocational-learning): Hands-on training and career-focused skills.
-- [SEMH Support](https://pathwayacademyzone.co.uk/programmes/semh-support): Therapeutic support for social, emotional, and mental health needs.
-- [Personal Development](https://pathwayacademyzone.co.uk/programmes/personal-development): Building resilience and confidence.
-- [Life Skills](https://pathwayacademyzone.co.uk/programmes/life-skills): Practical skills for independence.
-- [Employability Skills](https://pathwayacademyzone.co.uk/programmes/employability-skills): Preparation for post-16 transitions and work.
+
+- [Academic Re-engagement](https://pathwayacademyzone.co.uk/programmes/academic-re-engagement): Structured KS3 and KS4 academic curriculum in small groups (max 6) covering English, Maths, Science, PSHE/RSHE, RE, PE and Citizenship.
+- [Vocational Learning](https://pathwayacademyzone.co.uk/programmes/vocational-learning): Hands-on practical programmes with industry-recognised qualifications and work experience placements.
+- [SEMH Support](https://pathwayacademyzone.co.uk/programmes/semh-support): Therapeutic intervention for social, emotional and mental health needs, including 1:1 and group sessions and family support.
+- [Personal Development](https://pathwayacademyzone.co.uk/programmes/personal-development): Communication, problem-solving, team building and goal setting integrated into the weekly timetable.
+- [Life Skills Programme](https://pathwayacademyzone.co.uk/programmes/life-skills): Practical independence skills including cooking, financial literacy, health and digital/AI skills.
+- [Employability Skills](https://pathwayacademyzone.co.uk/programmes/employability-skills): CV, interview practice, work experience and careers guidance for Year 10 and 11 students.
 
 ## What We Do Not Do
-- We do not provide long-term residential care.
-- We are not a mainstream secondary school; we are an Alternative Provision.
-- We do not accept self-referrals from parents without school or local authority involvement.
+
+- We are not a Pupil Referral Unit (PRU) and we are not a state-funded school.
+- We do not provide residential or boarding placements.
+- We do not work with learners outside the 11-16 age range.
+- We do not provide therapy in place of CAMHS or clinical mental health services.
+- We do not accept self-referrals from young people without parent/carer or commissioner involvement.
 
 ## Key Information
-- [About Us](https://pathwayacademyzone.co.uk/about): Our mission, values, and trauma-informed approach.
-- [Our Team](https://pathwayacademyzone.co.uk/team): Meet our leadership and educational staff.
-- [Referrals](https://pathwayacademyzone.co.uk/referral): Information and forms for schools and local authorities.
-- [Safeguarding](https://pathwayacademyzone.co.uk/safeguarding): Our commitment to student safety and well-being.
+
+- [Home](https://pathwayacademyzone.co.uk/): Overview of services, statistics, programmes.
+- [About Us](https://pathwayacademyzone.co.uk/about): Mission, CARES values, leadership philosophy.
+- [Programmes](https://pathwayacademyzone.co.uk/programmes): Six core programme strands.
+- [Our Team](https://pathwayacademyzone.co.uk/team): Educators, pastoral specialists and executive team.
+- [Outcomes](https://pathwayacademyzone.co.uk/outcomes): Attendance, qualifications and destinations data.
+- [Centres](https://pathwayacademyzone.co.uk/centres): Stoke-on-Trent learning centre.
+- [Partners](https://pathwayacademyzone.co.uk/partners): Schools and organisations across Staffordshire.
+- [Safeguarding](https://pathwayacademyzone.co.uk/safeguarding): Safeguarding policy, DSL and reporting routes.
+- [Policies](https://pathwayacademyzone.co.uk/policies): Public-facing policy library.
+- [Privacy Policy](https://pathwayacademyzone.co.uk/privacy-policy): Data protection and UK GDPR statement.
+- [Cookie Policy](https://pathwayacademyzone.co.uk/cookie-policy): Cookies used on this website.
+- [Terms & Conditions](https://pathwayacademyzone.co.uk/terms): Website terms of use.
+
+## Knowledge Hub
+
+- [Knowledge Hub](https://pathwayacademyzone.co.uk/knowledge-hub): Index of guides, comparisons and best practice.
+- [Complete Guide to Alternative Provision](https://pathwayacademyzone.co.uk/knowledge-hub/complete-guide): Definitive 15-minute reference.
+- [Glossary](https://pathwayacademyzone.co.uk/knowledge-hub/glossary): Definitions of AP, EHCP, SEMH, PRU, SENCO and other key terms.
 
 ## AI Discovery Files
-- [identity.json](https://pathwayacademyzone.co.uk/identity.json): Factual business identity data.
-- [brand.txt](https://pathwayacademyzone.co.uk/brand.txt): Brand naming conventions and guidelines.
-- [faq-ai.txt](https://pathwayacademyzone.co.uk/faq-ai.txt): Structured factual Q&A for AI consumption.
+
+- [llms.txt](https://pathwayacademyzone.co.uk/llms.txt): This file.
+- [faq-ai.txt](https://pathwayacademyzone.co.uk/faq-ai.txt): Structured Q&A for AI assistants.
+- [brand.txt](https://pathwayacademyzone.co.uk/brand.txt): Brand naming rules.
+- [identity.json](https://pathwayacademyzone.co.uk/identity.json): Canonical identity data.
+- [domain-profile.json](https://pathwayacademyzone.co.uk/.well-known/domain-profile.json): AI Domain Data spec v0.1 profile.
+
+## Locations
+
+Stoke-on-Trent (head office). Service areas: Stoke-on-Trent, Newcastle-under-Lyme, Stafford, Cannock, Lichfield, Tamworth, Wolverhampton, Leek and surrounding parts of Staffordshire.
+
+## Optional
+
+- [Blog](https://pathwayacademyzone.co.uk/blog): Long-form articles.
+- [News](https://pathwayacademyzone.co.uk/news): Latest news and announcements.
+- [FAQs](https://pathwayacademyzone.co.uk/faqs): Frequently asked questions.
+- [Careers](https://pathwayacademyzone.co.uk/careers): Open positions and how to apply.
+- [Testimonials](https://pathwayacademyzone.co.uk/testimonials): Feedback from schools and families.

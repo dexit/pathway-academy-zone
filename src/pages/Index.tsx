@@ -18,6 +18,7 @@ import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
 // ✅ Use the functions or direct strings instead
 
 
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },

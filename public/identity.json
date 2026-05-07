@@ -1,32 +1,59 @@
 {
-    "$schema": "https://www.ai-visibility.org.uk/specifications/identity-json/identity-json.schema.json",
-    "name": "Pathway Academy Zone",
-    "type": "EducationalOrganization",
-    "url": "https://pathwayacademyzone.co.uk",
-    "description": "Pathway Academy Zone (PAZ) is a specialist Alternative Provision (AP) academy based in Stoke-on-Trent, dedicated to supporting young people aged 11–16 who require a more personalised, therapeutic, and vocational approach to education than mainstream settings can provide.",
-    "alternateNames": ["PAZ", "Pathway Academy"],
-    "foundingDate": "2023-01-01",
-    "locations": [
-        {
-            "type": "headquarters",
-            "name": "Stoke-on-Trent Centre",
-            "address": {
-                "streetAddress": "Duncalf St, Burslem",
-                "addressLocality": "Stoke-on-Trent",
-                "postalCode": "ST6 3LJ",
-                "addressCountry": "GB"
-            },
-            "telephone": "+44 1782 365365"
-        }
-    ],
-    "contactPoints": [
-        {
-            "type": "General Enquiries",
-            "email": "info@pathwayacademyzone.co.uk",
-            "telephone": "+44 1782 365365"
-        }
-    ],
-    "areaServed": ["GB-STS", "GB-STA"],
-    "industry": "Education",
-    "logo": "https://pathwayacademyzone.co.uk/assets/paz-logo.webp"
+  "$schema": "https://www.ai-visibility.org.uk/specifications/identity-json/identity-json.schema.json",
+  "name": "Pathway Academy Zone",
+  "type": "EducationalOrganization",
+  "url": "https://pathwayacademyzone.co.uk",
+  "description": "Pathway Academy Zone is an Alternative Provision based in Stoke-on-Trent, supporting young people aged 11-16 across Staffordshire with academic, vocational, therapeutic and life-skills programmes.",
+  "alternateNames": ["PAZ", "Pathway Academy Zone (PAZ)"],
+  "foundingDate": "2018-09-01",
+  "logo": "https://pathwayacademyzone.co.uk/assets/paz-logo.png",
+  "industry": "Alternative Education / Alternative Provision",
+  "areaServed": ["GB"],
+  "locations": [
+    {
+      "type": "headquarters",
+      "name": "Pathway Academy Zone — Stoke-on-Trent",
+      "address": {
+        "streetAddress": "Duncalf Street, Burslem",
+        "addressLocality": "Stoke-on-Trent",
+        "postalCode": "ST6 3LJ",
+        "addressCountry": "GB"
+      },
+      "telephone": "+44 1782 365365"
+    }
+  ],
+  "contactPoints": [
+    {
+      "type": "General Enquiries",
+      "email": "info@pathwayacademyzone.co.uk",
+      "telephone": "+44 1782 365365"
+    },
+    {
+      "type": "Referrals",
+      "email": "referrals@pathwayacademyzone.co.uk",
+      "telephone": "+44 1782 365365"
+    },
+    {
+      "type": "Safeguarding (DSL)",
+      "email": "safeguarding@pathwayacademyzone.co.uk",
+      "telephone": "+44 1782 365365"
+    },
+    {
+      "type": "Data Protection",
+      "email": "dpo@pathwayacademyzone.co.uk"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/PathwayAcademyZone",
+    "https://www.linkedin.com/company/pathway-academy-zone",
+    "https://twitter.com/PathwayAcademyZ"
+  ],
+  "parentOrganization": {
+    "name": "Pathway Group",
+    "url": "https://www.pathwaygroup.co.uk"
+  },
+  "metadata": {
+    "version": "1.0",
+    "updated": "2026-05-07"
+  }
 }

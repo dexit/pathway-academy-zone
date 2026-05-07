@@ -26,6 +26,13 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+# AI discovery files
+# llms.txt:        https://pathwayacademyzone.co.uk/llms.txt
+# faq-ai.txt:      https://pathwayacademyzone.co.uk/faq-ai.txt
+# brand.txt:       https://pathwayacademyzone.co.uk/brand.txt
+# identity.json:   https://pathwayacademyzone.co.uk/identity.json
+# domain-profile:  https://pathwayacademyzone.co.uk/.well-known/domain-profile.json
+
 Sitemap: https://pathwayacademyzone.co.uk/sitemap.xml
 Sitemap: https://academy.pathwayl.ink/sitemap.xml
 Host: https://pathwayacademyzone.co.uk

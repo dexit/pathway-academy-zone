@@ -13,12 +13,12 @@ import {
   buildCourseSchema, buildServiceSchema,
   buildCourseCarouselSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
 } from "@/lib/json-ld";
-import classroomImg  from "@/assets/classroom-learning.webp";
-import vocationalImg from "@/assets/vocational-training.webp";
-import mentoringImg  from "@/assets/mentoring-session.webp";
-import heroImg       from "@/assets/hero-classroom.webp";
-import careersImg    from "@/assets/careers-event.webp";
-import buildingImg   from "@/assets/building-exterior.webp";
+import classroomImg  from "@/assets/programmes/classroom-1-NBeOjKjJ.webp";
+import vocationalImg from "@/assets/programmes/training-wall-uqB92baC.webp";
+import mentoringImg  from "@/assets/programmes/reception-area-CTi6XeEj.webp";
+import heroImg       from "@/assets/programmes/skills-advice-BsX137y0.webp";
+import careersImg    from "@/assets/programmes/amazon-careers-BRVYfevZ.webp";
+import buildingImg   from "@/assets/programmes/careers-fair-B2B2seve.webp";
 
 /* ─── data ─────────────────────────────────────────────────────────────── */
 const programmes = [
@@ -334,18 +334,91 @@ export default function Programmes() {
         </div>
       </section>
 
-      {/* Programme cards grid */}
+      {/* Programme zig-zag sections */}
       <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {programmes.map((prog) => (
-              <ProgrammeCard
+        <div className="container mx-auto px-4 max-w-6xl space-y-20 md:space-y-28">
+          {programmes.map((prog, i) => {
+            const reverse = i % 2 === 1;
+            const isHighlighted = highlighted.size > 0 && highlighted.has(prog.slug);
+            return (
+              <motion.article
                 key={prog.slug}
-                prog={prog}
-                highlighted={highlighted.size > 0 && highlighted.has(prog.slug)}
-              />
-            ))}
-          </div>
+                id={prog.slug}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center scroll-mt-28 ${
+                  isHighlighted ? "ring-2 ring-primary/30 rounded-3xl p-4 lg:p-6 -m-4 lg:-m-6 bg-primary/5" : ""
+                }`}
+              >
+                <div className={`${reverse ? "lg:order-2" : ""}`}>
+                  <div className="relative rounded-3xl overflow-hidden shadow-xl">
+                    <img
+                      src={prog.img}
+                      alt={prog.title}
+                      title={prog.title}
+                      width="900"
+                      height="600"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-[320px] md:h-[420px] object-cover"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${tagColors[prog.tag] ?? "bg-muted text-muted-foreground"}`}>
+                        {prog.tag}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`${reverse ? "lg:order-1" : ""}`}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shadow-md">
+                      <prog.icon className="h-6 w-6 text-primary-foreground" />
+                    </div>
+                    {isHighlighted && (
+                      <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">Recommended</span>
+                    )}
+                  </div>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
+                    {prog.title}
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed mb-5">{prog.desc}</p>
+
+                  <ul className="grid sm:grid-cols-2 gap-2 mb-6">
+                    {prog.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-foreground">
+                        <CheckCircle className="h-4 w-4 text-primary shrink-0 mt-0.5" />{f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-5">
+                    <span className="inline-flex items-center gap-1.5"><Calendar className="h-4 w-4 text-primary" />{prog.schedule}</span>
+                    <span className="inline-flex items-center gap-1.5"><Clock className="h-4 w-4 text-primary" />{prog.time}</span>
+                  </div>
+
+                  <div className="bg-muted/50 rounded-xl p-4 mb-5 border border-border/50">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Who is it for?</p>
+                    <p className="text-sm text-foreground leading-relaxed">{prog.whoFor}</p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {prog.outcomes.map((o) => (
+                      <span key={o} className="inline-flex items-center gap-1 text-xs bg-secondary text-secondary-foreground rounded-full px-3 py-1">
+                        <CheckCircle className="h-3 w-3 text-primary" />{o}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Button asChild className="rounded-full">
+                    <Link to="/referral">Refer for This Programme <ArrowRight className="ml-1 h-4 w-4" /></Link>
+                  </Button>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </section>
 
