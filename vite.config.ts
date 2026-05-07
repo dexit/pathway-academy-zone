@@ -12,7 +12,6 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    strictPort: false,
     hmr: {
       overlay: false,
     },
@@ -53,8 +52,7 @@ export default defineConfig(({ mode }) => ({
   // Preview mode (local production testing) should also handle SPA routing
   preview: {
     host: "::",
-    port: 4173,
-    strictPort: false,
+    port: 8080,
   },
 }));
 
