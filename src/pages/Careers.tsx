@@ -119,8 +119,8 @@ export default function Careers() {
         <div className="space-y-3">{qualities.map((q) => (<div key={q} className="flex items-center gap-3 bg-card rounded-xl px-6 py-4 border border-border/50"><CheckCircle className="h-5 w-5 text-primary shrink-0" /><span className="text-foreground">{q}</span></div>))}</div>
       </div></section>
       <section className="py-24 bg-background" id="vacancies">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 max-w-screen-xl mx-auto">
             <h2 className="font-display text-2xl font-bold text-foreground">Current Vacancies</h2>
             <a
               href={JOBS_EMBED_URL}
@@ -131,13 +131,13 @@ export default function Careers() {
               Open in new tab <ExternalLink className="h-3.5 w-3.5" />
             </a>
           </div>
-          <div className="rounded-2xl border border-border overflow-hidden shadow-sm bg-card">
+          <div className="rounded-2xl border border-border overflow-hidden shadow-sm bg-card w-full max-w-screen-xl mx-auto">
             <iframe
               src={JOBS_EMBED_URL}
               title="Current Job Vacancies — Pathway Group"
               loading="lazy"
               className="w-full border-0"
-              style={{ minHeight: "700px", height: "800px" }}
+              style={{ minHeight: "1180px", height: "1180px" }}
               sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
             />
           </div>

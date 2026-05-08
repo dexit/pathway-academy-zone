@@ -270,38 +270,36 @@ export default function Programmes() {
 
       {/* Hero */}
       <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 text-center">
           <Breadcrumbs
             items={[{ label: "Programmes" }]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
           />
-          <div className="max-w-2xl">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-white/15 text-white text-sm font-medium mb-4 border border-white/20">
-              Our Programmes
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">Pathways to Success</h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6">
-              Six structured programmes delivered in Stoke-on-Trent for young people aged 11–16
-              across Staffordshire — combining academic learning with vocational skills and therapeutic support.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {programmes.map((p) => (
-                <a
-                  key={p.slug}
-                  href={`#${p.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/20 px-3 py-1.5 transition-colors"
-                >
-                  <p.icon className="h-3.5 w-3.5" />
-                  {p.title}
-                </a>
-              ))}
-            </div>
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/15 text-white text-sm font-medium mb-4 border border-white/20">
+            Our Programmes
+          </span>
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">Pathways to Success</h1>
+          <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
+            Six structured programmes delivered in Stoke-on-Trent for young people aged 11–16
+            across Staffordshire — combining academic learning with vocational skills and therapeutic support.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            {programmes.map((p) => (
+              <a
+                key={p.slug}
+                href={`#${p.slug}`}
+                className="inline-flex items-center gap-1.5 text-xs font-medium rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/20 px-3 py-1.5 transition-colors"
+              >
+                <p.icon className="h-3.5 w-3.5" />
+                {p.title}
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Which programme? navigator */}
-      <section className="py-14 bg-muted/40 border-b border-border">
+      {/* Which programme? navigator — hidden per UX request */}
+      <section className="hidden py-14 bg-muted/40 border-b border-border">
         <div className="container mx-auto px-4 max-w-4xl">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-8">
             <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">Which Programme is Right?</h2>
@@ -362,7 +360,7 @@ export default function Programmes() {
                       height="600"
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-[320px] md:h-[420px] object-cover"
+                      className="w-full h-[400px] md:h-[540px] object-cover"
                     />
                     <div className="absolute top-4 left-4">
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${tagColors[prog.tag] ?? "bg-muted text-muted-foreground"}`}>
@@ -373,17 +371,17 @@ export default function Programmes() {
                 </div>
 
                 <div className={`${reverse ? "lg:order-1" : ""}`}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shadow-md">
+                  <div className="flex items-center gap-4 mb-4 flex-wrap">
+                    <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shadow-md shrink-0">
                       <prog.icon className="h-6 w-6 text-primary-foreground" />
                     </div>
+                    <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground flex-1 min-w-0">
+                      {prog.title}
+                    </h2>
                     {isHighlighted && (
-                      <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">Recommended</span>
+                      <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full shrink-0">Recommended</span>
                     )}
                   </div>
-                  <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
-                    {prog.title}
-                  </h2>
                   <p className="text-muted-foreground leading-relaxed mb-5">{prog.desc}</p>
 
                   <ul className="grid sm:grid-cols-2 gap-2 mb-6">

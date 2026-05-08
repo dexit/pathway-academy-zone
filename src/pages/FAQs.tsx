@@ -265,7 +265,7 @@ export default function FAQs() {
 function FaqItem({
   question,
   answer,
-  index,
+  index: _index,
 }: {
   question: string;
   answer: string;
@@ -273,11 +273,7 @@ function FaqItem({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+    <div
       className={cn(
         "bg-card rounded-2xl border overflow-hidden transition-all duration-300",
         open ? "border-primary/40 shadow-md" : "border-border/50 hover:border-border"
@@ -323,6 +319,6 @@ function FaqItem({
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }

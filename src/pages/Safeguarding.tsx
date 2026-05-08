@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight } from "lucide-react";
+import { FileText, ArrowRight, Shield } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
@@ -39,12 +39,22 @@ export default function Safeguarding() {
         description="Safeguarding is at the heart of everything we do at Pathway Academy Zone. Learn about our Designated Safeguarding Lead, policies, and trauma-informed approach to keeping young people safe."
         jsonLd={safeguardingSchema}
       />
-      <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Support & Safeguarding</span>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Keeping Young People Safe</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Safeguarding is everyone's responsibility. We maintain the highest standards to ensure all young people feel safe, supported, and heard.</p>
-      </div></section>
-      <section className="py-4 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Safeguarding" }]} /></div></section>
+      <section className="bg-primary text-primary-foreground py-20 md:py-28">
+        <div className="container mx-auto px-4 text-center">
+          <Breadcrumbs
+            items={[{ label: "Safeguarding" }]}
+            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+          />
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
+            <Shield className="w-3.5 h-3.5" /> Support & Safeguarding
+          </div>
+          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">Keeping Young People Safe</h1>
+          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">
+            Safeguarding is everyone's responsibility. We maintain the highest standards to ensure
+            all young people feel safe, supported, and heard.
+          </p>
+        </div>
+      </section>
       <section className="py-24 bg-background"><div className="container mx-auto px-4 max-w-4xl">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 items-start">
           <div className="mx-auto md:mx-0"><img src={martinChandler} alt="Martin Chandler — Designated Safeguarding Lead" className="w-48 h-48 rounded-2xl object-cover shadow-lg" width="192" height="192" loading="lazy" decoding="async" /></div>

@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Phone, FileText, Users, CalendarCheck, CheckCircle, Loader2, CheckCircle2, AlertCircle,
-  BookOpen, Wrench, Brain, Lightbulb, Heart, MoreHorizontal, Calendar, Clock, ArrowRight, Check, MapPin, Building2
+  BookOpen, Wrench, Brain, Lightbulb, Heart, MoreHorizontal, Calendar, Clock, ArrowRight, Check, MapPin, Building2, ClipboardList
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
@@ -106,17 +106,20 @@ export default function Referral() {
         description="Refer a young person to Pathway Academy Zone — Alternative Provision in Stoke-on-Trent for ages 11–16. Schools, Local Authorities, social workers and virtual schools welcome."
       />
 
-      <section className="py-32 bg-muted/30">
+      <section className="bg-primary text-primary-foreground py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Referral Process</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">How to Refer a Young Person</h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We accept referrals from schools, local authorities, social workers, and virtual schools.</p>
-        </div>
-      </section>
-
-      <section className="py-12 bg-background">
-        <div className="container mx-auto px-4">
-          <Breadcrumbs items={[{ label: "Referral" }]} />
+          <Breadcrumbs
+            items={[{ label: "Referral" }]}
+            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+          />
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
+            <ClipboardList className="w-3.5 h-3.5" /> Referral Process
+          </div>
+          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">How to Refer a Young Person</h1>
+          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">
+            We accept referrals from schools, local authorities, social workers, and virtual schools.
+            Our team responds within 48 hours.
+          </p>
         </div>
       </section>
 
