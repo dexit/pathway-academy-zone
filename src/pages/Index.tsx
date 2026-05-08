@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig, MapPin, ClipboardList, Sparkles, GraduationCap, ShieldCheck, PhoneCall } from "lucide-react";
+import { Shield, Heart, Users, TrendingUp, ArrowRight, BookOpen, Wrench, Brain, Lightbulb, UserCheck, Target, ChevronDown, School, CircleCheckBig, MapPin, ClipboardList, Sparkles, GraduationCap, ShieldCheck, PhoneCall, BarChart3 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo } from "@/components/Seo";
 import {
@@ -84,6 +84,7 @@ export default function HomePage() {
 
   return (
     <Layout>
+      <div itemScope itemType="https://schema.org/EducationalOrganization" className="contents">
       <Seo
         title="Alternative Provision in Stoke-on-Trent"
         description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities."
@@ -215,6 +216,114 @@ export default function HomePage() {
       </section>
 
 
+      {/* Start Your Journey */}
+      <section className="py-24 bg-muted/40">
+        <div className="container mx-auto px-4">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-14">
+            <span className="text-primary font-medium text-sm tracking-wider uppercase">How It Works</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-1">
+              Start Your Journey
+              <span className="block w-16 h-1 bg-primary rounded-full mx-auto mt-3" aria-hidden="true" />
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+              From first contact to positive destinations — here's how we work with schools, local authorities, and families to support every young person.
+            </p>
+          </motion.div>
+
+          {/* Journey steps */}
+          <div className="relative grid grid-cols-1 md:grid-cols-4 gap-6 mb-14">
+            {/* Desktop connector line */}
+            <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-primary/20 -z-0" aria-hidden="true" />
+
+            {[
+              {
+                step: 1,
+                icon: BookOpen,
+                title: "Explore AP",
+                desc: "Learn what Alternative Provision is and how it can help young people thrive outside mainstream settings.",
+                to: "/knowledge-hub",
+              },
+              {
+                step: 2,
+                icon: GraduationCap,
+                title: "Find a Programme",
+                desc: "Browse our tailored academic, vocational, and SEMH programmes to find the right fit for the young person.",
+                to: "/programmes",
+              },
+              {
+                step: 3,
+                icon: ClipboardList,
+                title: "Make a Referral",
+                desc: "Submit a referral online or by phone — we respond within 48 hours and guide you through every step.",
+                to: "/referral",
+              },
+              {
+                step: 4,
+                icon: BarChart3,
+                title: "See Our Outcomes",
+                desc: "Track progress and positive destinations as young people build skills, confidence, and their futures.",
+                to: "/outcomes",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={item.step}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="relative bg-card rounded-2xl border border-border/50 p-6 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-300 flex flex-col"
+              >
+                {/* Step badge */}
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shrink-0 z-10">
+                    {item.step}
+                  </span>
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <item.icon className="h-5 w-5 text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-display text-lg font-bold text-foreground mb-2">{item.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed flex-1">{item.desc}</p>
+                <Link
+                  to={item.to}
+                  className="inline-flex items-center gap-1 mt-4 text-primary text-sm font-medium hover:gap-2 transition-all duration-200"
+                  aria-label={`${item.title} — learn more`}
+                >
+                  Learn more <ArrowRight className="h-4 w-4" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Area chip list */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center">
+            <p className="text-muted-foreground text-sm font-medium mb-4 uppercase tracking-wider">Explore All Areas We Serve</p>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {[
+                { name: "Stoke-on-Trent",        slug: "stoke-on-trent" },
+                { name: "Newcastle-under-Lyme",   slug: "newcastle-under-lyme" },
+                { name: "Stafford",               slug: "stafford" },
+                { name: "Cannock",                slug: "cannock" },
+                { name: "Lichfield",              slug: "lichfield" },
+                { name: "Tamworth",               slug: "tamworth" },
+                { name: "Wolverhampton",          slug: "wolverhampton" },
+                { name: "Leek",                   slug: "leek" },
+              ].map((area) => (
+                <Link
+                  key={area.slug}
+                  to={`/alternative-provision/${area.slug}`}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+                >
+                  <MapPin className="h-3 w-3" />
+                  {area.name}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Latest Blog Posts — temporarily hidden */}
 
       {/* FAQ */}
@@ -279,6 +388,7 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+      </div>{/* /EducationalOrganization */}
     </Layout>
   );
 }

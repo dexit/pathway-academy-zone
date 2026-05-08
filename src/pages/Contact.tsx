@@ -1,35 +1,33 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
-  Phone, Mail, MapPin, Clock, ExternalLink, Loader2, CheckCircle2, AlertCircle,
-  HandHeart, School, Handshake, Briefcase, MessageSquare, MoreHorizontal,
+  Phone, Mail, MapPin, Clock, ExternalLink,
+  HandHeart, Briefcase, MessageSquare,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
-import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
+import { Seo, SITE_URL } from "@/components/Seo";
 import {
   buildContactPageSchema, buildServiceSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
 } from "@/lib/json-ld";
 import { useFormSubmit } from "@/hooks/use-form-submit";
 import { fireConversion } from "@/components/Analytics";
-import { FormField } from "@/components/forms/FormField";
-import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
-import { email, ukPhone, personName, shortText, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
+import { FormBuilder } from "@/components/forms/FormBuilder";
+import { CONTACT_FORM_META, contactSchema, type ContactValues } from "@/lib/form-configs/contact";
+import { normaliseUkPhone } from "@/lib/uk-validators";
+import { PageHero } from "@/components/PageHero";
 import buildingImg from "@/assets/programmes/building-exterior-CdR2heuW.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
-const contactInfo = [
+
+const contactInfoItems = [
   { icon: Phone, title: "Phone", main: "01782 365365", sub: "Mon-Fri 8:30am - 4:00pm" },
   { icon: Mail, title: "Email", main: "info@pathwayacademyzone.co.uk", sub: "We aim to respond within 24 hours" },
   { icon: MapPin, title: "Address", main: "Duncalf St, Burslem", sub: "Stoke-on-Trent ST6 3LJ" },
   { icon: Clock, title: "Opening Hours", main: "Monday - Friday", sub: "8:30am - 4:00pm" },
 ];
-
-const CONTACT_WEBHOOK = import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined;
 
 // Minimal programme stubs — Service schema needs the catalogue structure
 const PROGRAMME_STUBS = [
@@ -41,7 +39,7 @@ const PROGRAMME_STUBS = [
   { slug: "employability-skills",  title: "Employability Skills",   desc: "Work-readiness for Year 10 & 11.", features: [], schedule: "Year 10 & 11", time: "Weekly", whoFor: "Year 10 and 11", outcomes: ["Employment-ready", "Positive destinations"] },
 ];
 
-const contactSchema = [
+const pageJsonLd = [
   ORG_SCHEMA,
   WEBSITE_SCHEMA,
   buildContactPageSchema(),
@@ -54,39 +52,17 @@ const quickLinks = [
   { title: "Join Our Team", desc: "View current vacancies and opportunities", path: "/careers" },
 ];
 
-const enquiryOptions: IllustratedOption[] = [
-  { value: "parent-carer", label: "Parent / Carer", description: "I'm asking about my young person", icon: HandHeart },
-  { value: "school-la", label: "School / Local Authority", description: "Referral or commissioning enquiry", icon: School },
-  { value: "partner", label: "Partner Organisation", description: "Charity, employer or service partner", icon: Handshake },
-  { value: "careers", label: "Careers Enquiry", description: "Vacancies or speculative application", icon: Briefcase },
-  { value: "general", label: "General Question", description: "Anything else we can help with", icon: MessageSquare },
-  { value: "other", label: "Other", description: "Tell us more in your message", icon: MoreHorizontal },
-];
-
-const formSchema = z.object({
-  firstName: personName({ required: true }),
-  lastName: personName({ required: true }),
-  email: email({ required: true }),
-  phone: ukPhone({ required: true }),
-  enquiryType: z.enum(["parent-carer", "school-la", "partner", "careers", "general", "other"], {
-    required_error: "Please choose an enquiry type",
-  }),
-  organisation: shortText(120, false),
-  message: longMessage(1000, true),
-});
-type FormValues = z.infer<typeof formSchema>;
-
 export default function Contact() {
   const { toast } = useToast();
 
-  const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<ContactValues>({
+    resolver: zodResolver(contactSchema),
     defaultValues: { firstName: "", lastName: "", email: "", phone: "", enquiryType: undefined, organisation: "", message: "" },
     mode: "onTouched",
   });
 
-  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string }>({
-    url: CONTACT_WEBHOOK,
+  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<ContactValues & { phone_e164?: string }>({
+    url: import.meta.env.VITE_CONTACT_WEBHOOK as string | undefined,
     method: "POST",
     format: "json",
     extra: { source: "contact-form", site: SITE_URL },
@@ -104,187 +80,109 @@ export default function Contact() {
     await submit({ ...values, phone_e164: normaliseUkPhone(values.phone || "") });
   });
 
-  const phone = watch("phone");
-
   return (
     <Layout>
       <Seo
         title="Contact Pathway Academy Zone"
         description="Get in touch with Pathway Academy Zone in Stoke-on-Trent. Call, email, or send a message — Mon–Fri 8:30am–4:00pm."
-        jsonLd={contactSchema}
+        jsonLd={pageJsonLd}
       />
-      <section className="relative py-32">
-        <div className="absolute inset-0">
-          <img src={buildingImg} alt="Pathway Academy Zone building" className="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchPriority="high" />
-          <div className="absolute inset-0 bg-scrim/60" />
-        </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <Breadcrumbs
-            items={[{ label: "Contact" }]}
-            className="text-white/70 mb-6 justify-center [&_a]:text-white/70 [&_a]:hover:text-white [&_[aria-current]]:text-white [&_svg]:text-white/50"
-          />
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20 backdrop-blur-sm">
-            <MessageSquare className="w-3.5 h-3.5" /> Contact Us
-          </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Get in Touch</h1>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.</p>
-        </div>
-      </section>
+
+      <PageHero
+        variant="image"
+        imageSrc={buildingImg}
+        imageAlt="Pathway Academy Zone building exterior"
+        align="center"
+        badge={{ label: "Contact Us", icon: MessageSquare }}
+        breadcrumbs={[{ label: "Contact" }]}
+        heading="Get in Touch"
+        subheading="Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help."
+      />
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
-            <motion.aside variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.aside
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              itemScope
+              itemType="https://schema.org/LocalBusiness"
+            >
               <h2 className="font-display text-2xl font-bold text-foreground mb-6">Contact Information</h2>
               <div className="space-y-4 mb-8">
-                {contactInfo.map((c) => (
+                {contactInfoItems.map((c) => (
                   <div key={c.title} className="flex items-start gap-4 bg-card rounded-xl p-5 border border-border/50 bg-accent/50">
                     <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0">
                       <c.icon className="h-5 w-5 text-white" />
                     </div>
-<div>
+                    <div>
                       <p className="font-medium text-foreground text-sm">{c.title}</p>
-                      {c.title === "Email" ? (
-                        <a href={`mailto:${c.main}`} className="text-foreground text-sm hover:underline">{c.main}</a>
+                      {c.title === "Phone" ? (
+                        <>
+                          <a href={`tel:${c.main.replace(/\s/g, "")}`} itemProp="telephone" className="text-foreground text-sm hover:underline">{c.main}</a>
+                          <p className="text-muted-foreground text-xs">{c.sub}</p>
+                        </>
+                      ) : c.title === "Email" ? (
+                        <>
+                          <a href={`mailto:${c.main}`} itemProp="email" className="text-foreground text-sm hover:underline">{c.main}</a>
+                          <p className="text-muted-foreground text-xs">{c.sub}</p>
+                        </>
                       ) : c.title === "Address" ? (
-                        <a 
-                          href={`https://maps.google.com/?q=${c.main.replace(/ /g, "+")}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-foreground text-sm hover:underline"
-                        >
-                          {c.main}
-                        </a>
+                        <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                          <a
+                            href={`https://maps.google.com/?q=${c.main.replace(/ /g, "+")}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-foreground text-sm hover:underline"
+                          >
+                            <span itemProp="streetAddress">{c.main}</span>
+                          </a>
+                          <p className="text-muted-foreground text-xs">
+                            <span itemProp="addressLocality">Stoke-on-Trent</span>{" "}
+                            <span itemProp="postalCode">ST6 3LJ</span>
+                          </p>
+                        </div>
                       ) : (
-                        <p className="text-foreground text-sm">{c.main}</p>
+                        <>
+                          <p className="text-foreground text-sm">{c.main}</p>
+                          <p className="text-muted-foreground text-xs">{c.sub}</p>
+                        </>
                       )}
-                      <p className="text-muted-foreground text-xs">{c.sub}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2397.8584766858147!2d-2.1916!3d53.0447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487a6836a0d0f8eb%3A0x0!2sDuncalf%20St%2C%20Burslem%2C%20Stoke-on-Trent%20ST6%203LJ%2C%20UK!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" 
-                width="100%" 
-                height="300" 
-                allowFullScreen 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade" 
-                title="Pathway Academy Zone Location" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2397.8584766858147!2d-2.1916!3d53.0447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487a6836a0d0f8eb%3A0x0!2sDuncalf%20St%2C%20Burslem%2C%20Stoke-on-Trent%20ST6%203LJ%2C%20UK!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
+                width="100%"
+                height="300"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Pathway Academy Zone Location"
                 className="rounded-xl border-0"
               />
             </motion.aside>
 
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
               <h2 className="font-display text-2xl font-bold text-foreground mb-6">Send Us a Message</h2>
-              <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 border border-border/50 space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    id="contact-firstname"
-                    label="First Name"
-                    required
-                    placeholder="First name"
-                    autoComplete="given-name"
-                    error={errors.firstName?.message}
-                    {...register("firstName")}
-                  />
-                  <FormField
-                    id="contact-lastname"
-                    label="Last Name"
-                    required
-                    placeholder="Last name"
-                    autoComplete="family-name"
-                    error={errors.lastName?.message}
-                    {...register("lastName")}
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    id="contact-email"
-                    label="Email Address"
-                    required
-                    type="email"
-                    inputMode="email"
-                    placeholder="your@email.com"
-                    autoComplete="email"
-                    error={errors.email?.message}
-                    {...register("email")}
-                  />
-                  <FormField
-                    id="contact-phone"
-                    label="Phone Number"
-                    required
-                    type="tel"
-                    inputMode="tel"
-                    autoComplete="tel"
-                    placeholder="07123 456789"
-                    hint="UK landline or mobile"
-                    value={phone || ""}
-                    onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
-                    error={errors.phone?.message}
-                  />
-                </div>
-
-                <FormField
-                  id="contact-org"
-                  label="Organisation (if applicable)"
-                  placeholder="School, Local Authority, etc."
-                  autoComplete="organization"
-                  error={errors.organisation?.message}
-                  {...register("organisation")}
-                />
-
-                <Controller
-                  name="enquiryType"
+              <div className="bg-card rounded-2xl p-8 border border-border/50">
+                <FormBuilder
+                  config={CONTACT_FORM_META}
+                  register={register}
                   control={control}
-                  render={({ field }) => (
-                    <IllustratedRadio
-                      name="enquiryType"
-                      legend="What's your enquiry about?"
-                      hint="Pick the closest match — we'll route your message to the right team."
-                      options={enquiryOptions}
-                      value={field.value || ""}
-                      onChange={field.onChange}
-                      required
-                      columns={3}
-                      error={errors.enquiryType?.message}
-                    />
-                  )}
+                  errors={errors}
+                  setValue={setValue}
+                  watch={watch}
+                  loading={loading}
+                  error={error}
+                  success={success}
+                  onSubmit={onSubmit}
                 />
-
-                <FormField
-                  as="textarea"
-                  id="contact-message"
-                  label="Your Message"
-                  required
-                  rows={5}
-                  placeholder="How can we help you?"
-                  maxLength={1000}
-                  error={errors.message?.message}
-                  {...register("message")}
-                />
-
-                <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full">
-                  {loading ? (
-                    <span className="inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending...</span>
-                  ) : ("Send Message")}
-                </Button>
-
-                <div aria-live="polite" aria-atomic="true">
-                  {success && (
-                    <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
-                      <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Message sent — we&apos;ll reply within 24 hours.
-                    </p>
-                  )}
-                  {error && (
-                    <p role="alert" className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
-                      <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
-                    </p>
-                  )}
-                </div>
-                <p className="text-xs text-muted-foreground text-center">By submitting this form, you agree to our privacy policy.</p>
-              </form>
+                <p className="text-xs text-muted-foreground text-center mt-4">By submitting this form, you agree to our privacy policy.</p>
+              </div>
             </motion.div>
           </div>
         </div>
