@@ -44,11 +44,11 @@ export default function About() {
         <div className="container mx-auto px-4 text-center relative z-10">
           <Breadcrumbs
             items={[{ label: "About Us" }]}
-            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            className="text-white/70 mb-6 justify-center [&_a]:text-white/70 [&_a]:hover:text-white [&_[aria-current]]:text-white [&_svg]:text-white/50"
           />
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">About Us</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Who We Are</h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.</p>
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-4 backdrop-blur-sm border border-white/20">About Us</span>
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Who We Are</h1>
+          <p className="text-white/80 text-lg max-w-2xl mx-auto">Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.</p>
         </div>
       </section>
       <section className="py-24 bg-background">

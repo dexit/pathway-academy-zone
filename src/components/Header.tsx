@@ -5,6 +5,7 @@ import {
   Building2, Users, MapPin, Handshake, Briefcase,
   GraduationCap, BarChart3, BookOpen, FileText, Star,
   BookMarked, ClipboardList, Shield, HelpCircle, ArrowRight,
+  Layers, BarChart2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -75,11 +76,12 @@ const navLinks: NavItem[] = [
       ctaPath: "/knowledge-hub/complete-guide",
     },
     children: [
-      { label: "Knowledge Hub",    path: "/knowledge-hub",              description: "Browse all AP resources",          icon: BookOpen, highlight: true },
-      { label: "Complete Guide",   path: "/knowledge-hub/complete-guide", description: "The full AP journey in one place", icon: FileText },
-      { label: "Best Practice",    path: "/knowledge-hub/best-practice",  description: "Evidence-based AP guidance",       icon: Star },
-      { label: "Glossary",         path: "/knowledge-hub/glossary",        description: "A–Z of AP & SEMH terminology",    icon: BookMarked },
-      { label: "FAQs",             path: "/faqs",                          description: "Quick answers to common questions", icon: HelpCircle },
+      { label: "Knowledge Hub",        path: "/knowledge-hub",                description: "Browse all AP resources",           icon: BookOpen, highlight: true },
+      { label: "Complete Guide to AP", path: "/knowledge-hub/complete-guide",  description: "The full AP journey in one place",  icon: FileText },
+      { label: "Core Guides",          path: "/knowledge-hub/core-guides",     description: "Essential AP guides for schools",   icon: Layers },
+      { label: "Comparisons",          path: "/knowledge-hub/comparisons",     description: "AP vs mainstream, onsite vs offsite", icon: BarChart2 },
+      { label: "Best Practice",        path: "/knowledge-hub/best-practice",   description: "Evidence-based AP guidance",        icon: Star },
+      { label: "Glossary",             path: "/knowledge-hub/glossary",         description: "A–Z of AP & SEMH terminology",     icon: BookMarked },
     ],
   },
   {

@@ -6,12 +6,14 @@ import {
   RadialBarChart, RadialBar, Cell,
 } from "recharts";
 import {
-  TrendingUp, Target, Users, UserCheck, Quote, ArrowRight,
+  TrendingUp, Target, Users, UserCheck, ArrowRight,
   MapPin, GraduationCap, Briefcase, BookOpen, CheckCircle2, Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
+import TestimonialsSlider, { type Testimonial } from "@/components/TestimonialsSlider";
+import ReviewsSlider, { type Review } from "@/components/ReviewsSlider";
 import mentoringImg from "@/assets/programmes/pastoral-support-DgJkB7ng.webp";
 import careersImg from "@/assets/programmes/amazon-careers-BRVYfevZ.webp";
 
@@ -63,10 +65,20 @@ const stories = [
   { area: "Stafford", title: "Finding a Pathway", text: "Tyler had been through multiple placements in the Stafford area before arriving at Pathway. He discovered motor mechanics through our vocational programme and is now completing an apprenticeship with a local employer." },
 ];
 
-const testimonials = [
-  { text: "Pathway Academy Zone gave my son a second chance. He went from refusing to attend school to genuinely enjoying learning. The staff truly care.", author: "Parent of Year 10 student", area: "Stoke-on-Trent" },
-  { text: "The progress we've seen in our referred students has been remarkable. The team understand what these young people need and deliver it consistently.", author: "SENCO, Staffordshire Secondary School", area: "Staffordshire" },
-  { text: "I actually want to come here. The teachers listen to me and don't give up when things get hard. I feel like I can do something with my life now.", author: "Year 11 Student", area: "Burslem Centre" },
+const testimonials: Testimonial[] = [
+  { text: "Pathway Academy Zone gave my son a second chance. He went from refusing to attend school to genuinely enjoying learning. The staff truly care.", author: "Parent of Year 10 student", role: "Parent / Carer", area: "Stoke-on-Trent", rating: 5 },
+  { text: "The progress we've seen in our referred students has been remarkable. The team understand what these young people need and deliver it consistently.", author: "SENCO, Staffordshire Secondary School", role: "School Professional", area: "Staffordshire", rating: 5 },
+  { text: "I actually want to come here. The teachers listen to me and don't give up when things get hard. I feel like I can do something with my life now.", author: "Year 11 Student", role: "Current Learner", area: "Burslem Centre", rating: 5 },
+  { text: "Pathway worked with us every step of the way — from the initial referral to transition planning. An exceptional provider.", author: "Inclusion Lead", role: "Local Authority", area: "Newcastle-under-Lyme", rating: 5 },
+  { text: "The vocational programme gave our young person something to get out of bed for. He's now in an apprenticeship.", author: "Parent", role: "Parent / Carer", area: "Stafford", rating: 5 },
+  { text: "Martin and the safeguarding team give us absolute confidence that our most vulnerable pupils are in safe hands.", author: "Head of Year", role: "Secondary School", area: "Tamworth", rating: 5 },
+];
+
+const reviews: Review[] = [
+  { text: "Outstanding Alternative Provision. The holistic approach to each child's needs is second to none. Our school trusts Pathway completely.", author: "SENCo", role: "Secondary School", area: "Stoke-on-Trent", rating: 5, source: "School Partnership Feedback" },
+  { text: "My daughter has transformed since joining PAZ. She has friends, attends every day, and is working towards her GCSEs. Truly life-changing.", author: "Parent", role: "Parent / Carer", area: "Cannock", rating: 5, source: "Parent Feedback" },
+  { text: "Placement process was swift, the team communicated well throughout, and outcomes exceeded our expectations.", author: "Virtual School Head", role: "Local Authority", area: "Staffordshire", rating: 5, source: "Commissioner Feedback" },
+  { text: "The trauma-informed ethos runs through every aspect of provision. Highly recommended for any child with SEMH needs.", author: "Educational Psychologist", role: "Specialist Professional", area: "West Midlands", rating: 5, source: "Partner Review" },
 ];
 
 const areaLinks = [
@@ -85,12 +97,6 @@ const jsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   description: "Alternative Provision Stoke-on-Trent — 94% attendance improvement, 87% positive destinations across Staffordshire.",
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "47",
-    bestRating: "5",
-  },
 };
 
 /* ─── animated counter ─────────────────────────────────────────────────── */
@@ -440,32 +446,34 @@ export default function Outcomes() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials slider */}
       <section className="py-20 bg-muted/40">
         <div className="container mx-auto px-4">
-          <h2 className="font-display text-2xl font-bold text-foreground text-center mb-10">What People Say</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-2xl p-7 shadow-sm border border-border/50 flex flex-col"
-              >
-                <Quote className="h-7 w-7 text-primary/25 mb-4 shrink-0" />
-                <p className="text-foreground text-sm leading-relaxed italic flex-1">"{t.text}"</p>
-                <div className="mt-5 pt-4 border-t border-border/50">
-                  <p className="text-foreground text-sm font-semibold">— {t.author}</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-                    <MapPin className="h-3 w-3 text-primary" />{t.area}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
+            <span className="text-primary font-medium text-sm tracking-wider uppercase">Voices</span>
+            <h2 className="font-display text-2xl font-bold text-foreground mt-2">What People Say</h2>
+            <p className="text-muted-foreground mt-2 text-sm max-w-lg mx-auto">
+              Hear from parents, professionals and young people who have experienced Pathway Academy Zone first-hand.
+            </p>
+          </motion.div>
+          <TestimonialsSlider testimonials={testimonials} withSchema={false} />
+        </div>
+      </section>
+
+      {/* Reviews slider */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
+            <span className="text-primary font-medium text-sm tracking-wider uppercase">Reviews</span>
+            <h2 className="font-display text-2xl font-bold text-foreground mt-2">Partner & Professional Reviews</h2>
+            <p className="text-muted-foreground mt-2 text-sm max-w-lg mx-auto">
+              Feedback from the schools, commissioners and specialist professionals who work alongside us.
+            </p>
+          </motion.div>
+          <ReviewsSlider
+            reviews={reviews}
+            aggregateRating={{ value: 4.9, count: 47 }}
+          />
         </div>
       </section>
 

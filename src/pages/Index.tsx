@@ -10,7 +10,7 @@ import {
   buildServiceSchema, buildCourseCarouselSchema,
 } from "@/lib/json-ld";
 import WhyItMattersScroller from "@/components/WhyItMattersScroller";
-import heroImg from "@/assets/presentation-CgurFU4e.webp";
+import heroImg from "@/assets/hero-classroom.webp";
 import classroomImg from "@/assets/classroom-1-NBeOjKjJ.webp";
 import vocationalImg from "@/assets/Students_collaborating_around_a_laptop-DxJYaEB5.webp";
 import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
@@ -283,14 +283,10 @@ export default function HomePage() {
   );
 }
 
-function FaqItem({ question, answer, index }: { question: string; answer: string; index: number }) {
+function FaqItem({ question, answer, index: _index }: { question: string; answer: string; index: number }) {
   const [open, setOpen] = useState(false);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+    <div
       className={`bg-card rounded-2xl border overflow-hidden transition-all duration-300 ${
         open ? "border-primary/40 shadow-md" : "border-border/50 hover:border-border"
       }`}
@@ -334,6 +330,6 @@ function FaqItem({ question, answer, index }: { question: string; answer: string
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
