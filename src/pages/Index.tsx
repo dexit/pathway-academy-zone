@@ -10,18 +10,14 @@ import {
   buildServiceSchema, buildCourseCarouselSchema,
 } from "@/lib/json-ld";
 import WhyItMattersScroller from "@/components/WhyItMattersScroller";
-//import heroImg from "@/assets/hero-classroom.webp";
-//import classroomImg from "@/assets/classroom-learning.webp";
-//import vocationalImg from "@/assets/vocational-training.webp";
-//import mentoringImg from "@/assets/mentoring-session.webp";
+import heroImg from "@/assets/presentation-CgurFU4e.webp";
+import classroomImg from "@/assets/classroom-1-NBeOjKjJ.webp";
+import vocationalImg from "@/assets/Students_collaborating_around_a_laptop-DxJYaEB5.webp";
+import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
 
 // ✅ Use the functions or direct strings instead
-import { getVocationalImg, getMentoringImg, getClassroomImg, getHeroImg, getCareersImg } from "@/utils/images";
 
-import heroImg from "@/assets/programmes/hero-learning-Ydp8GY_6.webp";
-import classroomImg from "@/assets/programmes/police-careers-CtjI0dXj.webp";
-import vocationalImg from "@/assets/programmes/creative-alliance-CB9Zjwj1.webp";
-import mentoringImg from "@/assets/programmes/national-trust-Cs1V-Y3q.webp";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -89,7 +85,7 @@ export default function HomePage() {
   return (
     <Layout>
       <Seo
-        title="Alternative Provision Stoke-on-Trent"
+        title="Alternative Provision in Stoke-on-Trent"
         description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities."
         jsonLd={homeJsonLd}
       />
@@ -115,7 +111,7 @@ export default function HomePage() {
               Alternative Provision in Staffordshire
             </span>
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 drop-shadow-md">
-              Every Young Person Deserves a Pathway To Success
+              Specialist Alternative Provision in Stoke-on-Trent
             </h1>
             <p className="text-white text-lg md:text-xl mb-4 max-w-xl drop-shadow">
               We provide specialist education for young people who need a different approach.

@@ -39,6 +39,7 @@ export default defineConfig(({ mode }) => ({
     emptyOutDir: true,
     // Chunk size warning limit
     chunkSizeWarningLimit: 1000,
+    sourcemap: true,
     // Ensure all routes fallback to index.html for SPA
     rollupOptions: {
       output: {

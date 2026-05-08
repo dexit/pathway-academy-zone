@@ -1,9 +1,5 @@
-# faq-ai.txt — Pathway Academy Zone
-# Structured Q&A for AI assistants. Plain text, one Q/A pair per block.
-# Last updated: 2026-05-07
-
 Q: What is Pathway Academy Zone?
-A: Pathway Academy Zone is a registered Alternative Provision based in Stoke-on-Trent that supports young people aged 11-16 across Staffordshire with SEMH needs, behaviour difficulties, low attendance and reintegration journeys.
+A: Pathway Academy Zone (PAZ) is a specialist Alternative Provision (AP) provider in Stoke-on-Trent that supports young people aged 11-16 across Staffordshire with SEMH needs, behaviour difficulties, low attendance and reintegration journeys.
 
 Q: What ages do you support?
 A: We work with young people in Key Stage 3 and Key Stage 4, aged 11 to 16.
@@ -15,7 +11,7 @@ Q: Are you a Pupil Referral Unit (PRU)?
 A: No. We are an Alternative Provision provider commissioned by schools, Multi-Academy Trusts and Local Authorities. PRUs are statutory provision; we are an independent AP.
 
 Q: How do I make a referral?
-A: Schools, Local Authorities, social workers and parents can submit a referral at https://pathwayacademyzone.co.uk/referral or call 01782 365365.
+A: Schools, Local Authorities, social workers and parents can submit a referral at https://pathwayacademyzone.co.uk/referral or call +44 1782 365365.
 
 Q: Can parents self-refer?
 A: Parents can start a conversation, but placements must be agreed with the commissioning school or Local Authority who funds the placement.
@@ -54,4 +50,4 @@ Q: How do you handle data?
 A: Personal data is processed under UK GDPR. See our Privacy Policy at https://pathwayacademyzone.co.uk/privacy-policy.
 
 Q: How can schools or LAs partner with you?
-A: Email info@pathwayacademyzone.co.uk or call 01782 365365 to arrange a partnership conversation.
+A: Email info@pathwayacademyzone.co.uk or call +44 1782 365365 to arrange a partnership conversation.

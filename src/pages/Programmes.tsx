@@ -263,7 +263,7 @@ export default function Programmes() {
   return (
     <Layout>
       <Seo
-        title="Our Programmes"
+        title="Our Alternative Provision Programmes"
         description="Academic re-engagement, vocational learning, SEMH support and more — Alternative Provision programmes in Stoke-on-Trent for ages 11–16."
         jsonLd={programmesSchema}
       />

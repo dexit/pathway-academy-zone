@@ -1,11 +1,12 @@
 # Pathway Academy Zone
+> Specialist Alternative Provision (AP) academy in Stoke-on-Trent supporting young people aged 11–16 with personalised, trauma-informed education.
 
-> Pathway Academy Zone is a registered Alternative Provision (AP) in Stoke-on-Trent and Staffordshire, UK, supporting young people aged 11-16 (KS3 & KS4) with SEMH needs, behaviour difficulties, disengagement, and reintegration journeys. We work with secondary schools, academies, Multi-Academy Trusts and Local Authorities to deliver structured, safe and supportive learning that improves behaviour, attendance and outcomes.
+Pathway Academy Zone (PAZ) provides structured learning environments for students who have become disengaged from mainstream education. Our approach combines academic rigour with therapeutic support and vocational opportunities.
 
 ## Contact
 
 - Email: info@pathwayacademyzone.co.uk
-- Phone: 01782 365365
+- Phone: +44 1782 365365
 - Address: Duncalf Street, Burslem, Stoke-on-Trent ST6 3LJ, United Kingdom
 - [Make a Referral](https://pathwayacademyzone.co.uk/referral): Referral form for schools, Local Authorities, social workers, and parents.
 - Data Protection: dpo@pathwayacademyzone.co.uk
