@@ -120,7 +120,12 @@ export default function Centres() {
       </motion.div></div></section>
       <section className="py-24 bg-background"><div className="container mx-auto px-4">
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-10">Gallery</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">{[buildingImg, classroomImg, mentoringImg, vocationalImg].map((img, i) => (<motion.img key={i} src={img} alt="Centre gallery" className="rounded-xl w-full h-56 object-cover" loading="lazy" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} />))}</div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">{[
+          { src: buildingImg, alt: "Pathway Academy Zone building exterior in Burslem, Stoke-on-Trent" },
+          { src: classroomImg, alt: "Small-group classroom at Pathway Academy Zone learning centre" },
+          { src: mentoringImg, alt: "Comfortable mentoring and one-to-one support space" },
+          { src: vocationalImg, alt: "Students collaborating on vocational learning activities" },
+        ].map((img, i) => (<motion.img key={i} src={img.src} alt={img.alt} className="rounded-xl w-full h-56 object-cover" loading="lazy" width="400" height="224" decoding="async" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} />))}</div>
       </div></section>
       {/* Programmes delivered at this centre */}
       <section className="py-20 bg-muted/40">

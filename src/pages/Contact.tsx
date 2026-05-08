@@ -109,25 +109,34 @@ export default function Contact() {
   return (
     <Layout>
       <Seo
-        title="Contact Pathway Academy Zone"
-        description="Get in touch with Pathway Academy Zone in Stoke-on-Trent. Call, email, or send a message — Mon–Fri 8:30am–4:00pm."
+        title="Contact Pathway Academy Zone — Staffordshire-wide Support"
+        description="Get in touch with Pathway Academy Zone. We provide Alternative Provision support for schools and families across Staffordshire and the West Midlands."
         jsonLd={contactSchema}
       />
-      <section className="relative py-32">
+      <section className="relative py-32 md:py-48">
         <div className="absolute inset-0">
           <img src={buildingImg} alt="Pathway Academy Zone building" className="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-scrim/60" />
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">Contact Us</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Get in Touch</h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.</p>
+          <div className="max-w-3xl mx-auto">
+            <Breadcrumbs
+              items={[{ label: "Contact Us" }]}
+              className="text-primary-foreground/70 mb-8 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">
+              Pathway Academy Zone
+            </p>
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-primary-foreground mb-6">Get in Touch</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+              Whether you have a question about our Alternative Provision, want to arrange a visit, or need to discuss a referral across Staffordshire, we&apos;re here to help.
+            </p>
+          </div>
         </div>
       </section>
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <Breadcrumbs items={[{ label: "Contact" }]} className="mb-10" />
           <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
             <motion.aside variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
               <h2 className="font-display text-2xl font-bold text-foreground mb-6">Contact Information</h2>

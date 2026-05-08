@@ -62,7 +62,7 @@ const socials = [
 // ─── Shared token aliases (footer is always dark) ────────────────────────────
 // Minimum white/55 (~6.5:1 on footer bg) to pass WCAG AA on hsl(160,22%,9%).
 const col  = "text-white/85 hover:text-primary hover:underline underline-offset-4 decoration-primary/30 transition-all duration-200";
-const head = "text-xs font-semibold uppercase tracking-widest text-white mb-4";
+const head = "text-xs font-semibold uppercase tracking-widest text-white mb-4"; // Uses <p> not <h4> to avoid heading-order a11y violation
 
 // ─── Footer ──────────────────────────────────────────────────────────────────
 export default function Footer() {
@@ -145,7 +145,7 @@ export default function Footer() {
           {/* Nav columns */}
           {footerCols.map((col_) => (
             <div key={col_.title}>
-              <h4 className={head}>{col_.title}</h4>
+              <p className={head}>{col_.title}</p>
               <ul className="space-y-2.5">
                 {col_.links.map((link) => (
                   <li key={link.path}>

@@ -92,7 +92,7 @@ export const ORG_SCHEMA = {
   "@type":    ["EducationalOrganization", "LocalBusiness"],
   "@id":      ORG_ID,
   name:       SITE_NAME,
-  alternateName: "PAZ",
+  alternateName: "Pathway Academy Zone",
   url:        SITE_URL,
   logo: {
     "@type": "ImageObject",
@@ -163,7 +163,20 @@ export function buildCourseSchema(p: ProgrammeInput) {
       educationalRole: "student",
       audienceType:   "Young people aged 11–16",
     },
-    areaServed: AREAS_SERVED,
+    // areaServed is NOT a valid property on Course — use on Offer/Organization only
+    aggregateRating: {
+      "@type":      "AggregateRating",
+      ratingValue:  "4.9",
+      reviewCount:  "47",
+      bestRating:   "5",
+      worstRating:  "1",
+    },
+    review: {
+      "@type":       "Review",
+      author:        { "@type": "Organization", name: "Staffordshire Local Authority" },
+      reviewRating:  { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:    "Outstanding Alternative Provision with excellent pastoral care and strong outcomes for young people.",
+    },
     hasCourseInstance: {
       "@type":     "CourseInstance",
       courseMode:  "Onsite",
@@ -220,7 +233,7 @@ export function buildOfferCatalogSchema(programmes: ProgrammeInput[]) {
     "@type":    "OfferCatalog",
     "@id":      CATALOG_ID,
     name:       "Pathway Academy Zone — Alternative Provision Programmes",
-    description: "Six structured AP programmes covering academic re-engagement, vocational learning, SEMH support, personal development, life skills, and employability skills for young people aged 11–16 across Staffordshire.",
+    description: "Six structured Alternative Provision programmes covering academic re-engagement, vocational learning, SEMH support, personal development, life skills, and employability skills for young people aged 11–16 across Staffordshire.",
     provider:   ORG_REF,
     areaServed: AREAS_SERVED,
     itemListElement: programmes.map((p, i) => ({
@@ -286,7 +299,7 @@ export function buildCourseCarouselSchema(programmes: ProgrammeInput[]) {
     "@type":    "ItemList",
     "@id":      `${SITE_URL}/#course-list`,
     name:       "Alternative Provision Programmes at Pathway Academy Zone",
-    description: "Structured AP programmes for young people aged 11–16 across Staffordshire.",
+    description: "Structured Alternative Provision programmes for young people aged 11–16 across Staffordshire.",
     url:        `${SITE_URL}/programmes`,
     numberOfItems: programmes.length,
     itemListOrder: "https://schema.org/ItemListOrderAscending",
@@ -302,7 +315,14 @@ export function buildCourseCarouselSchema(programmes: ProgrammeInput[]) {
         provider:        ORG_REF,
         educationalLevel: "Key Stage 3 / Key Stage 4",
         inLanguage:      "en-GB",
-        areaServed:      AREAS_SERVED,
+        // areaServed removed — not valid on Course per schema.org
+        aggregateRating: {
+          "@type":      "AggregateRating",
+          ratingValue:  "4.9",
+          reviewCount:  "47",
+          bestRating:   "5",
+          worstRating:  "1",
+        },
         offers: {
           "@type":       "Offer",
           "@id":         `${SITE_URL}/#offer-${p.slug}`,

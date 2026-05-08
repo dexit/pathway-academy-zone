@@ -97,7 +97,7 @@ export default function Careers() {
   return (
     <Layout>
       <Seo
-        title="Careers at Pathway Academy Zone"
+        title="Careers — Join Our AP Team"
         description="Current vacancies and speculative applications at Pathway Academy Zone. Join a team making a real difference for young people in Staffordshire."
         jsonLd={careersSchema}
       />

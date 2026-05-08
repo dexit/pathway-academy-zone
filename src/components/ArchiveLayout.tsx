@@ -36,21 +36,21 @@ export function ArchiveLayout({
     <Layout>
       <header className="bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl mx-auto text-center">
             <Breadcrumbs
               items={crumbs}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              className="text-primary-foreground/70 mb-8 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
             />
             {eyebrow && (
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
+              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">
                 {eyebrow}
               </p>
             )}
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+            <h1 className="text-3xl md:text-6xl font-bold leading-tight mb-6">
               {title}
             </h1>
             {intro && (
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
+              <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
                 {intro}
               </p>
             )}

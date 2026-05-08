@@ -11,9 +11,26 @@ import careersImg from "@/assets/amazon-careers-BRVYfevZ.webp";
 import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
 
 /* ─── animation variant ───────────────────────────────────────────────────── */
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
 };
 
 /* ─── data ────────────────────────────────────────────────────────────────── */
@@ -70,7 +87,7 @@ const areaLinks = [
 const knowledgeResources = [
   {
     title: "What is Alternative Provision?",
-    desc: "A comprehensive guide to AP — who it's for, how placements work, and what good provision looks like.",
+    desc: "A comprehensive guide to Alternative Provision — who it's for, how placements work, and what good provision looks like.",
     href: "/knowledge-hub/guides/what-is-alternative-provision",
   },
   {
@@ -90,9 +107,9 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "@id": `${SITE_URL}/partners`,
-  name: `Partners | ${SITE_NAME}`,
+  name: `Alternative Provision Partners | ${SITE_NAME}`,
   description:
-    "Pathway Academy Zone partners with Staffordshire schools, local authorities, employers and specialist services to deliver outstanding Alternative Provision.",
+    "Pathway Academy Zone partners with Staffordshire schools, local authorities, employers and specialist services to deliver outstanding Alternative Provision in Stoke-on-Trent.",
   url: `${SITE_URL}/partners`,
   about: { "@id": `${SITE_URL}/#organization` },
   breadcrumb: {
@@ -109,31 +126,46 @@ export default function Partners() {
   return (
     <Layout>
       <Seo
-        title="Our Educational & Strategic Partners"
+        title="Alternative Provision Partners in Stoke-on-Trent"
         description="Pathway Academy Zone partners with Staffordshire schools, local authorities, employers and specialist services to deliver outstanding Alternative Provision."
         jsonLd={jsonLd}
       />
 
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <Breadcrumbs
-            items={[{ label: "Partners" }]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
-              <Handshake className="w-3.5 h-3.5" /> Local Partnerships
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-              Working Together Across Staffordshire
-            </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed">
-              Strong partnerships are essential to supporting young people effectively.
-              We collaborate with schools, local authorities, employers and specialist
-              services so every referral leads to the right provision at the right time.
-            </p>
-          </div>
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden bg-primary">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 -left-24 w-72 h-72 bg-secondary/10 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-foreground/5 via-transparent to-transparent opacity-30" />
+        </div>
+
+        <div className="container relative z-10 px-4 mx-auto text-center">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="max-w-3xl mx-auto"
+          >
+            <motion.div variants={itemVariants} className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
+              <Handshake className="w-3.5 h-3.5 text-accent mr-2" />
+              <span className="text-xs font-semibold text-white/90 tracking-wide uppercase">Local Partnerships</span>
+            </motion.div>
+            
+            <motion.h1 
+              variants={itemVariants}
+              className="mb-6 text-4xl font-bold tracking-tight text-white md:text-6xl font-display"
+            >
+              Alternative Provision Partners in <span className="text-accent">Staffordshire</span>
+            </motion.h1>
+            
+            <motion.p 
+              variants={itemVariants}
+              className="text-lg leading-relaxed text-white/80 md:text-xl"
+            >
+              Strong partnerships are essential to supporting young people effectively. We collaborate with schools, local authorities, and specialist services across Stoke-on-Trent.
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
@@ -141,7 +173,7 @@ export default function Partners() {
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <motion.div
-            variants={fadeUp}
+            variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -163,7 +195,7 @@ export default function Partners() {
             {partners.map((p, i) => (
               <motion.div
                 key={p.title}
-                variants={fadeUp}
+                variants={itemVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -200,7 +232,7 @@ export default function Partners() {
       <section className="py-24 bg-muted/50">
         <div className="container mx-auto px-4">
           <motion.div
-            variants={fadeUp}
+            variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -220,7 +252,7 @@ export default function Partners() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <motion.div
-              variants={fadeUp}
+              variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -234,7 +266,7 @@ export default function Partners() {
               />
             </motion.div>
             <motion.div
-              variants={fadeUp}
+              variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -255,7 +287,7 @@ export default function Partners() {
       <section className="py-24 bg-background border-t border-border">
         <div className="container mx-auto px-4 max-w-3xl text-center">
           <motion.div
-            variants={fadeUp}
+            variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -290,7 +322,7 @@ export default function Partners() {
       <section className="py-24 bg-muted/40">
         <div className="container mx-auto px-4">
           <motion.div
-            variants={fadeUp}
+            variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -312,7 +344,7 @@ export default function Partners() {
             {knowledgeResources.map((r, i) => (
               <motion.div
                 key={r.href}
-                variants={fadeUp}
+                variants={itemVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -346,7 +378,7 @@ export default function Partners() {
       <section className="py-24 bg-primary">
         <div className="container mx-auto px-4">
           <motion.div
-            variants={fadeUp}
+            variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}

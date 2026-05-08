@@ -31,7 +31,7 @@ const AREAS: Record<string, AreaData> = {
     name: "Stoke-on-Trent",
     county: "Staffordshire",
     postcode: "ST",
-    description: "Alternative Provision in Stoke-on-Trent for young people aged 11–16 with SEMH needs, exclusions, or disengagement from mainstream education.",
+    description: "Alternative Provision in Stoke-on-Trent for young people aged 11–16 with Social, Emotional and Mental Health (SEMH) needs, exclusions, or disengagement from mainstream education.",
     blurb: "Pathway Academy Zone is based in Burslem, Stoke-on-Trent. We work directly with schools, the local authority, and families across the city to provide specialist education, pastoral support, and reintegration pathways for young people who need a different approach.",
     highlights: ["Based in Burslem, Stoke-on-Trent", "Local authority referral partners", "Supporting Stoke schools since 2018", "Emergency placements within 48 hours"],
     nearbyAreas: ["newcastle-under-lyme", "stafford", "cannock"],
@@ -41,7 +41,7 @@ const AREAS: Record<string, AreaData> = {
     name: "Newcastle-under-Lyme",
     county: "Staffordshire",
     postcode: "ST5",
-    description: "Alternative Provision serving Newcastle-under-Lyme. SEMH support, re-engagement and vocational pathways for young people aged 11–16.",
+    description: "Alternative Provision serving Newcastle-under-Lyme. Social, Emotional and Mental Health (SEMH) support, re-engagement and vocational pathways for young people aged 11–16.",
     blurb: "Pathway Academy Zone serves young people from Newcastle-under-Lyme and surrounding areas. We work closely with local schools and the Staffordshire local authority to arrange timely, high-quality placements for pupils who are excluded, at risk of exclusion, or struggling in mainstream settings.",
     highlights: ["Close partnership with Newcastle schools", "Fast-track referral process", "Vocational and academic pathways", "Pastoral and SEMH specialist support"],
     nearbyAreas: ["stoke-on-trent", "stafford", "leek"],
@@ -51,8 +51,8 @@ const AREAS: Record<string, AreaData> = {
     name: "Stafford",
     county: "Staffordshire",
     postcode: "ST16",
-    description: "Alternative Provision in Stafford, Staffordshire. Specialist education for young people aged 11–16 with SEMH, exclusion, or disengagement needs.",
-    blurb: "Pathway Academy Zone accepts referrals from schools and the local authority in Stafford and across central Staffordshire. Our tailored programmes cover SEMH support, behaviour reintegration, vocational pathways, and 1:1 mentoring.",
+    description: "Alternative Provision in Stafford, Staffordshire. Specialist education for young people aged 11–16 with Social, Emotional and Mental Health (SEMH), exclusion, or disengagement needs.",
+    blurb: "Pathway Academy Zone accepts referrals from schools and the local authority in Stafford and across central Staffordshire. Our tailored programmes cover Social, Emotional and Mental Health (SEMH) support, behaviour reintegration, vocational pathways, and 1:1 mentoring.",
     highlights: ["Serving Stafford and mid-Staffordshire", "Referrals accepted from schools and LA", "Vocational and GCSE pathway options", "Regular progress reporting for referring schools"],
     nearbyAreas: ["stoke-on-trent", "cannock", "lichfield"],
   },
@@ -61,7 +61,7 @@ const AREAS: Record<string, AreaData> = {
     name: "Cannock",
     county: "Staffordshire",
     postcode: "WS11",
-    description: "Alternative Provision near Cannock, Staffordshire. SEMH support, exclusion reintegration and vocational pathways for young people 11–16.",
+    description: "Alternative Provision near Cannock, Staffordshire. Social, Emotional and Mental Health (SEMH) support, exclusion reintegration and vocational pathways for young people 11–16.",
     blurb: "Young people from Cannock and the surrounding Staffordshire area can access Pathway Academy Zone's specialist Alternative Provision through school or local authority referral. We provide structured, nurturing environments to help young people re-engage with education and build toward positive destinations.",
     highlights: ["Accessible from Cannock via referral", "Trauma-informed, SEMH-specialist staff", "Linked to local vocational providers", "Post-16 progression planning included"],
     nearbyAreas: ["stafford", "lichfield", "wolverhampton"],
@@ -71,7 +71,7 @@ const AREAS: Record<string, AreaData> = {
     name: "Lichfield",
     county: "Staffordshire",
     postcode: "WS13",
-    description: "Alternative Provision serving Lichfield, Staffordshire. Specialist education and SEMH support for excluded or disengaged young people aged 11–16.",
+    description: "Alternative Provision serving Lichfield, Staffordshire. Specialist education and Social, Emotional and Mental Health (SEMH) support for excluded or disengaged young people aged 11–16.",
     blurb: "Pathway Academy Zone supports young people from Lichfield and the southern Staffordshire district through its Alternative Provision programmes. We work with schools, social workers, and families to identify the right pathway and begin placements quickly when needed.",
     highlights: ["Serving Lichfield and south Staffordshire", "Multi-agency partnership working", "Academic and vocational programmes", "Dedicated DSL and safeguarding team"],
     nearbyAreas: ["cannock", "stafford", "tamworth"],
@@ -81,7 +81,7 @@ const AREAS: Record<string, AreaData> = {
     name: "Tamworth",
     county: "Staffordshire",
     postcode: "B79",
-    description: "Alternative Provision near Tamworth, Staffordshire. Specialist placements for young people aged 11–16 with SEMH, exclusion or disengagement from mainstream.",
+    description: "Alternative Provision near Tamworth, Staffordshire. Specialist placements for young people aged 11–16 with Social, Emotional and Mental Health (SEMH), exclusion or disengagement from mainstream.",
     blurb: "Referrals from Tamworth schools and Staffordshire LA are welcome at Pathway Academy Zone. We provide specialist Alternative Provision through personalised learning plans, pastoral mentoring, and close links with post-16 providers to ensure every young person has a clear destination.",
     highlights: ["Accessible from Tamworth", "Personalised EHCP and SEMH support", "Strong safeguarding and DSL provision", "Post-16 and NEET prevention focus"],
     nearbyAreas: ["lichfield", "stafford", "wolverhampton"],
@@ -91,7 +91,7 @@ const AREAS: Record<string, AreaData> = {
     name: "Wolverhampton",
     county: "West Midlands",
     postcode: "WV",
-    description: "Alternative Provision near Wolverhampton. Pathway Academy Zone offers SEMH support and reintegration programmes for young people 11–16.",
+    description: "Alternative Provision near Wolverhampton. Pathway Academy Zone offers Social, Emotional and Mental Health (SEMH) support and reintegration programmes for young people 11–16.",
     blurb: "Pathway Academy Zone accepts referrals from schools and local authorities in Wolverhampton and the surrounding West Midlands area. Our specialist Alternative Provision is designed for young people who have been permanently excluded, are at risk of exclusion, or are struggling with SEMH needs.",
     highlights: ["Accessible from Wolverhampton", "Out-of-area LA referrals considered", "Vocational and pastoral programmes", "Qualified SEMH and youth-work staff"],
     nearbyAreas: ["cannock", "lichfield", "stoke-on-trent"],
@@ -101,7 +101,7 @@ const AREAS: Record<string, AreaData> = {
     name: "Leek",
     county: "Staffordshire Moorlands",
     postcode: "ST13",
-    description: "Alternative Provision serving Leek and the Staffordshire Moorlands. SEMH support, reintegration and vocational pathways for young people aged 11–16.",
+    description: "Alternative Provision serving Leek and the Staffordshire Moorlands. Social, Emotional and Mental Health (SEMH) support, reintegration and vocational pathways for young people aged 11–16.",
     blurb: "Pathway Academy Zone works with schools and families in Leek and the wider Staffordshire Moorlands district. Through our referral process, young people can access specialist support quickly, whether they are facing permanent exclusion, struggling with attendance, or have complex SEMH needs.",
     highlights: ["Serving Staffordshire Moorlands area", "Quick-start referral process", "SEMH and trauma-informed approach", "Links with Staffordshire Moorlands LA"],
     nearbyAreas: ["stoke-on-trent", "newcastle-under-lyme", "stafford"],
@@ -120,21 +120,21 @@ const features = [
 const programmeLinks = [
   { slug: "academic-re-engagement", label: "Academic Re-engagement", icon: BookOpen },
   { slug: "vocational-learning", label: "Vocational Learning", icon: Briefcase },
-  { slug: "semh-support", label: "SEMH Support", icon: Shield },
+  { slug: "semh-support", label: "Social, Emotional and Mental Health (SEMH) Support", icon: Shield },
   { slug: "personal-development", label: "Personal Development", icon: Target },
   { slug: "life-skills", label: "Life Skills", icon: Users },
   { slug: "employability-skills", label: "Employability Skills", icon: GraduationCap },
 ];
 
 const resourceLinks = [
-  { href: "/knowledge-hub/guides/what-is-alternative-provision", label: "What is Alternative Provision?", desc: "A complete overview of AP, how it works, and who it's for." },
-  { href: "/knowledge-hub/guides/when-to-refer", label: "When to Refer a Young Person", desc: "Signs that a student may benefit from an AP placement." },
-  { href: "/knowledge-hub/best-practice/semh-pathways", label: "SEMH Pathways in AP", desc: "How therapeutic SEMH support is integrated into provision." },
+  { href: "/knowledge-hub/guides/what-is-alternative-provision", label: "What is Alternative Provision?", desc: "A complete overview of Alternative Provision (AP), how it works, and who it's for." },
+  { href: "/knowledge-hub/guides/when-to-refer", label: "When to Refer a Young Person", desc: "Signs that a student may benefit from an Alternative Provision (AP) placement." },
+  { href: "/knowledge-hub/best-practice/semh-pathways", label: "SEMH Pathways in Alternative Provision", desc: "How therapeutic Social, Emotional and Mental Health (SEMH) support is integrated into provision." },
 ];
 
 const glossaryTerms = [
   { href: "/knowledge-hub/glossary", label: "Alternative Provision (AP)" },
-  { href: "/knowledge-hub/glossary", label: "SEMH" },
+  { href: "/knowledge-hub/glossary", label: "Social, Emotional and Mental Health (SEMH)" },
   { href: "/knowledge-hub/glossary", label: "EHCP" },
 ];
 
@@ -166,15 +166,15 @@ export default function AreaPage() {
     },
     {
       q: `What age range does Pathway Academy Zone serve in ${area.name}?`,
-      a: `We support young people aged 11–16 (Years 7–11) who are permanently excluded, at risk of exclusion, struggling with attendance, or have complex SEMH needs that cannot be met in mainstream education.`,
+      a: `We support young people aged 11–16 (Years 7–11) who are permanently excluded, at risk of exclusion, struggling with attendance, or have complex Social, Emotional and Mental Health (SEMH) needs that cannot be met in mainstream education.`,
     },
     {
       q: `Does Pathway Academy Zone accept referrals from ${area.name} local authority?`,
-      a: `Yes — we work directly with schools, the local authority, social workers, and virtual school heads across ${area.county}. LA funding and EHCP placements are welcome.`,
+      a: `Yes — we work directly with schools, the local authority, social workers, and virtual school heads across ${area.county}. Local Authority funding and Education, Health and Care Plan (EHCP) placements are welcome.`,
     },
     {
       q: `What programmes are available to young people from ${area.name}?`,
-      a: `All six of our core programmes are available: Academic Re-engagement, Vocational Learning, SEMH Support, Personal Development, Life Skills, and Employability Skills. Most placements combine elements from several programmes.`,
+      a: `All six of our core programmes are available: Academic Re-engagement, Vocational Learning, Social, Emotional and Mental Health (SEMH) Support, Personal Development, Life Skills, and Employability Skills. Most placements combine elements from several programmes.`,
     },
   ];
 
@@ -184,7 +184,7 @@ export default function AreaPage() {
   const AREA_PROGRAMME_STUBS = [
     { slug: "academic-re-engagement", title: "Academic Re-engagement",  desc: "Structured academic curriculum for young people aged 11–16.",    features: [], schedule: "Full-time or part-time", time: "Mon–Fri 9:30am–2:30pm", whoFor: "", outcomes: ["Improved attendance", "GCSE / functional skills"] },
     { slug: "vocational-learning",    title: "Vocational Learning",      desc: "Hands-on practical vocational skills.",                           features: [], schedule: "1–2 days per week",     time: "Varies",              whoFor: "", outcomes: ["Industry certificates"] },
-    { slug: "semh-support",           title: "SEMH Support",             desc: "Therapeutic support for SEMH needs.",                            features: [], schedule: "Ongoing",             time: "2–3 sessions/week",   whoFor: "", outcomes: ["Emotional regulation"] },
+    { slug: "semh-support",           title: "Social, Emotional and Mental Health (SEMH) Support",             desc: "Therapeutic support for SEMH needs.",                            features: [], schedule: "Ongoing",             time: "2–3 sessions/week",   whoFor: "", outcomes: ["Emotional regulation"] },
     { slug: "personal-development",   title: "Personal Development",     desc: "Resilience and life-skills enrichment.",                         features: [], schedule: "Integrated",           time: "2 hrs/week",          whoFor: "", outcomes: ["Resilience"] },
     { slug: "life-skills",            title: "Life Skills Programme",    desc: "Independent living and digital literacy.",                       features: [], schedule: "Integrated",           time: "Weekly",              whoFor: "", outcomes: ["Independent living skills"] },
     { slug: "employability-skills",   title: "Employability Skills",     desc: "CV writing, interview practice, and work experience.",           features: [], schedule: "Year 10 & 11",         time: "Weekly + placements", whoFor: "", outcomes: ["Employment-ready"] },
@@ -207,7 +207,7 @@ export default function AreaPage() {
       name: SITE_NAME,
       url: SITE_URL,
       educationalLevel: "Secondary",
-      teaches: ["Alternative Provision", "SEMH Support", "Vocational Learning", "Academic Re-engagement", "Life Skills", "Employability Skills"],
+      teaches: ["Alternative Provision", "Social, Emotional and Mental Health (SEMH) Support", "Vocational Learning", "Academic Re-engagement", "Life Skills", "Employability Skills"],
       areaServed: [areaCity, ...AREAS_SERVED],
       address: ORG_ADDRESS,
       geo: ORG_GEO,
@@ -293,42 +293,52 @@ export default function AreaPage() {
       />
 
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <Breadcrumbs
-            items={[
-              { label: "Areas We Serve", to: "/contact" },
-              { label: area.name },
-            ]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 backdrop-blur-sm border border-white/20">
-              <MapPin className="w-3.5 h-3.5" /> {area.county}
+      <section className="bg-primary text-primary-foreground py-16 md:py-24 overflow-hidden relative">
+        {/* Abstract background elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
+          <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-br from-white/40 to-transparent blur-3xl" />
+          <div className="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-gradient-to-tl from-white/30 to-transparent blur-3xl" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <Breadcrumbs
+              items={[
+                { label: "Areas We Serve", to: "/contact" },
+                { label: area.name },
+              ]}
+              className="text-primary-foreground/70 mb-8 flex justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-4 py-1.5 text-xs font-semibold tracking-widest uppercase mb-6 backdrop-blur-sm border border-white/20">
+              <MapPin className="w-3.5 h-3.5" /> {area.county} Regional Coverage
             </div>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+            
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 tracking-tight">
               Alternative Provision<br />in {area.name}
             </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-8">
+            
+            <p className="text-primary-foreground/90 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
               {area.blurb}
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 font-semibold shadow-lg">
-                <Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-4 w-4" /></Link>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button asChild size="lg" className="rounded-full bg-white text-primary hover:bg-white/90 font-bold px-8 shadow-xl shadow-primary-900/20">
+                <Link to="/referral">Make a Referral <ArrowRight className="ml-2 h-5 w-5" /></Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full border-2 border-white/40 bg-transparent text-white hover:bg-white/10 backdrop-blur-sm">
+              <Button asChild size="lg" variant="outline" className="rounded-full border-2 border-white/40 bg-transparent text-white hover:bg-white/10 backdrop-blur-sm px-8">
                 <a href="tel:+441782365365">
-                  <Phone className="h-4 w-4 mr-2" /> 01782 365365
+                  <Phone className="h-5 w-5 mr-2" /> 01782 365365
                 </a>
               </Button>
             </div>
 
             {/* Stats strip */}
-            <div className="grid grid-cols-3 gap-4 border-t border-white/20 pt-8">
+            <div className="grid grid-cols-3 gap-8 border-t border-white/20 pt-10">
               {heroStats.map((s) => (
-                <div key={s.label}>
-                  <p className="text-2xl md:text-3xl font-bold text-white">{s.value}</p>
-                  <p className="text-xs text-primary-foreground/70 mt-0.5">{s.label}</p>
+                <div key={s.label} className="flex flex-col items-center">
+                  <p className="text-3xl md:text-4xl font-black text-white">{s.value}</p>
+                  <p className="text-xs md:text-sm font-medium text-primary-foreground/70 uppercase tracking-wider mt-1">{s.label}</p>
                 </div>
               ))}
             </div>

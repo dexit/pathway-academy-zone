@@ -35,20 +35,29 @@ export default function About() {
   return (
     <Layout>
       <Seo
-        title="About Pathway Academy Zone"
-        description="Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people aged 11–16 across Staffordshire."
+        title="About Pathway Academy Zone — Leading Alternative Provision in Staffordshire"
+        description="Learn about Pathway Academy Zone, a specialist Alternative Provision supporting vulnerable young people aged 11–16 across Staffordshire and the West Midlands."
         jsonLd={aboutJsonLd}
       />
-      <section className="relative py-32">
-        <div className="absolute inset-0"><img src={classroomImg} alt="Students learning in a classroom at Pathway Academy Zone" className="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchPriority="high" /><div className="absolute inset-0 bg-scrim/60" /></div>
+      <section className="relative py-32 md:py-48">
+        <div className="absolute inset-0">
+          <img src={classroomImg} alt="Students learning in a classroom at Pathway Academy Zone" className="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchPriority="high" />
+          <div className="absolute inset-0 bg-scrim/60" />
+        </div>
         <div className="container mx-auto px-4 text-center relative z-10">
-          <Breadcrumbs
-            items={[{ label: "About Us" }]}
-            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">About Us</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Who We Are</h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.</p>
+          <div className="max-w-3xl mx-auto">
+            <Breadcrumbs
+              items={[{ label: "About Us" }]}
+              className="text-primary-foreground/70 mb-8 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+            />
+            <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">
+              Pathway Academy Zone
+            </p>
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-primary-foreground mb-6">Who We Are</h1>
+            <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+              Pathway Academy Zone is a specialist regional Alternative Provision organisation supporting vulnerable young people across Staffordshire, providing academic, vocational, and emotional pathways to success.
+            </p>
+          </div>
         </div>
       </section>
       <section className="py-24 bg-background">
@@ -58,7 +67,7 @@ export default function About() {
               <span className="text-primary font-medium text-sm tracking-wider uppercase">Our Mission</span>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">Empowering Young People to Succeed</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">We believe every young person deserves access to quality education, regardless of their circumstances. Our mission is to provide structured, trauma-informed Alternative Provision that helps students overcome barriers, develop resilience, and build the skills they need for a successful future.</p>
-              <p className="text-muted-foreground leading-relaxed mb-4">Founded with a deep understanding of the challenges facing young people in the AP sector, Pathway Academy Zone combines academic rigour with therapeutic support, vocational opportunities, and strong pastoral care.</p>
+              <p className="text-muted-foreground leading-relaxed mb-4">Founded with a deep understanding of the challenges facing young people in the Alternative Provision sector, Pathway Academy Zone combines academic rigour with therapeutic support, vocational opportunities, and strong pastoral care.</p>
               <p className="text-muted-foreground leading-relaxed">We work closely with mainstream schools, local authorities, virtual schools, and families to ensure every young person receives the support they need to thrive.</p>
             </motion.div>
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}><img src={mentoringImg} alt="One-to-one mentoring session supporting a young person" className="rounded-2xl shadow-lg w-full" loading="lazy" width="800" height="600" /></motion.div>

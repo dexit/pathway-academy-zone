@@ -157,7 +157,7 @@ export default function Outcomes() {
   return (
     <Layout>
       <Seo
-        title="Outcomes & Impact of Alternative Provision"
+        title="Outcomes & Impact — AP Results"
         description="94% attendance improvement, 87% positive destinations. See how Pathway Academy Zone transforms lives across Staffordshire."
         jsonLd={jsonLd}
       />

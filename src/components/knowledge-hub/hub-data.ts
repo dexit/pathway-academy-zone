@@ -25,8 +25,8 @@ export const HUB_SECTIONS: HubSection[] = [
     color: "text-primary",
     resources: [
       { title: "What is Alternative Provision", href: "/knowledge-hub/guides/what-is-alternative-provision" },
-      { title: "How AP Works in Staffordshire", href: "/knowledge-hub/guides/how-ap-works-staffordshire" },
-      { title: "High-Quality AP Provider", href: "/knowledge-hub/guides/high-quality-ap-provider" },
+      { title: "How Alternative Provision Works in Staffordshire", href: "/knowledge-hub/guides/how-ap-works-staffordshire" },
+      { title: "High-Quality Alternative Provision Provider", href: "/knowledge-hub/guides/high-quality-ap-provider" },
       { title: "When to Refer a Learner", href: "/knowledge-hub/guides/when-to-refer" },
       { title: "Academic vs Vocational", href: "/knowledge-hub/guides/academic-vs-vocational" },
     ],
@@ -35,11 +35,11 @@ export const HUB_SECTIONS: HubSection[] = [
     id: "comparisons",
     title: "Comparisons",
     description:
-      "Side-by-side comparisons to help decision-makers understand the differences between various AP models and approaches.",
+      "Side-by-side comparisons to help decision-makers understand the differences between various Alternative Provision models and approaches.",
     icon: GitCompare,
     color: "text-primary",
     resources: [
-      { title: "AP vs Mainstream Schooling", href: "/knowledge-hub/comparisons/ap-vs-mainstream" },
+      { title: "Alternative Provision vs Mainstream Schooling", href: "/knowledge-hub/comparisons/ap-vs-mainstream" },
       { title: "Group vs One-to-One", href: "/knowledge-hub/comparisons/group-vs-one-to-one" },
       { title: "Short-Term vs Long-Term", href: "/knowledge-hub/comparisons/short-vs-long-term" },
       { title: "Onsite vs Offsite", href: "/knowledge-hub/comparisons/onsite-vs-offsite" },

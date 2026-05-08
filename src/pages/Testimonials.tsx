@@ -184,7 +184,7 @@ export default function Testimonials() {
   return (
     <Layout>
       <Seo
-        title="Verified Alternative Provision Testimonials"
+        title="AP Testimonials & Success Stories"
         description={`What schools, parents, and young people say about Pathway Academy Zone's Alternative Provision. ${testimonials.length} verified testimonials.`}
         jsonLd={schema}
       />

@@ -158,7 +158,27 @@ const areaLinks = [
   { name: "Wolverhampton",        slug: "wolverhampton" },
 ];
 
-const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 export default function ProgrammeDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -186,33 +206,47 @@ export default function ProgrammeDetail() {
   return (
     <Layout>
       <Seo
-        title={prog.title}
+        title={`${prog.title} | Alternative Provision Stoke-on-Trent`}
         description={prog.seoDesc}
         jsonLd={schema}
         image={prog.img}
       />
 
-      {/* Hero */}
-      <section className="relative min-h-[52vh] flex items-end overflow-hidden">
-        <img
-          src={prog.img}
-          alt={prog.title}
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="eager"
-          fetchPriority="high"
-          width="1920"
-          height="1080"
-          decoding="sync"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
-        <div className="relative container mx-auto px-4 pb-14 pt-32">
-          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold mb-4 ${tagColors[prog.tag] ?? "bg-muted text-muted-foreground"}`}>
-            {prog.tag}
-          </span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-3 max-w-2xl leading-tight">
-            {prog.title}
-          </h1>
-          <p className="text-white/80 text-lg max-w-xl leading-relaxed">{prog.desc}</p>
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden bg-primary">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 -left-24 w-72 h-72 bg-secondary/10 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-foreground/5 via-transparent to-transparent opacity-30" />
+        </div>
+
+        <div className="container relative z-10 px-4 mx-auto text-center">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="max-w-3xl mx-auto"
+          >
+            <motion.div variants={itemVariants} className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
+              <span className={`flex h-2 w-2 rounded-full mr-2 ${prog.tag === 'Core Programme' ? 'bg-accent' : 'bg-secondary'} animate-pulse`} />
+              <span className="text-xs font-semibold text-white/90 tracking-wide uppercase">{prog.tag}</span>
+            </motion.div>
+            
+            <motion.h1 
+              variants={itemVariants}
+              className="mb-6 text-4xl font-bold tracking-tight text-white md:text-6xl font-display"
+            >
+              {prog.title}
+            </motion.h1>
+            
+            <motion.p 
+              variants={itemVariants}
+              className="text-lg leading-relaxed text-white/80 md:text-xl"
+            >
+              {prog.desc}
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
@@ -231,7 +265,7 @@ export default function ProgrammeDetail() {
             {/* Left: detail */}
             <motion.div
               className="lg:col-span-2 space-y-10"
-              variants={fadeUp}
+              variants={itemVariants}
               initial="hidden"
               animate="visible"
             >
@@ -295,7 +329,7 @@ export default function ProgrammeDetail() {
             {/* Right: sidebar */}
             <motion.div
               className="space-y-6"
-              variants={fadeUp}
+              variants={itemVariants}
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.15 }}
@@ -371,7 +405,7 @@ export default function ProgrammeDetail() {
             {related.map((r, i) => (
               <motion.div
                 key={r.slug}
-                variants={fadeUp}
+                variants={itemVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}

@@ -60,7 +60,7 @@ export default function Team() {
   return (
     <Layout>
       <Seo
-        title="Meet the Pathway Academy Zone Team"
+        title="Our Team — Staff & Specialists"
         description="Meet the educators, mentors and leadership team behind Pathway Academy Zone — Alternative Provision in Stoke-on-Trent."
         jsonLd={teamSchema}
       />

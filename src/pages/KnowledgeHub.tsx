@@ -32,23 +32,23 @@ export default function KnowledgeHub() {
       <main className="min-h-screen bg-background">
         {/* Page Header */}
         <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-2xl">
+          <div className="container mx-auto px-4 py-14 md:py-24">
+            <div className="max-w-3xl mx-auto text-center">
               <Breadcrumbs
                 items={[{ label: "Knowledge Hub" }]}
-                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+                className="text-primary-foreground/70 mb-8 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
               />
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
+              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-4">
                 Pathway Academy Zone
               </p>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
                 Knowledge Hub
               </h1>
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
+              <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed">
                 Your comprehensive resource for understanding Alternative
                 Provision. Expert guides, practical comparisons, and
                 evidence-based best practices for educators, parents, and
-                professionals.
+                professionals across Staffordshire.
               </p>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function KnowledgeHub() {
                   <div className="max-w-xl">
 
                     <p className="text-primary-foreground/70 leading-relaxed text-sm md:text-base">
-                      Our definitive guide covering the full AP journey from
+                      Our definitive guide covering the full Alternative Provision journey from
                       referral triggers to progression routes. Essential reading
                       for anyone involved in supporting young people outside
                       mainstream education.

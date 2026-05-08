@@ -35,7 +35,7 @@ export default function CompleteGuide() {
   return (
     <Layout>
       <Seo
-        title="The Complete Guide to Alternative Provision"
+        title="Complete AP Guide for Schools & LAs"
         description="Comprehensive guide to Alternative Provision in England, with a focus on Staffordshire. Covers definitions, legal duties, referral triggers, programme models, safeguarding, and progression routes."
         jsonLd={jsonLd}
       />

@@ -115,11 +115,7 @@ export function Seo({
   const { pathname } = useLocation();
   const url = canonical || `${SITE_URL}${pathname}`;
 
-  let fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
-  if (fullTitle.length > 60 && !title.includes(SITE_NAME)) {
-    const altTitle = `${title} | PAZ`;
-    if (altTitle.length <= 60) fullTitle = altTitle;
-  }
+  const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
 
   const ogImage = absoluteUrl(image || DEFAULT_OG_IMAGE);
   const ogAlt = imageAlt || `${SITE_NAME} — Alternative Provision in Stoke-on-Trent`;

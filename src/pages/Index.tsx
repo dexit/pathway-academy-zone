@@ -39,7 +39,7 @@ const approaches = [
 ];
 
 const faqs = [
-  { q: "What is Alternative Provision?", a: "Alternative Provision (AP) is education arranged for pupils who can't attend mainstream school due to exclusion, illness, or other reasons. It provides structured learning in smaller, more supportive environments." },
+  { q: "What is Alternative Provision?", a: "Alternative Provision is education arranged for pupils who can't attend mainstream school due to exclusion, illness, or other reasons. It provides structured learning in smaller, more supportive environments." },
   { q: "Who is Pathway Academy Zone for?", a: "We support young people aged 11-16 (KS3 & KS4) who are permanently excluded, at risk of exclusion, disengaged from mainstream education, or have social, emotional and mental health needs." },
   { q: "How does the referral process work?", a: "Referrals are made by schools, local authorities, or social workers. Contact us to discuss needs, we gather information, hold an assessment meeting, then create a personalised placement plan." },
   { q: "How quickly can a learner start?", a: "Emergency placements can begin within 48 hours. Standard placements typically start within 1-2 weeks following the assessment process." },
@@ -50,7 +50,7 @@ const faqs = [
 const HOME_PROGRAMMES = [
   { slug: "academic-re-engagement", title: "Academic Re-engagement",  desc: "Structured academic curriculum for young people aged 11–16.",    features: [], schedule: "Full-time or part-time", time: "Mon–Fri 9:30am–2:30pm", whoFor: "Post-exclusion students",      outcomes: ["Improved attendance", "GCSE / functional skills"] },
   { slug: "vocational-learning",    title: "Vocational Learning",      desc: "Hands-on practical skills in construction, catering and more.",  features: [], schedule: "1–2 days per week",     time: "Varies",              whoFor: "Practical learners",          outcomes: ["Industry certificates", "Apprenticeship pathways"] },
-  { slug: "semh-support",           title: "SEMH Support",             desc: "Therapeutic 1:1 and group support for social and emotional needs.", features: [], schedule: "Ongoing",             time: "2–3 sessions/week",   whoFor: "SEMH-identified students",    outcomes: ["Emotional regulation", "Reduced anxiety"] },
+  { slug: "semh-support",           title: "Social, Emotional and Mental Health (SEMH) Support",             desc: "Therapeutic 1:1 and group support for social and emotional needs.", features: [], schedule: "Ongoing",             time: "2–3 sessions/week",   whoFor: "Social, Emotional and Mental Health (SEMH) identified students",    outcomes: ["Emotional regulation", "Reduced anxiety"] },
   { slug: "personal-development",   title: "Personal Development",     desc: "Resilience, communication, and life-skills enrichment.",         features: [], schedule: "Integrated",           time: "2 hrs/week",          whoFor: "All students",                outcomes: ["Resilience", "Self-esteem"] },
   { slug: "life-skills",            title: "Life Skills Programme",    desc: "Independent living, digital literacy, and health education.",    features: [], schedule: "Integrated",           time: "Weekly",              whoFor: "CLA and EHCP students",       outcomes: ["Independent living skills"] },
   { slug: "employability-skills",   title: "Employability Skills",     desc: "CV writing, interview practice, and work experience.",           features: [], schedule: "Year 10 & 11",         time: "Weekly + placements", whoFor: "Year 10 and 11",              outcomes: ["Employment-ready", "Positive destinations"] },
@@ -85,12 +85,12 @@ export default function HomePage() {
   return (
     <Layout>
       <Seo
-        title="Alternative Provision in Stoke-on-Trent"
-        description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. SEMH support, behaviour and reintegration programmes for schools and Local Authorities."
+        title="Alternative Provision in Stoke-on-Trent & Staffordshire"
+        description="Pathway Academy Zone is an Alternative Provision in Stoke-on-Trent for ages 11-16. Social, Emotional and Mental Health (SEMH) support, behaviour and reintegration programmes for schools and Local Authorities."
         jsonLd={homeJsonLd}
       />
       {/* Hero - Full screen with image overlay */}
-      <section className="relative min-h-[calc(100vh-5rem)] flex items-center">
+      <section className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center text-center">
         <div className="absolute inset-0">
           <img
             src={heroImg}
@@ -103,23 +103,23 @@ export default function HomePage() {
             decoding="sync"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-scrim/80 via-scrim/65 to-scrim/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-scrim/80 via-scrim/60 to-scrim/80" />
         </div>
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-2xl">
+        <div className="container mx-auto px-4 py-20 relative z-10 flex flex-col items-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-4xl mx-auto">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold mb-6 shadow-md">
               Alternative Provision in Staffordshire
             </span>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 drop-shadow-md">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 drop-shadow-md">
               Specialist Alternative Provision in Stoke-on-Trent
             </h1>
-            <p className="text-white text-lg md:text-xl mb-4 max-w-xl drop-shadow">
+            <p className="text-white text-lg md:text-xl mb-4 max-w-2xl mx-auto drop-shadow font-medium">
               We provide specialist education for young people who need a different approach.
             </p>
-            <p className="text-white/90 text-base md:text-lg mb-10 max-w-xl drop-shadow">
+            <p className="text-white/90 text-base md:text-lg mb-10 max-w-2xl mx-auto drop-shadow">
               Through structure, care and high expectations, we help young people re-engage, rebuild confidence and move forward in education, employment or training.
             </p>
-            <div className="flex flex-col sm:flex-row items-start gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button asChild size="xl" className="rounded-full shadow-lg px-8">
                 <Link to="/referral">Make a Referral <ArrowRight className="ml-1 h-5 w-5" /></Link>
               </Button>
@@ -147,7 +147,7 @@ export default function HomePage() {
                 Pathway Academy Zone works with young people aged 11-16 who have been excluded from mainstream education, or who are at risk of exclusion. We partner with schools, local authorities, and families across Staffordshire to provide structured, supportive learning environments where every student can succeed.
               </p>
               <ul className="space-y-3 mb-8">
-                {["SEMH-focused curriculum delivery", "Small group and 1:1 support", "Qualified teachers and mentors", "Strong pastoral care teams", "Vocational and academic pathways"].map((item) => (
+                {["Social, Emotional and Mental Health (SEMH) focused curriculum delivery", "Small group and 1:1 support", "Qualified teachers and mentors", "Strong pastoral care teams", "Vocational and academic pathways"].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-foreground">
                     <CircleCheckBig className="w-5 h-5 text-primary shrink-0" />
                     {item}
@@ -240,7 +240,7 @@ export default function HomePage() {
           <div className="bg-card rounded-3xl p-8 md:p-12 border border-border shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="max-w-xl">
               <h2 className="font-display text-3xl font-bold text-foreground mb-4">Educational Resources & Guides</h2>
-              <p className="text-muted-foreground">Explore our Knowledge Hub for comprehensive guides on Alternative Provision, SEMH support, and educational best practices.</p>
+              <p className="text-muted-foreground">Explore our Knowledge Hub for comprehensive guides on Alternative Provision, Social, Emotional and Mental Health (SEMH) support, and educational best practices.</p>
             </div>
             <Button asChild size="lg" className="shrink-0">
               <Link to="/knowledge-hub">Visit Knowledge Hub <ArrowRight className="ml-2 h-5 w-5" /></Link>

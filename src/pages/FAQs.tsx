@@ -19,15 +19,15 @@ const GROUPS: FAQGroup[] = [
     items: [
       {
         q: "What is Alternative Provision?",
-        a: "Alternative Provision (AP) is education arranged for pupils who can't attend mainstream school due to exclusion, illness, SEMH needs, or other reasons. It provides structured learning in smaller, more supportive environments alongside pastoral and therapeutic input.",
+        a: "Alternative Provision (AP) is education arranged for pupils who can't attend mainstream school due to exclusion, illness, Social, Emotional and Mental Health (SEMH) needs, or other reasons. It provides structured learning in smaller, more supportive environments alongside pastoral and therapeutic input.",
       },
       {
         q: "Who is Pathway Academy Zone for?",
-        a: "We support young people aged 11-16 (Key Stages 3 and 4) who are permanently excluded, at risk of exclusion, disengaged from mainstream education, or who have social, emotional and mental health (SEMH) needs that mainstream cannot currently meet.",
+        a: "We support young people aged 11-16 (Key Stages 3 and 4) who are permanently excluded, at risk of exclusion, disengaged from mainstream education, or who have Social, Emotional and Mental Health (SEMH) needs that mainstream cannot currently meet.",
       },
       {
-        q: "Is AP the same as being 'sent away from school'?",
-        a: "No. AP is a legitimate, statutory education route. Many of our learners remain dual-rolled with their home school and return to mainstream after a successful placement.",
+        q: "Is Alternative Provision the same as being 'sent away from school'?",
+        a: "No. Alternative Provision is a legitimate, statutory education route. Many of our learners remain dual-rolled with their home school and return to mainstream after a successful placement.",
       },
     ],
   },
@@ -127,14 +127,14 @@ export default function FAQs() {
   return (
     <>
       <Seo
-        title="Frequently Asked Questions"
-        description="Answers to the most common questions about Alternative Provision, referrals, and life at Pathway Academy Zone."
+        title="Frequently Asked Questions — Alternative Provision in Staffordshire"
+        description="Find answers to common questions about Alternative Provision, Social, Emotional and Mental Health (SEMH) support, and referrals at Pathway Academy Zone."
         jsonLd={jsonLd}
       />
       <ArchiveLayout
         crumbs={[{ label: "FAQs" }]}
         title="Frequently Asked Questions"
-        intro="Quick answers for parents, carers, schools, local authorities, and anyone new to Alternative Provision."
+        intro="Quick answers for parents, carers, schools, local authorities, and anyone new to Alternative Provision across Staffordshire."
         sidebar={{
           toc: GROUPS.map((g) => ({ id: g.id, label: g.title, level: 2 })),
           ctas: [

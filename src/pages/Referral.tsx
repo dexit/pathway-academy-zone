@@ -22,7 +22,28 @@ import {
 
 const REFERRAL_WEBHOOK = import.meta.env.VITE_REFERRAL_WEBHOOK as string | undefined;
 
-const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
 const steps = [
   { num: 1, icon: Phone, title: "Initial Contact", desc: "Contact us by phone or complete the referral form to discuss your young person's needs." },
   { num: 2, icon: FileText, title: "Information Gathering", desc: "We collect relevant documentation including educational history, EHCP/SEN information, and safeguarding details." },
@@ -102,15 +123,46 @@ export default function Referral() {
   return (
     <Layout>
       <Seo
-        title="Make a Referral"
-        description="Refer a young person to Pathway Academy Zone — Alternative Provision in Stoke-on-Trent for ages 11–16. Schools, Local Authorities, social workers and virtual schools welcome."
+        title="Referral Portal | Alternative Provision & SEMH Support"
+        description="Refer a young person to Pathway Academy Zone — Alternative Provision for ages 11–16. Schools, Local Authorities, and social workers can refer here."
       />
 
-      <section className="py-32 bg-muted/30">
-        <div className="container mx-auto px-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Referral Process</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">How to Refer a Young Person</h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We accept referrals from schools, local authorities, social workers, and virtual schools.</p>
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden bg-primary">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 -left-24 w-72 h-72 bg-secondary/10 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-foreground/5 via-transparent to-transparent opacity-30" />
+        </div>
+
+        <div className="container relative z-10 px-4 mx-auto text-center">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="max-w-3xl mx-auto"
+          >
+            <motion.div variants={itemVariants} className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
+              <span className="flex h-2 w-2 rounded-full mr-2 bg-accent animate-pulse" />
+              <span className="text-xs font-semibold text-white/90 tracking-wide uppercase">Referral Process</span>
+            </motion.div>
+            
+            <motion.h1 
+              variants={itemVariants}
+              className="mb-6 text-4xl font-bold tracking-tight text-white md:text-6xl font-display"
+            >
+              How to Refer a Young Person
+            </motion.h1>
+            
+            <motion.p 
+              variants={itemVariants}
+              className="text-lg leading-relaxed text-white/80 md:text-xl"
+            >
+              We accept referrals from schools, local authorities, social workers, and virtual schools 
+              across Stoke-on-Trent and the surrounding regions.
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
@@ -123,9 +175,15 @@ export default function Referral() {
       <section className="pb-24 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">The Referral Journey</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="grid grid-cols-1 md:grid-cols-4 gap-6"
+          >
             {steps.map((s, i) => (
-              <motion.div key={s.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
+              <motion.div key={s.title} variants={itemVariants} className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">{s.num}</span>
                   <s.icon className="h-5 w-5 text-primary" />
@@ -134,26 +192,32 @@ export default function Referral() {
                 <p className="text-muted-foreground text-sm">{s.desc}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="py-24 bg-primary">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12"
+          >
+            <motion.div variants={itemVariants}>
               <h2 className="font-display text-2xl font-bold text-primary-foreground mb-6">Eligibility Criteria</h2>
               <ul className="space-y-3">{eligibility.map((item) => (
                 <li key={item} className="flex items-center gap-3 text-primary-foreground"><CheckCircle className="h-5 w-5 text-primary-foreground/60 shrink-0" />{item}</li>
               ))}</ul>
             </motion.div>
-            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.div variants={itemVariants}>
               <h2 className="font-display text-2xl font-bold text-primary-foreground mb-6">Documentation Required</h2>
               <ul className="space-y-3">{docs.map((item) => (
                 <li key={item} className="flex items-center gap-3 text-primary-foreground"><CheckCircle className="h-5 w-5 text-primary-foreground/60 shrink-0" />{item}</li>
               ))}</ul>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
