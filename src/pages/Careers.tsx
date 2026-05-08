@@ -101,12 +101,19 @@ export default function Careers() {
         description="Current vacancies and speculative applications at Pathway Academy Zone. Join a team making a real difference for young people in Staffordshire."
         jsonLd={careersSchema}
       />
-      <section className="py-32 bg-muted/30"><div className="container mx-auto px-4 text-center">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">Careers</span>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Join Our Team</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives.</p>
-      </div></section>
-      <section className="py-8 bg-background"><div className="container mx-auto px-4"><Breadcrumbs items={[{ label: "Careers" }]} /></div></section>
+      <section className="bg-primary text-primary-foreground py-20 md:py-28">
+        <div className="container mx-auto px-4 text-center">
+          <Breadcrumbs
+            items={[{ label: "Careers" }]}
+            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+          />
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
+            <GraduationCap className="w-3.5 h-3.5" /> Careers
+          </div>
+          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">Join Our Team</h1>
+          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives.</p>
+        </div>
+      </section>
       <section className="py-24 bg-background"><div className="container mx-auto px-4">
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Why Work at Pathway Academy Zone?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">

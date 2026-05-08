@@ -190,31 +190,28 @@ export default function Testimonials() {
       />
 
       {/* Hero */}
-      <section className="py-32 bg-muted/30">
+      <section className="bg-primary text-primary-foreground py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Testimonials
-          </span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <Breadcrumbs
+            items={[{ label: "Testimonials" }]}
+            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+          />
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
+            <Star className="w-3.5 h-3.5" /> Testimonials
+          </div>
+          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">
             What People Say About Us
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">
             Real feedback from the schools, families, and young people we work with every day.
           </p>
           <div className="mt-8 flex items-center justify-center gap-2">
             {[1, 2, 3, 4, 5].map((s) => (
               <Star key={s} className="h-6 w-6 fill-amber-400 text-amber-400" aria-hidden="true" />
             ))}
-            <span className="text-foreground font-semibold ml-2">5.0</span>
-            <span className="text-muted-foreground text-sm">· {testimonials.length} reviews</span>
+            <span className="text-white font-semibold ml-2">5.0</span>
+            <span className="text-primary-foreground/70 text-sm">· {testimonials.length} reviews</span>
           </div>
-        </div>
-      </section>
-
-      {/* Breadcrumbs */}
-      <section className="py-6 bg-muted/40 border-b border-border/50">
-        <div className="container mx-auto px-4">
-          <Breadcrumbs items={[{ label: "Testimonials" }]} />
         </div>
       </section>
 

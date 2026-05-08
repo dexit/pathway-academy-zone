@@ -119,15 +119,20 @@ export default function Contact() {
           <div className="absolute inset-0 bg-scrim/60" />
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium mb-4 backdrop-blur-sm border border-primary-foreground/20">Contact Us</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Get in Touch</h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.</p>
+          <Breadcrumbs
+            items={[{ label: "Contact" }]}
+            className="text-white/70 mb-6 justify-center [&_a]:text-white/70 [&_a]:hover:text-white [&_[aria-current]]:text-white [&_svg]:text-white/50"
+          />
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20 backdrop-blur-sm">
+            <MessageSquare className="w-3.5 h-3.5" /> Contact Us
+          </div>
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Get in Touch</h1>
+          <p className="text-white/80 text-lg max-w-2xl mx-auto">Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.</p>
         </div>
       </section>
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <Breadcrumbs items={[{ label: "Contact" }]} className="mb-10" />
           <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-12">
             <motion.aside variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
               <h2 className="font-display text-2xl font-bold text-foreground mb-6">Contact Information</h2>
