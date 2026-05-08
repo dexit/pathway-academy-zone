@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, ArrowRight, School, Users, Heart } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { Button } from "@/components/ui/button";
 import { ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
+import { PageHero } from "@/components/PageHero";
 
 const fadeUp = { hidden: { opacity: 0, y: 26 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
 
@@ -189,31 +190,21 @@ export default function Testimonials() {
         jsonLd={schema}
       />
 
-      {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4 text-center">
-          <Breadcrumbs
-            items={[{ label: "Testimonials" }]}
-            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
-            <Star className="w-3.5 h-3.5" /> Testimonials
-          </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">
-            What People Say About Us
-          </h1>
-          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">
-            Real feedback from the schools, families, and young people we work with every day.
-          </p>
-          <div className="mt-8 flex items-center justify-center gap-2">
-            {[1, 2, 3, 4, 5].map((s) => (
-              <Star key={s} className="h-6 w-6 fill-amber-400 text-amber-400" aria-hidden="true" />
-            ))}
-            <span className="text-white font-semibold ml-2">5.0</span>
-            <span className="text-primary-foreground/70 text-sm">· {testimonials.length} reviews</span>
-          </div>
+      <PageHero
+        align="center"
+        badge={{ label: "Testimonials", icon: Star }}
+        breadcrumbs={[{ label: "Testimonials" }]}
+        heading="What People Say About Us"
+        subheading="Real feedback from the schools, families, and young people we work with every day."
+      >
+        <div className="mt-8 flex items-center justify-center gap-2">
+          {[1, 2, 3, 4, 5].map((s) => (
+            <Star key={s} className="h-6 w-6 fill-amber-400 text-amber-400" aria-hidden="true" />
+          ))}
+          <span className="text-white font-semibold ml-2">5.0</span>
+          <span className="text-primary-foreground/70 text-sm">· {testimonials.length} reviews</span>
         </div>
-      </section>
+      </PageHero>
 
       {/* Filter */}
       <section className="py-10 bg-background border-b border-border/50 sticky top-[72px] z-20 backdrop-blur-sm bg-background/90">

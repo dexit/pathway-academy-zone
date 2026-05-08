@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Monitor, BookOpen, Coffee, Bus, ArrowRight, Wrench, Brain, Heart, Briefcase, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { PageHero } from "@/components/PageHero";
 import buildingImg from "@/assets/building-exterior-CdR2heuW.webp";
+import { MapEmbed } from "@/components/MapEmbed";
 import classroomImg from "@/assets/classroom-1-NBeOjKjJ.webp";
 import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
 import vocationalImg from "@/assets/Students_collaborating_around_a_laptop-DxJYaEB5.webp";
@@ -90,19 +92,13 @@ export default function Centres() {
         description="Visit our purpose-built Alternative Provision centre in Burslem, Stoke-on-Trent. Small classrooms, breakout spaces, IT suite, transport links and a structured daily timetable."
         jsonLd={centresSchema}
       />
-      <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4 text-center">
-          <Breadcrumbs
-            items={[{ label: "Centres" }]}
-            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
-            <MapPin className="w-3.5 h-3.5" /> Centres &amp; Facilities
-          </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">Our Learning Environments</h1>
-          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">Our centres are designed to feel safe, calm, and welcoming — environments where young people can focus on learning and growth.</p>
-        </div>
-      </section>
+      <PageHero
+        align="center"
+        badge={{ label: "Centres & Facilities", icon: MapPin }}
+        breadcrumbs={[{ label: "Centres" }]}
+        heading="Our Learning Environments"
+        subheading="Our centres are designed to feel safe, calm, and welcoming — environments where young people can focus on learning and growth."
+      />
       <section className="py-24 bg-background"><div className="container mx-auto px-4"><div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">Burslem Learning Centre</h2>
@@ -112,6 +108,7 @@ export default function Centres() {
           </div>
           <p className="text-muted-foreground leading-relaxed mb-8">Our purpose-built centre in Burslem provides a welcoming environment for learning. With small classrooms, dedicated breakout spaces, and specialist areas for vocational learning, we create the conditions for every young person to thrive.</p>
           <div className="grid grid-cols-2 gap-4">{facilities.map((f) => (<div key={f.title} className="bg-muted/50 rounded-xl p-4 border border-border/50"><f.icon className="h-5 w-5 text-primary mb-2" /><h3 className="font-display font-bold text-foreground text-sm mb-1">{f.title}</h3><p className="text-muted-foreground text-xs">{f.desc}</p></div>))}</div>
+          <MapEmbed className="mt-8" height={320} />
         </motion.div>
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4">
           <img src={buildingImg} alt="Pathway Academy Zone building" className="rounded-2xl shadow-lg w-full" loading="lazy" width="800" height="600" />

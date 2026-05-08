@@ -19,6 +19,7 @@ import { CONTACT_FORM_META, contactSchema, type ContactValues } from "@/lib/form
 import { normaliseUkPhone } from "@/lib/uk-validators";
 import { PageHero } from "@/components/PageHero";
 import buildingImg from "@/assets/programmes/building-exterior-CdR2heuW.webp";
+import { MapEmbed } from "@/components/MapEmbed";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
@@ -154,16 +155,7 @@ export default function Contact() {
                   </div>
                 ))}
               </div>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2397.8584766858147!2d-2.1916!3d53.0447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487a6836a0d0f8eb%3A0x0!2sDuncalf%20St%2C%20Burslem%2C%20Stoke-on-Trent%20ST6%203LJ%2C%20UK!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
-                width="100%"
-                height="300"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Pathway Academy Zone Location"
-                className="rounded-xl border-0"
-              />
+              <MapEmbed height={300} />
             </motion.aside>
 
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
