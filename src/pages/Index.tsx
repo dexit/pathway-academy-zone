@@ -10,7 +10,7 @@ import {
   buildServiceSchema, buildCourseCarouselSchema,
 } from "@/lib/json-ld";
 import WhyItMattersScroller from "@/components/WhyItMattersScroller";
-import heroImg from "@/assets/hero-classroom.webp";
+import heroImg from "@/assets/presentation-CgurFU4e.webp";
 import classroomImg from "@/assets/classroom-1-NBeOjKjJ.webp";
 import vocationalImg from "@/assets/Students_collaborating_around_a_laptop-DxJYaEB5.webp";
 import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
@@ -94,8 +94,8 @@ export default function HomePage() {
         <div className="absolute inset-0">
           <img
             src={heroImg}
-            alt="Students collaborating around a laptop in a supportive Alternative Provision classroom in Stoke-on-Trent"
-            title="Pathway Academy Zone classroom"
+            alt="Classroom session at Pathway Academy Zone — Alternative Provision in Stoke-on-Trent"
+            title="Pathway Academy Zone"
             className="w-full h-full object-cover"
             width="1920"
             height="1080"
