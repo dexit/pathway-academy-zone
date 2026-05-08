@@ -61,13 +61,13 @@ export default function Blog() {
   return (
     <>
       <Seo
-        title="Blog"
+        title="Alternative Provision Blog & Insights"
         description="Insights, guides, and updates on Alternative Provision, SEMH support, and best practice for educators and families in the UK."
         jsonLd={jsonLd}
       />
       <ArchiveLayout
         crumbs={[{ label: "Blog" }]}
-        title="Blog"
+        title="Alternative Provision Blog & Insights"
         intro="Insights, guides, and updates on Alternative Provision, SEMH support, and best practice for educators and families in the UK."
         beforeMain={
           featuredPost && (

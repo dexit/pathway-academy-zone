@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Clock, Monitor, BookOpen, Coffee, Bus, ArrowRight, Wrench, Brain, Heart, Briefcase, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
-import buildingImg from "@/assets/programmes/building-exterior-CdR2heuW.webp";
-import classroomImg from "@/assets/programmes/classroom-1-NBeOjKjJ.webp";
-import mentoringImg from "@/assets/programmes/reception-area-CTi6XeEj.webp";
-import vocationalImg from "@/assets/programmes/classroom-2-ycnLvywG.webp";
+import buildingImg from "@/assets/building-exterior-CdR2heuW.webp";
+import classroomImg from "@/assets/classroom-1-NBeOjKjJ.webp";
+import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
+import vocationalImg from "@/assets/Students_collaborating_around_a_laptop-DxJYaEB5.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const facilities = [
@@ -36,7 +36,7 @@ const centres = [
     addressLocality: "Stoke-on-Trent",
     postalCode: "ST6 3LJ",
     region: "Staffordshire",
-    telephone: "+44-1782-365365",
+    telephone: "+44 1782 365365",
     latitude: 53.043,
     longitude: -2.191,
   },
@@ -86,7 +86,7 @@ export default function Centres() {
   return (
     <Layout>
       <Seo
-        title="Our Centres"
+        title="Our Alternative Provision Centres"
         description="Visit our purpose-built Alternative Provision centre in Burslem, Stoke-on-Trent. Small classrooms, breakout spaces, IT suite, transport links and a structured daily timetable."
         jsonLd={centresSchema}
       />
@@ -108,7 +108,7 @@ export default function Centres() {
         </motion.div>
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4">
           <img src={buildingImg} alt="Pathway Academy Zone building" className="rounded-2xl shadow-lg w-full" loading="lazy" width="800" height="600" />
-          <div className="grid grid-cols-2 gap-4"><img src={classroomImg} alt="Classroom" className="rounded-xl w-full h-40 object-cover" loading="lazy" width="400" height="160" /><img src={mentoringImg} alt="Support room" className="rounded-xl w-full h-40 object-cover" loading="lazy" width="400" height="160" /></div>
+          <div className="grid grid-cols-2 gap-4"><img src={classroomImg} alt="Classroom for small-group learning at Pathway Academy Zone" className="rounded-xl w-full h-40 object-cover" loading="lazy" width="400" height="160" /><img src={mentoringImg} alt="Comfortable space for one-to-one support and mentoring" className="rounded-xl w-full h-40 object-cover" loading="lazy" width="400" height="160" /></div>
         </motion.div>
       </div></div></section>
       <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-3xl"><motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>

@@ -1,11 +1,10 @@
-export const getHeroImg = () => "/assets/hero-classroom.webp";
-export const getClassroomImg = () => "/assets/classroom-learning.webp";
-export const getVocationalImg = () => "/assets/vocational-training.webp";
-export const getMentoringImg = () => "/assets/mentoring-session.webp";
-export const getCareersImg = () => "/assets/careers.webp";
-export const getContactImg = () => "/assets/contact.webp";
-export const getAboutImg = () => "/assets/about.webp";
-export const getTeamImg = () => "/assets/team.webp";
-export const getProgrammesImg = () => "/assets/programmes.webp";
-export const getReferralImg = () => "/assets/referral.webp";
-
+export const getHeroImg = () => "/assets/presentation-CgurFU4e.webp";
+export const getClassroomImg = () => "/assets/classroom-1-NBeOjKjJ.webp";
+export const getVocationalImg = () => "/assets/Students_collaborating_around_a_laptop-DxJYaEB5.webp";
+export const getMentoringImg = () => "/assets/classroom-2-ycnLvywG.webp";
+export const getCareersImg = () => "/assets/amazon-careers-BRVYfevZ.webp";
+export const getContactImg = () => "/assets/building-exterior-CdR2heuW.webp";
+export const getAboutImg = () => "/assets/classroom-1-NBeOjKjJ.webp";
+export const getTeamImg = () => "/assets/martin-chandler-DvF3rkDn.webp";
+export const getProgrammesImg = () => "/assets/presentation-CgurFU4e.webp";
+export const getReferralImg = () => "/assets/classroom-1-NBeOjKjJ.webp";

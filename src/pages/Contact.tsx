@@ -109,7 +109,7 @@ export default function Contact() {
   return (
     <Layout>
       <Seo
-        title="Contact Us"
+        title="Contact Pathway Academy Zone"
         description="Get in touch with Pathway Academy Zone in Stoke-on-Trent. Call, email, or send a message — Mon–Fri 8:30am–4:00pm."
         jsonLd={contactSchema}
       />

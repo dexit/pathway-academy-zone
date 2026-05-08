@@ -61,7 +61,7 @@ const socials = [
 
 // ─── Shared token aliases (footer is always dark) ────────────────────────────
 // Minimum white/55 (~6.5:1 on footer bg) to pass WCAG AA on hsl(160,22%,9%).
-const col  = "text-white/85 hover:text-primary transition-colors duration-200";
+const col  = "text-white/85 hover:text-primary hover:underline underline-offset-4 decoration-primary/30 transition-all duration-200";
 const head = "text-xs font-semibold uppercase tracking-widest text-white mb-4";
 
 // ─── Footer ──────────────────────────────────────────────────────────────────
