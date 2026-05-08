@@ -1,0 +1,7 @@
+interface:
+  display_name: "Elementor Addon Architecture"
+  short_description: "Addon bootstrap, wiring, and load policy"
+  default_prompt: "Use $elementor-addon-architecture to design a stable addon bootstrap and manager wiring plan."
+
+policy:
+  allow_implicit_invocation: true
