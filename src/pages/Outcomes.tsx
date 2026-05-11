@@ -84,12 +84,14 @@ const reviews: Review[] = [
 ];
 
 const areaLinks = [
-  { name: "Stoke-on-Trent", slug: "stoke-on-trent" },
+  { name: "Stoke-on-Trent",       slug: "stoke-on-trent" },
   { name: "Newcastle-under-Lyme", slug: "newcastle-under-lyme" },
-  { name: "Stafford", slug: "stafford" },
-  { name: "Cannock", slug: "cannock" },
-  { name: "Lichfield", slug: "lichfield" },
-  { name: "Tamworth", slug: "tamworth" },
+  { name: "Stafford",             slug: "stafford" },
+  { name: "Cannock",              slug: "cannock" },
+  { name: "Lichfield",            slug: "lichfield" },
+  { name: "Tamworth",             slug: "tamworth" },
+  { name: "Wolverhampton",        slug: "wolverhampton" },
+  { name: "Leek",                 slug: "leek" },
 ];
 
 const jsonLd = {
@@ -470,7 +472,7 @@ export default function Outcomes() {
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <h2 className="font-display text-xl font-bold text-foreground mb-2">Delivering Outcomes Across the Region</h2>
             <p className="text-muted-foreground text-sm mb-6">
-              We accept referrals from schools and local authorities across Staffordshire and the wider West Midlands.
+              We accept referrals from schools and local authorities across Staffordshire and the wider West Midlands — from Stoke-on-Trent and Newcastle-under-Lyme to Wolverhampton, Tamworth, and Leek.
             </p>
             <div className="flex flex-wrap gap-2 justify-center mb-8">
               {areaLinks.map((a) => (

@@ -125,7 +125,7 @@ export default function KnowledgeHubCategory() {
                         {resource.title}
                       </h3>
                       <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                        Practical guidance from the {section.title.toLowerCase()} collection.
+                        {resource.description ?? `Practical guidance from the ${section.title.toLowerCase()} collection.`}
                       </p>
                       <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                         Read more <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />

@@ -173,13 +173,14 @@ export default function Referral() {
           </p>
           <div className="flex flex-wrap gap-2 justify-center">
             {[
-              { name: "Stoke-on-Trent",       slug: "stoke-on-trent" },
+              { name: "Stoke-on-Trent",        slug: "stoke-on-trent" },
               { name: "Newcastle-under-Lyme",  slug: "newcastle-under-lyme" },
               { name: "Stafford",              slug: "stafford" },
               { name: "Cannock",               slug: "cannock" },
               { name: "Lichfield",             slug: "lichfield" },
               { name: "Tamworth",              slug: "tamworth" },
               { name: "Wolverhampton",         slug: "wolverhampton" },
+              { name: "Leek",                  slug: "leek" },
             ].map((a) => (
               <Link
                 key={a.slug}

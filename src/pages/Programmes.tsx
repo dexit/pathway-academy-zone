@@ -125,13 +125,14 @@ const needs = [
 ];
 
 const areaLinks = [
-  { name: "Stoke-on-Trent",      slug: "stoke-on-trent" },
-  { name: "Newcastle-under-Lyme",slug: "newcastle-under-lyme" },
-  { name: "Stafford",            slug: "stafford" },
-  { name: "Cannock",             slug: "cannock" },
-  { name: "Lichfield",           slug: "lichfield" },
-  { name: "Tamworth",            slug: "tamworth" },
-  { name: "Wolverhampton",       slug: "wolverhampton" },
+  { name: "Stoke-on-Trent",       slug: "stoke-on-trent" },
+  { name: "Newcastle-under-Lyme", slug: "newcastle-under-lyme" },
+  { name: "Stafford",             slug: "stafford" },
+  { name: "Cannock",              slug: "cannock" },
+  { name: "Lichfield",            slug: "lichfield" },
+  { name: "Tamworth",             slug: "tamworth" },
+  { name: "Wolverhampton",        slug: "wolverhampton" },
+  { name: "Leek",                 slug: "leek" },
 ];
 
 /* ─── schema ─────────────────────────────────────────────────────────────── */
@@ -500,7 +501,7 @@ export default function Programmes() {
                 <p className="text-muted-foreground leading-relaxed mb-5 text-sm">
                   All programmes are delivered from our purpose-built centre at Duncalf Street, Burslem,
                   Stoke-on-Trent. We accept referrals from schools and local authorities across the region —
-                  including Stafford, Newcastle-under-Lyme, Cannock, Lichfield, Tamworth and Wolverhampton.
+                  including Stafford, Newcastle-under-Lyme, Cannock, Lichfield, Tamworth, Wolverhampton and Leek.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {areaLinks.map((a) => (
