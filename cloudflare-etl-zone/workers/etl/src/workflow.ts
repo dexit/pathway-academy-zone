@@ -106,8 +106,9 @@ export class FormETLWorkflow extends WorkflowEntrypoint<EtlEnv, EtlWorkflowParam
     // ── Load ──────────────────────────────────────────────────────────────────
     const loadResults = await step.do('load', r(3), async () => {
       const t = Date.now();
+      // 1 D1 select + N D1 inserts + 1 etl_log insert; cap at 24 targets (≤ 26 ≤ 50 subreqs).
       const { results: targets } = await this.env.DB.prepare(
-        'SELECT * FROM load_targets WHERE form_id=? AND active=1'
+        'SELECT * FROM load_targets WHERE form_id=? AND active=1 LIMIT 24'
       ).bind(formId).all<LoadTargetRow>();
 
       if (targets.length === 0) {
@@ -141,8 +142,10 @@ export class FormETLWorkflow extends WorkflowEntrypoint<EtlEnv, EtlWorkflowParam
       timeout: '2 minutes',
     }, async () => {
       const t = Date.now();
+      // Free tier: 50 subrequests per workflow step.
+      // Cost per config = 1 fetch + 1 D1 log insert → cap at 20 configs (1+40=41 ≤ 50).
       const { results: configs } = await this.env.DB.prepare(
-        'SELECT * FROM notify_configs WHERE form_id=? AND active=1'
+        'SELECT * FROM notify_configs WHERE form_id=? AND active=1 LIMIT 20'
       ).bind(formId).all<NotifyConfigRow>();
 
       if (configs.length === 0) { await log('deliver', 'skip', null, { reason: 'no configs' }); return; }

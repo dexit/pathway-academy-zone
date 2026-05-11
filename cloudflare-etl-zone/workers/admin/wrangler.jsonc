@@ -28,5 +28,6 @@
   // Uncomment and configure your Access policy:
   // "access": { "application_name": "ETL Zone Admin" }
 
-  "limits": { "cpu_ms": 10000 }
+  // cpu_ms limit omitted: free tier enforces 10ms CPU per request regardless.
+  // Admin API calls are I/O-bound (D1 queries); upgrade to Workers Paid to raise this limit.
 }

@@ -179,13 +179,25 @@ Open `https://etl-zone-admin.<subdomain>.workers.dev/` and enter your admin key.
 
 ## Free Tier Limits
 
-| Resource | Free |
-|----------|------|
-| Workers requests | 100K/day |
-| D1 reads | 5M rows/day |
-| D1 writes | 100K rows/day |
-| D1 storage | 500MB |
-| KV reads | 100K/day |
-| KV writes | 1K/day |
-| Workflows | Included |
-| Cron triggers | Included |
+| Resource | Free | Notes |
+|----------|------|-------|
+| Workers requests | 100K/day | Across all 4 workers combined |
+| D1 reads | 5M rows/day | |
+| D1 writes | 100K rows/day | |
+| D1 storage | 500MB | Log pruning keeps this in check |
+| KV reads | 100K/day | |
+| KV writes | 1K/day | Rate limiter uses ≤2 writes/IP/60s window |
+| Workflow executions | 100K/day | |
+| Workflow concurrent instances | 25 | Waiting/sleeping instances don't count |
+| Workflow subrequests per step | 50 | Deliver step capped at 20 notify configs (41 subreqs) |
+| Workflow state retention | 3 days | ETL+delivery data persists in D1 indefinitely |
+| CPU per Worker request / step | 10ms | Paid plan raises this to 30s–5min |
+| Cron triggers | Included | |
+
+### Key free-tier design choices
+
+- **KV** used only for rate limiting and OAuth2 token caching — not as a task queue (avoids 1K/day write ceiling).
+- **D1** is the authoritative status store for `form_submissions`; Workflows read from it, not KV.
+- Rate limiter writes KV **once per IP per 60-second window** (new-window + limit-latch), not per request.
+- Deliver step is limited to **20 notify configs** per submission to stay under the 50 subrequest/step ceiling.
+- Log cleanup runs daily and prunes `ingress_log`/`etl_log` after 30 days to protect the 500 MB D1 quota.
