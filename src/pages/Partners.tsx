@@ -6,7 +6,8 @@ import {
   ArrowRight, MapPin, Handshake, BookOpen,
 } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { PageHero } from "@/components/PageHero";
 import careersImg from "@/assets/amazon-careers-BRVYfevZ.webp";
 import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
 
@@ -114,26 +115,13 @@ export default function Partners() {
         jsonLd={jsonLd}
       />
 
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4 text-center">
-          <Breadcrumbs
-            items={[{ label: "Partners" }]}
-            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
-            <Handshake className="w-3.5 h-3.5" /> Local Partnerships
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">
-            Working Together Across Staffordshire
-          </h1>
-          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">
-            Strong partnerships are essential to supporting young people effectively.
-            We collaborate with schools, local authorities, employers and specialist
-            services so every referral leads to the right provision at the right time.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        align="center"
+        badge={{ label: "Local Partnerships", icon: Handshake }}
+        breadcrumbs={[{ label: "Partners" }]}
+        heading="Working Together Across Staffordshire"
+        subheading="Strong partnerships are essential to supporting young people effectively. We collaborate with schools, local authorities, employers and specialist services so every referral leads to the right provision at the right time."
+      />
 
       {/* ── Partner cards grid ────────────────────────────────────────────── */}
       <section className="py-24 bg-background">

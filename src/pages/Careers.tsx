@@ -1,35 +1,39 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
-  Heart, Users, GraduationCap, Clock, CheckCircle,
-  Loader2, CheckCircle2, AlertCircle, BookOpen, HandHeart, ClipboardList, Sparkles, ExternalLink,
+  Heart, Users, GraduationCap, Clock, CheckCircle, ExternalLink,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
-import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { useFormSubmit } from "@/hooks/use-form-submit";
 import { fireConversion } from "@/components/Analytics";
-import { FormField } from "@/components/forms/FormField";
-import { IllustratedRadio, type IllustratedOption } from "@/components/forms/IllustratedRadio";
-import { email, ukPhone, personName, longMessage, maskUkPhone, normaliseUkPhone } from "@/lib/uk-validators";
-
-const CAREERS_WEBHOOK = import.meta.env.VITE_CAREERS_WEBHOOK as string | undefined;
-const JOBS_EMBED_URL = "https://job.pathwaygroup.co.uk/";
+import { FormBuilder } from "@/components/forms/FormBuilder";
+import { CAREERS_FORM_META, careersSchema, type CareersValues } from "@/lib/form-configs/careers";
+import { normaliseUkPhone } from "@/lib/uk-validators";
+import { PageHero } from "@/components/PageHero";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+
+const JOBS_EMBED_URL = "https://job.pathwaygroup.co.uk/";
+
 const perks = [
   { icon: Heart, title: "Meaningful Work", desc: "Make a real difference in young people's lives every day" },
   { icon: Users, title: "Supportive Team", desc: "Work alongside dedicated, passionate colleagues" },
   { icon: GraduationCap, title: "Professional Development", desc: "Regular training and opportunities for growth" },
   { icon: Clock, title: "Work-Life Balance", desc: "Term-time working options and flexible arrangements" },
 ];
-const qualities = ["Believe in every young person's potential","Are resilient and patient, even when things are challenging","Build strong, trusting relationships with young people","Collaborate effectively with colleagues and partners","Are committed to continuous learning and improvement"];
 
-const careersSchema = {
+const qualities = [
+  "Believe in every young person's potential",
+  "Are resilient and patient, even when things are challenging",
+  "Build strong, trusting relationships with young people",
+  "Collaborate effectively with colleagues and partners",
+  "Are committed to continuous learning and improvement",
+];
+
+const careersJsonLd = {
   "@context": "https://schema.org",
   "@type": "EmployerAggregateRating",
   itemReviewed: {
@@ -42,35 +46,17 @@ const careersSchema = {
   url: `${SITE_URL}/careers`,
 };
 
-const interestOptions: IllustratedOption[] = [
-  { value: "teaching", label: "Teaching", description: "Subject or SEMH teacher", icon: BookOpen },
-  { value: "youth-work", label: "Youth Work", description: "Mentoring & pastoral", icon: HandHeart },
-  { value: "support", label: "Learning Support", description: "TA / LSA roles", icon: Users },
-  { value: "admin", label: "Administration", description: "Operations & HR", icon: ClipboardList },
-  { value: "other", label: "Other", description: "Tell us more below", icon: Sparkles },
-];
-
-const formSchema = z.object({
-  firstName: personName({ required: true }),
-  lastName: personName({ required: true }),
-  email: email({ required: true }),
-  phone: ukPhone(),
-  interest: z.enum(["teaching", "youth-work", "support", "admin", "other"], { required_error: "Please choose an area of interest" }),
-  about: longMessage(1500, true),
-});
-type FormValues = z.infer<typeof formSchema>;
-
 export default function Careers() {
   const { toast } = useToast();
 
-  const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<CareersValues>({
+    resolver: zodResolver(careersSchema),
     mode: "onTouched",
     defaultValues: { firstName: "", lastName: "", email: "", phone: "", interest: undefined, about: "" },
   });
 
-  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<FormValues & { phone_e164?: string; name?: string }>({
-    url: CAREERS_WEBHOOK,
+  const { submit, loading, error, success, reset: resetStatus } = useFormSubmit<CareersValues & { phone_e164?: string; name?: string }>({
+    url: import.meta.env.VITE_CAREERS_WEBHOOK as string | undefined,
     method: "POST",
     format: "json",
     extra: { source: "careers-speculative" },
@@ -92,39 +78,58 @@ export default function Careers() {
     });
   });
 
-  const phone = watch("phone");
-
   return (
     <Layout>
       <Seo
         title="Careers at Pathway Academy Zone"
         description="Current vacancies and speculative applications at Pathway Academy Zone. Join a team making a real difference for young people in Staffordshire."
-        jsonLd={careersSchema}
+        jsonLd={careersJsonLd}
       />
-      <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4 text-center">
-          <Breadcrumbs
-            items={[{ label: "Careers" }]}
-            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
-            <GraduationCap className="w-3.5 h-3.5" /> Careers
+
+      {/* hidden JobPosting microdata hint */}
+      <meta itemScope itemType="https://schema.org/JobPosting" content="" />
+
+      <PageHero
+        variant="primary"
+        align="center"
+        badge={{ label: "Careers", icon: GraduationCap }}
+        breadcrumbs={[{ label: "Careers" }]}
+        heading="Join Our Team"
+        subheading="We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives."
+      />
+
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Why Work at Pathway Academy Zone?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {perks.map((p, i) => (
+              <motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-6 text-center shadow-sm border border-border/50">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <p.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-display font-bold text-foreground mb-1">{p.title}</h3>
+                <p className="text-muted-foreground text-sm">{p.desc}</p>
+              </motion.div>
+            ))}
           </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">Join Our Team</h1>
-          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives.</p>
         </div>
       </section>
-      <section className="py-24 bg-background"><div className="container mx-auto px-4">
-        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Why Work at Pathway Academy Zone?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          {perks.map((p, i) => (<motion.div key={p.title} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl p-6 text-center shadow-sm border border-border/50"><div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4"><p.icon className="h-6 w-6 text-primary" /></div><h3 className="font-display font-bold text-foreground mb-1">{p.title}</h3><p className="text-muted-foreground text-sm">{p.desc}</p></motion.div>))}
+
+      <section className="py-24 bg-muted/50">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="font-display text-2xl font-bold text-foreground text-center mb-4">What We Look For</h2>
+          <p className="text-muted-foreground text-center mb-10">We value attitude and commitment as much as qualifications. Our ideal team members:</p>
+          <div className="space-y-3">
+            {qualities.map((q) => (
+              <div key={q} className="flex items-center gap-3 bg-card rounded-xl px-6 py-4 border border-border/50">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0" />
+                <span className="text-foreground">{q}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div></section>
-      <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-3xl">
-        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-4">What We Look For</h2>
-        <p className="text-muted-foreground text-center mb-10">We value attitude and commitment as much as qualifications. Our ideal team members:</p>
-        <div className="space-y-3">{qualities.map((q) => (<div key={q} className="flex items-center gap-3 bg-card rounded-xl px-6 py-4 border border-border/50"><CheckCircle className="h-5 w-5 text-primary shrink-0" /><span className="text-foreground">{q}</span></div>))}</div>
-      </div></section>
+      </section>
+
       <section className="py-24 bg-background" id="vacancies">
         <div className="container mx-auto px-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 max-w-screen-xl mx-auto">
@@ -161,93 +166,27 @@ export default function Careers() {
           </p>
         </div>
       </section>
-      <section className="py-24 bg-muted/50"><div className="container mx-auto px-4 max-w-2xl">
-        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-4">Speculative Applications</h2>
-        <p className="text-muted-foreground text-center mb-10">Don't see a suitable role? We're always interested in hearing from talented individuals.</p>
-        <form onSubmit={onSubmit} noValidate className="bg-card rounded-2xl p-8 shadow-sm border border-border/50 space-y-5">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField
-              id="careers-firstname"
-              label="First Name"
-              required
-              autoComplete="given-name"
-              placeholder="First name"
-              error={errors.firstName?.message}
-              {...register("firstName")}
-            />
-            <FormField
-              id="careers-lastname"
-              label="Last Name"
-              required
-              autoComplete="family-name"
-              placeholder="Last name"
-              error={errors.lastName?.message}
-              {...register("lastName")}
+
+      <section className="py-24 bg-muted/50">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <h2 className="font-display text-2xl font-bold text-foreground text-center mb-4">Speculative Applications</h2>
+          <p className="text-muted-foreground text-center mb-10">Don't see a suitable role? We're always interested in hearing from talented individuals.</p>
+          <div className="bg-card rounded-2xl p-8 shadow-sm border border-border/50">
+            <FormBuilder
+              config={CAREERS_FORM_META}
+              register={register}
+              control={control}
+              errors={errors}
+              setValue={setValue}
+              watch={watch}
+              loading={loading}
+              error={error}
+              success={success}
+              onSubmit={onSubmit}
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField
-              id="careers-email"
-              label="Email Address"
-              required
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              placeholder="your@email.com"
-              error={errors.email?.message}
-              {...register("email")}
-            />
-            <FormField
-              id="careers-phone"
-              label="Phone Number"
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              placeholder="07123 456789"
-              hint="UK landline or mobile"
-              value={phone || ""}
-              onChange={(e) => setValue("phone", maskUkPhone((e.target as HTMLInputElement).value), { shouldValidate: true })}
-              error={errors.phone?.message}
-            />
-          </div>
-
-          <Controller
-            name="interest"
-            control={control}
-            render={({ field }) => (
-              <IllustratedRadio
-                name="interest"
-                legend="Area of Interest"
-                hint="Pick the closest match — we route applications by team."
-                options={interestOptions}
-                value={field.value || ""}
-                onChange={field.onChange}
-                required
-                columns={2}
-                error={errors.interest?.message}
-              />
-            )}
-          />
-
-          <FormField as="textarea" id="careers-about" label="Tell Us About Yourself" required rows={5} maxLength={1500} placeholder="Background, qualifications, why you'd like to join us…" error={errors.about?.message} {...register("about")} />
-
-          <Button type="submit" size="lg" disabled={loading} className="w-full rounded-full">
-            {loading ? (
-              <span className="inline-flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Submitting...</span>
-            ) : ("Submit Enquiry")}
-          </Button>
-          {success && (
-            <p className="flex items-center justify-center gap-2 text-xs font-medium text-primary">
-              <CheckCircle2 className="h-4 w-4" aria-hidden="true" /> Thanks — we&apos;ll be in touch soon.
-            </p>
-          )}
-          {error && (
-            <p className="flex items-center justify-center gap-2 text-xs font-medium text-destructive">
-              <AlertCircle className="h-4 w-4" aria-hidden="true" /> {error}
-            </p>
-          )}
-        </form>
-      </div></section>
+        </div>
+      </section>
     </Layout>
   );
 }

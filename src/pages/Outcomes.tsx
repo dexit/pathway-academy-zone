@@ -8,10 +8,12 @@ import {
 import {
   TrendingUp, Target, Users, UserCheck, ArrowRight,
   MapPin, GraduationCap, Briefcase, BookOpen, CheckCircle2, Star,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { PageHero } from "@/components/PageHero";
 import TestimonialsSlider, { type Testimonial } from "@/components/TestimonialsSlider";
 import ReviewsSlider, { type Review } from "@/components/ReviewsSlider";
 import mentoringImg from "@/assets/programmes/pastoral-support-DgJkB7ng.webp";
@@ -168,28 +170,13 @@ export default function Outcomes() {
         jsonLd={jsonLd}
       />
 
-      {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <Breadcrumbs
-            items={[{ label: "Outcomes & Impact" }]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
-              <Star className="w-3.5 h-3.5 fill-current" /> Evidence-based outcomes
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-              Making a Real Difference Across Staffordshire
-            </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed">
-              Our outcomes are measured against national benchmarks. Every number
-              represents a young person from Stoke-on-Trent, Stafford, Newcastle-under-Lyme
-              and across the region who found their pathway.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        align="center"
+        badge={{ label: "Evidence-based outcomes", icon: BarChart3 }}
+        breadcrumbs={[{ label: "Outcomes & Impact" }]}
+        heading="Making a Real Difference Across Staffordshire"
+        subheading="Our outcomes are measured against national benchmarks. Every number represents a young person from Stoke-on-Trent, Stafford, Newcastle-under-Lyme and across the region who found their pathway."
+      />
 
       {/* Animated stat counters */}
       <section className="py-16 bg-background border-b border-border">

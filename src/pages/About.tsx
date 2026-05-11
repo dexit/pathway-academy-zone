@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { buildAboutPageSchema, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
+import { PageHero } from "@/components/PageHero";
 import classroomImg from "@/assets/classroom-1-NBeOjKjJ.webp";
 import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
 
@@ -39,18 +40,16 @@ export default function About() {
         description="Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people aged 11–16 across Staffordshire."
         jsonLd={aboutJsonLd}
       />
-      <section className="relative py-32">
-        <div className="absolute inset-0"><img src={classroomImg} alt="Students learning in a classroom at Pathway Academy Zone" className="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchPriority="high" /><div className="absolute inset-0 bg-scrim/60" /></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <Breadcrumbs
-            items={[{ label: "About Us" }]}
-            className="text-white/70 mb-6 justify-center [&_a]:text-white/70 [&_a]:hover:text-white [&_[aria-current]]:text-white [&_svg]:text-white/50"
-          />
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-sm font-medium mb-4 backdrop-blur-sm border border-white/20">About Us</span>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">Who We Are</h1>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.</p>
-        </div>
-      </section>
+      <PageHero
+        variant="image"
+        imageSrc={classroomImg}
+        imageAlt="Students learning in a classroom at Pathway Academy Zone"
+        align="center"
+        badge={{ label: "About Us" }}
+        breadcrumbs={[{ label: "About Us" }]}
+        heading="Who We Are"
+        subheading="Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire."
+      />
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
