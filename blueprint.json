@@ -1,0 +1,85 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "Pathway Academy Zone — Live Preview",
+    "author": "Pathway Academy Zone",
+    "description": "Full preview of the Pathway Academy Zone block theme and plugins with demo content. Includes all custom post types, blocks, patterns and templates."
+  },
+  "landingPage": "/",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "constants": {
+    "WP_DEBUG": false,
+    "WP_DEBUG_LOG": false,
+    "SCRIPT_DEBUG": false,
+    "DISABLE_WP_CRON": true
+  },
+  "steps": [
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "blogname": "Pathway Academy Zone",
+        "blogdescription": "Specialist Alternative Provision in Stoke-on-Trent",
+        "permalink_structure": "/%postname%/",
+        "show_on_front": "page"
+      },
+      "progress": { "caption": "Configuring site…", "weight": 1 }
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "git:directory",
+        "url": "https://github.com/dexit/pathway-academy-zone",
+        "ref": "main",
+        "refType": "branch",
+        "path": "/wp-theme/pathway-academy-zone"
+      },
+      "options": { "activate": true },
+      "progress": { "caption": "Installing Pathway Academy Zone theme…", "weight": 4 }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "git:directory",
+        "url": "https://github.com/dexit/pathway-academy-zone",
+        "ref": "main",
+        "refType": "branch",
+        "path": "/wp-plugin/paz-spa-embed"
+      },
+      "options": { "activate": true },
+      "progress": { "caption": "Installing PAZ SPA Embed plugin…", "weight": 2 }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "git:directory",
+        "url": "https://github.com/dexit/pathway-academy-zone",
+        "ref": "main",
+        "refType": "branch",
+        "path": "/wpsys/wp-content/plugins/paz-core"
+      },
+      "options": { "activate": true },
+      "progress": { "caption": "Installing PAZ Core plugin…", "weight": 2 }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\nif ( function_exists( 'paz_demo_run_import' ) ) {\n\t$log = paz_demo_run_import();\n\tforeach ( $log as $line ) {\n\t\techo $line . \"\\n\";\n\t}\n} else {\n\techo 'Demo importer not available — theme may not be active.';\n}",
+      "progress": { "caption": "Importing demo content…", "weight": 5 }
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp rewrite flush",
+      "progress": { "caption": "Flushing rewrite rules…", "weight": 1 }
+    },
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    }
+  ]
+}
