@@ -23,7 +23,6 @@ function paz_register_blocks() {
 		'team-grid',
 		'values-timeline',
 		'approach-cards',
-		'job-board',
 		// v2 enhancement blocks
 		'accordion-faq',
 		'icon-grid',
@@ -36,6 +35,10 @@ function paz_register_blocks() {
 		'related-content',
 		'webhook-form',
 		'skeleton-loader',
+		// CPT-driven blocks
+		'programme-card',
+		'area-hero',
+		'job-board',
 	);
 	foreach ( $blocks as $block ) {
 		$dir = PAZ_THEME_DIR . 'blocks/' . $block;

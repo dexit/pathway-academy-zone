@@ -38,6 +38,7 @@ function paz_register_blocks() {
 		// CPT-driven blocks
 		'programme-card',
 		'area-hero',
+		'job-board',
 	);
 	foreach ( $blocks as $block ) {
 		$dir = PAZ_THEME_DIR . 'blocks/' . $block;

@@ -1,9 +1,18 @@
 {
-  "apiVersion": 3,
-  "name": "pazone/skeleton-loader",
-  "title": "Skeleton Loader",
-  "category": "pazone",
-  "icon": "ellipsis",
-  "description": "Animated skeleton placeholder for loading states.",
-  "textdomain": "pathway-academy-zone"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/skeleton-loader",
+	"title": "Skeleton Loader",
+	"category": "paz",
+	"icon": "image-rotate",
+	"description": "CSS animated skeleton placeholder — visible only in the block editor as a design aid.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"rows":        { "type": "number",  "default": 3 },
+		"showImage":   { "type": "boolean", "default": true },
+		"imageAspect": { "type": "string",  "default": "16/9" },
+		"lines":       { "type": "number",  "default": 3 }
+	},
+	"render": "file:./render.php"
 }

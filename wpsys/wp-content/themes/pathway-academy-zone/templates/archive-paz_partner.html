@@ -1,13 +1,25 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-    <h1 class="has-text-align-center">Our Partners</h1>
-    <!-- wp:query {"query":{"postType":"paz_partner"}} -->
-    <div class="wp-block-query">
-        <!-- wp:post-template {"layout":{"type":"grid","columnCount":4}} -->
-        <!-- wp:post-featured-image /-->
-        <!-- wp:post-title {"level":3,"textAlign":"center"} /-->
-        <!-- /wp:post-template -->
-    </div>
-    <!-- /wp:query -->
+
+	<!-- wp:group {"tagName":"section","backgroundColor":"muted","style":{"spacing":{"padding":{"top":"4rem","bottom":"3rem"}}},"layout":{"type":"constrained"}} -->
+	<section class="wp-block-group has-muted-background-color has-background" style="padding-top:4rem;padding-bottom:3rem">
+		<!-- wp:heading {"textAlign":"center","level":1} --><h1 class="wp-block-heading has-text-align-center">Our Partners</h1><!-- /wp:heading -->
+		<!-- wp:paragraph {"align":"center","textColor":"muted-foreground"} --><p class="has-text-align-center has-muted-foreground-color has-text-color">The schools, agencies, and organisations we work with to support young people</p><!-- /wp:paragraph -->
+	</section>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"style":{"spacing":{"padding":{"top":"2rem","bottom":"1rem"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group" style="padding-top:2rem;padding-bottom:1rem">
+		<!-- wp:pazone/breadcrumbs /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:pattern {"slug":"pathway-academy-zone/partners-grid"} /-->
+	<!-- wp:pattern {"slug":"pathway-academy-zone/cta"} /-->
+
 </main>
+<!-- /wp:group -->
+
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

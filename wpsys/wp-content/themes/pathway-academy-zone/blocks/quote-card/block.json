@@ -1,9 +1,20 @@
 {
-  "apiVersion": 3,
-  "name": "pazone/quote-card",
-  "title": "Quote Card",
-  "category": "pazone",
-  "icon": "format-quote",
-  "description": "A stylish testimonial or quote card.",
-  "textdomain": "pathway-academy-zone"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/quote-card",
+	"title": "Quote Card",
+	"category": "paz",
+	"icon": "format-quote",
+	"description": "Testimonial quote card with author, role, school, and star rating.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"quote":            { "type": "string", "default": "" },
+		"author":           { "type": "string", "default": "" },
+		"role":             { "type": "string", "default": "" },
+		"school":           { "type": "string", "default": "" },
+		"rating":           { "type": "number", "default": 5 },
+		"backgroundColour": { "type": "string", "default": "accent" }
+	},
+	"render": "file:./render.php"
 }
