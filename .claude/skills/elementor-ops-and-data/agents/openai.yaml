@@ -1,0 +1,7 @@
+interface:
+  display_name: "Elementor Content Ops"
+  short_description: "Safe Elementor data ops with rollback"
+  default_prompt: "Use $elementor-ops-and-data to run backup-first Elementor meta operations with verification."
+
+policy:
+  allow_implicit_invocation: true

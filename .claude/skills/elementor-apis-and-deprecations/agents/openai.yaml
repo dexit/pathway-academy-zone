@@ -1,0 +1,7 @@
+interface:
+  display_name: "Elementor API Migration"
+  short_description: "Deprecation-safe Elementor API modernization"
+  default_prompt: "Use $elementor-apis-and-deprecations to migrate legacy Elementor hooks and methods safely."
+
+policy:
+  allow_implicit_invocation: true

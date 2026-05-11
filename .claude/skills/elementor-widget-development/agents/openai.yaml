@@ -1,0 +1,7 @@
+interface:
+  display_name: "Elementor Widget Engineering"
+  short_description: "Widget controls, render parity, and deps"
+  default_prompt: "Use $elementor-widget-development to build or fix a widget with editor/frontend parity."
+
+policy:
+  allow_implicit_invocation: true

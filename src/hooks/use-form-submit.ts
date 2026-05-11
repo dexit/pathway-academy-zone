@@ -31,6 +31,75 @@ export interface FormSubmitConfig<T extends Record<string, unknown>> {
   /** Optional payload transformer before it hits the wire. */
   transform?: (values: T) => Record<string, unknown>
   /**
+   * Cloudflare Workers / webhook payload template.
+   *
+   * Keys become the output field names; values are strings where `{{fieldName}}`
+   * tokens are replaced with the corresponding form-field values at submit time.
+   * Nested tokens (e.g. `"{{firstName}} {{lastName}}"`) are fully supported.
+   *
+   * When provided, the rendered template replaces the raw form values in the
+   * outgoing payload. The `extra` fields are still merged on top.
+   *
+   * Submission format is chosen via `format` as usual:
+   *   - "json" → application/json body  (default)
+   *   - "form" → application/x-www-form-urlencoded body
+   *
+   * CF Worker example — receive as JSON:
+   * ```ts
+   * // wrangler.toml: [vars] ALLOWED_ORIGIN = "https://pathwayacademyzone.co.uk"
+   * // worker.ts
+   * export default {
+   *   async fetch(request: Request): Promise<Response> {
+   *     const data = await request.json()
+   *     await sendEmail(data)  // your email/CRM logic
+   *     return new Response("ok", { status: 200 })
+   *   }
+   * }
+   *
+   * // React side:
+   * useFormSubmit({
+   *   url: import.meta.env.VITE_CONTACT_WEBHOOK,
+   *   format: "json",
+   *   payloadTemplate: {
+   *     from_name:    "{{firstName}} {{lastName}}",
+   *     from_email:   "{{email}}",
+   *     enquiry_type: "{{enquiryType}}",
+   *     organisation: "{{organisation}}",
+   *     message:      "{{message}}",
+   *   },
+   * })
+   * ```
+   *
+   * CF Worker example — receive as form-encoded:
+   * ```ts
+   * // worker.ts
+   * export default {
+   *   async fetch(request: Request): Promise<Response> {
+   *     const body = await request.formData()
+   *     const name = body.get("from_name")
+   *     // ...
+   *     return new Response("ok", { status: 200 })
+   *   }
+   * }
+   *
+   * // React side:
+   * useFormSubmit({
+   *   url: import.meta.env.VITE_REFERRAL_WEBHOOK,
+   *   format: "form",
+   *   payloadTemplate: {
+   *     subject:      "New referral from {{organisation}}",
+   *     referrer:     "{{firstName}} {{lastName}} ({{role}})",
+   *     email:        "{{email}}",
+   *     phone:        "{{phone}}",
+   *     young_person: "{{ypFirstName}} {{ypLastName}}, DOB {{dob}}, Yr {{yearGroup}}",
+   *     programme:    "{{programme}}",
+   *     reason:       "{{reason}}",
+   *   },
+   * })
+   * ```
+   */
+  payloadTemplate?: Record<string, string>
+  /**
    * Retry on network failure / 5xx.
    * Exponential backoff: delay = baseDelayMs * 2^attempt
    * Default: 3 retries, 400 ms base.
@@ -59,6 +128,7 @@ export function useFormSubmit<T extends Record<string, unknown>>(
     headers = {},
     extra = {},
     transform,
+    payloadTemplate,
     retries = 3,
     baseDelayMs = 400,
     onSuccess,
@@ -74,10 +144,9 @@ export function useFormSubmit<T extends Record<string, unknown>>(
   const submit = useCallback(
     async (values: T) => {
       setState({ loading: true, error: null, success: false })
-      const payload: Record<string, unknown> = {
-        ...extra,
-        ...(transform ? transform(values) : values),
-      }
+      const resolvedValues = transform ? transform(values) : (values as Record<string, unknown>)
+      const templated = payloadTemplate ? applyPayloadTemplate(payloadTemplate, resolvedValues) : resolvedValues
+      const payload: Record<string, unknown> = { ...extra, ...templated }
 
       try {
         // Dry mode
@@ -121,7 +190,7 @@ export function useFormSubmit<T extends Record<string, unknown>>(
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [url, method, format, gqlMutation, gqlVariablesKey, JSON.stringify(headers), JSON.stringify(extra), transform, retries, baseDelayMs, onSuccess, onError]
+    [url, method, format, gqlMutation, gqlVariablesKey, JSON.stringify(headers), JSON.stringify(extra), JSON.stringify(payloadTemplate), transform, retries, baseDelayMs, onSuccess, onError]
   )
 
   const reset = useCallback(() => {
@@ -221,4 +290,20 @@ function encodePayload(
 function appendQuery(url: string, query: string): string {
   if (!query) return url
   return url + (url.includes("?") ? "&" : "?") + query
+}
+
+/**
+ * Replace {{fieldName}} tokens in each template value with the corresponding
+ * form-field value. Unknown tokens are replaced with an empty string.
+ */
+function applyPayloadTemplate(
+  template: Record<string, string>,
+  values: Record<string, unknown>
+): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(template).map(([key, tmpl]) => [
+      key,
+      tmpl.replace(/\{\{(\w+)\}\}/g, (_, field) => String(values[field] ?? "")),
+    ])
+  )
 }

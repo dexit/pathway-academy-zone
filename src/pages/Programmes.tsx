@@ -8,7 +8,8 @@ import {
   ChevronDown, Users, Target, Shield, GraduationCap,
 } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { PageHero } from "@/components/PageHero";
 import {
   buildCourseSchema, buildServiceSchema,
   buildCourseCarouselSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
@@ -268,35 +269,26 @@ export default function Programmes() {
         jsonLd={programmesSchema}
       />
 
-      {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4 text-center">
-          <Breadcrumbs
-            items={[{ label: "Programmes" }]}
-            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white/15 text-white text-sm font-medium mb-4 border border-white/20">
-            Our Programmes
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">Pathways to Success</h1>
-          <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
-            Six structured programmes delivered in Stoke-on-Trent for young people aged 11–16
-            across Staffordshire — combining academic learning with vocational skills and therapeutic support.
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            {programmes.map((p) => (
-              <a
-                key={p.slug}
-                href={`#${p.slug}`}
-                className="inline-flex items-center gap-1.5 text-xs font-medium rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/20 px-3 py-1.5 transition-colors"
-              >
-                <p.icon className="h-3.5 w-3.5" />
-                {p.title}
-              </a>
-            ))}
-          </div>
+      <PageHero
+        align="center"
+        badge={{ label: "Our Programmes", icon: GraduationCap }}
+        breadcrumbs={[{ label: "Programmes" }]}
+        heading="Pathways to Success"
+        subheading="Six structured programmes delivered in Stoke-on-Trent for young people aged 11–16 across Staffordshire — combining academic learning with vocational skills and therapeutic support."
+      >
+        <div className="flex flex-wrap gap-3 justify-center mt-6">
+          {programmes.map((p) => (
+            <a
+              key={p.slug}
+              href={`#${p.slug}`}
+              className="inline-flex items-center gap-1.5 text-xs font-medium rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/20 px-3 py-1.5 transition-colors"
+            >
+              <p.icon className="h-3.5 w-3.5" />
+              {p.title}
+            </a>
+          ))}
         </div>
-      </section>
+      </PageHero>
 
       {/* Which programme? navigator — hidden per UX request */}
       <section className="hidden py-14 bg-muted/40 border-b border-border">

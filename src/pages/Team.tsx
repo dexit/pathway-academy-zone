@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users } from "lucide-react";
 import Layout from "@/components/Layout.tsx";
-import { Seo, SITE_URL, SITE_NAME, Breadcrumbs } from "@/components/Seo";
+import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
+import { PageHero } from "@/components/PageHero";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 import martinChandler from "@/assets/martin-chandler-DvF3rkDn.webp";
@@ -64,19 +65,13 @@ export default function Team() {
         description="Meet the educators, mentors and leadership team behind Pathway Academy Zone — Alternative Provision in Stoke-on-Trent."
         jsonLd={teamSchema}
       />
-      <section className="bg-primary text-primary-foreground py-20 md:py-28">
-        <div className="container mx-auto px-4 text-center">
-          <Breadcrumbs
-            items={[{ label: "Team" }]}
-            className="text-primary-foreground/70 mb-6 justify-center [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
-            <Users className="w-3.5 h-3.5" /> Our Team
-          </div>
-          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight mb-4 max-w-3xl mx-auto">Meet the People Behind Pathway Academy Zone</h1>
-          <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl mx-auto">Our dedicated team of educators, mentors, and specialists work together to support every young person on their journey.</p>
-        </div>
-      </section>
+      <PageHero
+        align="center"
+        badge={{ label: "Our Team", icon: Users }}
+        breadcrumbs={[{ label: "Team" }]}
+        heading="Meet the People Behind Pathway Academy Zone"
+        subheading="Our dedicated team of educators, mentors, and specialists work together to support every young person on their journey."
+      />
       <section className="py-16 bg-background"><div className="container mx-auto px-4">
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-12">Our Team</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
