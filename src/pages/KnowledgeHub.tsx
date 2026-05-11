@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, BookOpen, Phone } from "lucide-react"
+import { ArrowRight, BookOpen, Phone, Layers } from "lucide-react"
 import { HubSectionCard } from "@/components/knowledge-hub/hub-section-card"
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
 import Layout from "@/components/Layout"
@@ -38,9 +38,9 @@ export default function KnowledgeHub() {
                 items={[{ label: "Knowledge Hub" }]}
                 className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
               />
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
-                Pathway Academy Zone
-              </p>
+              <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4">
+                <Layers className="w-3.5 h-3.5" /> AP Resources &amp; Guides
+              </div>
               <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
                 Knowledge Hub
               </h1>

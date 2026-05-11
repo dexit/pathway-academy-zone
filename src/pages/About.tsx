@@ -14,12 +14,14 @@ const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, tra
 const aboutJsonLd = [ORG_SCHEMA, WEBSITE_SCHEMA, buildAboutPageSchema()];
 
 const areaLinks = [
-  { name: "Stoke-on-Trent",      slug: "stoke-on-trent" },
-  { name: "Newcastle-under-Lyme",slug: "newcastle-under-lyme" },
-  { name: "Stafford",            slug: "stafford" },
-  { name: "Cannock",             slug: "cannock" },
-  { name: "Lichfield",           slug: "lichfield" },
-  { name: "Tamworth",            slug: "tamworth" },
+  { name: "Stoke-on-Trent",       slug: "stoke-on-trent" },
+  { name: "Newcastle-under-Lyme", slug: "newcastle-under-lyme" },
+  { name: "Stafford",             slug: "stafford" },
+  { name: "Cannock",              slug: "cannock" },
+  { name: "Lichfield",            slug: "lichfield" },
+  { name: "Tamworth",             slug: "tamworth" },
+  { name: "Wolverhampton",        slug: "wolverhampton" },
+  { name: "Leek",                 slug: "leek" },
 ];
 
 
@@ -142,8 +144,7 @@ export default function About() {
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <h2 className="font-display text-xl font-bold text-foreground mb-2">Serving Schools Across the Region</h2>
             <p className="text-muted-foreground text-sm mb-5">
-              We accept referrals from schools and local authorities across Staffordshire
-              and the wider West Midlands — reaching young people wherever they are.
+              We accept referrals from schools and local authorities across Staffordshire and the wider West Midlands — including Stoke-on-Trent, Newcastle-under-Lyme, Stafford, Cannock, Lichfield, Tamworth, Wolverhampton, and Leek.
             </p>
             <div className="flex flex-wrap gap-2 justify-center mb-8">
               {areaLinks.map((a) => (
