@@ -1,0 +1,34 @@
+{
+  "name": "etl-zone-gateway",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  // ── D1 ─────────────────────────────────────────────────────────────────────
+  // Run: wrangler d1 create etl-zone-db
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "etl-zone-db",
+    "database_id": "REPLACE_WITH_DB_ID",
+    "migrations_dir": "../../shared/migrations"
+  }],
+
+  // ── KV ─────────────────────────────────────────────────────────────────────
+  // Run: wrangler kv namespace create TASKS_KV
+  //      wrangler kv namespace create RATE_KV
+  "kv_namespaces": [
+    { "binding": "TASKS_KV", "id": "REPLACE_WITH_TASKS_KV_ID" },
+    { "binding": "RATE_KV",  "id": "REPLACE_WITH_RATE_KV_ID"  }
+  ],
+
+  // ── Workflow (cross-script: defined in etl-zone-etl worker) ─────────────────
+  "workflows": [{
+    "name": "form-etl-workflow",
+    "binding": "ETL_WORKFLOW",
+    "class_name": "FormETLWorkflow",
+    "script_name": "etl-zone-etl"
+  }],
+
+  "limits": { "cpu_ms": 10000 }
+}

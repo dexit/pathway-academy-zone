@@ -1,0 +1,34 @@
+{
+  "name": "etl-zone-etl",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "etl-zone-db",
+    "database_id": "REPLACE_WITH_DB_ID",
+    "migrations_dir": "../../shared/migrations"
+  }],
+
+  "kv_namespaces": [
+    { "binding": "TASKS_KV", "id": "REPLACE_WITH_TASKS_KV_ID" },
+    { "binding": "RATE_KV",  "id": "REPLACE_WITH_RATE_KV_ID"  }
+  ],
+
+  // This worker HOSTS the workflow — no script_name needed here
+  "workflows": [{
+    "name": "form-etl-workflow",
+    "binding": "ETL_WORKFLOW",
+    "class_name": "FormETLWorkflow"
+  }],
+
+  // Optional: bind a second D1 database for load_targets that target a different DB
+  // "d1_databases": [
+  //   { "binding": "DB",        "database_name": "etl-zone-db", "database_id": "..." },
+  //   { "binding": "TARGET_DB", "database_name": "my-app-db",   "database_id": "..." }
+  // ],
+
+  "limits": { "cpu_ms": 300000 }
+}

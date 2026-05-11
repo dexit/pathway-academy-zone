@@ -1,0 +1,32 @@
+{
+  "name": "etl-zone-admin",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "etl-zone-db",
+    "database_id": "REPLACE_WITH_DB_ID"
+  }],
+
+  "kv_namespaces": [
+    { "binding": "TASKS_KV", "id": "REPLACE_WITH_TASKS_KV_ID" },
+    { "binding": "RATE_KV",  "id": "REPLACE_WITH_RATE_KV_ID"  }
+  ],
+
+  // Cross-script binding to inspect/trigger ETL workflow instances
+  "workflows": [{
+    "name": "form-etl-workflow",
+    "binding": "ETL_WORKFLOW",
+    "class_name": "FormETLWorkflow",
+    "script_name": "etl-zone-etl"
+  }],
+
+  // Restrict access to admin worker via Cloudflare Zero Trust (optional)
+  // Uncomment and configure your Access policy:
+  // "access": { "application_name": "ETL Zone Admin" }
+
+  "limits": { "cpu_ms": 10000 }
+}
