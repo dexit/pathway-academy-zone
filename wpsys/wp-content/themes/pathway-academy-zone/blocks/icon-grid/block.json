@@ -1,9 +1,25 @@
 {
-  "apiVersion": 3,
-  "name": "pazone/icon-grid",
-  "title": "Icon Grid",
-  "category": "pazone",
-  "icon": "grid-view",
-  "description": "Grid of icons with text.",
-  "textdomain": "pathway-academy-zone"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/icon-grid",
+	"title": "Icon Grid",
+	"category": "paz",
+	"icon": "grid-view",
+	"description": "Attribute-driven grid of icon + heading + body items.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"heading": { "type": "string", "default": "" },
+		"columns": { "type": "number", "default": 3 },
+		"items": {
+			"type": "array",
+			"default": [
+				{ "icon": "star-filled", "title": "Quality First",      "body": "Every placement is quality-assured to the highest standard." },
+				{ "icon": "heart",       "title": "Pastoral Support",   "body": "Dedicated pastoral leads for every young person." },
+				{ "icon": "groups",      "title": "Expert Educators",   "body": "Qualified teachers with specialist SEMH experience." },
+				{ "icon": "shield-alt",  "title": "Safe & Secure",      "body": "Gold-standard safeguarding across all provisions." }
+			]
+		}
+	},
+	"render": "file:./render.php"
 }

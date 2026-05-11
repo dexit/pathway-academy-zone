@@ -1,0 +1,15 @@
+{
+  "apiVersion": 3,
+  "name": "pazone/job-board",
+  "title": "Job Board",
+  "category": "pazone",
+  "icon": "businessperson",
+  "description": "Multi-feed job search and vacancy display.",
+  "textdomain": "pathway-academy-zone",
+  "supports": { "html": false, "anchor": true },
+  "attributes": {
+    "showInternal": { "type": "boolean", "default": true },
+    "showExternal": { "type": "boolean", "default": false },
+    "externalFeeds": { "type": "array", "default": ["reed", "adzuna", "cvlibrary"] }
+  }
+}

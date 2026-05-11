@@ -141,6 +141,17 @@ function paz_register_cpts() {
 		'has_archive' => true,
 		'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields' ),
 	) ) );
+
+	register_post_type( 'paz_glossary', paz_cpt_defaults( array(
+		'labels' => array(
+			'name'          => __( 'Glossary', 'pathway-academy-zone' ),
+			'singular_name' => __( 'Glossary Item', 'pathway-academy-zone' ),
+			'menu_name'     => __( 'Glossary', 'pathway-academy-zone' ),
+		),
+		'menu_icon' => 'dashicons-editor-spellcheck',
+		'rewrite'   => array( 'slug' => 'glossary', 'with_front' => false ),
+		'supports'  => array( 'title', 'editor', 'custom-fields', 'page-attributes' ),
+	) ) );
 }
 add_action( 'init', 'paz_register_cpts' );
 

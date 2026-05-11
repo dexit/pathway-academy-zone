@@ -1,9 +1,16 @@
 {
-  "apiVersion": 3,
-  "name": "pazone/breadcrumbs",
-  "title": "Breadcrumbs",
-  "category": "pazone",
-  "icon": "arrow-right-alt",
-  "description": "Navigational breadcrumbs.",
-  "textdomain": "pathway-academy-zone"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pazone/breadcrumbs",
+	"title": "Breadcrumbs",
+	"category": "paz",
+	"icon": "arrow-right-alt",
+	"description": "Server-side breadcrumb trail with BreadcrumbList JSON-LD schema.",
+	"textdomain": "pathway-academy-zone",
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"attributes": {
+		"showHome":  { "type": "boolean", "default": true },
+		"separator": { "type": "string",  "default": "/" }
+	},
+	"render": "file:./render.php"
 }
