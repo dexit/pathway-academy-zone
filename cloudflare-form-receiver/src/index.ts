@@ -1,28 +1,37 @@
-import type { Env, SubmissionFields, SubmissionMetadata, TaskRecord, RateLimitRecord } from './types';
+import { checkRateLimit } from './lib/rate-limit';
+import { evaluateFilters } from './lib/filters';
+import { verifyIncoming } from './lib/auth';
+import { adminHtml } from './admin/ui';
+import type {
+  Env,
+  SubmissionFields,
+  SubmissionMetadata,
+  FilterRuleRow,
+  IncomingAuthConfig,
+  RegisteredFormRow,
+} from './types';
+
 export { FormProcessingWorkflow } from './workflow';
 
 // ── Constants ────────────────────────────────────────────────────────────────
-const RATE_LIMIT_MAX = 10;       // max submissions per window per IP
-const RATE_LIMIT_WINDOW = 60;    // seconds
 const MAX_FIELDS = 50;
-const MAX_FIELD_LENGTH = 10_000; // chars per field value
+const MAX_FIELD_LEN = 10_000;
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Utilities ────────────────────────────────────────────────────────────────
 
-function nanoid(size = 21): string {
+function nanoid(n = 21): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const bytes = crypto.getRandomValues(new Uint8Array(size));
-  return Array.from(bytes, (b) => chars[b % chars.length]).join('');
+  return Array.from(crypto.getRandomValues(new Uint8Array(n)), b => chars[b % chars.length]!).join('');
 }
 
-function json(data: unknown, status = 200): Response {
+function json(data: unknown, status = 200, extraHeaders?: HeadersInit): Response {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...extraHeaders },
   });
 }
 
-function corsHeaders(origin: string): HeadersInit {
+function corsHeaders(origin: string): Record<string, string> {
   return {
     'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
@@ -31,225 +40,307 @@ function corsHeaders(origin: string): HeadersInit {
   };
 }
 
-async function checkRateLimit(env: Env, ip: string): Promise<boolean> {
-  const key = `rate:ip:${ip}`;
-  const now = Math.floor(Date.now() / 1000);
-  const record = await env.RATE_KV.get<RateLimitRecord>(key, 'json');
-
-  if (!record || now - record.windowStart >= RATE_LIMIT_WINDOW) {
-    await env.RATE_KV.put(key, JSON.stringify({ count: 1, windowStart: now }), {
-      expirationTtl: RATE_LIMIT_WINDOW,
-    });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT_MAX) return false;
-
-  await env.RATE_KV.put(key, JSON.stringify({ count: record.count + 1, windowStart: record.windowStart }), {
-    expirationTtl: RATE_LIMIT_WINDOW,
-  });
-  return true;
-}
-
-async function parseFields(request: Request): Promise<SubmissionFields> {
+async function parseFields(request: Request): Promise<[SubmissionFields, string]> {
+  const rawBody = await request.text();
   const ct = request.headers.get('content-type') ?? '';
   const fields: SubmissionFields = {};
 
+  const addField = (k: string, v: string) => {
+    const truncated = v.slice(0, MAX_FIELD_LEN);
+    const prev = fields[k];
+    if (prev === undefined) fields[k] = truncated;
+    else if (Array.isArray(prev)) prev.push(truncated);
+    else fields[k] = [prev, truncated];
+  };
+
   if (ct.includes('application/json')) {
-    const body = await request.json<Record<string, unknown>>();
+    const body = JSON.parse(rawBody) as Record<string, unknown>;
     for (const [k, v] of Object.entries(body)) {
-      if (Array.isArray(v)) {
-        fields[k] = v.map(String).map((s) => s.slice(0, MAX_FIELD_LENGTH));
-      } else {
-        fields[k] = String(v ?? '').slice(0, MAX_FIELD_LENGTH);
-      }
+      if (Array.isArray(v)) v.map(String).forEach(s => addField(k, s));
+      else addField(k, String(v ?? ''));
     }
   } else {
-    // multipart/form-data or application/x-www-form-urlencoded
-    const fd = await request.formData();
-    for (const [k, v] of fd.entries()) {
-      if (typeof v === 'string') {
-        const prev = fields[k];
-        if (prev === undefined) {
-          fields[k] = v.slice(0, MAX_FIELD_LENGTH);
-        } else if (Array.isArray(prev)) {
-          prev.push(v.slice(0, MAX_FIELD_LENGTH));
-        } else {
-          fields[k] = [prev, v.slice(0, MAX_FIELD_LENGTH)];
-        }
-      }
-      // file uploads are intentionally ignored — use R2 for that
+    const fd = ct.includes('multipart/form-data')
+      ? await new Request(request.url, {
+          method: request.method,
+          headers: request.headers,
+          body: rawBody,
+        }).formData().catch(() => new FormData())
+      : (() => { const p = new URLSearchParams(rawBody); const fd = new FormData(); p.forEach((v, k) => fd.append(k, v)); return fd; })();
+
+    for (const [k, v] of (fd as FormData).entries()) {
+      if (typeof v === 'string') addField(k, v);
     }
   }
 
-  if (Object.keys(fields).length > MAX_FIELDS) {
-    throw new Error(`Too many fields (max ${MAX_FIELDS})`);
-  }
-
-  return fields;
+  if (Object.keys(fields).length > MAX_FIELDS) throw new Error(`Too many fields (max ${MAX_FIELDS})`);
+  return [fields, rawBody];
 }
 
-// ── Route handlers ───────────────────────────────────────────────────────────
+// ── Public routes ─────────────────────────────────────────────────────────────
 
 async function handleSubmit(request: Request, env: Env, formId: string): Promise<Response> {
   const origin = request.headers.get('origin') ?? 'unknown';
   const ip = request.headers.get('cf-connecting-ip') ?? request.headers.get('x-forwarded-for') ?? '0.0.0.0';
+  const url = new URL(request.url);
 
-  // Rate limit
-  const allowed = await checkRateLimit(env, ip);
-  if (!allowed) {
-    return json({ error: 'Too many requests. Please slow down.' }, 429);
+  // Rate limit (KV — fast, eventually consistent; fine for this use)
+  if (!(await checkRateLimit(env.RATE_KV, ip))) {
+    return json({ error: 'Too many requests.' }, 429);
   }
 
-  // Parse form fields
-  let fields: SubmissionFields;
+  // Parse body — we need the raw string for HMAC verification
+  let fields: SubmissionFields, rawBody: string;
   try {
-    fields = await parseFields(request);
+    [fields, rawBody] = await parseFields(request.clone());
   } catch (err) {
     return json({ error: (err as Error).message }, 400);
   }
 
   if (Object.keys(fields).length === 0) {
-    return json({ error: 'No fields found in submission.' }, 400);
+    return json({ error: 'No fields in submission.' }, 400);
   }
 
-  // Build submission record
-  const id = nanoid();
-  const metadata: SubmissionMetadata = {
-    ip,
-    userAgent: request.headers.get('user-agent') ?? '',
-    referrer: request.headers.get('referer') ?? '',
-    timestamp: Date.now(),
-    origin,
-  };
+  // Load registered form
+  const form = await env.DB.prepare(
+    'SELECT * FROM registered_forms WHERE form_id=? AND active=1'
+  ).bind(formId).first<RegisteredFormRow>();
+
+  // Verify incoming auth signature (if configured)
+  if (form?.verify_auth) {
+    const cfg: IncomingAuthConfig = JSON.parse(form.verify_auth);
+    try {
+      await verifyIncoming(cfg, { rawBody, request, url });
+    } catch (err) {
+      return json({ error: `Auth verification failed: ${(err as Error).message}` }, 401);
+    }
+  }
+
+  // Evaluate pre-ingestion filter rules (fast-path block before writing to D1)
+  if (form) {
+    const { results: rules } = await env.DB.prepare(
+      'SELECT * FROM filter_rules WHERE form_id=? AND active=1 ORDER BY priority ASC'
+    ).bind(formId).all<FilterRuleRow>();
+
+    if (rules.length > 0) {
+      const result = evaluateFilters(rules, {
+        queryParams: url.searchParams,
+        fields,
+        headers: request.headers,
+        origin,
+        ip,
+      });
+
+      if (result?.action === 'block') {
+        return json({ error: `Submission blocked by filter rule: ${result.rule.name}` }, 422);
+      }
+    }
+  }
 
   // Persist to D1
+  const id = nanoid();
+  const metadata: SubmissionMetadata = {
+    ip, userAgent: request.headers.get('user-agent') ?? '',
+    referrer: request.headers.get('referer') ?? '',
+    timestamp: Date.now(), origin,
+  };
+
   await env.DB.prepare(
     `INSERT INTO form_submissions (id, form_id, origin, fields, metadata, status)
      VALUES (?, ?, ?, ?, ?, 'pending')`
   ).bind(id, formId, origin, JSON.stringify(fields), JSON.stringify(metadata)).run();
 
-  // Queue task in KV so admin/monitoring can see pending work
-  const taskRecord: TaskRecord = {
-    submissionId: id,
-    formId,
-    status: 'queued',
-    workflowId: null,
-    attempts: 0,
-    lastAttemptAt: null,
-    error: null,
-  };
-  await env.TASKS_KV.put(`task:${id}`, JSON.stringify(taskRecord), { expirationTtl: 86400 });
-
-  // Look up notify URL from registered forms
-  const form = await env.DB.prepare(
-    'SELECT notify_url FROM registered_forms WHERE form_id = ? AND active = 1'
-  ).bind(formId).first<{ notify_url: string | null }>();
-
-  // Trigger Workflow for background processing
+  // Trigger Workflow for background processing (filter re-eval + delivery)
   const instance = await env.FORM_WORKFLOW.create({
     id: `sub-${id}`,
-    params: {
-      submissionId: id,
-      formId,
-      notifyUrl: form?.notify_url ?? null,
-    },
+    params: { submissionId: id, formId },
   });
 
-  return json({
-    success: true,
-    submissionId: id,
-    workflowId: instance.id,
-    message: 'Form submission received.',
-  }, 202);
+  return json({ success: true, submissionId: id, workflowId: instance.id }, 202);
 }
 
-async function handleStatus(request: Request, env: Env, submissionId: string): Promise<Response> {
-  // Check KV first (fast path)
-  const task = await env.TASKS_KV.get<TaskRecord>(`task:${submissionId}`, 'json');
-
-  if (task) {
-    return json({ submissionId, ...task });
-  }
-
-  // Fall back to D1 for older records not in KV
+async function handleStatus(env: Env, submissionId: string): Promise<Response> {
   const row = await env.DB.prepare(
-    'SELECT id, form_id, status, workflow_id, error_message, created_at, updated_at FROM form_submissions WHERE id = ?'
+    'SELECT id, form_id, status, workflow_id, error_message, created_at, updated_at FROM form_submissions WHERE id=?'
   ).bind(submissionId).first();
-
-  if (!row) return json({ error: 'Submission not found.' }, 404);
+  if (!row) return json({ error: 'Not found.' }, 404);
   return json(row);
 }
 
-async function handleAdminList(request: Request, env: Env): Promise<Response> {
+// ── Admin API routes ──────────────────────────────────────────────────────────
+
+async function handleAdmin(request: Request, env: Env, pathname: string): Promise<Response> {
+  const method = request.method.toUpperCase();
   const url = new URL(request.url);
-  const formId = url.searchParams.get('form_id');
-  const status = url.searchParams.get('status');
-  const limit = Math.min(parseInt(url.searchParams.get('limit') ?? '50', 10), 200);
-  const offset = parseInt(url.searchParams.get('offset') ?? '0', 10);
 
-  let query = 'SELECT id, form_id, origin, status, created_at, updated_at FROM form_submissions WHERE 1=1';
-  const bindings: (string | number)[] = [];
-
-  if (formId) { query += ' AND form_id = ?'; bindings.push(formId); }
-  if (status)  { query += ' AND status = ?';  bindings.push(status); }
-  query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
-  bindings.push(limit, offset);
-
-  const { results } = await env.DB.prepare(query).bind(...bindings).all();
-  const total = await env.DB.prepare(
-    'SELECT COUNT(*) as count FROM form_submissions WHERE 1=1' +
-    (formId ? ' AND form_id = ?' : '') +
-    (status  ? ' AND status = ?'  : '')
-  ).bind(...bindings.slice(0, -2)).first<{ count: number }>();
-
-  return json({ submissions: results, total: total?.count ?? 0, limit, offset });
-}
-
-async function handleAdminDetail(request: Request, env: Env, submissionId: string): Promise<Response> {
-  const row = await env.DB.prepare(
-    'SELECT * FROM form_submissions WHERE id = ?'
-  ).bind(submissionId).first();
-
-  if (!row) return json({ error: 'Submission not found.' }, 404);
-
-  return json({
-    ...row,
-    fields: JSON.parse(row.fields as string),
-    metadata: JSON.parse(row.metadata as string),
-  });
-}
-
-async function handleRegisterForm(request: Request, env: Env): Promise<Response> {
-  const body = await request.json<{
-    form_id: string;
-    name: string;
-    allowed_origins?: string[];
-    notify_url?: string;
-  }>();
-
-  if (!body.form_id || !body.name) {
-    return json({ error: 'form_id and name are required.' }, 400);
+  // ── /admin/api/stats ────────────────────────────────────────────────────────
+  if (pathname === '/stats' && method === 'GET') {
+    const [total, today, pending, done, failed, recent] = await env.DB.batch([
+      env.DB.prepare('SELECT COUNT(*) as c FROM form_submissions'),
+      env.DB.prepare("SELECT COUNT(*) as c FROM form_submissions WHERE created_at >= date('now')"),
+      env.DB.prepare("SELECT COUNT(*) as c FROM form_submissions WHERE status='pending'"),
+      env.DB.prepare("SELECT COUNT(*) as c FROM form_submissions WHERE status='done'"),
+      env.DB.prepare("SELECT COUNT(*) as c FROM form_submissions WHERE status='failed'"),
+      env.DB.prepare('SELECT id, form_id, status, origin, created_at FROM form_submissions ORDER BY created_at DESC LIMIT 10'),
+    ]);
+    return json({
+      total: (total.results[0] as { c: number }).c,
+      today: (today.results[0] as { c: number }).c,
+      pending: (pending.results[0] as { c: number }).c,
+      done: (done.results[0] as { c: number }).c,
+      failed: (failed.results[0] as { c: number }).c,
+      recent: recent.results,
+    });
   }
 
-  await env.DB.prepare(
-    `INSERT INTO registered_forms (form_id, name, allowed_origins, notify_url)
-     VALUES (?, ?, ?, ?)
-     ON CONFLICT(form_id) DO UPDATE SET
-       name = excluded.name,
-       allowed_origins = excluded.allowed_origins,
-       notify_url = excluded.notify_url`
-  ).bind(
-    body.form_id,
-    body.name,
-    JSON.stringify(body.allowed_origins ?? ['*']),
-    body.notify_url ?? null,
-  ).run();
+  // ── /admin/api/submissions ───────────────────────────────────────────────────
+  if (pathname === '/submissions' && method === 'GET') {
+    const formId = url.searchParams.get('form_id');
+    const status = url.searchParams.get('status');
+    const limit = Math.min(parseInt(url.searchParams.get('limit') ?? '20'), 200);
+    const offset = parseInt(url.searchParams.get('offset') ?? '0');
 
-  return json({ success: true, form_id: body.form_id });
+    let q = 'SELECT id, form_id, origin, status, created_at, updated_at FROM form_submissions WHERE 1=1';
+    const b: (string | number)[] = [];
+    if (formId) { q += ' AND form_id=?'; b.push(formId); }
+    if (status)  { q += ' AND status=?';  b.push(status); }
+    q += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
+
+    const { results } = await env.DB.prepare(q).bind(...b, limit, offset).all();
+    const tot = await env.DB.prepare(
+      'SELECT COUNT(*) as c FROM form_submissions WHERE 1=1' +
+      (formId ? ' AND form_id=?' : '') + (status ? ' AND status=?' : '')
+    ).bind(...b).first<{ c: number }>();
+
+    return json({ submissions: results, total: tot?.c ?? 0, limit, offset });
+  }
+
+  // ── /admin/api/submissions/:id ───────────────────────────────────────────────
+  const subMatch = pathname.match(/^\/submissions\/([^/]+)$/);
+  if (subMatch) {
+    const id = decodeURIComponent(subMatch[1]!);
+    if (method === 'GET') {
+      const row = await env.DB.prepare('SELECT * FROM form_submissions WHERE id=?').bind(id).first();
+      return row ? json(row) : json({ error: 'Not found.' }, 404);
+    }
+  }
+
+  // ── /admin/api/forms ─────────────────────────────────────────────────────────
+  if (pathname === '/forms') {
+    if (method === 'GET') {
+      const { results } = await env.DB.prepare('SELECT * FROM registered_forms ORDER BY created_at DESC').all();
+      return json({ forms: results });
+    }
+    if (method === 'POST') {
+      const body = await request.json<{
+        form_id: string; name: string;
+        allowed_origins?: string[];
+        verify_auth?: object;
+      }>();
+      if (!body.form_id || !body.name) return json({ error: 'form_id and name required.' }, 400);
+
+      await env.DB.prepare(
+        `INSERT INTO registered_forms (form_id, name, allowed_origins, verify_auth)
+         VALUES (?, ?, ?, ?)
+         ON CONFLICT(form_id) DO UPDATE SET
+           name=excluded.name, allowed_origins=excluded.allowed_origins, verify_auth=excluded.verify_auth`
+      ).bind(
+        body.form_id, body.name,
+        JSON.stringify(body.allowed_origins ?? ['*']),
+        body.verify_auth ? JSON.stringify(body.verify_auth) : null,
+      ).run();
+      return json({ success: true });
+    }
+  }
+
+  // ── /admin/api/forms/:formId/filters ─────────────────────────────────────────
+  const filterBase = pathname.match(/^\/forms\/([^/]+)\/filters$/);
+  if (filterBase) {
+    const formId = decodeURIComponent(filterBase[1]!);
+    if (method === 'GET') {
+      const { results } = await env.DB.prepare(
+        'SELECT * FROM filter_rules WHERE form_id=? ORDER BY priority ASC'
+      ).bind(formId).all();
+      return json({ rules: results });
+    }
+    if (method === 'POST') {
+      const b = await request.json<{
+        name: string; source: string; pattern: string;
+        value_pattern?: string | null; action: string; priority?: number;
+      }>();
+      await env.DB.prepare(
+        `INSERT INTO filter_rules (form_id, name, source, pattern, value_pattern, action, priority)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`
+      ).bind(formId, b.name, b.source, b.pattern, b.value_pattern ?? null, b.action, b.priority ?? 100).run();
+      return json({ success: true });
+    }
+  }
+
+  const filterItem = pathname.match(/^\/forms\/([^/]+)\/filters\/(\d+)$/);
+  if (filterItem && method === 'DELETE') {
+    const [, formId, id] = filterItem;
+    await env.DB.prepare('DELETE FROM filter_rules WHERE id=? AND form_id=?').bind(Number(id), formId).run();
+    return json({ success: true });
+  }
+
+  // ── /admin/api/forms/:formId/notify-configs ───────────────────────────────────
+  const notifyBase = pathname.match(/^\/forms\/([^/]+)\/notify-configs$/);
+  if (notifyBase) {
+    const formId = decodeURIComponent(notifyBase[1]!);
+    if (method === 'GET') {
+      const { results } = await env.DB.prepare(
+        'SELECT * FROM notify_configs WHERE form_id=? ORDER BY created_at DESC'
+      ).bind(formId).all();
+      return json({ configs: results });
+    }
+    if (method === 'POST') {
+      const b = await request.json<{
+        name: string; notify_url_template: string; http_method?: string;
+        extra_headers?: string | null; body_template?: string | null;
+        auth_type: string; auth_config?: object | null;
+      }>();
+      await env.DB.prepare(
+        `INSERT INTO notify_configs
+         (form_id, name, notify_url_template, http_method, extra_headers, body_template, auth_type, auth_config)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      ).bind(
+        formId, b.name, b.notify_url_template, b.http_method ?? 'POST',
+        b.extra_headers ?? null, b.body_template ?? null,
+        b.auth_type, b.auth_config ? JSON.stringify(b.auth_config) : null,
+      ).run();
+      return json({ success: true });
+    }
+  }
+
+  const notifyItem = pathname.match(/^\/forms\/([^/]+)\/notify-configs\/(\d+)$/);
+  if (notifyItem && method === 'DELETE') {
+    const [, formId, id] = notifyItem;
+    await env.DB.prepare('DELETE FROM notify_configs WHERE id=? AND form_id=?').bind(Number(id), formId).run();
+    return json({ success: true });
+  }
+
+  // ── /admin/api/delivery-log ───────────────────────────────────────────────────
+  if (pathname === '/delivery-log' && method === 'GET') {
+    const formId = url.searchParams.get('form_id');
+    const limit = Math.min(parseInt(url.searchParams.get('limit') ?? '20'), 200);
+    const offset = parseInt(url.searchParams.get('offset') ?? '0');
+
+    let q = 'SELECT * FROM delivery_log WHERE 1=1';
+    const b: (string | number)[] = [];
+    if (formId) { q += ' AND form_id=?'; b.push(formId); }
+    q += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
+
+    const [{ results }, tot] = await Promise.all([
+      env.DB.prepare(q).bind(...b, limit, offset).all(),
+      env.DB.prepare('SELECT COUNT(*) as c FROM delivery_log WHERE 1=1' + (formId ? ' AND form_id=?' : '')).bind(...b).first<{ c: number }>(),
+    ]);
+    return json({ logs: results, total: tot?.c ?? 0, limit, offset });
+  }
+
+  return json({ error: 'Admin route not found.' }, 404);
 }
 
-// ── Main fetch handler ───────────────────────────────────────────────────────
+// ── Main fetch handler ────────────────────────────────────────────────────────
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -258,71 +349,48 @@ export default {
     const method = request.method.toUpperCase();
     const origin = request.headers.get('origin') ?? '*';
 
-    // CORS preflight
     if (method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
 
-    // ── /health ──────────────────────────────────────────────────────────────
+    // ── Health ──────────────────────────────────────────────────────────────
     if (pathname === '/health' && method === 'GET') {
-      return json({ status: 'ok', timestamp: Date.now() });
+      return json({ status: 'ok', ts: Date.now() });
     }
 
-    // ── POST /submit/:formId  or  POST /submit?form_id=xxx ───────────────────
+    // ── Submit: POST /submit/:formId  or  /submit?form_id=x ─────────────────
     if (method === 'POST') {
-      const submitMatch = pathname.match(/^\/submit\/([^/]+)$/);
-      const formId = submitMatch
-        ? decodeURIComponent(submitMatch[1])
-        : url.searchParams.get('form_id');
-
+      const m = pathname.match(/^\/submit\/([^/]+)$/);
+      const formId = m ? decodeURIComponent(m[1]!) : url.searchParams.get('form_id');
       if (formId) {
         const res = await handleSubmit(request, env, formId);
-        // Attach CORS headers to submission response
-        const headers = new Headers(res.headers);
-        for (const [k, v] of Object.entries(corsHeaders(origin))) headers.set(k, v);
-        return new Response(res.body, { status: res.status, headers });
+        const h = new Headers(res.headers);
+        Object.entries(corsHeaders(origin)).forEach(([k, v]) => h.set(k, v));
+        return new Response(res.body, { status: res.status, headers: h });
       }
     }
 
-    // ── GET /status/:submissionId ────────────────────────────────────────────
-    const statusMatch = pathname.match(/^\/status\/([^/]+)$/);
-    if (statusMatch && method === 'GET') {
-      return handleStatus(request, env, decodeURIComponent(statusMatch[1]));
+    // ── Status: GET /status/:id ─────────────────────────────────────────────
+    const sm = pathname.match(/^\/status\/([^/]+)$/);
+    if (sm && method === 'GET') {
+      return handleStatus(env, decodeURIComponent(sm[1]!));
     }
 
-    // ── Admin routes — require X-Admin-Key header ────────────────────────────
-    const adminKey = request.headers.get('x-admin-key');
-    if (pathname.startsWith('/admin')) {
+    // ── Admin panel UI ───────────────────────────────────────────────────────
+    if (pathname === '/admin' || pathname === '/admin/') {
+      return new Response(adminHtml(), {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' },
+      });
+    }
+
+    // ── Admin API: /admin/api/* ──────────────────────────────────────────────
+    if (pathname.startsWith('/admin/api')) {
+      const adminKey = request.headers.get('x-admin-key');
       if (!env.ADMIN_API_KEY || adminKey !== env.ADMIN_API_KEY) {
         return json({ error: 'Unauthorized.' }, 401);
       }
-
-      // GET /admin/submissions
-      if (pathname === '/admin/submissions' && method === 'GET') {
-        return handleAdminList(request, env);
-      }
-
-      // GET /admin/submissions/:id
-      const detailMatch = pathname.match(/^\/admin\/submissions\/([^/]+)$/);
-      if (detailMatch && method === 'GET') {
-        return handleAdminDetail(request, env, decodeURIComponent(detailMatch[1]));
-      }
-
-      // POST /admin/forms  — register a form
-      if (pathname === '/admin/forms' && method === 'POST') {
-        return handleRegisterForm(request, env);
-      }
-
-      // GET /admin/tasks  — list KV pending tasks
-      if (pathname === '/admin/tasks' && method === 'GET') {
-        const { keys } = await env.TASKS_KV.list({ prefix: 'task:' });
-        const tasks = await Promise.all(
-          keys.map((k) => env.TASKS_KV.get<TaskRecord>(k.name, 'json'))
-        );
-        return json({ tasks: tasks.filter(Boolean) });
-      }
-
-      return json({ error: 'Admin route not found.' }, 404);
+      const apiPath = pathname.replace('/admin/api', '') || '/';
+      return handleAdmin(request, env, apiPath);
     }
 
     return json({ error: 'Not found.' }, 404);
