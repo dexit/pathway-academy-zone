@@ -26,7 +26,6 @@
 |------|------|-------|
 | Martin Chandler | Head of Community and Engagement (Safeguarding) | `martin-chandler-DvF3rkDn.webp` |
 | Liam Farrall | Head of Alternative Provision | `liam-farrall-DwXnuzxA.webp` |
-| Gemma Mason, QTLS | SENCO Lead | `gemma-mason-Dplhj7uo.webp` |
 | Ahsan Hussain | Head of Partnerships and Impact | `ahsan-hussain-OIFhfXvg.webp` |
 | Zulekha Ali | HR and Executive Support | `zulekha-ali-Dfoelgdx.webp` |
 
@@ -60,7 +59,6 @@ Each image alt text follows the pattern: `[Name] — [Role]` and title: `[Name]`
 
 - `martin-chandler-DvF3rkDn.webp` — "Martin Chandler — Head of Community and Engagement (Safeguarding)"
 - `liam-farrall-DwXnuzxA.webp` — "Liam Farrall — Head of Alternative Provision"
-- `gemma-mason-Dplhj7uo.webp` — "Gemma Mason, QTLS — SENCO Lead"
 - `ahsan-hussain-OIFhfXvg.webp` — "Ahsan Hussain — Head of Partnerships and Impact"
 - `zulekha-ali-Dfoelgdx.webp` — "Zulekha Ali — HR and Executive Support"
 - `safaraz-ali-R0JVDMEt.webp` — "Safaraz Ali — Founder & CEO"
