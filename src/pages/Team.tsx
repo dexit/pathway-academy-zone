@@ -8,7 +8,6 @@ import { PageHero } from "@/components/PageHero";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 import martinChandler from "@/assets/martin-chandler-DvF3rkDn.webp";
-import gemmaMason from "@/assets/gemma-mason-Dplhj7uo.webp";
 import ahsanHussain from "@/assets/ahsan-hussain-OIFhfXvg.webp";
 import zulekhAli from "@/assets/zulekha-ali-Dfoelgdx.webp";
 import safarazAli from "@/assets/safaraz-ali-R0JVDMEt.webp";
@@ -18,7 +17,7 @@ import liamFarrall from "@/assets/liam-farrall-DwXnuzxA.webp";
 const team = [
   { name: "Martin Chandler", role: "Head of Community and Engagement (Safeguarding)", img: martinChandler },
   { name: "Liam Farrall", role: "Head of Alternative Provision", img: liamFarrall },
-  { name: "Gemma Mason, QTLS", role: "SENCO Lead", img: gemmaMason },
+ // { name: "Gemma Mason, QTLS", role: "SENCO Lead", img: gemmaMason },
   { name: "Ahsan Hussain", role: "Head of Partnerships and Impact", img: ahsanHussain },
   { name: "Zulekha Ali", role: "HR and Executive Support", img: zulekhAli },
 ];
