@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => ({
     },
     // Proper SPA fallback for dev server — Vite's native approach
     middlewareMode: false,
-    allowedHosts: ['sb-1798vzj55zvl.vercel.run', 'sb-626pokf3r6h2.vercel.run', 'localhost', '127.0.0.1'],
+    allowedHosts: ['.vercel.run', 'localhost', '127.0.0.1'],
   },
   plugins: [
     react(),
