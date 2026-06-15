@@ -1,7 +1,15 @@
 /**
  * Live site content extracted from pathwayacademyzone.co.uk
  * Used to keep project content in sync with website
- * Generated: 2026-06-15
+ * Last synced: 2026-06-15
+ * 
+ * Content includes:
+ * - Home page (hero, stats, FAQs, impact metrics)
+ * - About page (mission, values, team info)
+ * - Programmes (course details, outcomes)
+ * - Contact (info, quick links)
+ * - Support & Safeguarding (DSL details, policies)
+ * - Knowledge Hub (guides, glossary)
  */
 
 export const LIVE_CONTENT = {
@@ -331,4 +339,49 @@ export const LIVE_CONTENT = {
       },
     ],
   },
-};
+  contact: {
+    contactInfo: {
+      phone: "01782 365365",
+      phoneHours: "Mon-Fri 8:30am - 4:00pm",
+      email: "info@pathwayacademyzone.co.uk",
+      emailResponse: "We aim to respond within 24 hours",
+      address: "Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ",
+      hours: "Monday - Friday, 8:30am - 4:00pm",
+    },
+    quickLinks: [
+      { title: "Make a Referral", description: "Start the referral process for a young person" },
+      { title: "Safeguarding", description: "Learn about our safeguarding practices" },
+      { title: "Policies", description: "Review our statutory and organisational policies" },
+    ],
+  },
+
+  safeguarding: {
+    dsl: {
+      name: "Martin Chandler",
+      title: "Designated Safeguarding Lead",
+      email: "martin.chandler@pathwaygroup.co.uk",
+      bio: "Martin leads our safeguarding practice and is the first point of contact for any safeguarding concerns. He works closely with external agencies and ensures all staff receive regular safeguarding training.",
+    },
+    commitments: [
+      "All staff complete enhanced DBS checks and receive regular safeguarding training",
+      "We maintain clear reporting procedures and work closely with local safeguarding partners",
+      "Young people are taught to recognise risks and know who to talk to if they feel unsafe",
+    ],
+    policies: [
+      "Child Protection & Safeguarding Policy",
+      "Online Safety Policy",
+      "Anti-Bullying Policy",
+      "Behaviour & Positive Relationships Policy",
+      "Safer Recruitment Policy",
+      "Whistleblowing Policy",
+    ],
+  },
+
+  knowledgeHub: {
+    title: "Knowledge Hub & Resources",
+    description: "Comprehensive guides, glossary, and resources for understanding Alternative Provision",
+    sections: [
+      { title: "Complete Guide to AP", path: "/knowledge-hub/complete-guide" },
+      { title: "Glossary", path: "/knowledge-hub/glossary" },
+    ],
+  },
