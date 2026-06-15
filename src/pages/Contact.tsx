@@ -19,16 +19,16 @@ import { FormBuilder } from "@/components/forms/FormBuilder";
 import { CONTACT_FORM_META, contactSchema, type ContactValues } from "@/lib/form-configs/contact";
 import { normaliseUkPhone } from "@/lib/uk-validators";
 import { PageHero } from "@/components/PageHero";
+import { LIVE_CONTENT } from "@/data/live-site-content";
 import buildingImg from "@/assets/programmes/building-exterior-CdR2heuW.webp";
 import { MapEmbed } from "@/components/MapEmbed";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
 const contactInfoItems = [
-  { icon: Phone, title: "Phone", main: "01782 365365", sub: "Mon-Fri 8:30am - 4:00pm" },
-  { icon: Mail, title: "Email", main: "info@pathwayacademyzone.co.uk", sub: "We aim to respond within 24 hours" },
-  { icon: MapPin, title: "Address", main: "Duncalf St, Burslem", sub: "Stoke-on-Trent ST6 3LJ" },
-  { icon: Clock, title: "Opening Hours", main: "Monday - Friday", sub: "8:30am - 4:00pm" },
+  { icon: Phone, title: "Phone", main: LIVE_CONTENT.contact.contactInfo.phone, sub: LIVE_CONTENT.contact.contactInfo.phoneHours },
+  { icon: Mail, title: "Email", main: LIVE_CONTENT.contact.contactInfo.email, sub: LIVE_CONTENT.contact.contactInfo.emailResponse },
+  { icon: MapPin, title: "Address", main: LIVE_CONTENT.contact.contactInfo.address, sub: LIVE_CONTENT.contact.contactInfo.hours },
 ];
 
 // Minimal programme stubs — Service schema needs the catalogue structure
@@ -48,11 +48,11 @@ const pageJsonLd = [
   buildServiceSchema(PROGRAMME_STUBS),
 ];
 
-const quickLinks = [
-  { title: "Make a Referral", desc: "Start the referral process for a young person", path: "/referral" },
-  { title: "Visit Our Centre", desc: "See our facilities and meet the team", path: "/centres" },
-  { title: "Join Our Team", desc: "View current vacancies and opportunities", path: "/careers" },
-];
+const quickLinks = LIVE_CONTENT.contact.quickLinks.map((link) => ({
+  title: link.title,
+  desc: link.description,
+  path: "/" + link.title.toLowerCase().replace(/\s+/g, "-"),
+}));
 
 export default function Contact() {
   const { toast } = useToast();

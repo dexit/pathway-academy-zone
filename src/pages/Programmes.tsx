@@ -14,6 +14,7 @@ import {
   buildCourseSchema, buildServiceSchema,
   buildCourseCarouselSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
 } from "@/lib/json-ld";
+import { LIVE_CONTENT } from "@/data/live-site-content";
 import classroomImg  from "@/assets/programmes/classroom-1-NBeOjKjJ.webp";
 import vocationalImg from "@/assets/programmes/training-wall-uqB92baC.webp";
 import mentoringImg  from "@/assets/programmes/reception-area-CTi6XeEj.webp";
