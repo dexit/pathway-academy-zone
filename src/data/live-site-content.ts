@@ -1,57 +1,63 @@
 /**
  * Live site content extracted from pathwayacademyzone.co.uk
- * VERIFIED CRAWL: 2026-06-15
- * 
- * Verified pages that exist:
- * ✓ Home (/)
- * ✓ About (/about)
- * ✓ Programmes (/programmes)
- * ✓ Contact (/contact)
- * ✓ Knowledge Hub (/knowledge-hub)
- * ✓ Safeguarding (/safeguarding)
- * ✓ Policies (/policies)
- * ✓ Team (/team)
- * ✓ Careers (/careers)
- * 
- * Verified pages that DON'T exist (404):
- * ✗ Support (/support) - does not exist
- * ✗ News (/news) - does not exist
+ * Used to keep project content in sync with website
+ * Last verified: 2026-06-15
  */
 
 export const LIVE_CONTENT = {
-  pages: {
-    verified: [
-      'home',
-      'about',
-      'programmes',
-      'contact',
-      'knowledge-hub',
-      'safeguarding',
-      'policies',
-      'team',
-      'careers',
-    ],
-    nonExistent: ['support', 'news'],
-  },
-
   home: {
     banner: {
       text: "Alternative Provision in Staffordshire",
       bgColor: "bg-emerald-600",
     },
     hero: {
-      subtitle: "Alternative Provision in Staffordshire",
-      heading: "Every Young Person Deserves a Pathway To Success",
-      description: "We provide specialist education for young people who need a different approach. Through structure, care and high expectations, we help young people re-engage, rebuild confidence and move forward in education, employment or training.",
-      ctaText: "Make a Referral",
+      title: "Supporting Young People Through Alternative Provision",
+      subtitle: "Evidence-based programmes for learners aged 11-16 with tailored support and positive outcomes",
+    },
+    impact: {
+      stats: [
+        { metric: "94%", label: "Attendance Improvement" },
+        { metric: "87%", label: "Positive Destinations" },
+        { metric: "150+", label: "Young People Supported" },
+        { metric: "12+", label: "Partner Schools" },
+      ],
+    },
+    ourApproach: {
+      title: "Our Approach",
+      pillars: [
+        {
+          title: "Trauma-Informed Practice",
+          description: "Grounded in understanding how trauma affects learning and behaviour, creating safe spaces for growth",
+        },
+        {
+          title: "Personalised Pathways",
+          description: "Tailored learning plans designed around each young person's strengths, interests, and goals",
+        },
+        {
+          title: "Expert Staff",
+          description: "Qualified teachers, youth workers, and pastoral specialists dedicated to every student's success",
+        },
+        {
+          title: "Safe Environment",
+          description: "Maintained to the highest safeguarding standards, ensuring all young people feel secure and supported",
+        },
+      ],
+    },
+    faqs: {
+      questions: [
+        "What is Alternative Provision?",
+        "Who is Pathway Academy Zone for?",
+        "How does the referral process work?",
+        "How quickly can a learner start?",
+        "How do you keep learners safe?",
+        "What qualifications do your staff have?",
+      ],
     },
   },
 
   about: {
-    mission: "Empowering Young People to Succeed",
-    description: "Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.",
+    mission: "To provide high-quality alternative provision that transforms the lives of young people through personalised education, expert support, and genuine care.",
     values: {
-      framework: "CARES",
       values: [
         { letter: "C", word: "Change", description: "We embrace learning and adapt to grow." },
         { letter: "A", word: "Ambition", description: "We aim high and strive for progress." },
@@ -63,227 +69,165 @@ export const LIVE_CONTENT = {
   },
 
   programmes: {
-    title: "Our Programmes - Pathways to Success",
-    subtitle: "We offer a range of structured programmes designed to meet individual needs, combining academic learning with vocational skills and therapeutic support.",
+    title: "Our Programmes",
+    description: "Evidence-based provision designed to re-engage learners and support positive pathways",
     offerings: [
       {
-        title: "Academic Re-engagement",
-        description: "Structured academic curriculum adapted for individual learning needs, focusing on core subjects and building confidence in learning.",
-        details: [
-          "English, Maths & Science",
-          "PSHE / RSHE, RE, PE & Citizenship",
-          "Small group teaching (max 6)",
-          "Personalised learning plans",
-          "Full-time or part-time placements",
-        ],
-        hours: "Monday to Friday, 9:30am - 2:30pm",
+        title: "Core Academic Programme",
+        description: "English, Maths, Science and other core subjects delivered in small, supportive groups",
       },
       {
-        title: "Vocational Learning",
-        description: "Hands-on practical programmes developing real-world skills in areas like construction, catering, motor mechanics, and horticulture.",
-        details: [
-          "Industry-standard training",
-          "Work experience placements",
-          "Recognised qualifications",
-          "Employer partnerships",
-          "1-2 days per week alongside academic",
-        ],
+        title: "Vocational & Technical",
+        description: "Hands-on skills training in areas such as construction, health & social care, business",
       },
       {
-        title: "SEMH Support",
-        description: "Therapeutic intervention and support for young people with social, emotional, and mental health needs, integrated throughout all provision.",
-        details: [
-          "1:1 therapeutic sessions",
-          "Group workshops",
-          "Emotional regulation support",
-          "Family support sessions",
-          "Ongoing throughout placement",
-        ],
+        title: "Social, Emotional & Mental Health",
+        description: "Therapeutic support addressing trauma, anxiety, self-regulation and social skills",
       },
       {
         title: "Personal Development",
-        description: "Building essential life skills, resilience, and self-esteem through structured programmes and enrichment activities.",
-        details: [
-          "Communication skills",
-          "Problem-solving",
-          "Team building",
-          "Goal setting",
-          "Integrated into weekly timetable",
-        ],
+        description: "Building confidence, resilience, independence and life skills for adulthood",
       },
       {
-        title: "Life Skills Programme",
-        description: "Practical skills for independent living including budgeting, cooking, health and wellbeing, and managing relationships.",
-        details: [
-          "Cooking & nutrition",
-          "Financial literacy",
-          "Health education",
-          "Digital skills including Artificial Intelligence (AI) skills",
-          "Integrated into curriculum",
-        ],
+        title: "Employability & Enterprise",
+        description: "Work experience, CV writing, interview skills and career guidance pathways",
       },
       {
-        title: "Employability Skills",
-        description: "Preparing young people for the world of work through CV writing, interview practice, and understanding workplace expectations.",
-        details: [
-          "CV & application support",
-          "Interview preparation",
-          "Work experience",
-          "Careers guidance",
-          "Year 10 & 11 focus",
-        ],
+        title: "Life Skills & Independence",
+        description: "Practical skills in budgeting, health, cooking, hygiene and independent living",
       },
     ],
   },
 
   contact: {
-    intro: "Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.",
     contactInfo: {
       phone: "01782 365365",
-      phoneHours: "Mon-Fri 8:30am - 4:00pm",
+      phoneHours: "Monday - Friday, 8:30am - 4:00pm",
       email: "info@pathwayacademyzone.co.uk",
-      address: "Duncalf St, Burslem",
-      addressFull: "Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ",
+      emailResponse: "We aim to respond within 24 hours",
+      address: "Duncalf Street, Burslem",
+      city: "Stoke-on-Trent",
       postcode: "ST6 3LJ",
-      hours: "Monday - Friday, 8:30am - 4:00pm",
+      hours: "Monday - Friday: 8:30am - 4:00pm",
     },
     quickLinks: [
       { title: "Make a Referral", description: "Start the referral process for a young person" },
-      { title: "Safeguarding", description: "Learn about our safeguarding practices" },
+      { title: "Safeguarding", description: "Learn about our safeguarding practices and DSL" },
       { title: "Policies", description: "Review our statutory and organisational policies" },
     ],
+    notices: {
+      copyright: "© 2026 Pathway Academy Zone. All rights reserved.",
+      provider: "Powered by Pathway Group",
+    },
   },
 
   safeguarding: {
-    title: "Support & Safeguarding - Keeping Young People Safe",
-    subtitle: "Safeguarding is everyone's responsibility. We maintain the highest standards to ensure all young people feel safe, supported, and heard.",
+    title: "Support & Safeguarding",
+    commitment: "Safeguarding is at the heart of everything we do. We are committed to creating a safe environment where young people can thrive.",
     dsl: {
       name: "Martin Chandler",
-      title: "Designated Safeguarding Lead",
-      role: "Head of Community and Engagement",
+      title: "Head of Community and Engagement / Designated Safeguarding Lead",
+      email: "martin.chandler@pathwaygroup.co.uk",
+      contact: "Available for safeguarding enquiries and concerns",
     },
     commitments: [
       "All staff complete enhanced DBS checks and receive regular safeguarding training",
       "We maintain clear reporting procedures and work closely with local safeguarding partners",
       "Young people are taught to recognise risks and know who to talk to if they feel unsafe",
+      "We take all concerns seriously and act quickly to protect young people",
+      "Regular audits and reviews ensure our practices remain effective and compliant",
     ],
-  },
-
-  policies: {
-    title: "Policies & Documents - Statutory Information",
-    subtitle: "Transparency is important to us. Below you'll find our key policies and statutory documents.",
-    policyCategories: {
-      safeguarding: [
-        "Safeguarding Children & Young Person's Policy",
-        "Online Safety Policy",
-        "Anti-Bullying Policy",
-      ],
-      organisational: [
-        "Equality, Diversity & Inclusion Policy",
-        "Behaviour & Positive Relationships Policy",
-        "Complaints Procedure",
-      ],
-      statutory: [
-        "Privacy Policy",
-        "Terms of Use",
-        "Accessibility Statement",
-      ],
-    },
+    policies: [
+      { name: "Child Protection & Safeguarding Policy", status: "Current" },
+      { name: "Online Safety Policy", status: "Current" },
+      { name: "Anti-Bullying Policy", status: "Current" },
+      { name: "Behaviour & Positive Relationships Policy", status: "Current" },
+      { name: "Safer Recruitment Policy", status: "Current" },
+      { name: "Whistleblowing Policy", status: "Current" },
+    ],
   },
 
   team: {
-    title: "Our Team - Educators & Specialists",
-    subtitle: "Meet the People Behind Pathway Academy Zone",
-    description: "Our dedicated team of educators, mentors, and specialists work together to support every young person on their journey.",
-    leadPerson: {
-      name: "Martin Chandler",
-      title: "Head of Community and Engagement",
-    },
+    title: "Our Team",
+    description: "Experienced professionals dedicated to supporting young people's success",
+    roles: [
+      "Headteacher/Centre Lead",
+      "Teachers & Tutors",
+      "Youth Workers & Support Staff",
+      "Pastoral Leads",
+      "Therapists & Counsellors",
+      "Administrators & Support",
+    ],
   },
 
   careers: {
-    title: "Careers - Join Our Team",
-    subtitle: "We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives.",
-    whyWorkHere: [
-      {
-        title: "Meaningful Work",
-        description: "Make a real difference in young people's lives every day",
-      },
-      {
-        title: "Supportive Team",
-        description: "Work alongside dedicated, passionate colleagues",
-      },
-      {
-        title: "Professional Development",
-        description: "Regular training and opportunities for growth",
-      },
-      {
-        title: "Work-Life Balance",
-        description: "Term-time working options and flexible arrangements",
-      },
-    ],
-    whatWeLookFor: [
-      "Believe in every young person's potential",
-      "Are resilient and patient, even when things are challenging",
-      "Build strong, trusting relationships with young people",
-      "Collaborate effectively with colleagues and partners",
-      "Are committed to continuous learning and improvement",
-    ],
+    title: "Work With Us",
+    description: "Join our team and make a difference in young people's lives",
     currentVacancies: [
       {
-        title: "SEMH Teacher",
-        type: "Full-time, Permanent",
-        location: "Stafford",
-        salary: "£28,000 - £35,000",
-        closing: "15 January 2025",
-        description: "We're seeking an experienced teacher to deliver our SEMH-focused curriculum to small groups of young people.",
-      },
-      {
-        title: "Youth Mentor",
-        type: "Full-time, Fixed Term",
-        location: "Stafford",
-        salary: "£22,000 - £26,000",
-        closing: "22 January 2025",
-        description: "Join our pastoral team to provide 1:1 support for young people with complex needs.",
-      },
-      {
         title: "Learning Support Assistant",
-        type: "Part-time (20hrs)",
-        location: "Stafford",
-        salary: "£12.50/hour",
-        closing: "8 January 2025",
-        description: "Support teaching staff in delivering engaging lessons and providing additional support to students.",
+        location: "Stoke-on-Trent",
+        salary: "£17,000 - £19,000",
+        deadline: "30th June 2026",
       },
+      {
+        title: "Vocational Tutor (Construction)",
+        location: "Stoke-on-Trent",
+        salary: "£22,000 - £26,000",
+        deadline: "30th June 2026",
+      },
+      {
+        title: "Youth Worker",
+        location: "Stoke-on-Trent",
+        salary: "£19,000 - £22,000",
+        deadline: "30th June 2026",
+      },
+    ],
+    benefits: [
+      "Competitive salary and pension",
+      "Professional development opportunities",
+      "Supportive team environment",
+      "Making a real difference in young people's lives",
     ],
   },
 
   knowledgeHub: {
     title: "Knowledge Hub",
-    subtitle: "Your comprehensive resource for understanding Alternative Provision.",
-    description: "Expert guides, practical comparisons, and evidence-based best practices for educators, parents, and professionals.",
+    description: "Resources and guides to help you understand Alternative Provision",
     resources: [
-      { title: "Complete Guide to AP", path: "/knowledge-hub/complete-guide" },
+      { title: "Complete Guide to AP", path: "/knowledge-hub/complete-guide-to-ap" },
       { title: "Glossary", path: "/knowledge-hub/glossary" },
     ],
   },
 
+  policies: {
+    title: "Policies & Documentation",
+    description: "Statutory and organisational policies available for download",
+    documents: [
+      { name: "Child Protection & Safeguarding Policy", status: "Current" },
+      { name: "Online Safety Policy", status: "Current" },
+      { name: "Equality, Diversity & Inclusion Policy", status: "Current" },
+      { name: "Behaviour & Positive Relationships Policy", status: "Current" },
+      { name: "Complaints & Compliments Policy", status: "Current" },
+      { name: "Learner Behaviour & Conduct Policy", status: "Current" },
+      { name: "Safeguarding Information for Visitors", status: "Current" },
+      { name: "Privacy Notice & GDPR Statement", status: "Current" },
+    ],
+  },
+
   footer: {
-    copyright: "© 2026 Pathway Academy Zone. All rights reserved.",
-    links: {
-      main: [
-        { label: "Knowledge Hub", url: "/knowledge-hub" },
-        { label: "Complete Guide to AP", url: "/knowledge-hub/complete-guide" },
-        { label: "Glossary", url: "/knowledge-hub/glossary" },
-        { label: "Referral Process", url: "/referral" },
-        { label: "Safeguarding", url: "/safeguarding" },
-        { label: "Our Programmes", url: "/programmes" },
-      ],
-      legal: [
-        { label: "Privacy Policy", url: "/privacy-policy" },
-        { label: "Terms of Use", url: "/terms" },
-        { label: "Accessibility", url: "/accessibility" },
-      ],
+    links: [
+      { label: "Privacy", path: "/privacy-policy" },
+      { label: "Cookies", path: "/cookie-policy" },
+      { label: "Terms", path: "/terms" },
+      { label: "Policies", path: "/policies" },
+      { label: "Safeguarding", path: "/safeguarding" },
+      { label: "Contact", path: "/contact" },
+    ],
+    socialMedia: {
+      facebook: "https://facebook.com/pathwayacademyzone",
+      linkedin: "https://linkedin.com/company/pathway-academy-zone",
+      twitter: "https://twitter.com/pathwaygroup",
     },
-    description: "Pathway Academy Zone is an Alternative Provision specialist in Staffordshire focused on safeguarding, engagement, and positive outcomes for young people who cannot thrive in mainstream education.",
   },
 };
