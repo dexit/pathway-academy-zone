@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Linkedin, Twitter, ArrowUp } from "lucide-react";
 import pazLogo from "@/assets/paz-logo.webp";
+import { LIVE_CONTENT } from "@/data/live-site-content";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const footerCols = [
@@ -124,19 +125,19 @@ export default function Footer() {
                 className="flex items-center gap-2 text-sm text-white/85 hover:text-primary transition-colors"
               >
                 <Phone className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
-                01782 365365
+                {LIVE_CONTENT.contact.contactInfo.phone}
               </a>
               <a
                 href="mailto:info@pathwayacademyzone.co.uk"
                 className="flex items-center gap-2 text-sm text-white/85 hover:text-primary transition-colors"
               >
                 <Mail className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
-                info@pathwayacademyzone.co.uk
+                {LIVE_CONTENT.contact.contactInfo.email}
               </a>
               <div className="flex items-start gap-2 text-sm text-white/80">
                 <MapPin className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" aria-hidden="true" />
                 <address className="not-italic leading-snug">
-                  Duncalf St, Burslem<br />Stoke-on-Trent ST6 3LJ
+                  {LIVE_CONTENT.contact.contactInfo.address}<br />{LIVE_CONTENT.contact.contactInfo.postcode}
                 </address>
               </div>
             </div>
@@ -178,7 +179,7 @@ export default function Footer() {
 
         {/* ── Legal bar ─────────────────────────────────────────────────── */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/85">
-          <p>© {new Date().getFullYear()} Pathway Academy Zone. All rights reserved.</p>
+          <p>{LIVE_CONTENT.contact.notices.copyright}</p>
 
           <div className="flex items-center gap-5">
             {[

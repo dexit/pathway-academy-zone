@@ -6,6 +6,10 @@
 
 export const LIVE_CONTENT = {
   home: {
+    banner: {
+      text: "Alternative Provision in Staffordshire",
+      bgColor: "bg-emerald-600",
+    },
     hero: {
       subtitle: "Alternative Provision in Staffordshire",
       heading: "Every Young Person Deserves a Pathway To Success",
@@ -196,11 +200,25 @@ export const LIVE_CONTENT = {
   },
 
   contact: {
-    hero: {
-      title: "Contact Us",
-      subtitle: "Get in Touch",
-      description: "Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.",
+    contactInfo: {
+      phone: "01782 365365",
+      phoneHours: "Mon-Fri 8:30am - 4:00pm",
+      email: "info@pathwayacademyzone.co.uk",
+      emailResponse: "We aim to respond within 24 hours",
+      address: "Duncalf St, Burslem, Stoke-on-Trent",
+      postcode: "ST6 3LJ",
+      hours: "Monday - Friday: 8:30am - 4:00pm",
     },
+    quickLinks: [
+      { title: "Make a Referral", description: "Start the referral process for a young person" },
+      { title: "Visit Our Centre", description: "See our facilities and meet the team" },
+      { title: "Join Our Team", description: "View current vacancies and opportunities" },
+    ],
+    notices: {
+      copyright: "© 2026 Pathway Academy Zone. All rights reserved.",
+      provider: "Powered by Pathway Group",
+    },
+  },
     contactInfo: {
       phone: "01782 365365",
       phoneHours: "Mon-Fri 8:30am - 4:00pm",
