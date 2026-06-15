@@ -10,6 +10,7 @@ import {
   buildServiceSchema, buildCourseCarouselSchema,
 } from "@/lib/json-ld";
 import WhyItMattersScroller from "@/components/WhyItMattersScroller";
+import { LIVE_CONTENT } from "@/data/live-site-content";
 import heroImg from "@/assets/hero-classroom.webp";
 import classroomImg from "@/assets/classroom-1-NBeOjKjJ.webp";
 import vocationalImg from "@/assets/Students_collaborating_around_a_laptop-DxJYaEB5.webp";
@@ -25,26 +26,22 @@ const fadeUp = {
 };
 
 const stats = [
-  { icon: TrendingUp, value: "94%", label: "Attendance Improvement" },
-  { icon: Target, value: "87%", label: "Positive Destinations" },
-  { icon: Users, value: "150+", label: "Young People Supported" },
-  { icon: School, value: "12+", label: "Partner Schools" },
+  { icon: TrendingUp, value: LIVE_CONTENT.home.impact.stats[0].metric, label: LIVE_CONTENT.home.impact.stats[0].label },
+  { icon: Target, value: LIVE_CONTENT.home.impact.stats[1].metric, label: LIVE_CONTENT.home.impact.stats[1].label },
+  { icon: Users, value: LIVE_CONTENT.home.impact.stats[2].metric, label: LIVE_CONTENT.home.impact.stats[2].label },
+  { icon: School, value: LIVE_CONTENT.home.impact.stats[3].metric, label: LIVE_CONTENT.home.impact.stats[3].label },
 ];
 
-const approaches = [
-  { icon: Heart, title: "Trauma-Informed Approach", desc: "Our practice is grounded in understanding how trauma affects learning and behaviour, creating safe spaces for growth." },
-  { icon: Target, title: "Personalised Pathways", desc: "Every young person receives a tailored learning plan designed around their strengths, interests, and goals." },
-  { icon: UserCheck, title: "Expert Staff", desc: "Our team includes qualified teachers, youth workers, and pastoral specialists dedicated to every student's success." },
-  { icon: Shield, title: "Safe Environment", desc: "We maintain the highest safeguarding standards, ensuring all young people feel secure and supported." },
-];
+const approaches = LIVE_CONTENT.home.ourApproach.pillars.map((pillar) => ({
+  icon: Heart,
+  title: pillar.title,
+  desc: pillar.description,
+}));
 
-const faqs = [
-  { q: "What is Alternative Provision?", a: "Alternative Provision (AP) is education arranged for pupils who can't attend mainstream school due to exclusion, illness, or other reasons. It provides structured learning in smaller, more supportive environments." },
-  { q: "Who is Pathway Academy Zone for?", a: "We support young people aged 11-16 (KS3 & KS4) who are permanently excluded, at risk of exclusion, disengaged from mainstream education, or have social, emotional and mental health needs." },
-  { q: "How does the referral process work?", a: "Referrals are made by schools, local authorities, or social workers. Contact us to discuss needs, we gather information, hold an assessment meeting, then create a personalised placement plan." },
-  { q: "How quickly can a learner start?", a: "Emergency placements can begin within 48 hours. Standard placements typically start within 1-2 weeks following the assessment process." },
-  { q: "How do you keep learners safe?", a: "Safeguarding is our top priority. All staff are DBS checked and trained, we have a dedicated safeguarding lead, clear reporting procedures, and work closely with local safeguarding partners." },
-];
+const faqs = LIVE_CONTENT.home.faqs.questions.map((q) => ({
+  q,
+  a: "Additional information available upon referral inquiry",
+}));
 
 // Programme stubs for homepage Service + CourseCarousel schemas
 const HOME_PROGRAMMES = [

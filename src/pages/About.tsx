@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { buildAboutPageSchema, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld";
 import { PageHero } from "@/components/PageHero";
+import { LIVE_CONTENT } from "@/data/live-site-content";
 import classroomImg from "@/assets/classroom-1-NBeOjKjJ.webp";
 import mentoringImg from "@/assets/classroom-2-ycnLvywG.webp";
 
@@ -24,13 +25,11 @@ const areaLinks = [
 
 
 
-const values = [
-  { letter: "C", name: "Change", desc: "We embrace learning and adapt to grow." },
-  { letter: "A", name: "Ambition", desc: "We aim high and strive for progress." },
-  { letter: "R", name: "Reputation", desc: "We work as a team and are known for integrity." },
-  { letter: "E", name: "Empathy", desc: "We care deeply and show compassion in action." },
-  { letter: "S", name: "Skills", desc: "We grow by sharpening our abilities with discipline." },
-];
+const values = LIVE_CONTENT.about.values.values.map((v) => ({
+  letter: v.letter,
+  name: v.word,
+  desc: v.description,
+}));
 
 export default function About() {
   return (
