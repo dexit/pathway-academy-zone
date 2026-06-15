@@ -1,18 +1,39 @@
 /**
  * Live site content extracted from pathwayacademyzone.co.uk
- * Used to keep project content in sync with website
- * Last synced: 2026-06-15
+ * VERIFIED CRAWL: 2026-06-15
  * 
- * Content includes:
- * - Home page (hero, stats, FAQs, impact metrics)
- * - About page (mission, values, team info)
- * - Programmes (course details, outcomes)
- * - Contact (info, quick links)
- * - Support & Safeguarding (DSL details, policies)
- * - Knowledge Hub (guides, glossary)
+ * Verified pages that exist:
+ * ✓ Home (/)
+ * ✓ About (/about)
+ * ✓ Programmes (/programmes)
+ * ✓ Contact (/contact)
+ * ✓ Knowledge Hub (/knowledge-hub)
+ * ✓ Safeguarding (/safeguarding)
+ * ✓ Policies (/policies)
+ * ✓ Team (/team)
+ * ✓ Careers (/careers)
+ * 
+ * Verified pages that DON'T exist (404):
+ * ✗ Support (/support) - does not exist
+ * ✗ News (/news) - does not exist
  */
 
 export const LIVE_CONTENT = {
+  pages: {
+    verified: [
+      'home',
+      'about',
+      'programmes',
+      'contact',
+      'knowledge-hub',
+      'safeguarding',
+      'policies',
+      'team',
+      'careers',
+    ],
+    nonExistent: ['support', 'news'],
+  },
+
   home: {
     banner: {
       text: "Alternative Provision in Staffordshire",
@@ -24,84 +45,13 @@ export const LIVE_CONTENT = {
       description: "We provide specialist education for young people who need a different approach. Through structure, care and high expectations, we help young people re-engage, rebuild confidence and move forward in education, employment or training.",
       ctaText: "Make a Referral",
     },
-    whoAreWe: {
-      title: "Who We Are",
-      subtitle: "Specialist Education for Those Who Need It Most",
-      description: "Pathway Academy Zone works with young people aged 11-16 who have been excluded from mainstream education, or who are at risk of exclusion. We partner with schools, local authorities, and families across Staffordshire to provide structured, supportive learning environments where every student can succeed.",
-      highlights: [
-        "SEMH-focused curriculum delivery",
-        "Small group and 1:1 support",
-        "Qualified teachers and mentors",
-        "Strong pastoral care teams",
-        "Vocational and academic pathways",
-      ],
-    },
-    ourApproach: {
-      title: "Our Approach",
-      subtitle: "How We Support Young People",
-      description: "Our evidence-based approach combines therapeutic support with quality education to help students overcome barriers and achieve their potential.",
-      pillars: [
-        {
-          title: "Trauma-Informed Approach",
-          description: "Our practice is grounded in understanding how trauma affects learning and behaviour, creating safe spaces for growth.",
-        },
-        {
-          title: "Personalised Pathways",
-          description: "Every young person receives a tailored learning plan designed around their strengths, interests, and goals.",
-        },
-        {
-          title: "Expert Staff",
-          description: "Our team includes qualified teachers, youth workers, and pastoral specialists dedicated to every student's success.",
-        },
-        {
-          title: "Safe Environment",
-          description: "We maintain the highest safeguarding standards, ensuring all young people feel secure and supported.",
-        },
-      ],
-    },
-    impact: {
-      title: "Making a Real Difference",
-      subtitle: "Our outcomes speak to the transformative impact we have on young people's lives across Staffordshire.",
-      stats: [
-        { metric: "94%", label: "Attendance Improvement" },
-        { metric: "87%", label: "Positive Destinations" },
-        { metric: "150+", label: "Young People Supported" },
-        { metric: "12+", label: "Partner Schools" },
-      ],
-    },
-    faqs: {
-      title: "Common Questions",
-      subtitle: "Frequently Asked Questions",
-      description: "Quick answers to help you understand Alternative Provision and how Pathway Academy Zone works.",
-      questions: [
-        "What is Alternative Provision?",
-        "Who is Pathway Academy Zone for?",
-        "How does the referral process work?",
-        "How quickly can a learner start?",
-        "How do you keep learners safe?",
-      ],
-    },
-    cta: {
-      title: "Ready to Make a Referral?",
-      description: "Whether you're a school, local authority, social worker, or parent, we're here to help. Our team will guide you through the referral process and find the right pathway for your young person.",
-    },
   },
 
   about: {
-    hero: {
-      title: "About Us",
-      subtitle: "Who We Are",
-      description: "Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.",
-    },
-    mission: {
-      title: "Our Mission",
-      subtitle: "Empowering Young People to Succeed",
-      description: "We believe every young person deserves access to quality education, regardless of their circumstances. Our mission is to provide structured, trauma-informed Alternative Provision that helps students overcome barriers, develop resilience, and build the skills they need for a successful future.\n\nFounded with a deep understanding of the challenges facing young people in the AP sector, Pathway Academy Zone combines academic rigour with therapeutic support, vocational opportunities, and strong pastoral care.\n\nWe work closely with mainstream schools, local authorities, virtual schools, and families to ensure every young person receives the support they need to thrive.",
-    },
+    mission: "Empowering Young People to Succeed",
+    description: "Pathway Academy Zone is a specialist Alternative Provision organisation supporting vulnerable young people across Staffordshire.",
     values: {
-      title: "Our Values",
-      subtitle: "What Guides Us",
-      description: "Our values shape everything we do, from how we design programmes to how we interact with young people and their families.",
+      framework: "CARES",
       values: [
         { letter: "C", word: "Change", description: "We embrace learning and adapt to grow." },
         { letter: "A", word: "Ambition", description: "We aim high and strive for progress." },
@@ -110,34 +60,12 @@ export const LIVE_CONTENT = {
         { letter: "S", word: "Skills", description: "We grow by sharpening our abilities with discipline." },
       ],
     },
-    philosophy: {
-      title: "Our Philosophy",
-      subtitle: "A Trauma-Informed Approach",
-      description: "We understand that many young people in Alternative Provision have experienced adverse childhood experiences that affect their ability to learn and engage.",
-      sections: [
-        {
-          title: "Understanding Behaviour",
-          content: "We view all behaviour as communication. Rather than punishing challenging behaviour, we seek to understand its root causes and address underlying needs. Our staff are trained in trauma-informed practices and therapeutic approaches.",
-        },
-        {
-          title: "Building Relationships",
-          content: "Strong, trusting relationships are at the heart of our approach. We maintain low staff-to-student ratios and ensure consistency in key adult relationships, helping young people feel safe and supported.",
-        },
-        {
-          title: "Celebrating Progress",
-          content: "We recognise and celebrate every achievement, no matter how small. Building self-esteem and confidence is essential to helping young people believe in their potential and engage with learning.",
-        },
-      ],
-    },
   },
 
   programmes: {
-    hero: {
-      title: "Our Programmes",
-      subtitle: "Pathways to Success",
-      description: "We offer a range of structured programmes designed to meet individual needs, combining academic learning with vocational skills and therapeutic support.",
-    },
-    programmes: [
+    title: "Our Programmes - Pathways to Success",
+    subtitle: "We offer a range of structured programmes designed to meet individual needs, combining academic learning with vocational skills and therapeutic support.",
+    offerings: [
       {
         title: "Academic Re-engagement",
         description: "Structured academic curriculum adapted for individual learning needs, focusing on core subjects and building confidence in learning.",
@@ -146,8 +74,9 @@ export const LIVE_CONTENT = {
           "PSHE / RSHE, RE, PE & Citizenship",
           "Small group teaching (max 6)",
           "Personalised learning plans",
+          "Full-time or part-time placements",
         ],
-        schedule: "Full-time or part-time placements, Monday to Friday, 9:30am - 2:30pm",
+        hours: "Monday to Friday, 9:30am - 2:30pm",
       },
       {
         title: "Vocational Learning",
@@ -157,8 +86,8 @@ export const LIVE_CONTENT = {
           "Work experience placements",
           "Recognised qualifications",
           "Employer partnerships",
+          "1-2 days per week alongside academic",
         ],
-        schedule: "1-2 days per week alongside academic learning, schedule varies by programme",
       },
       {
         title: "SEMH Support",
@@ -168,8 +97,8 @@ export const LIVE_CONTENT = {
           "Group workshops",
           "Emotional regulation support",
           "Family support sessions",
+          "Ongoing throughout placement",
         ],
-        schedule: "Ongoing throughout placement, typically 2-3 sessions per week as needed",
       },
       {
         title: "Personal Development",
@@ -179,8 +108,8 @@ export const LIVE_CONTENT = {
           "Problem-solving",
           "Team building",
           "Goal setting",
+          "Integrated into weekly timetable",
         ],
-        schedule: "Integrated into weekly timetable, minimum 2 hours per week",
       },
       {
         title: "Life Skills Programme",
@@ -190,8 +119,8 @@ export const LIVE_CONTENT = {
           "Financial literacy",
           "Health education",
           "Digital skills including Artificial Intelligence (AI) skills",
+          "Integrated into curriculum",
         ],
-        schedule: "Integrated into curriculum, weekly sessions",
       },
       {
         title: "Employability Skills",
@@ -201,151 +130,21 @@ export const LIVE_CONTENT = {
           "Interview preparation",
           "Work experience",
           "Careers guidance",
+          "Year 10 & 11 focus",
         ],
-        schedule: "Year 10 & 11 focus, weekly sessions plus placements",
       },
     ],
   },
 
   contact: {
+    intro: "Whether you have a question, want to arrange a visit, or need to discuss a referral, we're here to help.",
     contactInfo: {
       phone: "01782 365365",
       phoneHours: "Mon-Fri 8:30am - 4:00pm",
       email: "info@pathwayacademyzone.co.uk",
-      emailResponse: "We aim to respond within 24 hours",
-      address: "Duncalf St, Burslem, Stoke-on-Trent",
+      address: "Duncalf St, Burslem",
+      addressFull: "Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ",
       postcode: "ST6 3LJ",
-      hours: "Monday - Friday: 8:30am - 4:00pm",
-    },
-    quickLinks: [
-      { title: "Make a Referral", description: "Start the referral process for a young person" },
-      { title: "Visit Our Centre", description: "See our facilities and meet the team" },
-      { title: "Join Our Team", description: "View current vacancies and opportunities" },
-    ],
-    notices: {
-      copyright: "© 2026 Pathway Academy Zone. All rights reserved.",
-      provider: "Powered by Pathway Group",
-    },
-  },
-    contactInfo: {
-      phone: "01782 365365",
-      phoneHours: "Mon-Fri 8:30am - 4:00pm",
-      email: "info@pathwayacademyzone.co.uk",
-      emailResponse: "We aim to respond within 24 hours",
-      address: "Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ",
-      hours: "Monday - Friday, 8:30am - 4:00pm",
-    },
-    form: {
-      note: "By submitting this form, you agree to our privacy policy. We will only use your information to respond to your enquiry.",
-    },
-    quickLinks: [
-      { title: "Make a Referral", description: "Start the referral process for a young person" },
-      { title: "Visit Our Centre", description: "See our facilities and meet the team" },
-      { title: "Join Our Team", description: "View current vacancies and opportunities" },
-    ],
-  },
-
-  knowledgeHub: {
-    hero: {
-      title: "Knowledge Hub",
-      subtitle: "Your comprehensive resource for understanding Alternative Provision",
-      description: "Expert guides, practical comparisons, and evidence-based best practices for educators, parents, and professionals.",
-    },
-    featuredResource: {
-      title: "The Complete Guide to Alternative Provision",
-      description: "Our definitive guide covering the full AP journey from referral triggers to progression routes. Essential reading for anyone involved in supporting young people outside mainstream education.",
-    },
-    sections: [
-      {
-        title: "Core Guides",
-        description: "Essential guides explaining Alternative Provision fundamentals, processes, and pathways for educators, parents, and referring professionals.",
-        items: ["What is Alternative Provision", "How AP Works in Staffordshire", "When to Refer a Learner"],
-      },
-      {
-        title: "Comparisons",
-        description: "Side-by-side comparisons to help decision-makers understand the differences between various AP models and approaches.",
-        items: ["AP vs Mainstream Schooling", "Group vs One-to-One", "Short-Term vs Long-Term"],
-      },
-      {
-        title: "Best Practice",
-        description: "Evidence-based strategies and proven approaches for achieving the best outcomes in Alternative Provision settings.",
-        items: ["SEMH Pathways", "Attendance Strategies", "Vocational Routes"],
-      },
-    ],
-  },
-
-  glossary: {
-    hero: {
-      title: "Alternative Provision Glossary",
-      subtitle: "Clear, searchable definitions of key terms and concepts",
-      description: "Clear, searchable definitions of key terms and concepts used in Alternative Provision. A quick reference guide for educators, parents, and professionals.",
-    },
-    terms: [
-      {
-        term: "Alternative Provision (AP)",
-        definition: "Education arranged for pupils who, because of exclusion, illness, or other reasons, would not otherwise receive suitable education. AP can be delivered by local authorities, schools, or registered providers outside of mainstream and special school settings.",
-      },
-      {
-        term: "SEMH (Social, Emotional and Mental Health)",
-        definition: "A category of Special Educational Needs covering difficulties with social interaction, emotional regulation, and mental health that significantly impact a young person's ability to learn. SEMH needs often require specialist support and therapeutic interventions.",
-      },
-      {
-        term: "EHCP (Education, Health and Care Plan)",
-        definition: "A legal document for children and young people aged 0-25 with more complex special educational needs. EHCPs describe the child's needs, the support required, and the outcomes to be achieved. They are reviewed annually.",
-      },
-      {
-        term: "Managed Move",
-        definition: "A voluntary agreement between schools, parents, and the local authority to transfer a pupil to another school as an alternative to permanent exclusion. Managed moves aim to give pupils a fresh start while avoiding exclusion on their record.",
-      },
-      {
-        term: "Trauma-Informed Practice",
-        definition: "An approach to education that recognises the widespread impact of trauma on young people's behaviour and learning. Staff understand trauma responses, avoid re-traumatisation, and create safe, predictable environments that support recovery.",
-      },
-      {
-        term: "Re-Engagement",
-        definition: "The process of helping disengaged learners reconnect with education through modified approaches, relationship-building, and addressing underlying barriers. Academic re-engagement focuses on rebuilding confidence in learning.",
-      },
-      {
-        term: "Vocational Pathway",
-        definition: "An educational route focused on practical, skills-based learning that prepares young people for specific careers or industries. Vocational pathways in AP often include construction, catering, motor vehicle, hair and beauty, or creative industries.",
-      },
-      {
-        term: "Pastoral Support",
-        definition: "Non-academic support provided to students addressing their emotional, social, and personal needs. In AP settings, pastoral support is often intensive and may include mentoring, counselling, family liaison, and multi-agency coordination.",
-      },
-      {
-        term: "Progression Routes",
-        definition: "The pathways available to young people when they complete their AP placement. These include return to mainstream school, college, apprenticeships, employment, or continued specialist provision depending on individual needs and aspirations.",
-      },
-      {
-        term: "Permanent Exclusion",
-        definition: "When a headteacher decides that a pupil should no longer attend their school. This is the most serious sanction available and should only be used as a last resort. Local authorities must arrange education from day 6 of a permanent exclusion.",
-      },
-      {
-        term: "Fixed-Term Exclusion (Suspension)",
-        definition: "When a pupil is temporarily removed from school for a set period. Schools must provide work for the first 5 days and arrange alternative education from day 6. A pupil can receive a maximum of 45 days of fixed-term exclusion in one school year.",
-      },
-      {
-        term: "Pupil Referral Unit (PRU)",
-        definition: "A type of school established and maintained by local authorities specifically to provide education for children who are excluded, sick, or otherwise unable to attend mainstream school. PRUs are a form of Alternative Provision.",
-      },
-      {
-        term: "Designated Safeguarding Lead (DSL)",
-        definition: "The person in a school or AP setting with overall responsibility for safeguarding and child protection. The DSL is the first point of contact for concerns, coordinates with external agencies, and ensures staff are trained.",
-      },
-      {
-        term: "Multi-Agency Working",
-        definition: "Collaboration between different services and professionals (education, health, social care, police) to support young people's wellbeing and meet complex needs.",
-      },
-    ],
-  },
-  contact: {
-    contactInfo: {
-      phone: "01782 365365",
-      phoneHours: "Mon-Fri 8:30am - 4:00pm",
-      email: "info@pathwayacademyzone.co.uk",
-      emailResponse: "We aim to respond within 24 hours",
-      address: "Duncalf St, Burslem, Stoke-on-Trent ST6 3LJ",
       hours: "Monday - Friday, 8:30am - 4:00pm",
     },
     quickLinks: [
@@ -356,32 +155,135 @@ export const LIVE_CONTENT = {
   },
 
   safeguarding: {
+    title: "Support & Safeguarding - Keeping Young People Safe",
+    subtitle: "Safeguarding is everyone's responsibility. We maintain the highest standards to ensure all young people feel safe, supported, and heard.",
     dsl: {
       name: "Martin Chandler",
       title: "Designated Safeguarding Lead",
-      email: "martin.chandler@pathwaygroup.co.uk",
-      bio: "Martin leads our safeguarding practice and is the first point of contact for any safeguarding concerns. He works closely with external agencies and ensures all staff receive regular safeguarding training.",
+      role: "Head of Community and Engagement",
     },
     commitments: [
       "All staff complete enhanced DBS checks and receive regular safeguarding training",
       "We maintain clear reporting procedures and work closely with local safeguarding partners",
       "Young people are taught to recognise risks and know who to talk to if they feel unsafe",
     ],
-    policies: [
-      "Child Protection & Safeguarding Policy",
-      "Online Safety Policy",
-      "Anti-Bullying Policy",
-      "Behaviour & Positive Relationships Policy",
-      "Safer Recruitment Policy",
-      "Whistleblowing Policy",
+  },
+
+  policies: {
+    title: "Policies & Documents - Statutory Information",
+    subtitle: "Transparency is important to us. Below you'll find our key policies and statutory documents.",
+    policyCategories: {
+      safeguarding: [
+        "Safeguarding Children & Young Person's Policy",
+        "Online Safety Policy",
+        "Anti-Bullying Policy",
+      ],
+      organisational: [
+        "Equality, Diversity & Inclusion Policy",
+        "Behaviour & Positive Relationships Policy",
+        "Complaints Procedure",
+      ],
+      statutory: [
+        "Privacy Policy",
+        "Terms of Use",
+        "Accessibility Statement",
+      ],
+    },
+  },
+
+  team: {
+    title: "Our Team - Educators & Specialists",
+    subtitle: "Meet the People Behind Pathway Academy Zone",
+    description: "Our dedicated team of educators, mentors, and specialists work together to support every young person on their journey.",
+    leadPerson: {
+      name: "Martin Chandler",
+      title: "Head of Community and Engagement",
+    },
+  },
+
+  careers: {
+    title: "Careers - Join Our Team",
+    subtitle: "We're looking for passionate educators, mentors, and support staff who want to make a difference in young people's lives.",
+    whyWorkHere: [
+      {
+        title: "Meaningful Work",
+        description: "Make a real difference in young people's lives every day",
+      },
+      {
+        title: "Supportive Team",
+        description: "Work alongside dedicated, passionate colleagues",
+      },
+      {
+        title: "Professional Development",
+        description: "Regular training and opportunities for growth",
+      },
+      {
+        title: "Work-Life Balance",
+        description: "Term-time working options and flexible arrangements",
+      },
+    ],
+    whatWeLookFor: [
+      "Believe in every young person's potential",
+      "Are resilient and patient, even when things are challenging",
+      "Build strong, trusting relationships with young people",
+      "Collaborate effectively with colleagues and partners",
+      "Are committed to continuous learning and improvement",
+    ],
+    currentVacancies: [
+      {
+        title: "SEMH Teacher",
+        type: "Full-time, Permanent",
+        location: "Stafford",
+        salary: "£28,000 - £35,000",
+        closing: "15 January 2025",
+        description: "We're seeking an experienced teacher to deliver our SEMH-focused curriculum to small groups of young people.",
+      },
+      {
+        title: "Youth Mentor",
+        type: "Full-time, Fixed Term",
+        location: "Stafford",
+        salary: "£22,000 - £26,000",
+        closing: "22 January 2025",
+        description: "Join our pastoral team to provide 1:1 support for young people with complex needs.",
+      },
+      {
+        title: "Learning Support Assistant",
+        type: "Part-time (20hrs)",
+        location: "Stafford",
+        salary: "£12.50/hour",
+        closing: "8 January 2025",
+        description: "Support teaching staff in delivering engaging lessons and providing additional support to students.",
+      },
     ],
   },
 
   knowledgeHub: {
-    title: "Knowledge Hub & Resources",
-    description: "Comprehensive guides, glossary, and resources for understanding Alternative Provision",
-    sections: [
+    title: "Knowledge Hub",
+    subtitle: "Your comprehensive resource for understanding Alternative Provision.",
+    description: "Expert guides, practical comparisons, and evidence-based best practices for educators, parents, and professionals.",
+    resources: [
       { title: "Complete Guide to AP", path: "/knowledge-hub/complete-guide" },
       { title: "Glossary", path: "/knowledge-hub/glossary" },
     ],
   },
+
+  footer: {
+    copyright: "© 2026 Pathway Academy Zone. All rights reserved.",
+    links: {
+      main: [
+        { label: "Knowledge Hub", url: "/knowledge-hub" },
+        { label: "Complete Guide to AP", url: "/knowledge-hub/complete-guide" },
+        { label: "Glossary", url: "/knowledge-hub/glossary" },
+        { label: "Referral Process", url: "/referral" },
+        { label: "Safeguarding", url: "/safeguarding" },
+        { label: "Our Programmes", url: "/programmes" },
+      ],
+      legal: [
+        { label: "Privacy Policy", url: "/privacy-policy" },
+        { label: "Terms of Use", url: "/terms" },
+        { label: "Accessibility", url: "/accessibility" },
+      ],
+    },
+    description: "Pathway Academy Zone is an Alternative Provision specialist in Staffordshire focused on safeguarding, engagement, and positive outcomes for young people who cannot thrive in mainstream education.",
+  },
+};
