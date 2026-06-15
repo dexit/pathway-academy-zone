@@ -8,8 +8,9 @@ import {
   MoreHorizontal,
   Phone,
   Mail,
+  MapPin,
 } from "lucide-react";
-import { email, ukPhone, personName, shortText, longMessage } from "@/lib/uk-validators";
+import { email, ukPhone, personName, shortText, longMessage, ukPostcode } from "@/lib/uk-validators";
 import type { FormMeta } from "./types";
 
 // ---- Schema -----------------------------------------------------------------
@@ -19,6 +20,7 @@ export const contactSchema = z.object({
   lastName: personName({ required: true }),
   email: email({ required: true }),
   phone: ukPhone({ required: true }),
+  postcode: ukPostcode({ required: false }),
   enquiryType: z.enum(
     ["parent-carer", "school-la", "partner", "careers", "general", "other"],
     { required_error: "Please choose an enquiry type" }
@@ -87,6 +89,16 @@ export const CONTACT_FORM_META: FormMeta = {
           label: "Organisation (if applicable)",
           placeholder: "School, Local Authority, etc.",
           autoComplete: "organization",
+        },
+        {
+          name: "postcode",
+          type: "text",
+          label: "Postcode",
+          placeholder: "ST6 3LJ",
+          autoComplete: "postal-code",
+          mask: "postcode",
+          icon: MapPin,
+          hint: "To help us direct your enquiry to the right team",
         },
         {
           name: "enquiryType",

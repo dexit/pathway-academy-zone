@@ -13,6 +13,7 @@ import {
   buildContactPageSchema, buildServiceSchema, ORG_SCHEMA, WEBSITE_SCHEMA,
 } from "@/lib/json-ld";
 import { useFormSubmit } from "@/hooks/use-form-submit";
+import { usePostcodeLookup } from "@/hooks/use-postcode-lookup";
 import { fireConversion } from "@/components/Analytics";
 import { FormBuilder } from "@/components/forms/FormBuilder";
 import { CONTACT_FORM_META, contactSchema, type ContactValues } from "@/lib/form-configs/contact";
@@ -55,10 +56,11 @@ const quickLinks = [
 
 export default function Contact() {
   const { toast } = useToast();
+  const { lookup: lookupPostcode } = usePostcodeLookup();
 
   const { register, handleSubmit, control, setValue, watch, reset: resetForm, formState: { errors } } = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
-    defaultValues: { firstName: "", lastName: "", email: "", phone: "", enquiryType: undefined, organisation: "", message: "" },
+    defaultValues: { firstName: "", lastName: "", email: "", phone: "", postcode: "", enquiryType: undefined, organisation: "", message: "" },
     mode: "onTouched",
   });
 
