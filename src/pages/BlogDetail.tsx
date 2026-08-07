@@ -58,14 +58,14 @@ export default function BlogDetail() {
       />
 
       <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-3xl">
+        <div className="container mx-auto px-4 py-14 md:py-20 text-center flex justify-center items-center">
+          <div className="max-w-3xl text-center">
             <Breadcrumbs
               items={[
                 { label: "Blog", to: "/blog" },
                 { label: post.title },
               ]}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground flex justify-center"
             />
             <Badge className="mb-4 bg-accent text-accent-foreground hover:bg-accent/90 border-0 text-xs font-semibold tracking-wide uppercase">
               {post.category}

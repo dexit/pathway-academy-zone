@@ -23,8 +23,8 @@ export default function KnowledgeHubDetail() {
         <Seo title="Resource not found" noIndex />
         <main className="min-h-screen bg-background">
           <header className="bg-primary text-primary-foreground">
-            <div className="container mx-auto px-4 py-14 md:py-20">
-              <div className="max-w-3xl">
+            <div className="container mx-auto px-4 py-14 md:py-20 text-center flex justify-center items-center">
+              <div className="max-w-3xl text-center">
                 <Link
                   to="/knowledge-hub"
                   className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground mb-6 transition-colors"

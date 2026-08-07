@@ -67,14 +67,14 @@ export default function KnowledgeHubCategory() {
       />
 
       <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-3xl">
+        <div className="container mx-auto px-4 py-14 md:py-20 text-center flex justify-center items-center">
+          <div className="max-w-3xl text-center">
             <Breadcrumbs
               items={[
                 { label: "Knowledge Hub", to: "/knowledge-hub" },
                 { label: section.title },
               ]}
-              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground flex justify-center"
             />
             <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4">
               <Icon className="w-3.5 h-3.5" />

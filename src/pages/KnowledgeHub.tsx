@@ -33,11 +33,11 @@ export default function KnowledgeHub() {
       <main className="min-h-screen bg-background">
         {/* Page Header */}
         <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-2xl">
+          <div className="container mx-auto px-4 py-14 md:py-20 text-center flex justify-center items-center">
+            <div className="max-w-2xl text-center">
               <Breadcrumbs
                 items={[{ label: LIVE_CONTENT.knowledgeHub.title }]}
-                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground flex justify-center"
               />
               <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
                 Pathway Academy Zone

@@ -40,14 +40,14 @@ export default function NewsDetail() {
       />
 
       <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-3xl">
+        <div className="container mx-auto px-4 py-14 md:py-20 text-center flex justify-center items-center">
+          <div className="max-w-3xl text-center">
             <Breadcrumbs
               items={[
                 { label: "News", to: "/news" },
                 { label: item.title },
               ]}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground flex justify-center"
             />
             <span className="inline-block px-2 py-0.5 rounded-full bg-accent/20 text-accent text-[11px] font-semibold uppercase tracking-wider mb-4">
               {item.tag}
