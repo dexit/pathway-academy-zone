@@ -121,32 +121,6 @@ export const LIVE_CONTENT = {
     },
   },
 
-  safeguarding: {
-    title: "Support & Safeguarding",
-    commitment: "Safeguarding is at the heart of everything we do. We are committed to creating a safe environment where young people can thrive.",
-    dsl: {
-      name: "Martin Chandler",
-      title: "Head of Community and Engagement / Designated Safeguarding Lead",
-      email: "martin.chandler@pathwaygroup.co.uk",
-      contact: "Available for safeguarding enquiries and concerns",
-    },
-    commitments: [
-      "All staff complete enhanced DBS checks and receive regular safeguarding training",
-      "We maintain clear reporting procedures and work closely with local safeguarding partners",
-      "Young people are taught to recognise risks and know who to talk to if they feel unsafe",
-      "We take all concerns seriously and act quickly to protect young people",
-      "Regular audits and reviews ensure our practices remain effective and compliant",
-    ],
-    policies: [
-      { name: "Child Protection & Safeguarding Policy", status: "Current" },
-      { name: "Online Safety Policy", status: "Current" },
-      { name: "Anti-Bullying Policy", status: "Current" },
-      { name: "Behaviour & Positive Relationships Policy", status: "Current" },
-      { name: "Safer Recruitment Policy", status: "Current" },
-      { name: "Whistleblowing Policy", status: "Current" },
-    ],
-  },
-
   team: {
     title: "Our Team",
     description: "Experienced professionals dedicated to supporting young people's success",

@@ -8,8 +8,27 @@ import { Seo, SITE_URL, SITE_NAME } from "@/components/Seo";
 import { PageHero } from "@/components/PageHero";
 import { TeamModal } from "@/components/TeamModal";
 import { LIVE_CONTENT } from "@/data/live-site-content";
+import martinChandler from "@/assets/martin-chandler-DvF3rkDn.webp";
+import liamFarrall from "@/assets/liam-farrall-DwXnuzxA.webp";
+import ahsanHussain from "@/assets/ahsan-hussain-OIFhfXvg.webp";
+import zulekhaAli from "@/assets/zulekha-ali-Dfoelgdx.webp";
+import safarazAli from "@/assets/safaraz-ali-R0JVDMEt.webp";
+import waheedAzam from "@/assets/waheed-azam-DQhc8GBT.webp";
 
 const fadeUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+
+// Resolve bundled headshots by member id. Members without a photo fall back to initials.
+const imageById: Record<string, string> = {
+  "martin-chandler": martinChandler,
+  "liam-farrall": liamFarrall,
+  "ahsan-hussain": ahsanHussain,
+  "zulekha-ali": zulekhaAli,
+  "safaraz-ali": safarazAli,
+  "waheed-azam": waheedAzam,
+};
+
+const initials = (name: string) =>
+  name.replace(/\bMBE\b/g, "").trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
 const slugify = (s: string) =>
   s.toLowerCase().replace(/,.*$/, "").trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -91,12 +110,19 @@ export default function Team() {
                   className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-md transition-shadow scroll-mt-24 text-left focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <div className="aspect-[3/4] overflow-hidden bg-muted">
-                    <img src={m.image} alt={`${m.name} — ${m.role}`} title={m.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                    {imageById[m.id] ? (
+                      <img src={imageById[m.id]} alt={`${m.name} — ${m.role}`} title={m.name} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" decoding="async" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-primary/10">
+                        <span className="font-display text-4xl font-bold text-primary" aria-hidden="true">{initials(m.name)}</span>
+                        <span className="sr-only">{m.name}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-6 text-center">
                     <h3 className="font-display text-lg font-bold text-foreground">{m.name}</h3>
                     <p className="text-muted-foreground text-sm mt-1">{m.role}</p>
-                    {m.bio && <p className="text-muted-foreground text-xs mt-3">Click to read bio</p>}
+                    {m.bio && <p className="text-primary text-xs mt-3 font-medium">Click to read full bio</p>}
                   </div>
                 </motion.button>
               );
@@ -125,11 +151,19 @@ export default function Team() {
                   className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/50 hover:shadow-md transition-shadow scroll-mt-24 text-left focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <div className="aspect-[3/4] overflow-hidden bg-muted">
-                    <img src={m.image} alt={`${m.name} — ${m.role}`} title={m.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                    {imageById[m.id] ? (
+                      <img src={imageById[m.id]} alt={`${m.name} — ${m.role}`} title={m.name} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" decoding="async" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-primary/10">
+                        <span className="font-display text-4xl font-bold text-primary" aria-hidden="true">{initials(m.name)}</span>
+                        <span className="sr-only">{m.name}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-6 text-center">
                     <h3 className="font-display text-lg font-bold text-foreground">{m.name}</h3>
                     <p className="text-muted-foreground text-sm mt-1">{m.role}</p>
+                    {m.bio && <p className="text-primary text-xs mt-3 font-medium">Click to read full bio</p>}
                   </div>
                 </motion.button>
               );
@@ -151,7 +185,11 @@ export default function Team() {
         </div>
       </section>
 
-      <TeamModal member={selectedMember} open={isModalOpen} onOpenChange={setIsModalOpen} />
+      <TeamModal
+        member={selectedMember ? { ...selectedMember, image: imageById[selectedMember.id] ?? "" } : null}
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+      />
     </Layout>
   );
 }
