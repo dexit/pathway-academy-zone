@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Layout from "@/components/Layout";
-import { Breadcrumbs } from "@/components/Seo";
+import { PageHero } from "@/components/PageHero";
 import { ContentSidebar } from "@/components/ContentSidebar";
 import type { ComponentProps } from "react";
 
@@ -34,29 +34,13 @@ export function ArchiveLayout({
 }: ArchiveLayoutProps) {
   return (
     <Layout>
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-2xl">
-            <Breadcrumbs
-              items={crumbs}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-            />
-            {eyebrow && (
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
-                {eyebrow}
-              </p>
-            )}
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              {title}
-            </h1>
-            {intro && (
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
-                {intro}
-              </p>
-            )}
-          </div>
-        </div>
-      </header>
+      <PageHero
+        breadcrumbs={crumbs}
+        eyebrow={eyebrow}
+        heading={title}
+        subheading={intro}
+        padding="py-14 md:py-20"
+      />
 
       <div className="container mx-auto px-4 py-10 md:py-16">
         {beforeMain && <div className="mb-10">{beforeMain}</div>}

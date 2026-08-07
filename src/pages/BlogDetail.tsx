@@ -1,12 +1,12 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { Calendar, Clock, ArrowLeft, ArrowRight, User } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs } from "@/components/Seo";
+import { Seo } from "@/components/Seo";
 import { ContentSidebar } from "@/components/ContentSidebar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BlogCard } from "@/components/blog/blog-card";
 import { BLOG_POSTS } from "@/components/blog/blog-data";
+import { PageHero } from "@/components/PageHero";
 
 export default function BlogDetail() {
   const { slug } = useParams();
@@ -57,39 +57,19 @@ export default function BlogDetail() {
         jsonLd={jsonLd}
       />
 
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20 text-center flex justify-center items-center">
-          <div className="max-w-3xl text-center">
-            <Breadcrumbs
-              items={[
-                { label: "Blog", to: "/blog" },
-                { label: post.title },
-              ]}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground flex justify-center"
-            />
-            <Badge className="mb-4 bg-accent text-accent-foreground hover:bg-accent/90 border-0 text-xs font-semibold tracking-wide uppercase">
-              {post.category}
-            </Badge>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              {post.title}
-            </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-6">
-              {post.excerpt}
-            </p>
-            <div className="flex flex-wrap items-center gap-5 text-primary-foreground/70 text-sm">
-              <span className="inline-flex items-center gap-1.5">
-                <User className="h-4 w-4" /> {post.author}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Calendar className="h-4 w-4" /> {post.date}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Clock className="h-4 w-4" /> {post.readTime}
-              </span>
-            </div>
-          </div>
+      <PageHero
+        breadcrumbs={[{ label: "Blog", to: "/blog" }, { label: post.title }]}
+        heading={post.title}
+        subheading={post.excerpt}
+        badge={{ label: post.category }}
+        padding="py-14 md:py-20"
+      >
+        <div className="flex flex-wrap items-center justify-center gap-5 text-primary-foreground/70 text-sm">
+          <span className="inline-flex items-center gap-1.5"><User className="h-4 w-4" /> {post.author}</span>
+          <span className="inline-flex items-center gap-1.5"><Calendar className="h-4 w-4" /> {post.date}</span>
+          <span className="inline-flex items-center gap-1.5"><Clock className="h-4 w-4" /> {post.readTime}</span>
         </div>
-      </header>
+      </PageHero>
 
       <div className="container mx-auto px-4 py-10 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
