@@ -10,6 +10,8 @@ interface PageHeroProps {
   imageAlt?: string;
   /** Text alignment within the content block. Default "center" */
   align?: "center" | "left" | "right";
+  /** Small uppercase label above the heading */
+  eyebrow?: string;
   /** Badge pill above the heading */
   badge?: { label: string; icon?: React.ElementType };
   /** Breadcrumb items */
@@ -31,6 +33,7 @@ export function PageHero({
   imageSrc,
   imageAlt,
   align = "center",
+  eyebrow,
   badge,
   breadcrumbs,
   heading,
@@ -66,7 +69,8 @@ export function PageHero({
           <div className="absolute inset-0 bg-scrim/60" />
         </div>
 
-        <div className={cn("container mx-auto px-4 relative z-10", alignClass)}>
+        <div className={cn("container mx-auto px-4 relative z-10 flex justify-center items-center", alignClass)}>
+          <div className="w-full max-w-4xl">
           {breadcrumbs && (
             <Breadcrumbs
               items={breadcrumbs}
@@ -75,6 +79,12 @@ export function PageHero({
                 isCenter && "justify-center"
               )}
             />
+          )}
+
+          {eyebrow && (
+            <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
+              {eyebrow}
+            </p>
           )}
 
           {badge && (() => {
@@ -111,6 +121,7 @@ export function PageHero({
           )}
 
           {children}
+          </div>
         </div>
       </section>
     );
@@ -122,7 +133,8 @@ export function PageHero({
 
   return (
     <section className={cn("bg-primary text-primary-foreground", resolvedPadding, className)}>
-      <div className={cn("container mx-auto px-4", alignClass)}>
+        <div className={cn("container mx-auto px-4 flex justify-center items-center", alignClass)}>
+        <div className="w-full max-w-4xl">
         {breadcrumbs && (
           <Breadcrumbs
             items={breadcrumbs}
@@ -131,6 +143,12 @@ export function PageHero({
               isCenter && "justify-center"
             )}
           />
+        )}
+
+        {eyebrow && (
+          <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
+            {eyebrow}
+          </p>
         )}
 
         {badge && (() => {
@@ -164,6 +182,7 @@ export function PageHero({
         )}
 
         {children}
+        </div>
       </div>
     </section>
   );

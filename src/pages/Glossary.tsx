@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Search, BookMarked, Phone, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo";
+import { Seo, SITE_URL } from "@/components/Seo";
 import { buildDefinedTermSetJsonLd } from "@/lib/json-ld";
+import { PageHero } from "@/components/PageHero";
 
 const terms: { term: string; slug: string; definition: string }[] = [
   { term: "Alternative Provision (AP)", slug: "alternative-provision", definition: "Education arranged for pupils who, because of exclusion, illness, or other reasons, would not otherwise receive suitable education. AP can be delivered by local authorities, schools, or registered providers outside of mainstream and special school settings." },
@@ -90,30 +91,13 @@ export default function Glossary() {
         jsonLd={jsonLd}
       />
 
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-3xl">
-            <Breadcrumbs
-              items={[
-                { label: "Knowledge Hub", to: "/knowledge-hub" },
-                { label: "Glossary" },
-              ]}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-            />
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4">
-              <BookMarked className="w-3.5 h-3.5" />
-              Reference
-            </div>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              Alternative Provision Glossary
-            </h1>
-            <p className="text-primary-foreground/70 text-lg leading-relaxed">
-              Clear, searchable definitions of key terms and concepts used in Alternative Provision —
-              for educators, parents, and professionals.
-            </p>
-          </div>
-        </div>
-      </header>
+      <PageHero
+        breadcrumbs={[{ label: "Knowledge Hub", to: "/knowledge-hub" }, { label: "Glossary" }]}
+        heading="Alternative Provision Glossary"
+        subheading="Clear, searchable definitions of key terms and concepts used in Alternative Provision — for educators, parents, and professionals."
+        badge={{ label: "Reference", icon: BookMarked }}
+        padding="py-14 md:py-20"
+      />
 
       <div className="container mx-auto px-4 py-10 md:py-16">
         {/* Search bar — not sticky */}

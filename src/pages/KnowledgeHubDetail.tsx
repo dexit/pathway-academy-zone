@@ -5,12 +5,13 @@ import Layout from "@/components/Layout"
 import { Button } from "@/components/ui/button"
 import { DETAIL_CONTENT } from "@/components/knowledge-hub/detail-content"
 import { RenderBlocks } from "@/components/knowledge-hub/detail-blocks"
-import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo"
+import { Seo, SITE_URL } from "@/components/Seo"
 import { SummaryBlock, ReadingTime, RelatedContent, type RelatedItem } from "@/components/SeoBlocks"
 import { ContentSidebar } from "@/components/ContentSidebar"
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
 import { useAutoToc } from "@/hooks/use-auto-toc"
 import { buildArticleJsonLd } from "@/lib/json-ld"
+import { PageHero } from "@/components/PageHero"
 
 export default function KnowledgeHubDetail() {
   const { category, slug } = useParams()
@@ -23,8 +24,8 @@ export default function KnowledgeHubDetail() {
         <Seo title="Resource not found" noIndex />
         <main className="min-h-screen bg-background">
           <header className="bg-primary text-primary-foreground">
-            <div className="container mx-auto px-4 py-14 md:py-20">
-              <div className="max-w-3xl">
+            <div className="container mx-auto px-4 py-14 md:py-20 text-center flex justify-center items-center">
+              <div className="max-w-3xl text-center">
                 <Link
                   to="/knowledge-hub"
                   className="inline-flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground mb-6 transition-colors"
@@ -92,30 +93,20 @@ export default function KnowledgeHubDetail() {
         jsonLd={jsonLd}
       />
       <main className="min-h-screen bg-background">
-        <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-3xl lg:max-w-4xl xl:max-w-5xl">
-              <Breadcrumbs
-                items={[
-                  { label: "Knowledge Hub", to: "/knowledge-hub" },
-                  { label: content.categoryLabel, to: content.categoryHref },
-                  { label: content.title },
-                ]}
-                className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-              />
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4 text-balance">
-                {content.title}
-              </h1>
-              <SummaryBlock summary={content.summary} variant="onDark" className="mb-4" />
-              <div className="flex flex-wrap items-center gap-4 text-primary-foreground/70 text-sm">
-                <ReadingTime
-                  minutes={minutes}
-                  className="text-primary-foreground/70"
-                />
-              </div>
-            </div>
+        <PageHero
+          breadcrumbs={[
+            { label: "Knowledge Hub", to: "/knowledge-hub" },
+            { label: content.categoryLabel, to: content.categoryHref },
+            { label: content.title },
+          ]}
+          heading={content.title}
+          padding="py-14 md:py-20"
+        >
+          <SummaryBlock summary={content.summary} variant="onDark" className="mb-4" />
+          <div className="flex flex-wrap items-center justify-center gap-4 text-primary-foreground/70 text-sm">
+            <ReadingTime minutes={minutes} className="text-primary-foreground/70" />
           </div>
-        </header>
+        </PageHero>
 
         <div className="container mx-auto px-4 py-10 md:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-16">

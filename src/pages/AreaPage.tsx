@@ -294,15 +294,15 @@ export default function AreaPage() {
 
       {/* Hero */}
       <section className="bg-primary text-primary-foreground py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <Breadcrumbs
-            items={[
-              { label: "Areas We Serve", to: "/contact" },
-              { label: area.name },
-            ]}
-            className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-          />
-          <div className="max-w-2xl">
+        <div className="container mx-auto px-4 text-center flex justify-center items-center">
+          <div className="max-w-2xl text-center">
+            <Breadcrumbs
+              items={[
+                { label: "Areas We Serve", to: "/contact" },
+                { label: area.name },
+              ]}
+              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground flex justify-center"
+            />
             <div className="inline-flex items-center gap-2 rounded-full bg-white/15 text-white px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4 backdrop-blur-sm border border-white/20">
               <MapPin className="w-3.5 h-3.5" /> {area.county}
             </div>

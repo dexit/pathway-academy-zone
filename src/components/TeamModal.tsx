@@ -37,11 +37,19 @@ export function TeamModal({ member, open, onOpenChange }: TeamModalProps) {
         <div className="flex flex-col md:flex-row gap-6 pt-6">
           {/* Image */}
           <div className="md:w-1/3">
-            <img
-              src={member.image}
-              alt={member.name}
-              className="w-full h-auto rounded-lg object-cover aspect-square"
-            />
+            {member.image ? (
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-full h-auto rounded-lg object-cover aspect-square"
+              />
+            ) : (
+              <div className="w-full rounded-lg bg-primary/10 flex items-center justify-center aspect-square">
+                <span className="font-bold text-4xl text-primary" aria-hidden="true">
+                  {member.name.replace(/\bMBE\b/g, "").trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase()}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Content */}

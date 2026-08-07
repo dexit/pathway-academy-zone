@@ -1,11 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, BookOpen, FileText } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo";
+import { Seo, SITE_URL } from "@/components/Seo";
 import { ORG_REF, AREAS_SERVED, WEBSITE_SCHEMA } from "@/lib/json-ld";
 import { ContentSidebar } from "@/components/ContentSidebar";
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data";
 import { buildItemListJsonLd } from "@/lib/json-ld";
+import { PageHero } from "@/components/PageHero";
 
 export default function KnowledgeHubCategory() {
   const { categoryId } = useParams();
@@ -66,29 +67,13 @@ export default function KnowledgeHubCategory() {
         jsonLd={[WEBSITE_SCHEMA, collectionJsonLd, itemListJsonLd]}
       />
 
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-3xl">
-            <Breadcrumbs
-              items={[
-                { label: "Knowledge Hub", to: "/knowledge-hub" },
-                { label: section.title },
-              ]}
-              className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-            />
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent/20 text-accent px-3 py-1 text-xs font-semibold tracking-widest uppercase mb-4">
-              <Icon className="w-3.5 h-3.5" />
-              Knowledge Hub
-            </div>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              {section.title}
-            </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed max-w-2xl">
-              {section.description}
-            </p>
-          </div>
-        </div>
-      </header>
+      <PageHero
+        breadcrumbs={[{ label: "Knowledge Hub", to: "/knowledge-hub" }, { label: section.title }]}
+        heading={section.title}
+        subheading={section.description}
+        badge={{ label: "Knowledge Hub", icon: Icon }}
+        padding="py-14 md:py-20"
+      />
 
       <div className="container mx-auto px-4 py-10 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">

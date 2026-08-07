@@ -4,9 +4,10 @@ import { ArrowRight, BookOpen, Phone } from "lucide-react"
 import { HubSectionCard } from "@/components/knowledge-hub/hub-section-card"
 import { HUB_SECTIONS } from "@/components/knowledge-hub/hub-data"
 import Layout from "@/components/Layout"
-import { Seo, Breadcrumbs, SITE_URL } from "@/components/Seo"
+import { Seo, SITE_URL } from "@/components/Seo"
 import { buildKnowledgeHubSchema, buildItemListJsonLd, ORG_SCHEMA, WEBSITE_SCHEMA } from "@/lib/json-ld"
 import { LIVE_CONTENT } from "@/data/live-site-content"
+import { PageHero } from "@/components/PageHero"
 
 export default function KnowledgeHub() {
   const hubJsonLd = [
@@ -31,26 +32,13 @@ export default function KnowledgeHub() {
         jsonLd={hubJsonLd}
       />
       <main className="min-h-screen bg-background">
-        {/* Page Header */}
-        <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-2xl">
-              <Breadcrumbs
-                items={[{ label: LIVE_CONTENT.knowledgeHub.title }]}
-                className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-              />
-              <p className="text-accent text-sm font-semibold tracking-widest uppercase mb-3">
-                Pathway Academy Zone
-              </p>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                {LIVE_CONTENT.knowledgeHub.title}
-              </h1>
-              <p className="text-primary-foreground/70 text-lg leading-relaxed">
-                {LIVE_CONTENT.knowledgeHub.description}
-              </p>
-            </div>
-          </div>
-        </header>
+        <PageHero
+          breadcrumbs={[{ label: LIVE_CONTENT.knowledgeHub.title }]}
+          eyebrow="Pathway Academy Zone"
+          heading={LIVE_CONTENT.knowledgeHub.title}
+          subheading={LIVE_CONTENT.knowledgeHub.description}
+          padding="py-14 md:py-20"
+        />
 
         <div className="container mx-auto px-4 py-10 md:py-16 space-y-14">
           {/* Featured resource */}

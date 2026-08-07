@@ -1,10 +1,11 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { Calendar, ArrowLeft, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import { Seo, Breadcrumbs } from "@/components/Seo";
+import { Seo } from "@/components/Seo";
 import { ContentSidebar } from "@/components/ContentSidebar";
 import { Button } from "@/components/ui/button";
 import { NEWS_ITEMS } from "@/data/news-data";
+import { PageHero } from "@/components/PageHero";
 
 export default function NewsDetail() {
   const { slug } = useParams();
@@ -39,32 +40,18 @@ export default function NewsDetail() {
         jsonLd={jsonLd}
       />
 
-      <header className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="max-w-3xl">
-            <Breadcrumbs
-              items={[
-                { label: "News", to: "/news" },
-                { label: item.title },
-              ]}
-              className="text-primary-foreground/70 mb-5 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
-            />
-            <span className="inline-block px-2 py-0.5 rounded-full bg-accent/20 text-accent text-[11px] font-semibold uppercase tracking-wider mb-4">
-              {item.tag}
-            </span>
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-              {item.title}
-            </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed mb-5">
-              {item.summary}
-            </p>
-            <p className="inline-flex items-center gap-2 text-primary-foreground/70 text-sm">
-              <Calendar className="h-4 w-4" />
-              <time dateTime={item.iso}>{item.date}</time>
-            </p>
-          </div>
-        </div>
-      </header>
+      <PageHero
+        breadcrumbs={[{ label: "News", to: "/news" }, { label: item.title }]}
+        heading={item.title}
+        subheading={item.summary}
+        badge={{ label: item.tag }}
+        padding="py-14 md:py-20"
+      >
+        <p className="inline-flex items-center gap-2 text-primary-foreground/70 text-sm">
+          <Calendar className="h-4 w-4" />
+          <time dateTime={item.iso}>{item.date}</time>
+        </p>
+      </PageHero>
 
       <div className="container mx-auto px-4 py-10 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-14 items-start">
