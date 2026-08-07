@@ -93,15 +93,15 @@ export default function KnowledgeHubDetail() {
       />
       <main className="min-h-screen bg-background">
         <header className="bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 py-14 md:py-20">
-            <div className="max-w-3xl lg:max-w-4xl xl:max-w-5xl">
+          <div className="container mx-auto px-4 py-14 md:py-20 text-center flex justify-center items-center">
+            <div className="max-w-3xl lg:max-w-4xl xl:max-w-5xl text-center">
               <Breadcrumbs
                 items={[
                   { label: "Knowledge Hub", to: "/knowledge-hub" },
                   { label: content.categoryLabel, to: content.categoryHref },
                   { label: content.title },
                 ]}
-                className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground"
+                className="text-primary-foreground/70 mb-6 [&_a]:hover:text-primary-foreground [&_[aria-current]]:text-primary-foreground flex justify-center"
               />
               <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4 text-balance">
                 {content.title}
