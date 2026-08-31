@@ -1,0 +1,60 @@
+{
+  // Cloudflare Form Receiver — free-tier compatible
+  "name": "form-receiver",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-11",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Structured logs visible in Workers dashboard
+  "observability": {
+    "enabled": true
+  },
+
+  // ── D1 Database ────────────────────────────────────────────────────────────
+  // Run: wrangler d1 create form-receiver-db
+  // Then paste the returned database_id below.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "form-receiver-db",
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // ── KV Namespaces ──────────────────────────────────────────────────────────
+  // Run: wrangler kv namespace create TASKS_KV
+  //      wrangler kv namespace create RATE_KV
+  // Then paste the returned ids below.
+  "kv_namespaces": [
+    {
+      "binding": "TASKS_KV",
+      "id": "REPLACE_WITH_TASKS_KV_NAMESPACE_ID"
+    },
+    {
+      "binding": "RATE_KV",
+      "id": "REPLACE_WITH_RATE_KV_NAMESPACE_ID"
+    }
+  ],
+
+  // ── Workflows ──────────────────────────────────────────────────────────────
+  "workflows": [
+    {
+      "name": "form-processing-workflow",
+      "binding": "FORM_WORKFLOW",
+      "class_name": "FormProcessingWorkflow"
+    }
+  ],
+
+  // CPU limit — free tier Workers get 10ms CPU per invocation (default)
+  // Workflows steps each get their own 10ms CPU budget
+  "limits": {
+    "cpu_ms": 10000
+  },
+
+  // ── Local dev overrides (wrangler dev) ────────────────────────────────────
+  "dev": {
+    "port": 8787,
+    "local_protocol": "http"
+  }
+}

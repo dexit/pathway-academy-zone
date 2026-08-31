@@ -1,0 +1,28 @@
+{
+  "name": "cloudflare-etl-zone",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "workers/gateway",
+    "workers/etl",
+    "workers/admin",
+    "workers/scheduler"
+  ],
+  "scripts": {
+    "db:migrate":       "wrangler d1 migrations apply etl-zone-db --remote --config workers/gateway/wrangler.jsonc",
+    "db:migrate:local": "wrangler d1 migrations apply etl-zone-db --local  --config workers/gateway/wrangler.jsonc",
+    "dev:gateway":      "wrangler dev --config workers/gateway/wrangler.jsonc",
+    "dev:etl":          "wrangler dev --config workers/etl/wrangler.jsonc",
+    "dev:admin":        "wrangler dev --config workers/admin/wrangler.jsonc",
+    "deploy:gateway":   "wrangler deploy --config workers/gateway/wrangler.jsonc",
+    "deploy:etl":       "wrangler deploy --config workers/etl/wrangler.jsonc",
+    "deploy:admin":     "wrangler deploy --config workers/admin/wrangler.jsonc",
+    "deploy:scheduler": "wrangler deploy --config workers/scheduler/wrangler.jsonc",
+    "deploy:all":       "npm run deploy:etl && npm run deploy:gateway && npm run deploy:admin && npm run deploy:scheduler"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250511.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^3.114.4"
+  }
+}

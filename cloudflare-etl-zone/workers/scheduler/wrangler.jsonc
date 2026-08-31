@@ -1,0 +1,33 @@
+{
+  "name": "etl-zone-scheduler",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "etl-zone-db",
+    "database_id": "REPLACE_WITH_DB_ID"
+  }],
+
+  "kv_namespaces": [
+    { "binding": "TASKS_KV", "id": "REPLACE_WITH_TASKS_KV_ID" },
+    { "binding": "RATE_KV",  "id": "REPLACE_WITH_RATE_KV_ID"  }
+  ],
+
+  "workflows": [{
+    "name": "form-etl-workflow",
+    "binding": "ETL_WORKFLOW",
+    "class_name": "FormETLWorkflow",
+    "script_name": "etl-zone-etl"
+  }],
+
+  "triggers": {
+    "crons": [
+      "*/5 * * * *",   // Retry stalled submissions
+      "0 * * * *",     // Retry failed deliveries (hourly)
+      "0 3 * * *"      // Log cleanup (daily at 03:00 UTC)
+    ]
+  }
+}
